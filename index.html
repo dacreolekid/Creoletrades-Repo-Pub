@@ -957,6 +957,217 @@
     }
 
     /* ═══════════════════════════════════════
+       CONTACT
+    ═══════════════════════════════════════ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-info p {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.85;
+      margin-bottom: 2rem;
+    }
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .contact-detail {
+      padding: 1rem 1.25rem;
+      background: var(--iron);
+      border: 1px solid var(--border-dim);
+      border-left: 3px solid var(--spice);
+    }
+    .contact-detail-label {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.7rem;
+      color: var(--spice);
+      letter-spacing: 0.1em;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    .contact-detail-val {
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .form-label {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.75rem;
+      color: var(--moss-lite);
+      letter-spacing: 0.08em;
+    }
+    .form-input {
+      background: var(--iron);
+      border: 1px solid var(--border-dim);
+      color: var(--parchment);
+      font-family: 'Lora', serif;
+      font-size: 0.88rem;
+      padding: 0.875rem 1rem;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-input::placeholder { color: var(--muted); }
+    .form-input:focus {
+      border-color: var(--spice);
+      box-shadow: 0 0 0 2px rgba(201,168,76,0.1);
+    }
+    .form-select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A7099' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+    .form-select option { background: var(--iron); color: var(--parchment); }
+    .form-textarea {
+      min-height: 140px;
+      resize: vertical;
+      line-height: 1.7;
+    }
+    .form-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .form-note {
+      font-style: italic;
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .modal-link {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: inherit;
+      color: var(--spice);
+      transition: color 0.3s;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .modal-link:hover { color: var(--firefly); }
+    .form-error {
+      font-style: italic;
+      font-size: 0.8rem;
+      color: #e05c5c;
+      padding: 0.75rem 1rem;
+      background: rgba(224,92,92,0.08);
+      border: 1px solid rgba(224,92,92,0.2);
+    }
+
+    /* ═══════════════════════════════════════
+       MODALS
+    ═══════════════════════════════════════ */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(5,9,17,0.88);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 5vw;
+      backdrop-filter: blur(6px);
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--cypress);
+      border: 1px solid var(--border);
+      max-width: 680px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 2.5rem;
+      position: relative;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: none;
+      border: 1px solid var(--border-dim);
+      color: var(--muted);
+      font-size: 0.9rem;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-close:hover { border-color: var(--border); color: var(--parchment); }
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--parchment);
+      margin-bottom: 0.25rem;
+    }
+    .modal-title em { font-style: italic; color: var(--spice); }
+    .modal-date {
+      font-style: italic;
+      font-size: 0.72rem;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border-dim);
+    }
+    .modal-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      color: var(--firefly);
+      font-style: italic;
+      margin: 1.5rem 0 0.5rem;
+    }
+    .modal-body h3:first-child { margin-top: 0; }
+    .modal-body p {
+      font-size: 0.85rem;
+      color: var(--text);
+      line-height: 1.85;
+    }
+    .footer-modal-link {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.8rem;
+      color: var(--moss-lite);
+      text-decoration: none;
+    }
+    .footer-modal-link:hover { color: var(--firefly); }
+
+    /* ═══════════════════════════════════════
        RESPONSIVE
     ═══════════════════════════════════════ */
     @media (max-width: 1024px) {
@@ -974,6 +1185,7 @@
       .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
       .affiliate-callout-inner { flex-direction: column; align-items: flex-start; }
       .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     }
     @media (max-width: 600px) {
       .hero-title { font-size: clamp(3rem, 16vw, 5rem); }
@@ -993,6 +1205,9 @@
       .affiliate-callout { padding: 1.5rem; }
       .product-card { padding: 1.75rem 1.5rem; }
       .testimonial-card { padding: 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-footer { flex-direction: column; align-items: flex-start; }
+      .modal-box { padding: 1.75rem 1.25rem; }
     }
   </style>
 </head>
@@ -1006,6 +1221,7 @@
   <a href="#testimonials" onclick="closeMobileMenu()">Testimonials</a>
   <a href="#socials" onclick="closeMobileMenu()">Socials</a>
   <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
+  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
 </div>
 
 <!-- ══════════════ NAV ══════════════ -->
@@ -1021,6 +1237,7 @@
     <li><a href="#testimonials">Testimonials</a></li>
     <li><a href="#socials">Socials</a></li>
     <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
   <button class="nav-burger" onclick="toggleMobileMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -1377,6 +1594,74 @@
   </div>
 </section>
 
+<!-- ══════════════ CONTACT ══════════════ -->
+<section id="contact" class="section">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">⚜ Get in Touch</span>
+      <h2 class="section-title">Let's <em>connect</em></h2>
+      <span class="iron-border"></span>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <p>Have a question about the community, a tier, or just want to connect? Drop a message and I'll get back to you personally.</p>
+        <div class="contact-details">
+          <div class="contact-detail">
+            <span class="contact-detail-label">Response time</span>
+            <span class="contact-detail-val">Within 24–48 hours</span>
+          </div>
+          <div class="contact-detail">
+            <span class="contact-detail-label">Discord</span>
+            <span class="contact-detail-val">Fastest way to reach the community</span>
+          </div>
+          <div class="contact-detail">
+            <span class="contact-detail-label">For coaching inquiries</span>
+            <span class="contact-detail-val">Select Roux Mastery below</span>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form reveal reveal-delay-1" id="contact-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="cf-name">Name</label>
+            <input class="form-input" type="text" id="cf-name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cf-email">Email</label>
+            <input class="form-input" type="email" id="cf-email" name="email" placeholder="your@email.com" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cf-tier">Interested in</label>
+          <select class="form-input form-select" id="cf-tier" name="tier" required>
+            <option value="" disabled selected>Select a tier or topic</option>
+            <option value="General Question">General Question</option>
+            <option value="Crescent Tier">Crescent Tier — $29.99/mo</option>
+            <option value="Delta Calls">Delta Calls — $79.99/mo</option>
+            <option value="Roux Mastery">Roux Mastery (1-on-1 Coaching) — $399.99/mo</option>
+            <option value="Wolf Chart">Wolf Chart / Affiliate</option>
+            <option value="Free Starter Guide">Free Starter Guide</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cf-subject">Subject</label>
+          <input class="form-input" type="text" id="cf-subject" name="subject" placeholder="What's this about?" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cf-message">Message</label>
+          <textarea class="form-input form-textarea" id="cf-message" name="message" placeholder="Tell me what's on your mind..." required></textarea>
+        </div>
+        <div class="form-footer">
+          <p class="form-note">By submitting you agree to our <button type="button" class="modal-link" onclick="openModal('privacy')">Privacy Policy</button> and <button type="button" class="modal-link" onclick="openModal('terms')">Terms of Service</button>.</p>
+          <button type="submit" class="btn btn-spice" id="cf-submit">Send Message →</button>
+        </div>
+        <div id="cf-error" class="form-error" style="display:none;"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
 <!-- ══════════════ FOOTER ══════════════ -->
 <footer>
   <span class="footer-fleur">⚜</span>
@@ -1386,11 +1671,71 @@
     <li><a href="#about">About</a></li>
     <li><a href="#watch">Watch</a></li>
     <li><a href="#products">Products</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
     <li><a href="#socials">Socials</a></li>
     <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <ul class="footer-links" style="margin-bottom:1.5rem;">
+    <li><button class="modal-link footer-modal-link" onclick="openModal('privacy')">Privacy Policy</button></li>
+    <li><button class="modal-link footer-modal-link" onclick="openModal('terms')">Terms of Service</button></li>
   </ul>
   <p class="footer-copy">© 2025 CreoleTrades. All rights reserved. Not financial advice.</p>
 </footer>
+
+<!-- ══════════════ PRIVACY MODAL ══════════════ -->
+<div id="modal-privacy" class="modal-overlay" onclick="closeModalOutside(event,'privacy')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('privacy')">✕</button>
+    <h2 class="modal-title">Privacy <em>Policy</em></h2>
+    <span class="modal-date">Last updated: March 2025</span>
+    <div class="modal-body">
+      <h3>Information We Collect</h3>
+      <p>When you use the contact form on this site, we collect your name, email address, and the content of your message. This information is processed through Formspree and sent directly to CreoleTrades.</p>
+      <h3>How We Use Your Information</h3>
+      <p>Your information is used solely to respond to your inquiry. We do not sell, rent, or share your personal information with third parties for marketing purposes.</p>
+      <h3>Affiliate Links</h3>
+      <p>This site contains affiliate links to Wolf Chart 2.1. If you click these links and make a purchase, CreoleTrades may earn a commission at no extra cost to you. We only recommend products we personally use and believe in.</p>
+      <h3>Cookies</h3>
+      <p>This site uses minimal cookies for basic functionality. No tracking cookies or advertising cookies are used by CreoleTrades directly. Third-party services (YouTube, Formspree, Cloudflare) may set their own cookies in accordance with their policies.</p>
+      <h3>Data Retention</h3>
+      <p>Contact form submissions are retained only as long as necessary to respond to your inquiry. You may request deletion of your data at any time by contacting us directly.</p>
+      <h3>Third-Party Services</h3>
+      <p>This site uses Formspree for form processing, YouTube for embedded video content, Cloudflare for security and performance, and MEE6 for Discord subscription management. Each service has its own privacy policy.</p>
+      <h3>Your Rights</h3>
+      <p>You have the right to access, correct, or delete any personal information we hold about you. To exercise these rights, contact us through the form on this site.</p>
+      <h3>Contact</h3>
+      <p>Questions about this policy? Use the contact form on creoletrades.com.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ TERMS MODAL ══════════════ -->
+<div id="modal-terms" class="modal-overlay" onclick="closeModalOutside(event,'terms')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('terms')">✕</button>
+    <h2 class="modal-title">Terms of <em>Service</em></h2>
+    <span class="modal-date">Last updated: March 2025</span>
+    <div class="modal-body">
+      <h3>Not Financial Advice</h3>
+      <p>All content on CreoleTrades — including videos, Discord messages, trade calls, chart analysis, and educational materials — is for informational and educational purposes only. Nothing on this site constitutes financial advice, investment advice, or a recommendation to buy or sell any security.</p>
+      <h3>Trading Risk Disclosure</h3>
+      <p>Trading options, stocks, and other financial instruments involves substantial risk of loss. Past results shared by community members do not guarantee future performance. You are solely responsible for your own trading decisions and any resulting profits or losses.</p>
+      <h3>Subscriptions</h3>
+      <p>Subscription fees are charged on a monthly basis through MEE6. You may cancel at any time. Refunds are not provided for partial months. CreoleTrades reserves the right to modify subscription pricing or tier benefits with reasonable notice.</p>
+      <h3>Community Standards</h3>
+      <p>Members of The Trading Roux Discord community are expected to treat others with respect. Harassment, spam, or sharing of other members' personal information is strictly prohibited and may result in removal from the community without refund.</p>
+      <h3>Affiliate Disclosure</h3>
+      <p>CreoleTrades participates in affiliate programs. Links to Wolf Chart and other third-party services may generate commissions. These relationships do not influence our editorial content or recommendations.</p>
+      <h3>Intellectual Property</h3>
+      <p>All content produced by CreoleTrades — including videos, written materials, and educational resources — is the intellectual property of CreoleTrades. Reproduction or redistribution without express written permission is prohibited.</p>
+      <h3>Limitation of Liability</h3>
+      <p>CreoleTrades shall not be liable for any financial losses incurred as a result of acting on information provided through this site, the Discord community, or any affiliated channels.</p>
+      <h3>Changes to These Terms</h3>
+      <p>We reserve the right to update these terms at any time. Continued use of this site or community following any changes constitutes acceptance of the updated terms.</p>
+    </div>
+  </div>
+</div>
 
 <!-- ══════════════ SCRIPTS ══════════════ -->
 <script>
@@ -1473,6 +1818,53 @@
         '<em style="color:var(--muted)">Could not load latest video. <a href="https://www.youtube.com/@Creole_Trades" target="_blank" style="color:var(--firefly)">Visit the channel →</a></em>';
     }
   }
+
+  /* ── Contact form ── */
+  document.getElementById('contact-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('cf-submit');
+    const err = document.getElementById('cf-error');
+    err.style.display = 'none';
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    const data = new FormData(this);
+    try {
+      const res = await fetch(FORMSPREE, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        window.location.href = '/thank-you';
+      } else {
+        throw new Error();
+      }
+    } catch {
+      err.textContent = 'Something went wrong. Please try again or reach out via Discord.';
+      err.style.display = 'block';
+      btn.textContent = 'Send Message →';
+      btn.disabled = false;
+    }
+  });
+
+  /* ── Modals ── */
+  function openModal(id) {
+    document.getElementById('modal-' + id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(id) {
+    document.getElementById('modal-' + id).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeModalOutside(e, id) {
+    if (e.target === document.getElementById('modal-' + id)) closeModal(id);
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      ['privacy','terms'].forEach(closeModal);
+    }
+  });
 
   /* ── Init ── */
   document.addEventListener("DOMContentLoaded", loadLatestVideo);
