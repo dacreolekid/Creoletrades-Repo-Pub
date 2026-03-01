@@ -714,6 +714,77 @@
     }
 
     /* ═══════════════════════════════════════
+       TESTIMONIALS
+    ═══════════════════════════════════════ */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .testimonial-card {
+      background: var(--iron);
+      border: 1px solid var(--border-dim);
+      padding: 2rem;
+      position: relative;
+      transition: border-color 0.35s, transform 0.35s, box-shadow 0.35s;
+    }
+    .testimonial-card:hover {
+      border-color: var(--border);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+    }
+    .testimonial-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      line-height: 0.8;
+      color: var(--spice);
+      opacity: 0.4;
+      margin-bottom: 0.75rem;
+      font-weight: 900;
+    }
+    .testimonial-text {
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.85;
+      margin-bottom: 1.5rem;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border-dim);
+    }
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--spice), var(--firefly));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--deep);
+      flex-shrink: 0;
+    }
+    .testimonial-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      color: var(--parchment);
+      display: block;
+      font-weight: 600;
+    }
+    .testimonial-tier {
+      font-style: italic;
+      font-size: 0.72rem;
+      color: var(--spice);
+      letter-spacing: 0.08em;
+    }
+
+    /* ═══════════════════════════════════════
        SOCIALS
     ═══════════════════════════════════════ */
     .socials-grid {
@@ -922,6 +993,7 @@
   <a href="#about" onclick="closeMobileMenu()">About</a>
   <a href="#watch" onclick="closeMobileMenu()">Watch</a>
   <a href="#products" onclick="closeMobileMenu()">Products</a>
+  <a href="#testimonials" onclick="closeMobileMenu()">Testimonials</a>
   <a href="#socials" onclick="closeMobileMenu()">Socials</a>
   <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
 </div>
@@ -936,6 +1008,7 @@
     <li><a href="#about">About</a></li>
     <li><a href="#watch">Watch</a></li>
     <li><a href="#products">Products</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
     <li><a href="#socials">Socials</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
@@ -999,11 +1072,11 @@
         <p class="reveal reveal-delay-2">Just solid strategy, consistent execution, and a community pushing each other forward every single day.</p>
         <div class="about-stats reveal reveal-delay-2">
           <div>
-            <span class="stat-num">5+</span>
+            <span class="stat-num">6+</span>
             <span class="stat-lbl">Years in the markets</span>
           </div>
           <div>
-            <span class="stat-num">1K+</span>
+            <span class="stat-num">500+</span>
             <span class="stat-lbl">Community members</span>
           </div>
           <div>
@@ -1092,6 +1165,56 @@
         <div class="product-desc">Brand new to trading? This free guide walks you through the fundamentals — what you need to know before risking a single dollar in the markets.</div>
         <span class="product-link-label" style="color:var(--moss);">Coming soon →</span>
       </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ TESTIMONIALS ══════════════ -->
+<section id="testimonials" class="section">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">⚜ From the Community</span>
+      <h2 class="section-title">What members <em>are saying</em></h2>
+      <span class="iron-border"></span>
+    </div>
+    <div class="testimonials-grid">
+
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Placeholder — replace with a real testimonial from a Trading Roux member.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">CT</div>
+          <div>
+            <span class="testimonial-name">Member Name</span>
+            <span class="testimonial-tier">Crescent Tier</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Placeholder — replace with a real testimonial from a Trading Roux member.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">CT</div>
+          <div>
+            <span class="testimonial-name">Member Name</span>
+            <span class="testimonial-tier">Delta Calls</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Placeholder — replace with a real testimonial from a Trading Roux member.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">CT</div>
+          <div>
+            <span class="testimonial-name">Member Name</span>
+            <span class="testimonial-tier">Roux Mastery</span>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>
