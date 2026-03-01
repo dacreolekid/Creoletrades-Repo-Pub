@@ -13,21 +13,21 @@
        TOKENS
     ═══════════════════════════════════════ */
     :root {
-      --bayou:      #0D1C0E;
-      --cypress:    #162B17;
-      --deep:       #0A120A;
-      --spice:      #C4622D;
-      --spice-lite: #E07A45;
-      --firefly:    #E8B84B;
-      --moss:       #6B7F5E;
-      --moss-lite:  #8FA07E;
-      --parchment:  #F0E6CF;
-      --cream:      #FAF3E6;
-      --iron:       #2A3B2A;
-      --border:     rgba(232,184,75,0.2);
-      --border-dim: rgba(232,184,75,0.08);
-      --text:       #DDD5C0;
-      --muted:      #8A9278;
+      --bayou:      #070C18;
+      --cypress:    #0D1526;
+      --deep:       #050911;
+      --spice:      #C9A84C;
+      --spice-lite: #E2BC6B;
+      --firefly:    #F0D080;
+      --moss:       #3D5278;
+      --moss-lite:  #6B84AA;
+      --parchment:  #EEF2FF;
+      --cream:      #F5F7FF;
+      --iron:       #0F1A2E;
+      --border:     rgba(201,168,76,0.25);
+      --border-dim: rgba(201,168,76,0.08);
+      --text:       #C8D4E8;
+      --muted:      #5A7099;
     }
 
     /* ═══════════════════════════════════════
@@ -122,7 +122,7 @@
     .btn-spice:hover {
       background: var(--spice-lite);
       transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(196,98,45,0.4);
+      box-shadow: 0 8px 28px rgba(201,168,76,0.35);
     }
     .btn-ghost {
       background: transparent;
@@ -148,9 +148,9 @@
       transition: background 0.4s, box-shadow 0.4s;
     }
     #nav.scrolled {
-      background: rgba(13,28,14,0.96);
+      background: rgba(7,12,24,0.97);
       box-shadow: 0 1px 0 var(--border-dim);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
     }
     .nav-logo {
       display: flex;
@@ -248,48 +248,55 @@
       overflow: hidden;
     }
 
-    /* Bayou water shimmer */
+    /* Sleek navy background */
     .hero-bg {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 80% 50% at 50% 60%, rgba(196,98,45,0.08) 0%, transparent 65%),
-        radial-gradient(ellipse 60% 40% at 30% 30%, rgba(107,127,94,0.1) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 60% at 70% 80%, rgba(13,28,14,0.8) 0%, transparent 70%),
-        linear-gradient(180deg, var(--deep) 0%, var(--cypress) 50%, var(--bayou) 100%);
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(30,60,120,0.35) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(201,168,76,0.06) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 50% at 20% 80%, rgba(13,21,38,0.8) 0%, transparent 60%),
+        linear-gradient(180deg, var(--deep) 0%, var(--bayou) 50%, var(--cypress) 100%);
     }
 
-    /* Animated water lines */
+    /* Geometric grid lines */
     .water-lines {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 45%;
+      inset: 0;
       overflow: hidden;
-      opacity: 0.12;
+      opacity: 1;
     }
     .water-line {
       position: absolute;
       left: -10%;
       right: -10%;
       height: 1px;
-      background: linear-gradient(90deg, transparent 0%, var(--moss-lite) 30%, var(--firefly) 50%, var(--moss-lite) 70%, transparent 100%);
-      animation: waterFlow 6s ease-in-out infinite;
+      background: linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.08) 30%, rgba(201,168,76,0.18) 50%, rgba(201,168,76,0.08) 70%, transparent 100%);
+      animation: waterFlow 8s ease-in-out infinite;
     }
-    .water-line:nth-child(1) { bottom: 10%; animation-delay: 0s; animation-duration: 7s; }
-    .water-line:nth-child(2) { bottom: 20%; animation-delay: 1s; animation-duration: 9s; }
-    .water-line:nth-child(3) { bottom: 32%; animation-delay: 2s; animation-duration: 6s; }
-    .water-line:nth-child(4) { bottom: 44%; animation-delay: 0.5s; animation-duration: 8s; }
-    .water-line:nth-child(5) { bottom: 58%; animation-delay: 1.5s; animation-duration: 10s; }
+    .water-line:nth-child(1) { top: 20%; animation-delay: 0s; animation-duration: 9s; }
+    .water-line:nth-child(2) { top: 35%; animation-delay: 1.5s; animation-duration: 7s; }
+    .water-line:nth-child(3) { top: 50%; animation-delay: 3s; animation-duration: 11s; }
+    .water-line:nth-child(4) { top: 65%; animation-delay: 0.8s; animation-duration: 8s; }
+    .water-line:nth-child(5) { top: 80%; animation-delay: 2s; animation-duration: 10s; }
+
+    /* Vertical grid lines */
+    .water-lines::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(90deg, rgba(201,168,76,0.04) 0px, transparent 1px, transparent 120px, rgba(201,168,76,0.04) 121px);
+      pointer-events: none;
+    }
 
     @keyframes waterFlow {
-      0%   { transform: translateX(-3%) scaleY(1); opacity: 0.6; }
-      50%  { transform: translateX(3%) scaleY(1.8); opacity: 1; }
-      100% { transform: translateX(-3%) scaleY(1); opacity: 0.6; }
+      0%   { transform: translateX(-2%) scaleY(1); opacity: 0.4; }
+      50%  { transform: translateX(2%) scaleY(1.5); opacity: 1; }
+      100% { transform: translateX(-2%) scaleY(1); opacity: 0.4; }
     }
 
-    /* Firefly dots */
+    /* Gold particle dots */
     .fireflies {
       position: absolute;
       inset: 0;
@@ -297,11 +304,11 @@
     }
     .ff {
       position: absolute;
-      width: 3px;
-      height: 3px;
+      width: 2px;
+      height: 2px;
       border-radius: 50%;
-      background: var(--firefly);
-      animation: ffGlow 4s ease-in-out infinite;
+      background: var(--spice);
+      animation: ffGlow 5s ease-in-out infinite;
     }
     .ff:nth-child(1)  { top: 20%; left: 15%; animation-delay: 0s; }
     .ff:nth-child(2)  { top: 35%; left: 75%; animation-delay: 1s; }
@@ -314,7 +321,7 @@
 
     @keyframes ffGlow {
       0%, 100% { opacity: 0; transform: scale(0.5); }
-      50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 8px 2px rgba(232,184,75,0.8); }
+      50% { opacity: 1; transform: scale(2); box-shadow: 0 0 10px 3px rgba(201,168,76,0.6); }
     }
 
     .hero-content {
@@ -450,7 +457,7 @@
     }
     .about-portrait {
       aspect-ratio: 4/5;
-      background: linear-gradient(135deg, var(--iron) 0%, var(--cypress) 60%, rgba(196,98,45,0.15) 100%);
+      background: linear-gradient(135deg, var(--iron) 0%, var(--cypress) 60%, rgba(201,168,76,0.1) 100%);
       border: 1px solid var(--border);
       position: relative;
       display: flex;
@@ -624,9 +631,9 @@
       transition: transform 0.4s;
     }
     .product-card:hover {
-      border-color: rgba(232,184,75,0.3);
+      border-color: rgba(201,168,76,0.35);
       transform: translateY(-5px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.1);
     }
     .product-card:hover::before { transform: scaleX(1); }
     .product-icon {
