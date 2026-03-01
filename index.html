@@ -153,15 +153,33 @@
       backdrop-filter: blur(10px);
     }
     .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
       font-family: 'Playfair Display', serif;
       font-size: 1.4rem;
       font-weight: 900;
       color: var(--parchment);
       letter-spacing: 0.04em;
     }
-    .nav-logo em {
-      font-style: italic;
+    .nav-logo em { font-style: italic; color: var(--firefly); }
+    .nav-logo img { width: 34px; height: 34px; object-fit: contain; }
+
+    /* Product pricing */
+    .product-price {
+      display: inline-block;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
       color: var(--firefly);
+      margin-top: 1rem;
+    }
+    .product-price span {
+      font-family: 'Lora', serif;
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--muted);
+      font-style: italic;
     }
     .nav-links {
       display: flex;
@@ -440,21 +458,20 @@
       justify-content: center;
       overflow: hidden;
     }
-    .about-portrait::before {
-      content: '⚜';
-      font-size: 5rem;
-      color: rgba(232,184,75,0.12);
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    .about-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
     }
     .about-portrait::after {
       content: '';
       position: absolute;
       bottom: 0; left: 0; right: 0;
       height: 35%;
-      background: linear-gradient(0deg, rgba(196,98,45,0.15), transparent);
+      background: linear-gradient(0deg, rgba(13,28,14,0.85), transparent);
+      pointer-events: none;
     }
     .portrait-label {
       position: absolute;
@@ -641,8 +658,42 @@
     }
     .product-card:hover .product-link-label { gap: 0.7rem; }
 
-    /* Affiliate badge */
-    .affiliate-badge {
+    /* Affiliate callout strip */
+    .affiliate-callout {
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, var(--iron), rgba(196,98,45,0.06));
+      padding: 2rem 2.5rem;
+    }
+    .affiliate-callout-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .affiliate-callout-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--parchment);
+      margin-bottom: 0.4rem;
+    }
+    .affiliate-callout-title::after {
+      content: ' — Affiliate';
+      font-size: 0.65rem;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      color: var(--spice);
+      letter-spacing: 0.1em;
+      vertical-align: middle;
+      margin-left: 0.5rem;
+    }
+    .affiliate-callout-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      max-width: 580px;
+      line-height: 1.7;
+    }
       position: absolute;
       top: 1rem;
       right: 1rem;
@@ -870,7 +921,10 @@
 
 <!-- ══════════════ NAV ══════════════ -->
 <nav id="nav">
-  <a href="#hero" class="nav-logo">Creole<em>Trades</em></a>
+  <a href="#hero" class="nav-logo">
+    <img src="logo.jpg" alt="CreoleTrades Logo" onerror="this.style.display='none'" />
+    Creole<em>Trades</em>
+  </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#watch">Watch</a></li>
@@ -926,6 +980,7 @@
     </div>
     <div class="about-grid">
       <div class="about-portrait reveal">
+        <img src="profile.jpg" alt="CreoleTrades — The man behind the markets" />
         <span class="portrait-label">CreoleTrades</span>
       </div>
       <div class="about-body">
@@ -976,49 +1031,62 @@
       <h2 class="section-title">Products &amp; <em>Resources</em></h2>
       <span class="iron-border"></span>
     </div>
+    <!-- STEP 1: WOLF CHART PREREQUISITE -->
+    <div class="affiliate-callout reveal" style="margin-bottom:2.5rem;">
+      <div class="affiliate-callout-inner">
+        <div>
+          <span class="eyebrow" style="margin-bottom:0.5rem;">⚜ Step 1 — Required Before Joining</span>
+          <div class="affiliate-callout-title">Wolf Chart</div>
+          <p class="affiliate-callout-desc">Before subscribing to any tier, you must have Wolf Chart. This is a third-party charting platform by Shon The Wolf — use my affiliate link to get access. Once you have Wolf Chart, you're ready to choose your tier below.</p>
+        </div>
+        <a href="https://thewolfchart.com/?via=quinterra" target="_blank" rel="noopener noreferrer" class="btn btn-spice" style="white-space:nowrap;align-self:center;">Get Wolf Chart First ↗</a>
+      </div>
+    </div>
+
+    <p class="reveal" style="font-style:italic;font-size:0.8rem;color:var(--moss);margin-bottom:1.5rem;">⚜ Step 2 — Choose your tier</p>
     <div class="products-grid">
 
+      <!-- CRESCENT TIER -->
+      <a href="https://mee6.xyz/en/m/tradingroux?subscribe=1424116688441454592" target="_blank" rel="noopener noreferrer" class="product-card reveal">
+        <span class="product-icon">🌙</span>
+        <div class="product-name">Crescent Tier</div>
+        <div class="product-desc">Your entry into the CreoleTrades ecosystem. Full community access, bot integration, and Wolf Chart compatibility. <strong style="color:var(--spice);font-style:italic;">Wolf Chart must be purchased first.</strong></div>
+        <div class="product-price">$29.99 <span>/ month</span></div>
+        <span class="product-link-label">Subscribe on Discord →</span>
+      </a>
+
+      <!-- DELTA CALLS -->
+      <a href="https://mee6.xyz/en/m/tradingroux?subscribe=1424117433878454272" target="_blank" rel="noopener noreferrer" class="product-card reveal reveal-delay-1">
+        <span class="product-icon">📡</span>
+        <div class="product-name">Delta Calls</div>
+        <div class="product-desc">Premium trade calls and elevated access inside The Trading Roux. For traders ready to level up their execution with real-time signal flow.</div>
+        <div class="product-price">$79.99 <span>/ month</span></div>
+        <span class="product-link-label">Subscribe on Discord →</span>
+      </a>
+
+      <!-- ROUX MASTERY -->
+      <a href="https://mee6.xyz/en/m/tradingroux?subscribe=1471656319198171136" target="_blank" rel="noopener noreferrer" class="product-card reveal reveal-delay-2">
+        <span class="product-icon">👑</span>
+        <div class="product-name">Roux Mastery</div>
+        <div class="product-desc">1-on-1 coaching for traders who are ready to step into full accountability. Direct access, personalized strategy, and hands-on development with me.</div>
+        <div class="product-price">$399.99 <span>/ month</span></div>
+        <span class="product-link-label">Book your seat →</span>
+      </a>
+
+      <!-- WOLF EMPIRE -->
       <a href="https://mee6.xyz/en/m/1397423977294462986" target="_blank" rel="noopener noreferrer" class="product-card reveal">
-        <span class="product-icon">🏡</span>
-        <div class="product-name">The Trading Roux</div>
-        <div class="product-desc">Our Discord community — the heartbeat of CreoleTrades. Daily watchlists, chart reviews, accountability, and traders at every level pushing each other to grow.</div>
-        <span class="product-link-label">Join the community →</span>
-      </a>
-
-      <a href="https://thewolfchart.com/?via=quinterra" target="_blank" rel="noopener noreferrer" class="product-card reveal reveal-delay-1">
-        <span class="affiliate-badge">Affiliate</span>
         <span class="product-icon">🐺</span>
-        <div class="product-name">Wolf Chart</div>
-        <div class="product-desc">The charting platform used inside the Crescent Tier. Use my link to get access — this is required for Crescent Tier community members. Shon The Wolf certified.</div>
-        <span class="product-link-label">Get Wolf Chart →</span>
+        <div class="product-name">Wolf Empire</div>
+        <div class="product-desc">The top tier of The Trading Roux. Built for serious traders who want the full CreoleTrades experience. Details coming — reach out for more info.</div>
+        <span class="product-link-label">Learn more →</span>
       </a>
 
-      <a href="#" target="_blank" rel="noopener noreferrer" class="product-card reveal reveal-delay-2">
-        <span class="product-icon">📘</span>
-        <div class="product-name">Trading Course</div>
-        <div class="product-desc">Step-by-step education covering market structure, entry models, risk management, and the mindset it takes to trade consistently.</div>
-        <span class="product-link-label">Coming soon →</span>
-      </a>
-
-      <a href="#" target="_blank" rel="noopener noreferrer" class="product-card reveal">
-        <span class="product-icon">🎯</span>
-        <div class="product-name">1-on-1 Mentorship</div>
-        <div class="product-desc">Personalized coaching sessions built around your specific goals, schedule, and current skill level. Direct access, real feedback.</div>
-        <span class="product-link-label">Inquire →</span>
-      </a>
-
-      <a href="#" target="_blank" rel="noopener noreferrer" class="product-card reveal reveal-delay-1">
-        <span class="product-icon">📋</span>
-        <div class="product-name">Trade Journal Template</div>
-        <div class="product-desc">The exact framework used to track, review, and improve every trade. Build the habit of journaling and watch your consistency follow.</div>
-        <span class="product-link-label">Get the template →</span>
-      </a>
-
-      <a href="#" target="_blank" rel="noopener noreferrer" class="product-card reveal reveal-delay-2">
+      <!-- STARTER GUIDE -->
+      <a href="#" class="product-card reveal reveal-delay-1" style="cursor:default;">
         <span class="product-icon">🎓</span>
         <div class="product-name">Free Starter Guide</div>
-        <div class="product-desc">Brand new to trading? Start right here. A free guide covering the fundamentals you need before risking a single dollar in the markets.</div>
-        <span class="product-link-label">Download free →</span>
+        <div class="product-desc">Brand new to trading? This free guide walks you through the fundamentals — what you need to know before risking a single dollar in the markets.</div>
+        <span class="product-link-label" style="color:var(--moss);">Coming soon →</span>
       </a>
 
     </div>
