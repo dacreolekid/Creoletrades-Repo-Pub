@@ -1,5 +1,6 @@
 # Force www → non-www
 https://www.CreoleTrades.com/* https://CreoleTrades.com/:splat 301!
 
-# Catch-all — always serve index.html
+# Custom 404
 /*  /index.html  200
+/404  /404.html  404

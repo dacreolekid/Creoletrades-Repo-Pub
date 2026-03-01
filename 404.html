@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Lost in the Bayou | CreoleTrades</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bayou:      #0D1C0E;
+      --cypress:    #162B17;
+      --deep:       #0A120A;
+      --spice:      #C4622D;
+      --spice-lite: #E07A45;
+      --firefly:    #E8B84B;
+      --moss:       #6B7F5E;
+      --moss-lite:  #8FA07E;
+      --parchment:  #F0E6CF;
+      --iron:       #2A3B2A;
+      --border:     rgba(232,184,75,0.2);
+      --border-dim: rgba(232,184,75,0.08);
+      --text:       #DDD5C0;
+      --muted:      #8A9278;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--deep);
+      color: var(--text);
+      font-family: 'Lora', Georgia, serif;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Texture */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 99;
+    }
+
+    /* Radial background */
+    .bg {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 50%, rgba(196,98,45,0.07) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 20% 80%, rgba(107,127,94,0.08) 0%, transparent 60%),
+        linear-gradient(180deg, var(--deep) 0%, var(--cypress) 60%, var(--bayou) 100%);
+      z-index: 0;
+    }
+
+    /* Water lines */
+    .water-lines {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 40%;
+      overflow: hidden;
+      opacity: 0.1;
+      z-index: 1;
+    }
+    .water-line {
+      position: absolute;
+      left: -10%; right: -10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--moss-lite) 30%, var(--firefly) 50%, var(--moss-lite) 70%, transparent);
+      animation: waterFlow 7s ease-in-out infinite;
+    }
+    .water-line:nth-child(1) { bottom: 15%; animation-delay: 0s; animation-duration: 8s; }
+    .water-line:nth-child(2) { bottom: 30%; animation-delay: 1.2s; animation-duration: 6s; }
+    .water-line:nth-child(3) { bottom: 50%; animation-delay: 2.4s; animation-duration: 9s; }
+    @keyframes waterFlow {
+      0%,100% { transform: translateX(-3%) scaleY(1); opacity: 0.5; }
+      50%      { transform: translateX(3%) scaleY(2); opacity: 1; }
+    }
+
+    /* Fireflies */
+    .ff {
+      position: fixed;
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--firefly);
+      animation: ffGlow 4s ease-in-out infinite;
+      z-index: 2;
+    }
+    .ff:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+    .ff:nth-child(2) { top: 30%; left: 80%; animation-delay: 1s; }
+    .ff:nth-child(3) { top: 60%; left: 20%; animation-delay: 2s; }
+    .ff:nth-child(4) { top: 20%; left: 65%; animation-delay: 0.5s; }
+    .ff:nth-child(5) { top: 70%; left: 88%; animation-delay: 1.8s; }
+    .ff:nth-child(6) { top: 80%; left: 50%; animation-delay: 3s; }
+    @keyframes ffGlow {
+      0%,100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1.8); box-shadow: 0 0 8px 2px rgba(232,184,75,0.8); }
+    }
+
+    /* Main content */
+    .content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 2rem;
+      max-width: 600px;
+      animation: fadeUp 1s 0.2s both;
+    }
+
+    .fleur {
+      font-size: 2rem;
+      color: rgba(196,98,45,0.4);
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+
+    .code {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(6rem, 20vw, 10rem);
+      font-weight: 900;
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(232,184,75,0.3);
+      letter-spacing: -0.02em;
+      display: block;
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+
+    .code::after {
+      content: '404';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--spice), var(--firefly));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0.15;
+    }
+
+    .headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-weight: 700;
+      color: var(--parchment);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .headline em {
+      font-style: italic;
+      color: var(--spice);
+    }
+
+    .subtext {
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      opacity: 0.4;
+    }
+    .divider-line { flex: 1; height: 1px; background: var(--border); }
+    .divider-mark { color: var(--spice); font-size: 1rem; }
+
+    .actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      padding: 0.875rem 2rem;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+    .btn-spice {
+      background: var(--spice);
+      color: var(--parchment);
+    }
+    .btn-spice:hover {
+      background: var(--spice-lite);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(196,98,45,0.35);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--parchment);
+      border: 1px solid rgba(240,230,207,0.2);
+    }
+    .btn-ghost:hover {
+      border-color: var(--firefly);
+      color: var(--firefly);
+    }
+
+    /* Nav strip */
+    .nav-strip {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 1.25rem 5vw;
+      display: flex;
+      align-items: center;
+      z-index: 50;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--parchment);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .nav-logo em { font-style: italic; color: var(--firefly); }
+    .nav-logo img { width: 30px; height: 30px; object-fit: contain; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg"></div>
+
+  <div class="water-lines">
+    <div class="water-line"></div>
+    <div class="water-line"></div>
+    <div class="water-line"></div>
+  </div>
+
+  <div class="ff"></div><div class="ff"></div><div class="ff"></div>
+  <div class="ff"></div><div class="ff"></div><div class="ff"></div>
+
+  <!-- Nav -->
+  <nav class="nav-strip">
+    <a href="/" class="nav-logo">
+      <img src="logo.jpg" alt="CreoleTrades" onerror="this.style.display='none'" />
+      Creole<em>Trades</em>
+    </a>
+  </nav>
+
+  <!-- Content -->
+  <div class="content">
+    <span class="fleur">⚜</span>
+    <span class="code">404</span>
+    <h1 class="headline">Lost in <em>the bayou.</em></h1>
+    <p class="subtext">Looks like this page drifted off into the cypress trees. It may have moved, never existed, or got swallowed by the swamp.</p>
+    <div class="divider">
+      <span class="divider-line"></span>
+      <span class="divider-mark">⚜</span>
+      <span class="divider-line"></span>
+    </div>
+    <div class="actions">
+      <a href="/" class="btn btn-spice">Back to Home</a>
+      <a href="/#products" class="btn btn-ghost">View Products</a>
+    </div>
+  </div>
+
+</body>
+</html>
