@@ -1025,6 +1025,151 @@
     }
 
     /* ═══════════════════════════════════════
+       EMAIL CAPTURE
+    ═══════════════════════════════════════ */
+    .email-capture-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .email-capture-desc {
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.85;
+      margin-bottom: 1.5rem;
+    }
+    .email-perks {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .email-perks li {
+      font-size: 0.88rem;
+      color: var(--text);
+      padding-left: 1.5rem;
+      position: relative;
+      line-height: 1.6;
+    }
+    .email-perks li::before {
+      content: '⚜';
+      position: absolute;
+      left: 0;
+      color: var(--spice);
+      font-size: 0.65rem;
+      top: 0.3em;
+    }
+    .email-capture-card {
+      background: var(--iron);
+      border: 1px solid var(--border);
+      padding: 2.25rem;
+    }
+    .email-card-label {
+      font-style: italic;
+      font-size: 0.7rem;
+      color: var(--spice);
+      letter-spacing: 0.15em;
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+    .email-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--parchment);
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+    }
+    .email-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .email-disclaimer {
+      font-style: italic;
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════
+       EMAIL POPUP
+    ═══════════════════════════════════════ */
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(5,9,17,0.88);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 5vw;
+      backdrop-filter: blur(6px);
+    }
+    .popup-overlay.open { display: flex; }
+    .popup-box {
+      background: var(--cypress);
+      border: 1px solid var(--border);
+      max-width: 480px;
+      width: 100%;
+      padding: 2.5rem;
+      position: relative;
+      animation: fadeUp 0.4s ease forwards;
+    }
+    .popup-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: 1px solid var(--border-dim);
+      color: var(--muted);
+      font-size: 0.85rem;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .popup-close:hover { border-color: var(--border); color: var(--parchment); }
+    .popup-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--parchment);
+      line-height: 1.2;
+      margin: 0.75rem 0;
+      text-align: center;
+    }
+    .popup-title em { font-style: italic; color: var(--spice); }
+    .popup-desc {
+      font-style: italic;
+      font-size: 0.88rem;
+      color: var(--moss-lite);
+      line-height: 1.75;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .popup-skip {
+      background: none;
+      border: none;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.72rem;
+      color: var(--muted);
+      cursor: pointer;
+      display: block;
+      margin: 0.75rem auto 0;
+      transition: color 0.3s;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .popup-skip:hover { color: var(--moss-lite); }
+
+    /* ═══════════════════════════════════════
        CONTACT
     ═══════════════════════════════════════ */
     .contact-grid {
@@ -1254,6 +1399,7 @@
       .affiliate-callout-inner { flex-direction: column; align-items: flex-start; }
       .products-grid { grid-template-columns: repeat(2, 1fr); }
       .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .email-capture-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     }
     @media (max-width: 600px) {
       .hero-title { font-size: clamp(3rem, 16vw, 5rem); }
@@ -1671,6 +1817,48 @@
   </div>
 </section>
 
+<!-- ══════════════ EMAIL CAPTURE ══════════════ -->
+<section id="email-capture" class="section section-alt">
+  <div class="section-inner">
+    <div class="email-capture-grid">
+      <div class="email-capture-left reveal">
+        <span class="eyebrow">⚜ Free Resource</span>
+        <h2 class="section-title">Get the Free <em>Starter Guide</em></h2>
+        <span class="iron-border"></span>
+        <p class="email-capture-desc">Everything you need to know before risking a single dollar — options basics, chart reading, risk management, Wolf Chart, and how the Trading Roux community works. Straight to your inbox, free.</p>
+        <ul class="email-perks">
+          <li>Options trading explained from zero</li>
+          <li>How to read a candlestick chart</li>
+          <li>Risk management rules that protect your capital</li>
+          <li>How to set up and use Wolf Chart</li>
+          <li>How to join the Trading Roux community</li>
+        </ul>
+      </div>
+      <div class="email-capture-right reveal reveal-delay-1">
+        <div class="email-capture-card">
+          <span class="email-card-label">⚜ No spam. Just value.</span>
+          <h3 class="email-card-title">Drop your email and I'll send it over.</h3>
+          <form class="email-form" id="email-form-inline" action="https://assets.mailerlite.com/jsonp/2153611/forms/180795998451270943/subscribe" method="POST" target="_blank" novalidate>
+            <input type="hidden" name="ml-submit" value="1" />
+            <input type="hidden" name="anticsrf" value="true" />
+            <input type="hidden" name="SIGNUP_SOURCE" value="inline" />
+            <div class="form-group">
+              <label class="form-label" for="ec-name">First Name</label>
+              <input class="form-input" type="text" id="ec-name" name="fields[name]" placeholder="Your first name" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ec-email">Email Address</label>
+              <input class="form-input" type="email" id="ec-email" name="fields[email]" placeholder="your@email.com" required />
+            </div>
+            <button type="submit" class="btn btn-spice" style="width:100%;text-align:center;">Send Me the Guide →</button>
+            <p class="email-disclaimer">By subscribing you agree to our <button type="button" class="modal-link" onclick="openModal('privacy')">Privacy Policy</button>. Unsubscribe anytime.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ══════════════ CONTACT ══════════════ -->
 <section id="contact" class="section">
   <div class="section-inner">
@@ -1814,6 +2002,31 @@
   </div>
 </div>
 
+<!-- ══════════════ EMAIL POPUP ══════════════ -->
+<div id="email-popup" class="popup-overlay">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup()" aria-label="Close">✕</button>
+    <div class="popup-inner">
+      <span class="eyebrow" style="text-align:center;display:block;">⚜ Free Resource</span>
+      <h3 class="popup-title">Before you go —<br><em>grab the free guide.</em></h3>
+      <p class="popup-desc">Options basics, chart reading, risk management and more. Everything you need before risking a single dollar.</p>
+      <form class="email-form" id="email-form-popup" action="https://assets.mailerlite.com/jsonp/2153611/forms/180795998451270943/subscribe" method="POST" target="_blank" novalidate>
+        <input type="hidden" name="ml-submit" value="1" />
+        <input type="hidden" name="anticsrf" value="true" />
+        <input type="hidden" name="SIGNUP_SOURCE" value="popup" />
+        <div class="form-group">
+          <input class="form-input" type="text" name="fields[name]" placeholder="First name" />
+        </div>
+        <div class="form-group">
+          <input class="form-input" type="email" name="fields[email]" placeholder="your@email.com" required />
+        </div>
+        <button type="submit" class="btn btn-spice" style="width:100%;text-align:center;">Send Me the Guide →</button>
+      </form>
+      <button class="popup-skip" onclick="closePopup()">No thanks, I'll figure it out myself</button>
+    </div>
+  </div>
+</div>
+
 <!-- ══════════════ SCRIPTS ══════════════ -->
 <script>
   /* ── CONFIG ── */
@@ -1896,6 +2109,30 @@
     }
   }
 
+  /* ── Email popup ── */
+  (function() {
+    const POPUP_DELAY  = 12000; // 12 seconds
+    const STORAGE_KEY  = 'ct_popup_dismissed';
+    if (sessionStorage.getItem(STORAGE_KEY)) return;
+    setTimeout(() => {
+      document.getElementById('email-popup').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }, POPUP_DELAY);
+  })();
+
+  function closePopup() {
+    document.getElementById('email-popup').classList.remove('open');
+    document.body.style.overflow = '';
+    sessionStorage.setItem('ct_popup_dismissed', '1');
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closePopup();
+      ['privacy','terms'].forEach(closeModal);
+    }
+  });
+
   /* ── Contact form ── */
   document.getElementById('contact-form').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -1946,5 +2183,7 @@
   /* ── Init ── */
   document.addEventListener("DOMContentLoaded", loadLatestVideo);
 </script>
+<!-- MailerLite -->
+<script src="https://groot.mailerlite.com/js/w/webforms.min.js?v95037e5bac78f29ed026832ca21a7c7b" type="text/javascript"></script>
 </body>
 </html>
