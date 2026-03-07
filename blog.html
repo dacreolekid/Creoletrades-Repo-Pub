@@ -491,73 +491,18 @@
 
     <div class="posts-grid" id="posts-grid">
 
-      <!-- POST 1 -->
-      <article class="post-card" data-category="charts">
+      <!-- POST 1 — LIVE -->
+      <article class="post-card" data-category="recaps" onclick="location.href='/blog/vix-iran-breakdown'" style="cursor:pointer;">
         <div class="post-card-image">📊</div>
         <div class="post-card-body">
-          <span class="post-category">⚜ Chart Analysis</span>
-          <h3>How to Read Liquidity Zones on a Candlestick Chart</h3>
-          <p>Liquidity zones are where the smart money is hunting. Learn how to identify these areas on any chart and why they matter more than traditional support and resistance.</p>
+          <span class="post-category">⚜ Market Recap</span>
+          <h3>The VIX Is Speaking — What the Fear Gauge Is Telling Us and Why the Iran Conflict Makes It Louder</h3>
+          <p>VIX above 29. Strait of Hormuz near-closed. Oil up 15%. The market is not panicking — but it is paying attention. So should you.</p>
           <div class="post-meta">
-            <span>📅 Coming Soon</span>
-            <span>⏱ 6 min</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- POST 2 -->
-      <article class="post-card" data-category="wolfchart">
-        <div class="post-card-image">🐺</div>
-        <div class="post-card-body">
-          <span class="post-category">⚜ Wolf Chart</span>
-          <h3>Wolf Chart 2.1 Setup Guide — From Zero to First Signal</h3>
-          <p>A step-by-step walkthrough of setting up Wolf Chart 2.1 on TradingView, configuring your alerts, and understanding your first Arc Confirmation signal.</p>
-          <div class="post-meta">
-            <span>📅 Coming Soon</span>
+            <span>📅 March 7, 2026</span>
             <span>⏱ 10 min</span>
           </div>
-        </div>
-      </article>
-
-      <!-- POST 3 -->
-      <article class="post-card" data-category="mindset">
-        <div class="post-card-image">🧠</div>
-        <div class="post-card-body">
-          <span class="post-category">⚜ Trading Mindset</span>
-          <h3>Trade With Clarity, Not Emotion — What That Actually Means</h3>
-          <p>Everyone says "remove emotion from trading" but nobody explains how. Here's the real framework — built around rules, not willpower — that keeps you disciplined when the market gets wild.</p>
-          <div class="post-meta">
-            <span>📅 Coming Soon</span>
-            <span>⏱ 5 min</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- POST 4 -->
-      <article class="post-card" data-category="recaps">
-        <div class="post-card-image">📰</div>
-        <div class="post-card-body">
-          <span class="post-category">⚜ Market Recap</span>
-          <h3>Weekly Market Recap — What Moved, What Mattered</h3>
-          <p>A breakdown of the week's key price action, sectors that showed strength, and what setups to watch heading into the next week. No fluff, just the roux.</p>
-          <div class="post-meta">
-            <span>📅 Coming Soon</span>
-            <span>⏱ 4 min</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- POST 5 -->
-      <article class="post-card" data-category="options">
-        <div class="post-card-image">⚡</div>
-        <div class="post-card-body">
-          <span class="post-category">⚜ Options Trading</span>
-          <h3>Calls vs Puts — The Beginner's Guide That Doesn't Talk Down to You</h3>
-          <p>The real difference between calls and puts, when to use each, and the one mistake most beginners make when they pick the wrong one for a setup they actually got right.</p>
-          <div class="post-meta">
-            <span>📅 Coming Soon</span>
-            <span>⏱ 7 min</span>
-          </div>
+          <a href="/blog/vix-iran-breakdown" class="read-more" style="margin-top:0.5rem;display:inline-flex;">Read article →</a>
         </div>
       </article>
 
@@ -568,6 +513,20 @@
           <div class="coming-soon-text">More articles<br>dropping soon.</div>
         </div>
       </div>
+
+      <!-- spacer so grid looks intentional at 3 cols -->
+      <div class="post-card coming-soon-card">
+        <div class="coming-soon-inner">
+          <div class="coming-soon-icon">⚜</div>
+          <div class="coming-soon-text">More articles<br>dropping soon.</div>
+        </div>
+      </div>
+
+      <!-- hidden placeholder kept for filter JS compat -->
+      <article class="post-card" data-category="options" style="display:none;">
+        <div class="post-card-body">
+        </div>
+      </article>
 
     </div>
   </main>
