@@ -1423,6 +1423,59 @@
       .form-footer { flex-direction: column; align-items: flex-start; }
       .modal-box { padding: 1.75rem 1.25rem; }
     }
+
+    /* ── BLOG PREVIEW ── */
+    .blog-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .blog-card {
+      background: var(--iron);
+      border: 1px solid var(--border-dim);
+      padding: 1.75rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .blog-card:hover {
+      border-color: var(--border);
+      transform: translateY(-3px);
+    }
+    .blog-card-tag {
+      font-style: italic;
+      font-size: 0.68rem;
+      color: var(--spice);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .blog-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--parchment);
+      line-height: 1.35;
+      margin-bottom: 0.75rem;
+    }
+    .blog-card p {
+      font-size: 0.82rem;
+      color: var(--text);
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+    }
+    .blog-card-link {
+      font-style: italic;
+      font-size: 0.78rem;
+      color: var(--spice);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+      padding-bottom: 0.15rem;
+      transition: border-color 0.3s;
+    }
+    .blog-card-link:hover { border-color: var(--spice); }
+    .blog-cta { text-align: center; margin-top: 1rem; }
+    @media (max-width: 900px) { .blog-preview-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .blog-preview-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -1770,10 +1823,10 @@
     <div class="blog-preview-grid reveal">
 
       <article class="blog-card">
-        <div class="blog-card-tag">Options Trading</div>
-        <h3>What Is a Confirmation System — and Why You Need One</h3>
-        <p>Most traders lose money not because they don't know what to buy — it's because they don't know when. Here's the framework.</p>
-        <a href="/blog" class="blog-card-link">Read article →</a>
+        <div class="blog-card-tag">Market Recap</div>
+        <h3>The VIX Is Speaking — What the Fear Gauge Is Telling Us and Why the Iran Conflict Makes It Louder</h3>
+        <p>VIX above 29. Strait of Hormuz near-closed. Oil up 15%. The market is not panicking — but it is paying attention. So should you.</p>
+        <a href="/blog/vix-iran-breakdown" class="blog-card-link">Read article →</a>
       </article>
 
       <article class="blog-card">
@@ -1797,61 +1850,6 @@
     </div>
   </div>
 </section>
-
-<style>
-  .blog-preview-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-  }
-  .blog-card {
-    background: var(--iron);
-    border: 1px solid var(--border-dim);
-    padding: 1.75rem;
-    transition: border-color 0.3s, transform 0.3s;
-    cursor: default;
-  }
-  .blog-card:hover {
-    border-color: var(--border);
-    transform: translateY(-3px);
-  }
-  .blog-card-tag {
-    font-style: italic;
-    font-size: 0.68rem;
-    color: var(--spice);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 0.75rem;
-  }
-  .blog-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--parchment);
-    line-height: 1.35;
-    margin-bottom: 0.75rem;
-  }
-  .blog-card p {
-    font-size: 0.82rem;
-    color: var(--text);
-    line-height: 1.75;
-    margin-bottom: 1.25rem;
-  }
-  .blog-card-link {
-    font-style: italic;
-    font-size: 0.78rem;
-    color: var(--spice);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(201,168,76,0.3);
-    padding-bottom: 0.15rem;
-    transition: border-color 0.3s;
-  }
-  .blog-card-link:hover { border-color: var(--spice); }
-  .blog-cta { text-align: center; margin-top: 1rem; }
-  @media (max-width: 900px) { .blog-preview-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 600px) { .blog-preview-grid { grid-template-columns: 1fr; } }
-</style>
 
 <section id="faq" class="section section-alt">
   <div class="section-inner">
