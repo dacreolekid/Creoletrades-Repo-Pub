@@ -1436,6 +1436,7 @@
   <a href="#socials" onclick="closeMobileMenu()">Socials</a>
   <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
   <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+  <a href="/blog" onclick="closeMobileMenu()">Blog</a>
 </div>
 
 <!-- ══════════════ NAV ══════════════ -->
@@ -1452,6 +1453,7 @@
     <li><a href="#socials">Socials</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="/blog">Blog</a></li>
   </ul>
   <button class="nav-burger" onclick="toggleMobileMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -1756,6 +1758,101 @@
 </section>
 
 <!-- ══════════════ FAQ ══════════════ -->
+<!-- ── BLOG PREVIEW ── -->
+<section id="blog" class="section">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">⚜ The Roux Journal</span>
+      <h2>From the <em>Blog</em></h2>
+      <p class="section-sub">Education, chart breakdowns, and mindset from Coach Que.</p>
+    </div>
+
+    <div class="blog-preview-grid reveal">
+
+      <article class="blog-card">
+        <div class="blog-card-tag">Options Trading</div>
+        <h3>What Is a Confirmation System — and Why You Need One</h3>
+        <p>Most traders lose money not because they don't know what to buy — it's because they don't know when. Here's the framework.</p>
+        <a href="/blog" class="blog-card-link">Read article →</a>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-card-tag">Wolf Chart</div>
+        <h3>Wolf Chart 2.1 Setup Guide — From Zero to First Signal</h3>
+        <p>A step-by-step walkthrough of setting up Wolf Chart 2.1 on TradingView and reading your first Arc Confirmation signal.</p>
+        <a href="/blog" class="blog-card-link">Read article →</a>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-card-tag">Trading Mindset</div>
+        <h3>Trade With Clarity, Not Emotion — What That Actually Means</h3>
+        <p>Everyone says "remove emotion from trading" but nobody explains how. Here's a real framework built around rules, not willpower.</p>
+        <a href="/blog" class="blog-card-link">Read article →</a>
+      </article>
+
+    </div>
+
+    <div class="blog-cta reveal">
+      <a href="/blog" class="btn btn-outline">View all posts →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .blog-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .blog-card {
+    background: var(--iron);
+    border: 1px solid var(--border-dim);
+    padding: 1.75rem;
+    transition: border-color 0.3s, transform 0.3s;
+    cursor: default;
+  }
+  .blog-card:hover {
+    border-color: var(--border);
+    transform: translateY(-3px);
+  }
+  .blog-card-tag {
+    font-style: italic;
+    font-size: 0.68rem;
+    color: var(--spice);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .blog-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--parchment);
+    line-height: 1.35;
+    margin-bottom: 0.75rem;
+  }
+  .blog-card p {
+    font-size: 0.82rem;
+    color: var(--text);
+    line-height: 1.75;
+    margin-bottom: 1.25rem;
+  }
+  .blog-card-link {
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--spice);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+    padding-bottom: 0.15rem;
+    transition: border-color 0.3s;
+  }
+  .blog-card-link:hover { border-color: var(--spice); }
+  .blog-cta { text-align: center; margin-top: 1rem; }
+  @media (max-width: 900px) { .blog-preview-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .blog-preview-grid { grid-template-columns: 1fr; } }
+</style>
+
 <section id="faq" class="section section-alt">
   <div class="section-inner">
     <div class="section-header reveal">
