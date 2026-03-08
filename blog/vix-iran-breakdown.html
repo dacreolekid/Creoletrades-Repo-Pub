@@ -105,6 +105,36 @@
       padding: 100px 5vw 6rem;
     }
 
+    .thumbnail-wrap {
+      position: relative;
+      margin-bottom: 2.5rem;
+      border: 1px solid var(--border-dim);
+      overflow: hidden;
+      aspect-ratio: 16 / 7;
+      background: var(--iron);
+    }
+    .thumbnail-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    .thumbnail-wrap img.loaded { opacity: 1; }
+    .thumbnail-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-style: italic;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      pointer-events: none;
+    }
+
     /* HEADER */
     .article-eyebrow {
       display: flex; align-items: center; gap: 0.75rem;
@@ -394,6 +424,15 @@
     <div class="article-eyebrow">
       <span class="tag">Market Recap</span>
       <span class="tag-secondary">⚜ Market Education · March 7, 2026</span>
+    </div>
+
+    <div class="thumbnail-wrap">
+      <span class="thumbnail-label">Generating image…</span>
+      <img
+        src="https://image.pollinations.ai/prompt/dark%20stormy%20stock%20market%20volatility%20VIX%20fear%20gauge%20oil%20geopolitical%20tension%20dramatic%20red%20and%20navy%20financial%20chart%20cinematic%20moody%20professional%20no%20text?width=1200&height=525&seed=88&nologo=true"
+        alt="VIX Iran Breakdown — Market Volatility Visual"
+        onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';"
+      />
     </div>
 
     <span class="article-kicker">The VIX Is Speaking.</span>
