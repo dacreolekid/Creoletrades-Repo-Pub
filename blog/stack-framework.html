@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What Is the STACK Framework — CreoleTrades</title>
+  <meta name="description" content="The STACK Framework is the foundation of how we trade at CreoleTrades. Structure. Trigger. Alignment. Confirmation. Keep Discipline. Here's what each layer means and why it changes everything." />
+  <meta name="keywords" content="STACK framework, trading framework, structure trading, options trading education, CreoleTrades, Coach Que, disciplined trading, confirmation trading" />
+  <meta name="author" content="Coach Que — CreoleTrades" />
+  <link rel="canonical" href="https://creoletrades.com/blog/stack-framework" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://creoletrades.com/blog/stack-framework" />
+  <meta property="og:title" content="What Is the STACK Framework — CreoleTrades" />
+  <meta property="og:description" content="Structure. Trigger. Alignment. Confirmation. Keep Discipline. The five-layer framework that separates disciplined traders from reactive ones." />
+  <meta property="og:image" content="https://creoletrades.com/logo.jpg" />
+  <meta property="og:site_name" content="CreoleTrades" />
+  <meta property="article:published_time" content="2026-03-10" />
+  <meta property="article:author" content="Coach Que" />
+  <meta property="article:tag" content="Options Trading" />
+  <meta property="article:tag" content="Trading Education" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="What Is the STACK Framework — CreoleTrades" />
+  <meta name="twitter:description" content="Structure. Trigger. Alignment. Confirmation. Keep Discipline. Five layers that change how you trade." />
+  <meta name="twitter:image" content="https://creoletrades.com/logo.jpg" />
+
+  <!-- Article Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "What Is the STACK Framework — and Why Does It Change How You Trade?",
+    "description": "Structure. Trigger. Alignment. Confirmation. Keep Discipline. The five-layer framework behind CreoleTrades.",
+    "author": { "@type": "Person", "name": "Coach Que" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "CreoleTrades",
+      "logo": { "@type": "ImageObject", "url": "https://creoletrades.com/logo.jpg" }
+    },
+    "datePublished": "2026-03-10",
+    "url": "https://creoletrades.com/blog/stack-framework"
+  }
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --night:      #050911;
+      --cypress:    #0D1526;
+      --spice:      #C9A84C;
+      --spice-lite: #E2BC6B;
+      --firefly:    #F0D080;
+      --moss:       #3D5278;
+      --moss-lite:  #6B84AA;
+      --parchment:  #EEF2FF;
+      --iron:       #0F1A2E;
+      --border:     rgba(201,168,76,0.25);
+      --border-dim: rgba(201,168,76,0.08);
+      --text:       #C8D4E8;
+      --muted:      #5A7099;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--night);
+      color: var(--text);
+      font-family: 'Lora', Georgia, serif;
+      font-size: 1.05rem;
+      line-height: 1.85;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(5,9,17,0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-dim);
+      padding: 0 5vw; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 700;
+      color: var(--parchment); text-decoration: none;
+    }
+    .nav-logo span { color: var(--spice); font-style: italic; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a {
+      font-style: italic; font-size: 0.8rem;
+      color: var(--muted); text-decoration: none; transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--spice); }
+
+    /* ARTICLE */
+    .article-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 100px 5vw 6rem;
+    }
+
+    .thumbnail-wrap {
+      position: relative;
+      margin-bottom: 2.5rem;
+      border: 1px solid var(--border-dim);
+      overflow: hidden;
+      aspect-ratio: 16 / 7;
+      background: var(--iron);
+    }
+    .thumbnail-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    .thumbnail-wrap img.loaded { opacity: 1; }
+    .thumbnail-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-style: italic;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      pointer-events: none;
+    }
+
+    .article-eyebrow {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .tag {
+      font-style: italic; font-size: 0.68rem;
+      color: var(--spice); letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.65rem;
+    }
+    .tag-secondary {
+      font-style: italic; font-size: 0.68rem;
+      color: var(--muted); letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .article-kicker {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      font-style: italic;
+      color: var(--moss-lite);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      color: var(--parchment);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .article-title em { color: var(--spice); font-style: italic; }
+
+    .article-dek {
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      border-left: 2px solid var(--spice);
+      padding-left: 1.25rem;
+    }
+
+    .article-meta {
+      display: flex; align-items: center; gap: 1.25rem;
+      font-style: italic; font-size: 0.75rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border-dim);
+      border-bottom: 1px solid var(--border-dim);
+      padding: 0.75rem 0;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .article-body p { margin-bottom: 1.5rem; color: var(--text); }
+
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--parchment);
+      margin: 2.5rem 0 1rem;
+      line-height: 1.2;
+    }
+
+    .article-divider {
+      border: none;
+      border-top: 1px solid var(--border-dim);
+      margin: 2.5rem 0;
+    }
+
+    blockquote {
+      border-left: 3px solid var(--spice);
+      padding: 0.75rem 0 0.75rem 1.5rem;
+      margin: 2rem 0;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--parchment);
+      line-height: 1.5;
+    }
+
+    /* STACK CARDS */
+    .stack-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      margin: 2rem 0 2.5rem;
+      border: 1px solid var(--border);
+    }
+
+    .stack-card {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0;
+      background: var(--iron);
+      border-bottom: 1px solid var(--border-dim);
+      transition: background 0.3s;
+    }
+    .stack-card:last-child { border-bottom: none; }
+    .stack-card:hover { background: rgba(201,168,76,0.05); }
+
+    .stack-letter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(201,168,76,0.07);
+      border-right: 1px solid var(--border-dim);
+      padding: 1.5rem 0;
+    }
+    .stack-letter span {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.25rem;
+      font-weight: 900;
+      color: var(--spice);
+      line-height: 1;
+    }
+
+    .stack-content {
+      padding: 1.5rem 1.75rem;
+    }
+    .stack-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--parchment);
+      margin-bottom: 0.4rem;
+    }
+    .stack-label em {
+      font-style: italic;
+      color: var(--spice);
+      font-size: 0.75rem;
+      font-weight: 400;
+      margin-left: 0.5rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .stack-content p {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 0;
+    }
+
+    /* CTA */
+    .article-cta {
+      background: var(--iron);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      margin: 3rem 0;
+      text-align: center;
+    }
+    .article-cta .eyebrow {
+      font-style: italic; font-size: 0.68rem;
+      color: var(--spice); letter-spacing: 0.15em;
+      text-transform: uppercase;
+      display: block; margin-bottom: 0.75rem;
+    }
+    .article-cta h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem; color: var(--parchment);
+      margin-bottom: 0.75rem;
+    }
+    .article-cta p {
+      font-style: italic; font-size: 0.85rem;
+      color: var(--muted); margin-bottom: 1.25rem;
+    }
+    .cta-buttons { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+    .btn-spice {
+      display: inline-block;
+      background: var(--spice); color: var(--night);
+      font-family: 'Lora', serif; font-weight: 700;
+      font-size: 0.82rem; padding: 0.7rem 1.5rem;
+      text-decoration: none; transition: background 0.3s;
+    }
+    .btn-spice:hover { background: var(--spice-lite); }
+    .btn-outline {
+      display: inline-block;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'Lora', serif; font-style: italic;
+      font-size: 0.82rem; padding: 0.7rem 1.5rem;
+      text-decoration: none; transition: border-color 0.3s, color 0.3s;
+    }
+    .btn-outline:hover { border-color: var(--spice); color: var(--spice); }
+
+    /* AUTHOR */
+    .article-footer {
+      border-top: 1px solid var(--border-dim);
+      padding-top: 2rem; margin-top: 3rem;
+    }
+    .author-block {
+      display: flex; align-items: flex-start; gap: 1.25rem;
+    }
+    .author-icon {
+      width: 48px; height: 48px;
+      background: var(--iron);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; flex-shrink: 0;
+    }
+    .author-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--parchment); margin-bottom: 0.25rem;
+    }
+    .author-bio { font-style: italic; font-size: 0.8rem; color: var(--muted); }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-style: italic; font-size: 0.8rem;
+      color: var(--muted); text-decoration: none;
+      margin-top: 2rem; transition: color 0.3s;
+    }
+    .back-link:hover { color: var(--spice); }
+
+    @media (max-width: 500px) {
+      .stack-card { grid-template-columns: 60px 1fr; }
+      .stack-letter span { font-size: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">⚜ Creole <span>Trades</span></a>
+    <ul class="nav-links">
+      <li><a href="/#products">Community</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <article class="article-wrap">
+
+    <div class="article-eyebrow">
+      <span class="tag">Trading Education</span>
+      <span class="tag-secondary">⚜ Options Trading · March 10, 2026</span>
+    </div>
+
+    <div class="thumbnail-wrap">
+      <span class="thumbnail-label">Generating image…</span>
+      <img
+        src="https://image.pollinations.ai/prompt/dark%20moody%20trading%20chart%20with%20layered%20structure%20navy%20blue%20and%20gold%20candlestick%20analysis%20professional%20financial%20education%20cinematic%20dramatic%20light%20no%20text?width=1200&height=525&seed=42&nologo=true"
+        alt="STACK Framework — Trading Structure Visual"
+        onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';"
+      />
+    </div>
+
+    <span class="article-kicker">The Foundation of Everything.</span>
+    <h1 class="article-title">What Is the <em>STACK Framework</em> — and Why Does It Change How You Trade?</h1>
+
+    <p class="article-dek">Most traders don't lose because they don't know what to buy. They lose because they don't know when — and they don't have a reason to stay out. STACK is the structure that fixes that.</p>
+
+    <div class="article-meta">
+      <span>✍ Coach Que</span>
+      <span>📅 March 10, 2026</span>
+      <span>⏱ ~8 min read</span>
+      <span>🏷 Trading Education · Options</span>
+    </div>
+
+    <div class="article-body">
+
+      <p>Every trader has opinions about the market. Most of those opinions are wrong — not because the trader lacks intelligence, but because opinion-based trading has no filter. When everything looks like a setup, nothing actually is.</p>
+
+      <p>The STACK Framework is the answer to that problem. It's a five-layer decision system that forces you to ask five specific questions before you ever enter a trade. If all five answers are yes, you have a valid setup. If any layer is missing, you wait.</p>
+
+      <p>That's it. That's the edge — not a secret indicator, not a hot ticker. Structure over impulse. Every time.</p>
+
+      <hr class="article-divider" />
+
+      <h2>The Five Layers of STACK</h2>
+
+      <div class="stack-grid">
+
+        <div class="stack-card">
+          <div class="stack-letter"><span>S</span></div>
+          <div class="stack-content">
+            <div class="stack-label">Structure <em>Layer 1</em></div>
+            <p>Before anything else, you need to understand where price is in its overall context. Is it trending or ranging? Is it near a key level — a prior high, a gap, a demand zone? Structure is the map. Without it, you're navigating without coordinates. Most reactive traders skip this entirely. They see a candle move and react. Structure traders see where price <em>is</em> before they consider where it might go. A setup that appears in a structurally weak location is not a setup — it's noise.</p>
+          </div>
+        </div>
+
+        <div class="stack-card">
+          <div class="stack-letter"><span>T</span></div>
+          <div class="stack-content">
+            <div class="stack-label">Trigger <em>Layer 2</em></div>
+            <p>Structure tells you where to look. Trigger tells you when to act. A trigger is a specific, pre-defined price event that signals a potential move — a break of a key level, a rejection candle at a zone, a momentum shift on a lower timeframe. Without a defined trigger, entry becomes subjective. You start entering on feeling instead of signal. The trigger is the event that turns a potential setup into an actual entry candidate. No trigger, no trade.</p>
+          </div>
+        </div>
+
+        <div class="stack-card">
+          <div class="stack-letter"><span>A</span></div>
+          <div class="stack-content">
+            <div class="stack-label">Alignment <em>Layer 3</em></div>
+            <p>The best setups don't just look good on one timeframe — they align across multiple timeframes. If the daily is bullish, the 4-hour is approaching a key support level, and the 15-minute is showing a trigger, those three timeframes are aligned. That's confluence. Alignment is what separates high-probability trades from low-probability gambles. You're not looking for one reason to enter. You're looking for multiple timeframes telling the same story simultaneously.</p>
+          </div>
+        </div>
+
+        <div class="stack-card">
+          <div class="stack-letter"><span>C</span></div>
+          <div class="stack-content">
+            <div class="stack-label">Confirmation <em>Layer 4</em></div>
+            <p>Even when Structure, Trigger, and Alignment are all present, you don't enter on anticipation. You wait for confirmation — a signal that the move you're expecting is actually beginning. Confirmation might come from a specific candle pattern, a volume spike, an indicator alignment, or a price close above a key level. It's the market saying "yes, this is happening." Entering before confirmation means you're guessing. Waiting for confirmation means you're responding to evidence. One of those approaches survives long-term. The other doesn't.</p>
+          </div>
+        </div>
+
+        <div class="stack-card">
+          <div class="stack-letter"><span>K</span></div>
+          <div class="stack-content">
+            <div class="stack-label">Keep Discipline <em>Layer 5</em></div>
+            <p>The first four layers get you into the trade correctly. The fifth layer determines whether you actually benefit from it. Keep Discipline means honoring your plan after the trade is live — respecting your stop loss, not moving your target because the trade "feels good," not exiting early because it temporarily goes against you. This is where most traders destroy what the first four layers built. A perfect setup entry followed by undisciplined management is still a loss waiting to happen. Discipline is not a personality trait. It's a practice. STACK builds it into the process.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <h2>Why Structure-First Thinking Changes Everything</h2>
+
+      <p>The biggest shift that happens when traders start using STACK isn't the win rate. It's the quality of their misses.</p>
+
+      <p>Before a structured framework, losing trades tend to be random — a gut feeling that didn't work out, a tip that went wrong, an impulsive entry that had no business being taken. Those losses carry no information. You can't learn from them because there was no process to analyze.</p>
+
+      <blockquote>When you trade with structure, every loss becomes a lesson. You can go back through each layer and identify exactly where the setup was incomplete — or where your execution broke down.</blockquote>
+
+      <p>That's the compound effect of STACK. Over time, it doesn't just improve your entries. It builds the discipline and pattern recognition that makes you a fundamentally different trader than you were twelve months ago.</p>
+
+      <h2>How STACK Applies in Real Market Conditions</h2>
+
+      <p>STACK is not a bull market framework. It's not a bear market framework. It's a <em>market conditions</em> framework — meaning it tells you when to be aggressive and when to be patient based on what the market is actually doing.</p>
+
+      <p>In a high-VIX environment like we covered in the last article, STACK doesn't change. What changes is how strict your confirmation requirements are. Elevated volatility means more false signals, faster reversals, and wider swings. STACK in those conditions means you demand stronger alignment and cleaner confirmation before you enter. The framework tightens itself naturally when the environment demands it.</p>
+
+      <p>That's the power of a process-driven system. You're not reacting to the market's mood. You're applying consistent criteria and letting the market qualify or disqualify setups for you.</p>
+
+      <hr class="article-divider" />
+
+      <p>We break STACK down in real time every Friday at 5PM CST during the Triple Confirmation Live — applying each layer to live setups across the monthly, weekly, and daily timeframes. If you want to see STACK in action, that's where it happens.</p>
+
+      <p>Stay STACKED. ⚜</p>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="article-cta">
+      <span class="eyebrow">⚜ Ready to trade with structure?</span>
+      <h3>Join the Trading Roux Community</h3>
+      <p>Free access available. Triple Confirmation Live every Friday at 5PM CST — STACK applied to real setups, live.</p>
+      <div class="cta-buttons">
+        <a href="https://mee6.gg/m/tradingroux" class="btn-spice" target="_blank" rel="noopener">Join Free →</a>
+        <a href="/blog" class="btn-outline">More articles</a>
+      </div>
+    </div>
+
+    <footer class="article-footer">
+      <div class="author-block">
+        <div class="author-icon">⚜</div>
+        <div>
+          <div class="author-name">Coach Que</div>
+          <div class="author-bio">Founder of CreoleTrades · 6+ years in the markets · Options educator, chart analyst, and community builder inside The Trading Roux.</div>
+        </div>
+      </div>
+      <a href="/blog" class="back-link">← Back to The Roux Journal</a>
+    </footer>
+
+  </article>
+
+  <script src="/roux-bot.js"></script>
+</body>
+</html>
