@@ -840,6 +840,110 @@
       letter-spacing: 0.08em;
     }
 
+    /* FEATURED TESTIMONIAL */
+    .testimonial-featured {
+      background: var(--iron);
+      border: 1px solid var(--border);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .testimonial-featured::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--spice), var(--firefly), transparent);
+    }
+    .testimonial-featured-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .testimonial-featured-badge {
+      font-style: italic;
+      font-size: 0.65rem;
+      color: var(--spice);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.75rem;
+    }
+    .testimonial-featured-stats {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .testimonial-stat {
+      text-align: center;
+    }
+    .testimonial-stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--spice);
+      display: block;
+      line-height: 1;
+    }
+    .testimonial-stat-label {
+      font-style: italic;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+    .testimonial-featured-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      line-height: 0.8;
+      color: var(--spice);
+      opacity: 0.4;
+      font-weight: 900;
+      margin-bottom: 0.75rem;
+    }
+    .testimonial-featured-text {
+      font-style: italic;
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.9;
+      margin-bottom: 1.75rem;
+    }
+    .testimonial-featured-text strong {
+      color: var(--parchment);
+      font-style: normal;
+    }
+    .testimonial-featured-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-dim);
+    }
+    .testimonial-featured-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--spice), var(--firefly));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.85rem; font-weight: 700;
+      color: var(--night); flex-shrink: 0;
+    }
+    .testimonial-featured-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--parchment); display: block;
+    }
+    .testimonial-featured-tier {
+      font-style: italic; font-size: 0.72rem;
+      color: var(--spice); letter-spacing: 0.08em;
+    }
+    @media (max-width: 600px) {
+      .testimonial-featured { padding: 1.5rem; }
+      .testimonial-featured-stats { gap: 1rem; }
+    }
+
     /* ═══════════════════════════════════════
        SOCIALS
     ═══════════════════════════════════════ */
@@ -1676,6 +1780,36 @@
     </div>
     <div class="testimonials-grid">
 
+      <!-- FEATURED — Cherell Winters -->
+      <div class="testimonial-featured reveal" style="grid-column: 1 / -1;">
+        <div class="testimonial-featured-header">
+          <span class="testimonial-featured-badge">⚜ Featured Review — 1-on-1 Mastery Client</span>
+          <div class="testimonial-featured-stats">
+            <div class="testimonial-stat">
+              <span class="testimonial-stat-value">Green</span>
+              <span class="testimonial-stat-label">Every Week</span>
+            </div>
+            <div class="testimonial-stat">
+              <span class="testimonial-stat-value">10–300%</span>
+              <span class="testimonial-stat-label">Monthly Gains</span>
+            </div>
+            <div class="testimonial-stat">
+              <span class="testimonial-stat-value">~1 mo.</span>
+              <span class="testimonial-stat-label">Time to Profitability</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-featured-quote">"</div>
+        <p class="testimonial-featured-text">I started my trading journey two and a half years ago — spending thousands on programs that left me more lost than when I started. One cost me <strong>$8,000</strong> and barely taught me to read a chart. When I found CreoleTrades, I was ready to quit altogether.<br><br>During our sessions, he encouraged me to ask questions about anything — no matter how small. <strong>What stood out most is that he's just as excited about this journey as I am.</strong> He genuinely wants the people he teaches to succeed.<br><br>It's now been about a month since we started working together, and I'm happy to say that <strong>I've been green every week.</strong> My gains over the last month have ranged from 10 to 300%.<br><br>The investment I made in myself was returned within the same week. CreoleTrades is someone who truly stands behind what he teaches — he's not someone who just says they want to help, takes your money, and leaves you on your own.</p>
+        <div class="testimonial-featured-author">
+          <div class="testimonial-featured-avatar">CW</div>
+          <div>
+            <span class="testimonial-featured-name">Cherell Winters</span>
+            <span class="testimonial-featured-tier">1-on-1 Mastery Client · Swing Trader</span>
+          </div>
+        </div>
+      </div>
+
       <div class="testimonial-card reveal">
         <div class="testimonial-quote">"</div>
         <p class="testimonial-text">After making 100% gains, he can talk ALL DAY, ALL NIGHT, ALL YEAR LONG about his setups — I DO NOT CARE. Why? Because every time he posts his setups, I CASH IN.</p>
@@ -1823,17 +1957,17 @@
     <div class="blog-preview-grid reveal">
 
       <article class="blog-card">
+        <div class="blog-card-tag">Trading Education</div>
+        <h3>What Is the STACK Framework — and Why Does It Change How You Trade?</h3>
+        <p>Structure. Trigger. Alignment. Confirmation. Keep Discipline. Five layers that separate disciplined traders from reactive ones.</p>
+        <a href="/blog/stack-framework" class="blog-card-link">Read article →</a>
+      </article>
+
+      <article class="blog-card">
         <div class="blog-card-tag">Market Recap</div>
         <h3>The VIX Is Speaking — What the Fear Gauge Is Telling Us and Why the Iran Conflict Makes It Louder</h3>
         <p>VIX above 29. Strait of Hormuz near-closed. Oil up 15%. The market is not panicking — but it is paying attention.</p>
         <a href="/blog/vix-iran-breakdown" class="blog-card-link">Read article →</a>
-      </article>
-
-      <article class="blog-card" style="display:flex;align-items:center;justify-content:center;text-align:center;opacity:0.5;">
-        <div>
-          <div style="font-size:1.25rem;margin-bottom:0.5rem;">⚜</div>
-          <div style="font-style:italic;font-size:0.8rem;color:var(--muted);">More articles<br>coming soon.</div>
-        </div>
       </article>
 
       <article class="blog-card" style="display:flex;align-items:center;justify-content:center;text-align:center;opacity:0.5;">
