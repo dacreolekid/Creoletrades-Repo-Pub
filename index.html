@@ -2022,11 +2022,11 @@
         <a href="/blog/vix-iran-breakdown" class="blog-card-link">Read article →</a>
       </article>
 
-      <article class="blog-card" style="display:flex;align-items:center;justify-content:center;text-align:center;opacity:0.5;">
-        <div>
-          <div style="font-size:1.25rem;margin-bottom:0.5rem;">⚜</div>
-          <div style="font-style:italic;font-size:0.8rem;color:var(--muted);">More articles<br>coming soon.</div>
-        </div>
+      <article class="blog-card">
+        <div class="blog-card-tag">Trading Education</div>
+        <h3>How to Trade Around FOMC Without Predicting the Outcome</h3>
+        <p>FOMC week doesn't require a prediction. It requires a process. Here's how STACK turns the Fed's most volatile days into the clearest setups.</p>
+        <a href="/blog/fomc-trading-stack" class="blog-card-link">Read article →</a>
       </article>
 
     </div>
@@ -2119,17 +2119,15 @@
         <div class="email-capture-card">
           <span class="email-card-label">⚜ No spam. Just value.</span>
           <h3 class="email-card-title">Drop your email and I'll send it over.</h3>
-          <form class="email-form" id="email-form-inline" action="https://assets.mailerlite.com/jsonp/2153611/forms/180795998451270943/subscribe" method="POST" target="_blank" novalidate>
-            <input type="hidden" name="ml-submit" value="1" />
-            <input type="hidden" name="anticsrf" value="true" />
+          <form class="email-form" id="email-form-inline" action="https://subscribe-forms.beehiiv.com/e548aca8-c755-4cba-a14a-f042402a4cad" method="POST" target="_blank" novalidate>
             <input type="hidden" name="SIGNUP_SOURCE" value="inline" />
             <div class="form-group">
               <label class="form-label" for="ec-name">First Name</label>
-              <input class="form-input" type="text" id="ec-name" name="fields[name]" placeholder="Your first name" />
+              <input class="form-input" type="text" id="ec-name" name="first_name" placeholder="Your first name" />
             </div>
             <div class="form-group">
               <label class="form-label" for="ec-email">Email Address</label>
-              <input class="form-input" type="email" id="ec-email" name="fields[email]" placeholder="your@email.com" required />
+              <input class="form-input" type="email" id="ec-email" name="email" placeholder="your@email.com" required />
             </div>
             <button type="submit" class="btn btn-spice" style="width:100%;text-align:center;">Send Me the Guide →</button>
             <p class="email-disclaimer">By subscribing you agree to our <button type="button" class="modal-link" onclick="openModal('privacy')">Privacy Policy</button>. Unsubscribe anytime.</p>
@@ -2291,15 +2289,13 @@
       <span class="eyebrow" style="text-align:center;display:block;">⚜ Free Resource</span>
       <h3 class="popup-title">Before you go —<br><em>grab the free guide.</em></h3>
       <p class="popup-desc">Options basics, chart reading, risk management and more. Everything you need before risking a single dollar.</p>
-      <form class="email-form" id="email-form-popup" action="https://assets.mailerlite.com/jsonp/2153611/forms/180795998451270943/subscribe" method="POST" target="_blank" novalidate>
-        <input type="hidden" name="ml-submit" value="1" />
-        <input type="hidden" name="anticsrf" value="true" />
+      <form class="email-form" id="email-form-popup" action="https://subscribe-forms.beehiiv.com/e548aca8-c755-4cba-a14a-f042402a4cad" method="POST" target="_blank" novalidate>
         <input type="hidden" name="SIGNUP_SOURCE" value="popup" />
         <div class="form-group">
-          <input class="form-input" type="text" name="fields[name]" placeholder="First name" />
+          <input class="form-input" type="text" name="first_name" placeholder="First name" />
         </div>
         <div class="form-group">
-          <input class="form-input" type="email" name="fields[email]" placeholder="your@email.com" required />
+          <input class="form-input" type="email" name="email" placeholder="your@email.com" required />
         </div>
         <button type="submit" class="btn btn-spice" style="width:100%;text-align:center;">Send Me the Guide →</button>
       </form>
@@ -2465,7 +2461,7 @@
   document.addEventListener("DOMContentLoaded", loadLatestVideo);
 </script>
 <!-- MailerLite -->
-<script src="https://groot.mailerlite.com/js/w/webforms.min.js?v95037e5bac78f29ed026832ca21a7c7b" type="text/javascript"></script>
+
 <script src="/roux-bot.js"></script>
 </body>
 </html>
