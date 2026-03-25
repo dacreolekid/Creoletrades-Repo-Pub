@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STACK Academy | Smart Money Concepts for Beginners</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-main: #070C18;
+            --bg-card-1: #0D1526;
+            --bg-card-2: #0F1A2E;
+            --bg-dark: #050911;
+            --text-heading: #EEF2FF;
+            --text-body: #C8D4E8;
+            --text-muted: #6B84AA;
+            --gold-primary: #C9A84C;
+            --gold-light: #F0D080;
+        }
+
+        body {
+            font-family: 'Lora', Georgia, serif;
+            background-color: var(--bg-main);
+            color: var(--text-body);
+            line-height: 1.75;
+            padding-bottom: 80px;
+            font-size: 16.8px;
+        }
+
+        /* ===== HEADER / NAVIGATION ===== */
+        header {
+            background-color: var(--bg-main);
+            border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+            padding: 1.25rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gold-primary);
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: var(--text-body);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover {
+            color: var(--gold-primary);
+        }
+
+        /* ===== SECTION LABEL ===== */
+        .section-label {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 11.2px;
+            letter-spacing: 2.016px;
+            color: var(--gold-light);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background-color: var(--bg-main);
+            padding: 5rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            color: var(--text-heading);
+            margin-bottom: 0.75rem;
+            font-weight: 900;
+            letter-spacing: -1.28px;
+        }
+
+        .hero .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            color: var(--text-body);
+            margin-bottom: 1.25rem;
+            font-weight: 700;
+        }
+
+        .hero .by-line {
+            font-size: 0.95rem;
+            color: var(--gold-light);
+            margin-bottom: 1.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hero .tagline {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--gold-light);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-style: italic;
+            line-height: 1.8;
+            font-weight: 700;
+        }
+
+        .hero-pricing {
+            margin-bottom: 2.5rem;
+        }
+
+        .price-display {
+            font-size: clamp(2.5rem, 8vw, 3.5rem);
+            color: var(--gold-primary);
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: -1.28px;
+        }
+
+        .price-subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== CTA BUTTON ===== */
+        .cta-btn {
+            display: inline-block;
+            background-color: var(--gold-primary);
+            color: var(--text-heading);
+            padding: 0.95rem 2.25rem;
+            border-radius: 0;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            text-align: center;
+            letter-spacing: 0.5px;
+            font-family: 'Lora', Georgia, serif;
+            text-transform: uppercase;
+        }
+
+        .cta-btn:hover {
+            background-color: var(--gold-light);
+            color: var(--bg-main);
+            opacity: 0.95;
+        }
+
+        .hero .cta-btn {
+            margin-bottom: 1rem;
+        }
+
+        .button-note {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 1rem;
+            letter-spacing: 0.3px;
+        }
+
+        /* ===== SECTION COMMON ===== */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            color: var(--text-heading);
+            margin-bottom: 3rem;
+            text-align: center;
+            font-weight: 900;
+            letter-spacing: -1.28px;
+        }
+
+        /* ===== WHAT YOU'LL LEARN ===== */
+        .what-learn {
+            background-color: var(--bg-main);
+        }
+
+        .what-learn .section-label {
+            display: block;
+            text-align: center;
+        }
+
+        .what-learn p {
+            font-size: 16.8px;
+            line-height: 29.4px;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--text-body);
+        }
+
+        /* ===== STACK METHOD GRID ===== */
+        .stack-method {
+            background-color: var(--bg-card-1);
+        }
+
+        .stack-method .section-label {
+            display: block;
+            text-align: center;
+        }
+
+        .stack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stack-card {
+            background-color: var(--bg-card-2);
+            border: 1px solid rgba(201, 168, 76, 0.15);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+
+        .stack-card:hover {
+            border-color: var(--gold-primary);
+            background-color: var(--bg-card-1);
+        }
+
+        .stack-card .letter {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--gold-primary);
+            margin-bottom: 1rem;
+            letter-spacing: -1.28px;
+        }
+
+        .stack-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            color: var(--text-heading);
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .stack-card p {
+            font-size: 16.8px;
+            color: var(--text-body);
+            line-height: 1.7;
+        }
+
+        /* ===== COURSE MODULES ===== */
+        .modules {
+            background-color: var(--bg-main);
+        }
+
+        .modules .section-label {
+            display: block;
+            text-align: center;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .module-card {
+            background-color: var(--bg-card-1);
+            border: 1px solid rgba(201, 168, 76, 0.15);
+            border-radius: 0;
+            padding: 2.5rem 2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .module-card:hover {
+            border-color: var(--gold-primary);
+            background-color: var(--bg-card-2);
+        }
+
+        .module-number {
+            display: inline-block;
+            font-size: 11.2px;
+            font-weight: 600;
+            color: var(--gold-light);
+            text-transform: uppercase;
+            letter-spacing: 2.016px;
+            margin-bottom: 0.75rem;
+        }
+
+        .module-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            color: var(--text-heading);
+            margin-bottom: 1.25rem;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .module-description {
+            font-size: 16.8px;
+            color: var(--text-body);
+            margin-bottom: 2rem;
+            flex-grow: 1;
+            line-height: 1.75;
+        }
+
+        .module-access {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--gold-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .module-access svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        /* ===== WHAT YOU GET ===== */
+        .what-get {
+            background-color: var(--bg-card-1);
+        }
+
+        .what-get .section-label {
+            display: block;
+            text-align: center;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.25rem;
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            color: var(--gold-primary);
+            flex-shrink: 0;
+            margin-top: 0.25rem;
+        }
+
+        .feature-item h4 {
+            color: var(--text-heading);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-item p {
+            color: var(--text-body);
+            font-size: 16.8px;
+            line-height: 1.6;
+        }
+
+        /* ===== PRICING SECTION ===== */
+        .pricing-section {
+            background-color: var(--bg-main);
+        }
+
+        .pricing-section .section-label {
+            display: block;
+            text-align: center;
+        }
+
+        .pricing-card {
+            background-color: var(--bg-card-1);
+            border: 1px solid rgba(201, 168, 76, 0.15);
+            border-radius: 0;
+            padding: 3.5rem 3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .pricing-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--text-heading);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-amount {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 3.5rem);
+            color: var(--gold-primary);
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1.28px;
+        }
+
+        .pricing-subtext {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .pricing-features {
+            text-align: left;
+            margin: 2.5rem 0;
+        }
+
+        .pricing-features li {
+            list-style: none;
+            padding: 0.9rem 0;
+            color: var(--text-body);
+            font-size: 16.8px;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li::before {
+            content: "✓";
+            color: var(--gold-primary);
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .pricing-card .cta-btn {
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-guarantee {
+            font-size: 0.95rem;
+            color: var(--text-body);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .pricing-note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 1.5rem;
+            letter-spacing: 0.3px;
+        }
+
+        /* ===== AFTER THE ACADEMY ===== */
+        .after-academy {
+            background-color: var(--bg-main);
+        }
+
+        .after-academy .section-label {
+            display: block;
+            text-align: center;
+        }
+
+        .pathway {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+        }
+
+        .pathway-step {
+            background-color: var(--bg-card-1);
+            border-left: 3px solid var(--gold-primary);
+            padding: 2rem;
+            border-radius: 0;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            border: 1px solid rgba(201, 168, 76, 0.15);
+            border-left: 3px solid var(--gold-primary);
+        }
+
+        .pathway-step-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--gold-primary);
+            flex-shrink: 0;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            border: 1px solid rgba(201, 168, 76, 0.15);
+            border-radius: 0;
+            letter-spacing: -1.28px;
+        }
+
+        .pathway-step-content h3 {
+            color: var(--text-heading);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .pathway-step-content p {
+            color: var(--text-body);
+            font-size: 16.8px;
+            line-height: 1.75;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: var(--bg-card-1);
+            border-top: 1px solid rgba(201, 168, 76, 0.15);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            color: var(--text-body);
+            font-size: 0.95rem;
+        }
+
+        footer a {
+            color: var(--gold-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--gold-light);
+        }
+
+        /* ===== STICKY BOTTOM BAR ===== */
+        .sticky-bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--bg-card-1);
+            border-top: 2px solid var(--gold-primary);
+            padding: 1.25rem 2rem;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            z-index: 99;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .sticky-bottom-bar.show {
+            display: flex;
+        }
+
+        .sticky-bottom-bar-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .sticky-bottom-bar-text {
+            font-size: 1rem;
+            color: var(--text-body);
+            font-weight: 500;
+        }
+
+        .sticky-bottom-bar-price {
+            font-size: 1.25rem;
+            color: var(--gold-primary);
+            font-weight: 900;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .sticky-bottom-bar .cta-btn {
+            white-space: nowrap;
+            margin-bottom: 0;
+            padding: 0.85rem 1.75rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            .stack-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pathway {
+                gap: 1.25rem;
+            }
+
+            .pathway-step {
+                gap: 1.25rem;
+                padding: 1.75rem;
+            }
+
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card {
+                padding: 2.5rem 2rem;
+            }
+
+            .sticky-bottom-bar {
+                padding: 0.875rem 1rem;
+            }
+
+            .sticky-bottom-bar-content {
+                flex-direction: column;
+                gap: 1rem;
+                justify-content: center;
+            }
+
+            .sticky-bottom-bar .cta-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.75rem;
+                width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+
+            .stack-card .letter {
+                font-size: 2.5rem;
+            }
+
+            .module-card {
+                padding: 1.75rem;
+            }
+
+            .pricing-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .price-display {
+                font-size: 2.5rem;
+            }
+
+            .sticky-bottom-bar-text {
+                font-size: 0.9rem;
+            }
+
+            .sticky-bottom-bar-price {
+                font-size: 1rem;
+            }
+
+            .sticky-bottom-bar .cta-btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.85rem;
+            }
+
+            body {
+                padding-bottom: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <nav>
+            <a href="#" class="logo">STACK Academy</a>
+            <ul>
+                <li><a href="#modules">Modules</a></li>
+                <li><a href="#what-get">What You Get</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#pathway">Next Steps</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1>STACK Academy</h1>
+            <p class="subtitle">Smart Money Concepts for Beginners</p>
+            <p class="by-line">by CreoleTrades ⚜️</p>
+            <p class="tagline">Learn to read price the way institutions do. Structure first. Confirmation over prediction.</p>
+
+            <div class="hero-pricing">
+                <div class="price-display">$97</div>
+                <div class="price-subtitle">One-Time Access — No Subscriptions</div>
+                <a href="#" class="cta-btn" id="stripe-checkout-btn" data-stripe-link="https://buy.stripe.com/9B6fZjeFFfJ8byw18q9k405">Get Instant Access — $97</a>
+                <span class="button-note">Secure payment via Stripe. Instant access after purchase.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT YOU'LL LEARN -->
+    <section class="what-learn">
+        <span class="section-label">⚜ The Curriculum</span>
+        <h2>What You'll Learn</h2>
+        <p>STACK Academy is a 6-module course that teaches you the language, structure, and execution framework of Smart Money Concepts — all through the lens of the STACK Method. By the time you finish, you'll know how to read market structure, identify institutional order blocks, wait for confirmed triggers, align multiple timeframes, and manage trades with discipline.</p>
+    </section>
+
+    <!-- THE STACK METHOD -->
+    <section class="stack-method">
+        <span class="section-label">⚜ The Foundation</span>
+        <h2>The STACK Method</h2>
+        <div class="stack-grid">
+            <div class="stack-card">
+                <div class="letter">S</div>
+                <h3>Structure</h3>
+                <p>Read market structure before anything else</p>
+            </div>
+            <div class="stack-card">
+                <div class="letter">T</div>
+                <h3>Trigger</h3>
+                <p>Wait for a specific price action event</p>
+            </div>
+            <div class="stack-card">
+                <div class="letter">A</div>
+                <h3>Alignment</h3>
+                <p>All timeframes must point the same direction</p>
+            </div>
+            <div class="stack-card">
+                <div class="letter">C</div>
+                <h3>Confirmation</h3>
+                <p>Wolf Chart 2.1 confirms execution readiness</p>
+            </div>
+            <div class="stack-card">
+                <div class="letter">K</div>
+                <h3>Keep Discipline</h3>
+                <p>Respect invalidation. Position sizing. No exceptions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- COURSE MODULES -->
+    <section class="modules" id="modules">
+        <span class="section-label">⚜ Course Modules</span>
+        <h2>Six Lessons to Master Smart Money</h2>
+        <div class="modules-grid">
+            <div class="module-card">
+                <span class="module-number">Module 1</span>
+                <h3>The Language of Smart Money</h3>
+                <p class="module-description">Master the terminology and foundational concepts that institutional traders use. Build your vocabulary for reading market structure like the pros.</p>
+                <div class="module-access">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    Included in your purchase
+                </div>
+            </div>
+
+            <div class="module-card">
+                <span class="module-number">Module 2</span>
+                <h3>Market Structure — The S in STACK</h3>
+                <p class="module-description">Learn to read highs, lows, and market phases. Identify support and resistance zones where institutions hunt for liquidity.</p>
+                <div class="module-access">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    Included in your purchase
+                </div>
+            </div>
+
+            <div class="module-card">
+                <span class="module-number">Module 3</span>
+                <h3>Order Blocks — Where Institutions Leave Their Footprint</h3>
+                <p class="module-description">Discover the price zones where smart money has already traded. Learn to use order blocks as your roadmap to institutional intentions.</p>
+                <div class="module-access">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    Included in your purchase
+                </div>
+            </div>
+
+            <div class="module-card">
+                <span class="module-number">Module 4</span>
+                <h3>The Trigger System — The T in STACK</h3>
+                <p class="module-description">Master the specific price action events that signal institutional order execution. Become a trigger spotter, not a guesser.</p>
+                <div class="module-access">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    Included in your purchase
+                </div>
+            </div>
+
+            <div class="module-card">
+                <span class="module-number">Module 5</span>
+                <h3>Top-Down Analysis — The A in STACK</h3>
+                <p class="module-description">Learn to align multiple timeframes from weekly down to the entry timeframe. Confirm direction before taking any position.</p>
+                <div class="module-access">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    Included in your purchase
+                </div>
+            </div>
+
+            <div class="module-card">
+                <span class="module-number">Module 6</span>
+                <h3>Trade Management — The C and K in STACK</h3>
+                <p class="module-description">Manage winners, cut losers, and protect capital. Master the discipline that separates consistent traders from account blowers.</p>
+                <div class="module-access">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    Included in your purchase
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT YOU GET -->
+    <section class="what-get" id="what-get">
+        <span class="section-label">⚜ What's Included</span>
+        <h2>Everything You Need to Succeed</h2>
+        <div class="features-list">
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div>
+                    <h4>6 Full Lessons</h4>
+                    <p>Real-world examples and price action case studies</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div>
+                    <h4>Practice Exercises</h4>
+                    <p>Apply the STACK method to live market scenarios</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div>
+                    <h4>STACK Trading Plan</h4>
+                    <p>Complete template to structure every trade</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div>
+                    <h4>SMC Glossary</h4>
+                    <p>Reference guide for Smart Money terminology</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div>
+                    <h4>Community Access</h4>
+                    <p>Join The Trading Roux — free tier included</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div>
+                    <h4>Foundation for Growth</h4>
+                    <p>Build the base to upgrade your trading toolkit</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section class="pricing-section" id="pricing">
+        <span class="section-label">⚜ Pricing</span>
+        <h2>Invest in Your Trading Education</h2>
+        <div class="pricing-card">
+            <h3>Complete Course Access</h3>
+            <div class="pricing-amount">$97</div>
+            <div class="pricing-subtext">One-Time Payment — Lifetime Access</div>
+
+            <ul class="pricing-features">
+                <li>6 full SMC lessons with examples</li>
+                <li>Practice exercises for every module</li>
+                <li>Complete STACK trading plan template</li>
+                <li>Smart Money glossary</li>
+                <li>Free access to The Trading Roux Discord</li>
+            </ul>
+
+            <a href="#" class="cta-btn stripe-checkout" data-stripe-link="https://buy.stripe.com/9B6fZjeFFfJ8byw18q9k405">Get Instant Access — $97</a>
+
+            <div class="pricing-guarantee">30-day money-back guarantee. No questions asked.</div>
+            <div class="pricing-note">After purchase, you'll receive a course access password via email.</div>
+        </div>
+    </section>
+
+    <!-- AFTER THE ACADEMY -->
+    <section class="after-academy" id="pathway">
+        <span class="section-label">⚜ Your Path Forward</span>
+        <h2>After the Academy — Your Next Steps</h2>
+        <div class="pathway">
+            <div class="pathway-step">
+                <div class="pathway-step-number">1</div>
+                <div class="pathway-step-content">
+                    <h3>Join The Trading Roux</h3>
+                    <p>Connect with the community on Discord. Free tier access includes discussion channels and market insights.</p>
+                </div>
+            </div>
+            <div class="pathway-step">
+                <div class="pathway-step-number">2</div>
+                <div class="pathway-step-content">
+                    <h3>Get Wolf Chart 2.1 on TradingView</h3>
+                    <p>Access the confirmation indicator that validates every STACK setup. Available on the TradingView public library.</p>
+                </div>
+            </div>
+            <div class="pathway-step">
+                <div class="pathway-step-number">3</div>
+                <div class="pathway-step-content">
+                    <h3>Attend Friday Triple Confirmation Live</h3>
+                    <p>Join weekly market analysis sessions at 5 PM CST. See the STACK method applied in real-time.</p>
+                </div>
+            </div>
+            <div class="pathway-step">
+                <div class="pathway-step-number">4</div>
+                <div class="pathway-step-content">
+                    <h3>Upgrade to STACKED: Wolf</h3>
+                    <p>Get guided indicator walkthroughs, advanced setups, and deeper integration with Wolf Chart 2.1.</p>
+                </div>
+            </div>
+            <div class="pathway-step">
+                <div class="pathway-step-number">5</div>
+                <div class="pathway-step-content">
+                    <h3>Explore STACKED: Mastery</h3>
+                    <p>Full trade plans, options guidance, 1-on-1 coaching, and the complete CreoleTrades trading methodology.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; CreoleTrades | <a href="#">@creoletrades</a> | <a href="#">creoletrades.com</a> | Stay STACKED. ⚜️</p>
+    </footer>
+
+    <!-- STICKY BOTTOM BAR -->
+    <div class="sticky-bottom-bar" id="sticky-bar">
+        <div class="sticky-bottom-bar-content">
+            <div class="sticky-bottom-bar-text">Ready to master Smart Money?</div>
+            <div class="sticky-bottom-bar-price">$97</div>
+            <a href="#" class="cta-btn stripe-checkout" data-stripe-link="https://buy.stripe.com/9B6fZjeFFfJ8byw18q9k405">Get Access — $97</a>
+        </div>
+    </div>
+
+    <script>
+        // Show/hide sticky bottom bar on scroll
+        const heroSection = document.getElementById('hero');
+        const stickyBar = document.getElementById('sticky-bar');
+
+        window.addEventListener('scroll', () => {
+            const heroBottom = heroSection.getBoundingClientRect().bottom;
+            if (heroBottom < 0) {
+                stickyBar.classList.add('show');
+            } else {
+                stickyBar.classList.remove('show');
+            }
+        });
+
+        // Handle Stripe checkout button clicks
+        const checkoutButtons = document.querySelectorAll('[data-stripe-link]');
+        checkoutButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const stripeLink = button.getAttribute('data-stripe-link');
+                if (stripeLink && stripeLink !== 'https://buy.stripe.com/9B6fZjeFFfJ8byw18q9k405') {
+                    window.location.href = stripeLink;
+                } else {
+                    console.log('Stripe payment link not configured yet');
+                    alert('Payment link coming soon. Contact us for early access.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
