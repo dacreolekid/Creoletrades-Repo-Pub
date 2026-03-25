@@ -770,7 +770,7 @@
             <div class="hero-pricing">
                 <div class="price-display">$97</div>
                 <div class="price-subtitle">One-Time Access — No Subscriptions</div>
-                <a href="#" class="cta-btn" id="stripe-checkout-btn" data-stripe-link="https://buy.stripe.com/9B6fZjeFFfJ8byw18q9k405">Get Instant Access — $97</a>
+                <a href="https://buy.stripe.com/9B6fZjeFFfJ8byw18q9k405" class="cta-btn">Get Instant Access — $97</a>
                 <span class="button-note">Secure payment via Stripe. Instant access after purchase.</span>
             </div>
         </div>
@@ -968,7 +968,7 @@
                 <li>Free access to The Trading Roux Discord</li>
             </ul>
 
-            <a href="#" class="cta-btn stripe-checkout" data-stripe-link="https://buy.stripe.com/9B6fZjeFFfJ8byw18q9k405">Get Instant Access — $97</a>
+            <a href="https://buy.stripe.com/9B6fZjeFFfJ8byw18q9k405" class="cta-btn">Get Instant Access — $97</a>
 
             <div class="pricing-guarantee">30-day money-back guarantee. No questions asked.</div>
             <div class="pricing-note">After purchase, you'll receive a course access password via email.</div>
@@ -1028,7 +1028,7 @@
         <div class="sticky-bottom-bar-content">
             <div class="sticky-bottom-bar-text">Ready to master Smart Money?</div>
             <div class="sticky-bottom-bar-price">$97</div>
-            <a href="#" class="cta-btn stripe-checkout" data-stripe-link="https://buy.stripe.com/9B6fZjeFFfJ8byw18q9k405">Get Access — $97</a>
+            <a href="https://buy.stripe.com/9B6fZjeFFfJ8byw18q9k405" class="cta-btn">Get Access — $97</a>
         </div>
     </div>
 
@@ -1046,17 +1046,6 @@
             }
         });
 
-        // Handle Stripe checkout button clicks
-        const checkoutButtons = document.querySelectorAll('[data-stripe-link]');
-        checkoutButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                const stripeLink = button.getAttribute('data-stripe-link');
-                if (stripeLink) {
-                    window.location.href = stripeLink;
-                }
-            });
-        });
     </script>
 </body>
 </html>
