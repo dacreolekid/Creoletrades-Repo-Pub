@@ -1052,11 +1052,8 @@
             button.addEventListener('click', (e) => {
                 e.preventDefault();
                 const stripeLink = button.getAttribute('data-stripe-link');
-                if (stripeLink && stripeLink !== 'https://buy.stripe.com/9B6fZjeFFfJ8byw18q9k405') {
+                if (stripeLink) {
                     window.location.href = stripeLink;
-                } else {
-                    console.log('Stripe payment link not configured yet');
-                    alert('Payment link coming soon. Contact us for early access.');
                 }
             });
         });
