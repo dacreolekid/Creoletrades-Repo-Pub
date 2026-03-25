@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STACK Academy Module 5: Top-Down Analysis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #0A1628;
+            --gold: #C9A84C;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --dark-gray: #1a1a1a;
+        }
+
+        body {
+            font-family: "Lora", Georgia, serif;
+            background-color: #070C18;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: #070C18;
+            border-bottom: 3px solid var(--gold);
+            padding: 2rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo {
+            font-family: "Playfair Display", serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #EEF2FF;
+            text-decoration: none;
+        }
+
+        .module-badge {
+            background-color: var(--gold);
+            color: #070C18;
+            padding: 0.5rem 1rem;
+            border-radius: 0px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            font-family: "Lora", Georgia, serif;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            border-bottom-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .module-header {
+            margin-bottom: 3rem;
+        }
+
+        .module-title {
+            font-family: "Playfair Display", serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #EEF2FF;
+            font-weight: 700;
+        }
+
+        .module-subtitle {
+            font-size: 1.2rem;
+            color: #C8D4E8;
+            margin-bottom: 1rem;
+        }
+
+        /* Content Sections */
+        section {
+            margin-bottom: 3rem;
+            background-color: #0D1526;
+            padding: 2rem;
+            border-radius: 0px;
+            border-left: 3px solid var(--gold);
+        }
+
+        section h2 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            margin-top: 0;
+        }
+
+        section h3 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #C8D4E8;
+            line-height: 1.8;
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+            color: #C8D4E8;
+            line-height: 1.8;
+        }
+
+        strong {
+            color: #F0D080;
+        }
+
+        .highlight {
+            background-color: rgba(201, 168, 76, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 0px;
+            color: #F0D080;
+        }
+
+        .hierarchy-box {
+            background-color: rgba(201, 168, 76, 0.05);
+            border: 2px solid var(--gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0px;
+        }
+
+        .hierarchy-box h3 {
+            margin-top: 0;
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-weight: 700;
+        }
+
+        .hierarchy-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .hierarchy-flow div {
+            padding: 1rem;
+            background-color: #070C18;
+            border: 2px solid var(--gold);
+            border-radius: 0px;
+            text-align: center;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .hierarchy-flow .arrow {
+            font-size: 1.5rem;
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+
+        .step-box {
+            background-color: #0D1526;
+            border-left: 3px solid var(--gold);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0px;
+        }
+
+        .step-box h4 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .key-takeaways {
+            background-color: #0D1526;
+            border: 2px solid var(--gold);
+            padding: 2rem;
+            border-radius: 0px;
+            margin: 2rem 0;
+        }
+
+        .key-takeaways h3 {
+            margin-top: 0;
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-weight: 700;
+        }
+
+        .key-takeaways li {
+            margin-bottom: 1rem;
+            color: #C8D4E8;
+        }
+
+        .key-takeaways li:before {
+            content: "▪ ";
+            color: var(--gold);
+            margin-right: 0.5rem;
+        }
+
+        .practice-exercise {
+            background-color: #0D1526;
+            border: 2px solid var(--gold);
+            padding: 2rem;
+            border-radius: 0px;
+            margin: 2rem 0;
+        }
+
+        .practice-exercise h3 {
+            margin-top: 0;
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-weight: 700;
+        }
+
+        /* Navigation Buttons */
+        .module-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 3rem 0;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 1rem;
+            background-color: var(--gold);
+            color: #070C18;
+            text-decoration: none;
+            border-radius: 0px;
+            font-weight: 600;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background-color: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            transform: none;
+        }
+
+        .nav-btn.prev {
+            flex-direction: row-reverse;
+        }
+
+        .nav-btn-label {
+            font-size: 0.85rem;
+            display: block;
+            color: inherit;
+            opacity: 0.8;
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-btn-title {
+            display: block;
+            color: inherit;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #070C18;
+            border-top: 3px solid var(--gold);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            margin-top: 4rem;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .footer-content p {
+            margin-bottom: 0.5rem;
+            color: #999;
+        }
+
+        .footer-divider {
+            color: var(--gold);
+            margin: 0 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .module-title {
+                font-size: 1.8rem;
+            }
+
+            .header-top {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            main {
+                margin: 2rem auto;
+            }
+
+            section {
+                padding: 1.5rem;
+            }
+
+            .hierarchy-flow {
+                flex-direction: column;
+            }
+
+            .hierarchy-flow .arrow {
+                transform: rotate(90deg);
+            }
+
+            .module-nav {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 1.5rem 1rem;
+            }
+
+            .module-title {
+                font-size: 1.5rem;
+            }
+
+            section {
+                padding: 1.5rem 1rem;
+            }
+
+            .hierarchy-flow div {
+                min-width: 80px;
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Password Gate Overlay Styles */
+        #password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 22, 40, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        #password-gate.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .password-card {
+            background: #070C18;
+            border: 2px solid #C9A84C;
+            border-radius: 0px;
+            padding: 3rem 2rem;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        .password-card h2 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            border: none;
+            padding-bottom: 0;
+        }
+
+        .password-card .subtitle {
+            color: #C8D4E8;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .password-input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        #password-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            background-color: #0D1526;
+            border: 2px solid #C9A84C;
+            color: #FFFFFF;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+            font-family: "Lora", Georgia, serif;
+        }
+
+        #password-input:focus {
+            outline: none;
+            border-color: #FFD699;
+            box-shadow: 0 0 10px rgba(201, 168, 76, 0.5);
+        }
+
+        #password-input.shake {
+            animation: shake 0.5s ease;
+            border-color: #ff4444;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            min-height: 20px;
+        }
+
+        #unlock-btn {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: 2px solid #C9A84C;
+            border-radius: 0px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: "Lora", Georgia, serif;
+        }
+
+        #unlock-btn:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        .password-helper-text {
+            color: #B0B0B0;
+            font-size: 0.85rem;
+            margin-top: 1.5rem;
+        }
+
+        .password-helper-text a {
+            color: #C9A84C;
+            text-decoration: none;
+            border-bottom: 1px solid #C9A84C;
+            transition: all 0.3s ease;
+        }
+
+        .password-helper-text a:hover {
+            color: #FFD699;
+            border-bottom-color: #FFD699;
+        }
+
+        #course-content {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        #course-content.visible {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .logout-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #C9A84C;
+            transition: all 0.3s ease;
+        }
+
+        .logout-link:hover {
+            color: #FFD699;
+            border-bottom-color: #FFD699;
+        }
+    </style>
+</head>
+<body>
+    <!-- Password Gate Overlay -->
+    <div id="password-gate">
+        <div class="password-card">
+            <h2>STACK Academy</h2>
+            <p class="subtitle">Enter Your Course Password</p>
+            <div class="password-input-group">
+                <input type="password" id="password-input" placeholder="Password">
+                <div class="error-message" id="error-message"></div>
+            </div>
+            <button id="unlock-btn">Unlock Course</button>
+            <div class="password-helper-text">
+                <p>Purchased STACK Academy? Check your email for your access password.</p>
+                <p><a href="stack-academy-index.html">Don't have a password? Get access at creoletrades.com</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="course-content">
+    <header>
+        <div class="header-container">
+            <div class="header-top">
+                <a href="stack-academy-index.html" class="logo">STACK Academy</a>
+                <div class="module-badge">Module 5 of 6</div>
+            </div>
+            <nav>
+                <a href="stack-academy-index.html">Home</a>
+                <a href="stack-academy-module-1.html">Module 1</a>
+                <a href="stack-academy-module-2.html">Module 2</a>
+                <a href="stack-academy-module-3.html">Module 3</a>
+                <a href="stack-academy-module-4.html">Module 4</a>
+                <a href="stack-academy-module-5.html" class="active">Module 5</a>
+                <a href="stack-academy-module-6.html">Module 6</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="module-header">
+            <h1 class="module-title">Top-Down Analysis — The A in STACK</h1>
+            <p class="module-subtitle">Understanding Alignment Across Timeframes</p>
+        </div>
+
+        <section>
+            <h2>What is Top-Down Analysis?</h2>
+            <p>The <span class="highlight">A in STACK stands for Alignment</span>. The acronym itself is a principle: <strong>"All timeframes (Monthly/Weekly/Daily/4H/2H) must point the same direction."</strong> This is the foundation of top-down analysis.</p>
+
+            <p>Top-down analysis means starting from the highest timeframe and working your way down toward the entry. You don't begin with the 2-hour chart and hunt for trades. You begin with the monthly chart and ask: "What is the big picture? What direction are we biased toward?" Then you descend through the hierarchy—weekly, daily, 4-hour—each timeframe filtering and confirming (or contradicting) the thesis you built on the level above.</p>
+
+            <p>Here's the critical rule: <strong>The higher timeframe is the boss. It dictates the bias.</strong> Lower timeframes provide precision for entries, but they cannot override the direction set by the monthly and weekly.</p>
+
+            <p>This is why so many traders fail. They spot a 5-minute buy signal, jump in, and immediately get stopped out. Why? Because they never checked the daily chart. The daily was in a downtrend. The weekly was still printing lower lows. The monthly bias was bearish. Their 5-minute entry was swimming against a four-level current. Top-down analysis prevents this mistake.</p>
+        </section>
+
+        <section>
+            <h2>The Timeframe Hierarchy</h2>
+            <p>The STACK framework uses a specific hierarchy of timeframes. Each level filters the next. Think of it as a funnel: the higher timeframes are wider and set the rules; the lower timeframes are narrower and provide precision.</p>
+
+            <div class="hierarchy-box">
+                <h3>The Five-Level Hierarchy</h3>
+                <div class="hierarchy-flow">
+                    <div>Monthly</div>
+                    <div class="arrow">↓</div>
+                    <div>Weekly</div>
+                    <div class="arrow">↓</div>
+                    <div>Daily</div>
+                    <div class="arrow">↓</div>
+                    <div>4-Hour</div>
+                    <div class="arrow">↓</div>
+                    <div>2-Hour</div>
+                </div>
+                <p><strong>Monthly & Weekly:</strong> Set the <span class="highlight">BIAS</span> (bullish, bearish, or range-bound). These are the strategic timeframes.</p>
+                <p><strong>Daily:</strong> <span class="highlight">Confirms the structure</span> within that bias. This is where you see if the lower timeframes are respecting the monthly/weekly direction.</p>
+                <p><strong>4-Hour & 2-Hour:</strong> Provide <span class="highlight">entry-level precision</span>. This is where you find order blocks, fair value gaps (FVGs), and imbalances. The 2-hour is your sniper scope.</p>
+            </div>
+
+            <p>Each level must be checked in order. You never skip levels. A trader who jumps straight to the 4-hour without checking the monthly is flying blind.</p>
+        </section>
+
+        <section>
+            <h2>How to Run a Top-Down Analysis — Step by Step</h2>
+            <p>Here is the exact process. Run through these steps before you place any trade.</p>
+
+            <div class="step-box">
+                <h4>Step 1: Monthly</h4>
+                <p>Pull up the monthly chart. Answer three questions:</p>
+                <ul>
+                    <li>What is the overall trend? Are we in a monthly uptrend (higher highs, higher lows), downtrend (lower highs, lower lows), or consolidating?</li>
+                    <li>Where are the major liquidity pools? What levels have price rejected repeatedly? Where is the recent order block or demand/supply zone?</li>
+                    <li>Where is price relative to the range—premium or discount? Is price in the upper half of a monthly range (premium) or lower half (discount)? This tells you if bulls or bears are in control structurally.</li>
+                </ul>
+                <p><strong>Output:</strong> Bullish, bearish, or neutral bias for the month. And key levels to watch.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Step 2: Weekly</h4>
+                <p>Drop to the weekly chart. Ask:</p>
+                <ul>
+                    <li>Is the weekly structure aligned with the monthly? If the monthly is bullish, is the weekly printing higher lows and higher highs? Or is it contradicting?</li>
+                    <li>Where are the weekly order blocks, FVGs, and mitigated/unmitigated levels?</li>
+                    <li>Is the weekly closer to the top or bottom of its structure?</li>
+                </ul>
+                <p><strong>Output:</strong> Confirmation or conflict with the monthly bias. Refined bias statement.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Step 3: Daily</h4>
+                <p>Now to the daily. Check:</p>
+                <ul>
+                    <li>Does the daily structure confirm the direction set by monthly and weekly?</li>
+                    <li>Is the daily in an uptrend, downtrend, or range relative to the monthly/weekly bias?</li>
+                    <li>Where is the nearest daily order block or demand/supply zone? Is there an unmitigated daily level that aligns with your bias?</li>
+                    <li>Has price recently broken a key daily level (a change of character, or CHoCH)?</li>
+                </ul>
+                <p><strong>Output:</strong> Directional thesis confirmed or invalidated. Key entry zones identified.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Step 4: 4-Hour</h4>
+                <p>Move to the 4-hour:</p>
+                <ul>
+                    <li>Is the 4-hour building structure in the same direction as the daily?</li>
+                    <li>Where is the 4-hour order block that aligns with your daily level?</li>
+                    <li>Is the 4-hour showing strength into your bias, or weakness/rejection?</li>
+                </ul>
+                <p><strong>Output:</strong> Refined entry zone (usually a 4-hour order block near a daily level).</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Step 5: 2-Hour (The Sniper Timeframe)</h4>
+                <p>Finally, the 2-hour:</p>
+                <ul>
+                    <li>Refine the entry zone. Look for the exact trigger here (as covered in Module 4: Triggers).</li>
+                    <li>Is the 2-hour showing a buy-side or sell-side setup within your refined zone?</li>
+                    <li>Where is the 2-hour order block that will catch your entry?</li>
+                </ul>
+                <p><strong>Output:</strong> Precise entry point with context from all four levels above.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Alignment = Conviction</h2>
+            <p>When all five timeframes agree—bullish Monthly, bullish Weekly, bullish Daily, bullish 4-Hour, bullish 2-Hour—you have <strong>maximum conviction</strong>. This is what the Roux Score measures: <span class="highlight">S + T + A + C + K</span>.</p>
+
+            <p>The <strong>A is Alignment</strong>, and it is worth 1 full point on the Roux Score.</p>
+
+            <ul>
+                <li>If all timeframes align with your bias: <strong>A = 1 point</strong></li>
+                <li>If timeframes disagree: <strong>A = 0 points</strong></li>
+            </ul>
+
+            <p>This means a trade can have perfect Structure (S=1), perfect Trend confirmation (T=1), poor Alignment (A=0), perfect Confluence (C=1), and a perfect Kill (K=1). Your Roux Score would be 4/5—solid, but not maximum conviction. You might trade it, but with reduced size or tighter stops.</p>
+
+            <p>Conversely, when S+A+C+K are all 1 and T is 1, you have a 5/5 setup. This is when you add size, hold longer, and trust the move.</p>
+
+            <p>Alignment directly drives conviction, and conviction drives position sizing and holding power.</p>
+        </section>
+
+        <section>
+            <h2>What Misalignment Looks Like</h2>
+            <p>Misalignment is easy to spot once you know what to look for.</p>
+
+            <ul>
+                <li><strong>Scenario 1:</strong> Monthly is bullish (higher highs, higher lows). Weekly is bullish. Daily is bullish. But the 4-hour just printed a CHoCH to the downside. <strong>Misalignment.</strong> The higher timeframes say "go up," but the 4-hour is saying "wait." What do you do? You stand down or reduce size. You do not trade the 2-hour bearish trigger. The 4-hour warning tells you the setup is not yet confirmed.</li>
+
+                <li><strong>Scenario 2:</strong> Monthly is bearish. Weekly is still holding bullish structure. <strong>Misalignment.</strong> There is a conflict between the top two timeframes. A trade here is risky. You wait for the weekly to confirm the monthly direction or for the monthly to reverse. Until alignment is restored, you reduce participation.</li>
+
+                <li><strong>Scenario 3:</strong> Daily is bullish. 4-hour is bullish. 2-hour is bullish. But the weekly just printed a lower high. <strong>Partial misalignment.</strong> You can still trade the lower timeframe move, but you know it is within a larger weekly structure that is being threatened. You take profits earlier and do not hold for extensions.</li>
+            </ul>
+
+            <p><strong>The rule is simple: higher timeframe wins.</strong> You do not trade against it. If the weekly is bearish, you do not trade a bullish 2-hour setup. Wait for the 2-hour move to break the weekly structure, or skip the trade.</p>
+        </section>
+
+        <section>
+            <h2>Common Mistakes</h2>
+            <p>These mistakes destroy accounts. Avoid them.</p>
+
+            <ul>
+                <li><strong>Only looking at one timeframe (no context):</strong> A trader sees a breakout on the 15-minute chart and enters. They never checked the hourly, 4-hour, or daily. Result: they entered into a counter-trend move. They get stopped out immediately. Always run the full top-down.</li>
+
+                <li><strong>Trading against the higher timeframe bias:</strong> "The daily is bearish, but it LOOKS bullish on the 5-minute!" This is the second-most common mistake. The 5-minute does not override the daily. The daily does. Wait for the 5-minute to align with the daily, or skip the trade.</li>
+
+                <li><strong>Not checking alignment before entering:</strong> A trader spots what looks like a perfect structure on the daily, sees a good trigger on the 4-hour, and enters without checking the monthly and weekly. Three days later, the monthly reverses and the daily collapses. They lost 3:1 on a setup that looked good in isolation but failed in context. Always check alignment first.</li>
+            </ul>
+
+            <p>Top-down analysis solves all three. Make it habit.</p>
+        </section>
+
+        <section>
+            <h2>Top-Down and the STACK</h2>
+            <p>Let's tie this back to the full framework.</p>
+
+            <p><strong>S (Structure)</strong> tells you what is happening on the current timeframe. Is price breaking above an order block? Retesting a high? Printing a lower low?</p>
+
+            <p><strong>A (Alignment)</strong> tells you if the OTHER timeframes agree with what you see on your current timeframe. Is the higher timeframe bullish? Are the lower timeframes confirming your directional thesis?</p>
+
+            <p>Together, <strong>S + A give you a directional thesis before you ever look for a Trigger.</strong> You know where you are biased, you know why, and you know the structure supports it across multiple timeframes. Then you add T (Trend), C (Confluence), and K (Kill) to build conviction and find your precise entry.</p>
+
+            <p>Top-down analysis is not optional. It is the foundation.</p>
+        </section>
+
+        <section>
+            <h2>Key Takeaways</h2>
+            <div class="key-takeaways">
+                <ul>
+                    <li><strong>Top-down analysis means starting from the highest timeframe (monthly) and working down to the entry timeframe (2-hour).</strong> Each level filters the next.</li>
+                    <li><strong>The higher timeframe is the boss.</strong> Monthly and weekly set the bias. Daily confirms structure. 4H and 2H provide entry precision. Lower timeframes cannot override higher ones.</li>
+                    <li><strong>Alignment = all five timeframes (M/W/D/4H/2H) pointing the same direction.</strong> Alignment is worth 1 full point on the Roux Score. It drives conviction and position sizing.</li>
+                    <li><strong>Misalignment means stand down or reduce size.</strong> Do not trade against the higher timeframe. Do not skip levels. Wait for alignment to restore or for the structure to formally break.</li>
+                    <li><strong>The most common mistake is only looking at one timeframe (usually the lowest one).</strong> Always run the full top-down before entering. Context is everything.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Practice Exercise</h2>
+            <div class="practice-exercise">
+                <h3>Run a Full Top-Down</h3>
+                <p><strong>Pick one ticker of your choice (stock, crypto, forex, or commodity).</strong> Run a complete top-down analysis from monthly to 2-hour.</p>
+
+                <p>At each level, note the following:</p>
+                <ul>
+                    <li><strong>Bullish or bearish structure?</strong> (higher highs/lows vs. lower highs/lows, or range-bound)</li>
+                    <li><strong>Nearest key level:</strong> Order block, fair value gap, or demand/supply zone</li>
+                    <li><strong>Unmitigated levels:</strong> Are there untouched order blocks that align with your bias?</li>
+                </ul>
+
+                <p><strong>At the bottom (after you've reviewed all five timeframes), write:</strong></p>
+                <ul>
+                    <li>Your directional bias (bullish, bearish, or neutral)</li>
+                    <li>Your Alignment score (A = 1 if all timeframes agree, A = 0 if they conflict)</li>
+                    <li>Confidence level: would you trade this setup right now? Why or why not?</li>
+                </ul>
+
+                <p><em>This exercise builds the habit of top-down thinking. Do it every day for one week on different tickers. By the end, you'll be running a top-down analysis in under 5 minutes.</em></p>
+            </div>
+        </section>
+
+        <div class="module-nav">
+            <a href="stack-academy-module-4.html" class="nav-btn prev">
+                <span class="nav-btn-label">← Previous</span>
+                <span class="nav-btn-title">Module 4: Triggers</span>
+            </a>
+            <a href="stack-academy-module-6.html" class="nav-btn next">
+                <span class="nav-btn-label">Next →</span>
+                <span class="nav-btn-title">Module 6: Completion</span>
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>© CreoleTrades <span class="footer-divider">|</span> @creoletrades <span class="footer-divider">|</span> creoletrades.com <span class="footer-divider">|</span> Stay STACKED. ⚜️</p>
+            <p><a href="#" class="logout-link" id="logout-link">Log Out</a></p>
+        </div>
+    </footer>
+    </div>
+
+    <script>
+        // SHA-256 hash of "STACKED2026"
+        const PASSWORD_HASH = "c74006541acbe74a1a356069d8fdbd661c2aaa4b612605cb9313d533e99b9d25";
+        const STORAGE_KEY = "stack_academy_access";
+
+        // Async function to hash password using Web Crypto API
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hashHex;
+        }
+
+        // Check localStorage on page load
+        async function checkAccess() {
+            const storedToken = localStorage.getItem(STORAGE_KEY);
+            if (storedToken === PASSWORD_HASH) {
+                unlockCourse();
+            }
+        }
+
+        // Unlock the course
+        function unlockCourse() {
+            const gate = document.getElementById('password-gate');
+            const content = document.getElementById('course-content');
+
+            gate.classList.add('hidden');
+            content.classList.add('visible');
+        }
+
+        // Handle unlock button click
+        document.getElementById('unlock-btn').addEventListener('click', handleUnlock);
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handleUnlock();
+            }
+        });
+
+        async function handleUnlock() {
+            const passwordInput = document.getElementById('password-input');
+            const errorMessage = document.getElementById('error-message');
+            const password = passwordInput.value;
+
+            if (!password) {
+                errorMessage.textContent = 'Please enter a password.';
+                return;
+            }
+
+            const hashedPassword = await hashPassword(password);
+
+            if (hashedPassword === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, PASSWORD_HASH);
+                errorMessage.textContent = '';
+                unlockCourse();
+            } else {
+                errorMessage.textContent = 'Incorrect password. Please try again.';
+                passwordInput.classList.add('shake');
+                setTimeout(() => {
+                    passwordInput.classList.remove('shake');
+                }, 500);
+            }
+        }
+
+        // Logout functionality
+        document.getElementById('logout-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem(STORAGE_KEY);
+            location.reload();
+        });
+
+        // Check access on page load
+        checkAccess();
+    </script>
+</body>
+</html>
