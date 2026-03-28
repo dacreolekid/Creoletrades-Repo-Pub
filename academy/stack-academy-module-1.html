@@ -518,6 +518,154 @@
             color: #FFD699;
             border-bottom-color: #FFD699;
         }
+
+        /* Quiz Styles */
+        .quiz-section {
+            background: linear-gradient(135deg, #0D1526, #070C18);
+            border: 2px solid #C9A84C;
+            padding: 2.5rem 2rem;
+            margin: 2rem 0;
+        }
+
+        .quiz-section h2 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .quiz-intro {
+            color: #C8D4E8;
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-question {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+        }
+
+        .quiz-question:last-of-type {
+            border-bottom: none;
+        }
+
+        .quiz-question p.q-text {
+            color: #EEF2FF;
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .quiz-option {
+            background: #0D1526;
+            border: 1px solid rgba(200, 212, 232, 0.2);
+            padding: 0.8rem 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #C8D4E8;
+            font-family: "Lora", Georgia, serif;
+            font-size: 0.95rem;
+        }
+
+        .quiz-option:hover:not(.selected) {
+            border-color: #C9A84C;
+            background: rgba(201, 168, 76, 0.1);
+        }
+
+        .quiz-option.correct {
+            border-color: #22C55E;
+            background: rgba(34, 197, 94, 0.15);
+            color: #22C55E;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #EF4444;
+            background: rgba(239, 68, 68, 0.15);
+            color: #EF4444;
+        }
+
+        .quiz-option.correct::after {
+            content: " ✓";
+            font-weight: bold;
+        }
+
+        .quiz-option.incorrect::after {
+            content: " ✗";
+            font-weight: bold;
+        }
+
+        .quiz-option.reveal-correct {
+            border-color: #22C55E;
+            background: rgba(34, 197, 94, 0.1);
+            color: #22C55E;
+        }
+
+        .quiz-explanation {
+            margin-top: 0.5rem;
+            padding: 0.8rem 1rem;
+            font-size: 0.9rem;
+            color: #F0D080;
+            font-style: italic;
+            display: none;
+        }
+
+        .quiz-explanation.visible {
+            display: block;
+        }
+
+        .quiz-score {
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 2px solid #C9A84C;
+            background: rgba(201, 168, 76, 0.1);
+            display: none;
+        }
+
+        .quiz-score.visible {
+            display: block;
+        }
+
+        .quiz-score h3 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-score p {
+            color: #C8D4E8;
+        }
+
+        .quiz-reset {
+            margin-top: 1rem;
+            padding: 0.6rem 1.5rem;
+            background: #C9A84C;
+            color: #070C18;
+            border: none;
+            font-family: "Lora", Georgia, serif;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-reset:hover {
+            background: transparent;
+            color: #C9A84C;
+            border: 2px solid #C9A84C;
+        }
     </style>
 </head>
 <body>
@@ -552,6 +700,7 @@
                 <a href="stack-academy-module-5.html">Module 5</a>
                 <a href="stack-academy-module-6.html">Module 6</a>
                 <a href="stack-academy-glossary.html">Glossary</a>
+                <a href="stack-academy-final-exam.html">Final Exam</a>
             </nav>
         </div>
     </header>
@@ -702,6 +851,75 @@
             </div>
         </section>
 
+        <!-- Quiz Section -->
+        <section>
+            <div class="quiz-section">
+                <h2>Check Your Learning</h2>
+                <p class="quiz-intro">5 questions on Module 1. Click your answer — no second chances per question.</p>
+
+                <div class="quiz-question">
+                    <p class="q-text">1. What does "Smart Money" refer to?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">Retail traders using advanced indicators</div>
+                        <div class="quiz-option" data-correct="true">Institutional players like banks, hedge funds, and market makers</div>
+                        <div class="quiz-option" data-correct="false">Traders who always predict the market correctly</div>
+                        <div class="quiz-option" data-correct="false">Anyone with a large trading account</div>
+                    </div>
+                    <div class="quiz-explanation">Smart Money refers to institutions — banks, hedge funds, proprietary firms — who engineer price movement through liquidity manipulation, not prediction.</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p class="q-text">2. What is the correct order of the Smart Money cycle?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">Distribute → Manipulate → Accumulate</div>
+                        <div class="quiz-option" data-correct="false">Manipulate → Accumulate → Distribute</div>
+                        <div class="quiz-option" data-correct="true">Accumulate → Manipulate → Distribute</div>
+                        <div class="quiz-option" data-correct="false">Accumulate → Distribute → Manipulate</div>
+                    </div>
+                    <div class="quiz-explanation">Accumulate first (build the position quietly), Manipulate second (sweep liquidity), Distribute third (push price and exit into retail demand).</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p class="q-text">3. An Order Block is best described as:</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">A zone where retail traders place most of their orders</div>
+                        <div class="quiz-option" data-correct="false">A gap in price where no trades occurred</div>
+                        <div class="quiz-option" data-correct="true">The last candle before an impulsive move — where institutional orders were placed</div>
+                        <div class="quiz-option" data-correct="false">Any support or resistance level on the chart</div>
+                    </div>
+                    <div class="quiz-explanation">The Order Block is the last candle before displacement begins — it marks where Smart Money placed their orders before pushing price.</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p class="q-text">4. What is a Change of Character (CHoCH)?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">When price consolidates for an extended period</div>
+                        <div class="quiz-option" data-correct="true">The first break of structure in the opposite direction of the current trend</div>
+                        <div class="quiz-option" data-correct="false">A continuation signal confirming the existing trend</div>
+                        <div class="quiz-option" data-correct="false">When volume increases during a breakout</div>
+                    </div>
+                    <div class="quiz-explanation">CHoCH is the earliest warning that structure is shifting — the FIRST break of structure against the current trend direction.</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p class="q-text">5. The CreoleTrades core doctrine states:</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">Prediction is the foundation of all profitable trading</div>
+                        <div class="quiz-option" data-correct="false">Always trade with the retail crowd for safety</div>
+                        <div class="quiz-option" data-correct="true">Confirmation over prediction — read structure, don't guess</div>
+                        <div class="quiz-option" data-correct="false">The best traders predict Smart Money moves before they happen</div>
+                    </div>
+                    <div class="quiz-explanation">Confirmation over prediction. Always. We read the structure Smart Money leaves behind and confirm their moves through price action.</div>
+                </div>
+
+                <div class="quiz-score">
+                    <h3>Your Score: <span class="score-text"></span></h3>
+                    <p class="score-msg"></p>
+                    <button class="quiz-reset">Retake Quiz</button>
+                </div>
+            </div>
+        </section>
+
         <!-- Navigation -->
         <div class="navigation-buttons">
             <div class="nav-btn">
@@ -793,6 +1011,73 @@
 
         // Check access on page load
         checkAccess();
+
+        // Quiz functionality
+        function initQuiz() {
+            const questions = document.querySelectorAll('.quiz-question');
+            let answered = 0;
+            const total = questions.length;
+            let score = 0;
+
+            questions.forEach(q => {
+                const options = q.querySelectorAll('.quiz-option');
+                const explanation = q.querySelector('.quiz-explanation');
+
+                options.forEach(opt => {
+                    opt.addEventListener('click', function() {
+                        if (q.classList.contains('answered')) return;
+                        q.classList.add('answered');
+                        answered++;
+
+                        const isCorrect = this.dataset.correct === 'true';
+                        if (isCorrect) {
+                            this.classList.add('correct');
+                            score++;
+                        } else {
+                            this.classList.add('incorrect');
+                            options.forEach(o => {
+                                if (o.dataset.correct === 'true') o.classList.add('reveal-correct');
+                            });
+                        }
+
+                        if (explanation) explanation.classList.add('visible');
+
+                        if (answered === total) {
+                            const scoreEl = document.querySelector('.quiz-score');
+                            const scoreText = scoreEl.querySelector('.score-text');
+                            scoreText.textContent = score + ' / ' + total;
+
+                            const msg = scoreEl.querySelector('.score-msg');
+                            if (score === total) msg.textContent = 'Perfect score. You read the structure. Stay STACKED. ⚜️';
+                            else if (score >= total * 0.8) msg.textContent = 'Solid read. Review what you missed, then move forward. Stay STACKED. ⚜️';
+                            else if (score >= total * 0.6) msg.textContent = 'Decent foundation. Re-read the sections you missed before moving on.';
+                            else msg.textContent = 'Review this module again before continuing. The S in STACK demands it.';
+
+                            scoreEl.classList.add('visible');
+                        }
+                    });
+                });
+            });
+
+            const resetBtn = document.querySelector('.quiz-reset');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function() {
+                    score = 0;
+                    answered = 0;
+                    questions.forEach(q => {
+                        q.classList.remove('answered');
+                        const options = q.querySelectorAll('.quiz-option');
+                        options.forEach(o => {
+                            o.classList.remove('correct', 'incorrect', 'reveal-correct');
+                        });
+                        const exp = q.querySelector('.quiz-explanation');
+                        if (exp) exp.classList.remove('visible');
+                    });
+                    document.querySelector('.quiz-score').classList.remove('visible');
+                });
+            }
+        }
+        initQuiz();
     </script>
 </body>
 </html>
