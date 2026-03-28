@@ -1,12 +1,15 @@
 # Force www → non-www
-https://www.CreoleTrades.com/* https://CreoleTrades.com/:splat 301!
+https://www.CreoleTrades.com/*  https://CreoleTrades.com/:splat  301
 
 # Named pages
-/thank-you       /thank-you.html       200
-/starter-guide   /starter-guide.html   200
+/thank-you    /thank-you.html    200
+/starter-guide    /starter-guide.html    200
+
+# Academy static assets (serve as-is, don't redirect)
+/academy/images/*    /academy/images/:splat    200
 
 # SPA fallback
-/*  /index.html  200
+/*    /index.html    200
 
 # Custom 404
-/404  /404.html  404
+/404    /404.html    404
