@@ -1,30 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Roux Journal — CreoleTrades Blog</title>
-  <meta name="description" content="Trading education articles, chart analysis breakdowns, market recaps, and mindset content from Coach Que at CreoleTrades." />
-  <meta name="keywords" content="trading blog, options trading education, chart analysis, market recap, trading mindset, Wolf Chart tutorials, CreoleTrades" />
-  <meta name="author" content="CreoleTrades" />
-  <link rel="canonical" href="https://creoletrades.com/blog" />
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://creoletrades.com/blog" />
-  <meta property="og:title" content="The Roux Journal — CreoleTrades Blog" />
-  <meta property="og:description" content="Trading education, chart breakdowns, market recaps and mindset from Coach Que." />
-  <meta property="og:image" content="https://creoletrades.com/logo.jpg" />
-  <meta property="og:site_name" content="CreoleTrades" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="The Roux Journal — CreoleTrades Blog" />
-  <meta name="twitter:description" content="Trading education, chart breakdowns, market recaps and mindset from Coach Que." />
-  <meta name="twitter:image" content="https://creoletrades.com/logo.jpg" />
-
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
-
+  <meta name="description" content="Trading education articles, chart analysis breakdowns, market recaps, and mindset content from Coach Que at CreoleTrades.">
+  <meta name="keywords" content="trading blog, options trading education, chart analysis, market recap, trading mindset, Wolf Chart tutorials, CreoleTrades">
+  <meta name="author" content="CreoleTrades">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://creoletrades.com/blog">
+  <meta property="og:title" content="The Roux Journal — CreoleTrades Blog">
+  <meta property="og:description" content="Trading education, chart breakdowns, market recaps and mindset from Coach Que.">
+  <meta property="og:image" content="https://creoletrades.com/logo.jpg">
+  <meta property="og:site_name" content="CreoleTrades">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://creoletrades.com/blog">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -104,44 +95,45 @@
     .blog-hero::before {
       content: '';
       position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.06) 0%, transparent 70%);
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(ellipse at 50% 80%, rgba(201,168,76,0.03) 0%, transparent 60%);
       pointer-events: none;
     }
     .blog-eyebrow {
       font-style: italic;
       font-size: 0.75rem;
       color: var(--spice);
-      letter-spacing: 0.2em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       display: block;
       margin-bottom: 1rem;
     }
     .blog-hero h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
       font-weight: 700;
       color: var(--parchment);
       line-height: 1.1;
       margin-bottom: 1rem;
     }
-    .blog-hero h1 em { font-style: italic; color: var(--spice); }
+    .blog-hero h1 em { color: var(--spice); font-style: italic; }
     .blog-hero p {
       font-style: italic;
-      color: var(--moss-lite);
-      font-size: 1rem;
+      font-size: 0.95rem;
+      color: var(--muted);
       max-width: 480px;
-      margin: 0 auto 2rem;
+      margin: 0 auto;
     }
 
-    /* ── FILTER TABS ── */
+    /* ── FILTERS ── */
     .blog-filters {
       display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
       gap: 0.5rem;
-      padding: 2rem 5vw;
+      padding: 1.25rem 5vw;
       border-bottom: 1px solid var(--border-dim);
+      flex-wrap: wrap;
+      justify-content: center;
     }
     .filter-btn {
       background: transparent;
@@ -149,39 +141,28 @@
       color: var(--muted);
       font-family: 'Lora', serif;
       font-style: italic;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       padding: 0.4rem 1rem;
       cursor: pointer;
       transition: all 0.3s;
-      border-radius: 20px;
     }
-    .filter-btn:hover,
-    .filter-btn.active {
-      background: rgba(201,168,76,0.1);
-      border-color: var(--border);
-      color: var(--spice);
-    }
+    .filter-btn:hover { border-color: var(--border); color: var(--text); }
+    .filter-btn.active { border-color: var(--spice); color: var(--spice); }
 
-    /* ── BLOG GRID ── */
-    .blog-main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 3rem 5vw 6rem;
-    }
+    /* ── MAIN ── */
+    .blog-main { padding: 3rem 5vw; max-width: 1100px; margin: 0 auto; }
 
+    /* ── FEATURED POST ── */
     .featured-post {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0;
-      border: 1px solid var(--border);
-      margin-bottom: 3rem;
-      transition: border-color 0.3s;
+      border: 1px solid var(--border-dim);
+      margin-bottom: 4rem;
     }
-    .featured-post:hover { border-color: var(--spice); }
-
+    @media (max-width: 768px) { .featured-post { grid-template-columns: 1fr; } }
     .featured-image {
       background: var(--iron);
-      min-height: 320px;
+      min-height: 280px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -225,21 +206,19 @@
     .featured-content p {
       font-size: 0.9rem;
       color: var(--text);
-      line-height: 1.8;
       margin-bottom: 1.5rem;
+      line-height: 1.7;
     }
     .post-meta {
       display: flex;
-      align-items: center;
       gap: 1rem;
+      font-style: italic;
       font-size: 0.72rem;
       color: var(--muted);
-      font-style: italic;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
     }
-    .post-meta span { display: flex; align-items: center; gap: 0.3rem; }
     .read-more {
-      font-family: 'Lora', serif;
       font-style: italic;
       font-size: 0.82rem;
       color: var(--spice);
@@ -247,84 +226,88 @@
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      transition: gap 0.3s;
-      border-bottom: 1px solid rgba(201,168,76,0.3);
-      padding-bottom: 0.2rem;
-      width: fit-content;
+      transition: color 0.3s;
     }
-    .read-more:hover { gap: 0.7rem; border-color: var(--spice); }
+    .read-more:hover { color: var(--spice-lite); }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      margin-bottom: 2rem;
+    }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--parchment);
+    }
+    .section-header h2 em { color: var(--spice); font-style: italic; }
 
     /* ── POST GRID ── */
     .posts-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
+      margin-bottom: 4rem;
     }
+    @media (max-width: 900px) { .posts-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .posts-grid { grid-template-columns: 1fr; } }
 
     .post-card {
       border: 1px solid var(--border-dim);
       background: var(--cypress);
-      transition: all 0.3s;
-      cursor: pointer;
-      text-decoration: none;
-      display: block;
+      transition: border-color 0.3s;
+      display: flex;
+      flex-direction: column;
     }
-    .post-card:hover {
-      border-color: var(--border);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(5,9,17,0.6);
-    }
+    .post-card:hover { border-color: var(--border); }
     .post-card-image {
       background: var(--iron);
-      height: 160px;
+      height: 140px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.5rem;
-      opacity: 0.5;
-      position: relative;
-      overflow: hidden;
-    }
-    .post-card-image::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, transparent 50%, var(--cypress) 100%);
+      font-size: 2rem;
+      opacity: 0.3;
     }
     .post-card-body {
-      padding: 1.25rem 1.5rem 1.5rem;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
     }
-    .post-card h3 {
+    .post-card-body h3 {
       font-family: 'Playfair Display', serif;
       font-size: 1.05rem;
       font-weight: 700;
       color: var(--parchment);
       line-height: 1.3;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.75rem;
     }
-    .post-card p {
+    .post-card-body p {
       font-size: 0.82rem;
       color: var(--text);
-      line-height: 1.7;
+      line-height: 1.6;
       margin-bottom: 1rem;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      flex: 1;
+    }
+    .post-card-body .post-meta {
+      margin-bottom: 0.75rem;
+    }
+    .post-card-body .read-more {
+      font-size: 0.78rem;
     }
 
     /* ── COMING SOON CARD ── */
     .coming-soon-card {
-      border: 1px dashed rgba(201,168,76,0.2);
+      border: 1px dashed var(--border-dim);
       background: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 240px;
-      text-align: center;
-      padding: 2rem;
+      min-height: 280px;
     }
-    .coming-soon-inner { }
+    .coming-soon-inner {
+      text-align: center;
+    }
     .coming-soon-icon { font-size: 1.5rem; margin-bottom: 0.75rem; opacity: 0.4; }
     .coming-soon-text {
       font-style: italic;
@@ -379,79 +362,51 @@
       font-family: 'Lora', serif;
       font-weight: 700;
       font-size: 0.82rem;
-      padding: 0.7rem 1.25rem;
+      padding: 0.7rem 1.5rem;
       cursor: pointer;
       transition: background 0.3s;
-      white-space: nowrap;
     }
     .btn-spice:hover { background: var(--spice-lite); }
 
     /* ── FOOTER ── */
     .blog-footer {
       text-align: center;
-      padding: 2rem 5vw 3rem;
-      border-top: 1px solid var(--border-dim);
-      font-style: italic;
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-    .blog-footer a { color: var(--muted); text-decoration: none; }
-    .blog-footer a:hover { color: var(--spice); }
-
-    /* ── SECTION HEADER ── */
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.5rem;
-    }
-    .section-header h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--parchment);
-    }
-    .section-header h2 em { color: var(--spice); font-style: italic; }
-    .view-all {
+      padding: 2rem 5vw;
       font-style: italic;
       font-size: 0.78rem;
       color: var(--muted);
+      border-top: 1px solid var(--border-dim);
+    }
+    .blog-footer a {
+      color: var(--spice);
       text-decoration: none;
-      transition: color 0.3s;
     }
-    .view-all:hover { color: var(--spice); }
+    .blog-footer a:hover { color: var(--spice-lite); }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      .featured-post { grid-template-columns: 1fr; }
-      .featured-image { min-height: 200px; }
-      .posts-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 600px) {
-      .posts-grid { grid-template-columns: 1fr; }
+    @media (max-width: 560px) {
+      .blog-hero { padding: 100px 5vw 40px; }
       .newsletter-form { flex-direction: column; }
-      .blog-filters { gap: 0.35rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ── NAV ── -->
+  <!-- NAV -->
   <nav>
     <a href="/" class="nav-logo">
-      <em>⚜</em> Creole <span>Trades</span>
+      <em>&#9884;</em> Creole <span>Trades</span>
     </a>
-    <a href="/" class="nav-back">← Back to site</a>
+    <a href="/" class="nav-back">&larr; Back to site</a>
   </nav>
 
-  <!-- ── HERO ── -->
+  <!-- HERO -->
   <section class="blog-hero">
-    <span class="blog-eyebrow">⚜ Knowledge from the bayou</span>
+    <span class="blog-eyebrow">&#9884; Knowledge from the bayou</span>
     <h1>The Roux <em>Journal</em></h1>
     <p>Chart breakdowns, market recaps, trading mindset, and education from Coach Que.</p>
   </section>
 
-  <!-- ── FILTERS ── -->
+  <!-- FILTERS -->
   <div class="blog-filters">
     <button class="filter-btn active" data-filter="all">All Posts</button>
     <button class="filter-btn" data-filter="options">Options Trading</button>
@@ -462,124 +417,149 @@
     <button class="filter-btn" data-filter="community">Community</button>
   </div>
 
-  <!-- ── MAIN CONTENT ── -->
+  <!-- MAIN -->
   <main class="blog-main">
 
-    <!-- FEATURED POST -->
+    <!-- FEATURED POST — Structure First (new) -->
     <article class="featured-post" data-category="options">
       <div class="featured-image">
-        <span class="featured-image-placeholder">📐</span>
-        <span class="post-category">⚜ Trading Education</span>
+        <span class="featured-image-placeholder">&#128209;</span>
+        <span class="post-category">&#9884; STACK Deep Dive</span>
       </div>
       <div class="featured-content">
-        <span class="post-category">⚜ Latest · Trading Education</span>
-        <h2>Trigger Logic: Why Entry Without Confirmation Fails Every Time</h2>
+        <span class="post-category">&#9884; Latest &middot; Trading Education</span>
+        <h2>Structure First: The One Rule That Changed How I Read Every Chart</h2>
         <div class="post-meta">
-          <span>✍ Coach Que</span>
-          <span>📅 March 25, 2026</span>
-          <span>⏱ 8 min read</span>
+          <span>&#9997; Coach Que</span>
+          <span>&#128197; March 28, 2026</span>
+          <span>&#9201; 7 min read</span>
         </div>
-        <p>You can read direction perfectly and still lose the trade. Here's why — and how defining your trigger before the session starts changes everything.</p>
-        <a href="/blog/trigger-logic-stack" class="read-more">Read article →</a>
+        <p>The S in STACK is the most skipped step in trading &mdash; and the most important. Here's why reading market structure before anything else protects your capital and sharpens every trade you take.</p>
+        <a href="/blog/structure-first-stack" class="read-more">Read article &rarr;</a>
       </div>
     </article>
 
-    <!-- POST GRID -->
+    <!-- GRID -->
     <div class="section-header">
       <h2>Latest from <em>the Journal</em></h2>
     </div>
 
-    <div class="posts-grid" id="posts-grid">
+    <div class="posts-grid">
 
-      <!-- POST 1 — LIVE -->
-      <article class="post-card" data-category="options" onclick="location.href='/blog/stack-framework'" style="cursor:pointer;">
-        <div class="post-card-image">📐</div>
+      <!-- Trigger Logic (previously featured, now in grid) -->
+      <article class="post-card" data-category="options">
+        <div class="post-card-image">&#128208;</div>
         <div class="post-card-body">
-          <span class="post-category">⚜ Trading Education</span>
-          <h3>What Is the STACK Framework — and Why Does It Change How You Trade?</h3>
+          <span class="post-category">&#9884; Trading Education</span>
+          <h3>Trigger Logic: Why Entry Without Confirmation Fails Every Time</h3>
+          <p>You can read direction perfectly and still lose the trade. Here's why &mdash; and how defining your trigger before the session starts changes everything.</p>
+          <div class="post-meta">
+            <span>&#128197; March 25, 2026</span>
+            <span>&#9201; 8 min</span>
+          </div>
+          <a href="/blog/trigger-logic-stack" class="read-more">Read article &rarr;</a>
+        </div>
+      </article>
+
+      <!-- STACK Framework -->
+      <article class="post-card" data-category="options">
+        <div class="post-card-image">&#128208;</div>
+        <div class="post-card-body">
+          <span class="post-category">&#9884; Trading Education</span>
+          <h3>What Is the STACK Framework &mdash; and Why Does It Change How You Trade?</h3>
           <p>Five layers. One framework. Structure-first thinking that separates disciplined traders from reactive ones.</p>
           <div class="post-meta">
-            <span>📅 March 10, 2026</span>
-            <span>⏱ 8 min</span>
+            <span>&#128197; March 10, 2026</span>
+            <span>&#9201; 8 min</span>
           </div>
-          <a href="/blog/stack-framework" class="read-more" style="margin-top:0.5rem;display:inline-flex;">Read article →</a>
+          <a href="/blog/stack-framework" class="read-more">Read article &rarr;</a>
         </div>
       </article>
 
-      <!-- POST 2 — LIVE -->
-      <article class="post-card" data-category="recaps" onclick="location.href='/blog/vix-iran-breakdown'" style="cursor:pointer;">
-        <div class="post-card-image">📊</div>
+      <!-- VIX Breakdown -->
+      <article class="post-card" data-category="recaps">
+        <div class="post-card-image">&#128202;</div>
         <div class="post-card-body">
-          <span class="post-category">⚜ Market Recap</span>
-          <h3>The VIX Is Speaking — What the Fear Gauge Is Telling Us and Why the Iran Conflict Makes It Louder</h3>
+          <span class="post-category">&#9884; Market Recap</span>
+          <h3>The VIX Is Speaking &mdash; What the Fear Gauge Is Telling Us and Why It Matters</h3>
           <p>VIX above 29. Strait of Hormuz near-closed. Oil up 15%. The market is paying attention. So should you.</p>
           <div class="post-meta">
-            <span>📅 March 7, 2026</span>
-            <span>⏱ 10 min</span>
+            <span>&#128197; March 7, 2026</span>
+            <span>&#9201; 10 min</span>
           </div>
-          <a href="/blog/vix-iran-breakdown" class="read-more" style="margin-top:0.5rem;display:inline-flex;">Read article →</a>
+          <a href="/blog/vix-iran-breakdown" class="read-more">Read article &rarr;</a>
         </div>
       </article>
 
-      <!-- COMING SOON -->
-      <div class="post-card coming-soon-card">
+      <!-- Coming Soon -->
+      <article class="post-card coming-soon-card">
         <div class="coming-soon-inner">
-          <div class="coming-soon-icon">⚜</div>
+          <div class="coming-soon-icon">&#9884;</div>
           <div class="coming-soon-text">More articles<br>dropping soon.</div>
         </div>
-      </div>
+      </article>
 
-      <!-- hidden placeholder for filter JS compat -->
-      <article class="post-card" data-category="wolfchart" style="display:none;">
+      <!-- Placeholder: Wolf Chart -->
+      <article class="post-card" data-category="wolfchart">
         <div class="post-card-body"></div>
       </article>
-      <article class="post-card" data-category="mindset" style="display:none;">
-        <div class="post-card-body"></div>
-      </article>
-      <article class="post-card" data-category="community" style="display:none;">
+
+      <!-- Placeholder: Mindset -->
+      <article class="post-card" data-category="mindset">
         <div class="post-card-body"></div>
       </article>
 
     </div>
+
   </main>
 
-  <!-- ── NEWSLETTER ── -->
+  <!-- NEWSLETTER -->
   <section class="blog-newsletter">
     <h3>Get new posts <em>in your inbox</em></h3>
     <p>No spam. Just articles when they drop.</p>
     <form class="newsletter-form" action="https://subscribe-forms.beehiiv.com/e548aca8-c755-4cba-a14a-f042402a4cad" method="POST" target="_blank">
-      <input type="email" name="email" placeholder="your@email.com" required />
-      <button type="submit" class="btn-spice">Subscribe →</button>
+      <input type="email" name="email" placeholder="your@email.com" required>
+      <button type="submit" class="btn-spice">Subscribe &rarr;</button>
     </form>
   </section>
 
-  <!-- ── FOOTER ── -->
+  <!-- FOOTER -->
   <footer class="blog-footer">
-    <p>⚜ <a href="/">CreoleTrades</a> · The Roux Journal · Not financial advice</p>
+    <p>&#9884; <a href="/">CreoleTrades</a> &middot; The Roux Journal &middot; Not financial advice</p>
   </footer>
 
+  <!-- FILTER SCRIPT -->
   <script>
-    // Filter functionality
     const filterBtns = document.querySelectorAll('.filter-btn');
-    const posts = document.querySelectorAll('.post-card[data-category], article.featured-post');
+    const featured = document.querySelector('.featured-post');
+    const cards = document.querySelectorAll('.post-card');
 
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         filterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-
         const filter = btn.dataset.filter;
-        posts.forEach(post => {
-          if (filter === 'all' || post.dataset.category === filter) {
-            post.style.display = '';
+
+        // Featured post
+        if (featured) {
+          const fCat = featured.dataset.category;
+          featured.style.display = (filter === 'all' || filter === fCat) ? '' : 'none';
+        }
+
+        // Grid cards
+        cards.forEach(card => {
+          const cat = card.dataset.category;
+          if (filter === 'all') {
+            card.style.display = '';
+          } else if (cat) {
+            card.style.display = (cat === filter) ? '' : 'none';
           } else {
-            post.style.display = 'none';
+            card.style.display = (filter === 'all') ? '' : 'none';
           }
         });
       });
     });
   </script>
 
-  <script src="/roux-bot.js"></script>
 </body>
 </html>
