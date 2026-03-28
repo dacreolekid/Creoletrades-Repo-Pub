@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Structure First: The One Rule That Changed How I Read Every Chart — CreoleTrades</title>
+  <meta name="description" content="The S in STACK is the most skipped step in trading — and the most important. Learn why reading market structure before anything else protects your capital and sharpens every trade you take." />
+  <meta name="author" content="Que | @creoletrades" />
+  <meta property="og:title" content="Structure First: The One Rule That Changed How I Read Every Chart" />
+  <meta property="og:description" content="The S in STACK is the most skipped step in trading — and the most important." />
+  <meta property="og:type" content="article" />
+  <meta property="article:author" content="Que" />
+  <meta property="article:published_time" content="2026-03-28" />
+  <link rel="canonical" href="https://creoletrades.com/blog/structure-first-stack" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --night: #050911; --cypress: #0D1526; --spice: #C9A84C;
+      --spice-lite: #E2BC6B; --firefly: #F0D080; --moss: #3D5278;
+      --moss-lite: #6B84AA; --parchment: #EEF2FF; --iron: #0F1A2E;
+      --border: rgba(201,168,76,0.25); --border-dim: rgba(201,168,76,0.08);
+      --text: #C8D4E8; --muted: #5A7099;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--night); color: var(--text); font-family: 'Lora', Georgia, serif; font-size: 1.05rem; line-height: 1.85; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(5,9,17,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-dim); padding: 0 5vw; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--parchment); text-decoration: none; }
+    .nav-logo span { color: var(--spice); font-style: italic; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { font-style: italic; font-size: 0.8rem; color: var(--muted); text-decoration: none; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--spice); }
+    .article-wrap { max-width: 720px; margin: 0 auto; padding: 100px 5vw 6rem; }
+    .thumbnail-wrap { position: relative; margin-bottom: 2.5rem; border: 1px solid var(--border-dim); overflow: hidden; aspect-ratio: 16 / 7; background: var(--iron); }
+    .thumbnail-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transition: opacity 0.6s ease; }
+    .thumbnail-wrap img.loaded { opacity: 1; }
+    .thumbnail-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-style: italic; font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; pointer-events: none; }
+    .article-eyebrow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .tag { font-style: italic; font-size: 0.68rem; color: var(--spice); letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid var(--border); padding: 0.2rem 0.65rem; }
+    .tag-secondary { font-style: italic; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+    .article-kicker { font-family: 'Playfair Display', serif; font-size: clamp(0.95rem, 2vw, 1.1rem); font-style: italic; color: var(--moss-lite); margin-bottom: 0.5rem; display: block; }
+    .article-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; color: var(--parchment); line-height: 1.15; margin-bottom: 1rem; }
+    .article-title em { color: var(--spice); font-style: italic; }
+    .article-dek { font-size: 1.05rem; color: var(--text); line-height: 1.7; margin-bottom: 2rem; border-left: 2px solid var(--spice); padding-left: 1.25rem; }
+    .article-meta { display: flex; align-items: center; gap: 1.25rem; font-style: italic; font-size: 0.75rem; color: var(--muted); border-top: 1px solid var(--border-dim); border-bottom: 1px solid var(--border-dim); padding: 0.75rem 0; margin-bottom: 2.5rem; flex-wrap: wrap; }
+    .article-body p { margin-bottom: 1.5rem; color: var(--text); }
+    .article-body h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--parchment); margin: 2.5rem 0 1rem; line-height: 1.2; }
+    .article-body h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 600; color: var(--spice-lite); margin: 2rem 0 0.75rem; }
+    .article-body strong { color: var(--parchment); font-weight: 700; }
+    .article-divider { border: none; border-top: 1px solid var(--border-dim); margin: 2.5rem 0; }
+    blockquote { border-left: 3px solid var(--spice); padding: 0.75rem 0 0.75rem 1.5rem; margin: 2rem 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.15rem; color: var(--parchment); line-height: 1.5; }
+    .callout { background: var(--iron); border: 1px solid var(--border-dim); border-left: 3px solid var(--spice); padding: 1.25rem 1.5rem; margin: 1.5rem 0 2rem; font-size: 0.9rem; }
+    .callout strong { color: var(--parchment); display: block; margin-bottom: 0.4rem; font-family: 'Playfair Display', serif; }
+    .article-cta { background: var(--iron); border: 1px solid var(--border); padding: 2rem; margin: 3rem 0; text-align: center; }
+    .article-cta .eyebrow { font-style: italic; font-size: 0.68rem; color: var(--spice); letter-spacing: 0.15em; text-transform: uppercase; display: block; margin-bottom: 0.75rem; }
+    .article-cta h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--parchment); margin-bottom: 0.75rem; }
+    .article-cta p { font-style: italic; font-size: 0.85rem; color: var(--muted); margin-bottom: 1.25rem; }
+    .cta-buttons { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+    .btn-spice { display: inline-block; background: var(--spice); color: var(--night); font-family: 'Lora', serif; font-weight: 700; font-size: 0.82rem; padding: 0.7rem 1.5rem; text-decoration: none; transition: background 0.3s; }
+    .btn-spice:hover { background: var(--spice-lite); }
+    .btn-outline { display: inline-block; background: transparent; border: 1px solid var(--border); color: var(--text); font-family: 'Lora', serif; font-style: italic; font-size: 0.82rem; padding: 0.7rem 1.5rem; text-decoration: none; transition: border-color 0.3s, color 0.3s; }
+    .btn-outline:hover { border-color: var(--spice); color: var(--spice); }
+    .article-footer { border-top: 1px solid var(--border-dim); padding-top: 2rem; margin-top: 3rem; }
+    .author-block { display: flex; align-items: flex-start; gap: 1.25rem; }
+    .author-icon { width: 48px; height: 48px; background: var(--iron); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0; }
+    .author-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--parchment); margin-bottom: 0.25rem; }
+    .author-bio { font-style: italic; font-size: 0.8rem; color: var(--muted); }
+    .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-style: italic; font-size: 0.8rem; color: var(--muted); text-decoration: none; margin-top: 2rem; transition: color 0.3s; }
+    .back-link:hover { color: var(--spice); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="https://creoletrades.com">&#9884; Creole <span>Trades</span></a>
+  <ul class="nav-links">
+    <li><a href="https://creoletrades.com/#products">Community</a></li>
+    <li><a href="https://creoletrades.com/blog">Blog</a></li>
+    <li><a href="https://creoletrades.com/#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ARTICLE -->
+<article class="article-wrap">
+
+  <!-- THUMBNAIL -->
+  <div class="thumbnail-wrap">
+    <span class="thumbnail-label">&#9884; The Roux Journal</span>
+  </div>
+
+  <!-- EYEBROW -->
+  <div class="article-eyebrow">
+    <span class="tag">STACK Deep Dive</span>
+    <span class="tag-secondary">&#9884; Trading Education &middot; March 28, 2026</span>
+  </div>
+
+  <!-- KICKER -->
+  <span class="article-kicker">The S in STACK.</span>
+
+  <!-- TITLE -->
+  <h1 class="article-title">Structure First: The One Rule That Changed How I Read <em>Every</em> Chart</h1>
+
+  <!-- DEK -->
+  <p class="article-dek">The S in STACK is the most skipped step in trading &mdash; and the most important. Here's why reading market structure before anything else protects your capital and sharpens every trade you take.</p>
+
+  <!-- META -->
+  <div class="article-meta">
+    <span>&#9997; Coach Que</span>
+    <span>&#128197; March 28, 2026</span>
+    <span>&#9201; ~7 min read</span>
+    <span>&#127991; Trading Education</span>
+  </div>
+
+  <!-- BODY -->
+  <div class="article-body">
+
+    <h2>The Step Everyone Skips</h2>
+
+    <p>There is a moment in every trader's development where they realize the chart was never the problem. The indicators were never the problem. The problem was that they kept trying to trade without knowing where they were standing.</p>
+
+    <p>That is what Structure solves.</p>
+
+    <p>Structure is the S in STACK &mdash; the very first letter, and the one I read before anything else touches my decision-making process. Before I look for a trigger. Before I check alignment across timeframes. Before Wolf Chart 2.1 even enters the conversation. Structure comes first because without it, everything that follows is built on sand.</p>
+
+    <p>And yet, it is the step most traders skip entirely.</p>
+
+    <h2>What Structure Actually Means</h2>
+
+    <p>When I say "read the structure," I am not talking about drawing a couple of horizontal lines on a chart and calling it support and resistance. Structure is a question you ask price: <strong>where are you, and what have you been doing to get here?</strong></p>
+
+    <p>That means identifying whether price is making higher highs and higher lows, or lower highs and lower lows. It means locating the nearest demand zone below and the nearest supply zone above. It means understanding whether the market is trending, consolidating, or sitting in a range where neither buyers nor sellers have control.</p>
+
+    <p>Structure is context. And context determines whether a trade has any business being taken in the first place.</p>
+
+    <blockquote>Think of it like cooking a roux. Before you add flour, before you stir, before you season &mdash; you check the temperature of the pan. If the pan is cold, nothing you do after that will matter. Structure is the temperature check. You do not skip it.</blockquote>
+
+    <h2>The Roux Score Starts Here</h2>
+
+    <p>In the STACK Method, every letter is scored as a 0 or a 1. The full five-letter Roux Score &mdash; S, T, A, C, K &mdash; determines whether a setup qualifies as an A+ Confirmation Stack. A perfect 5/5 means every condition has been met. Anything less means something is missing, and the trade carries risk that has not been accounted for.</p>
+
+    <p>The S in that score is binary. Either structure supports the trade thesis, or it does not. There is no partial credit.</p>
+
+    <h3>Structure Pass &mdash; 1/1</h3>
+
+    <div class="callout">
+      <strong>&#10003; Pass</strong>
+      Price is sitting at a clearly defined demand zone. Higher lows are intact. There is no immediate overhead supply threatening to reject the move. The structural bias is directional, not neutral.
+    </div>
+
+    <h3>Structure Fail &mdash; 0/1</h3>
+
+    <div class="callout">
+      <strong>&#10007; Fail</strong>
+      Price is trapped between supply and demand with no clean directional lean. The last swing high was rejected hard. The last swing low barely held. The chart is telling you it does not know what it wants to do &mdash; and if the chart does not know, you certainly do not know. No setup. Stand down.
+    </div>
+
+    <p>The discipline to stand down when structure fails is not passive. It is one of the most active decisions a trader can make. It is the K in STACK showing up before the trade even starts.</p>
+
+    <h2>Structure Across Timeframes</h2>
+
+    <p>One of the mistakes I see most often &mdash; and one I made myself for longer than I care to admit &mdash; is reading structure on a single timeframe and making a decision. Structure is not a one-frame read. It is a conversation between timeframes.</p>
+
+    <p>The Monthly chart sets the macro context. Where is price in the bigger picture? Is this a pullback inside a larger uptrend, or is this a rally inside a larger downtrend? The Weekly chart narrows the zone. The Daily chart gives you the current posture. The 4-hour and 2-hour charts give you precision &mdash; the edges of the zone where a trigger might fire.</p>
+
+    <p>If the Monthly says bullish, the Weekly says bullish, and the Daily says price just tapped demand &mdash; that is structural alignment feeding into the A in STACK. But it all starts with reading each frame on its own first. <strong>Structure first, always.</strong></p>
+
+    <h2>Why I Teach Structure Before Everything Else</h2>
+
+    <p>When someone joins The Trading Roux and starts working through the STACK, the first thing I want them to learn is not where to enter. It is where price is. Because once you can read structure consistently, the triggers start to make sense. The alignment becomes visible. The confirmation from Wolf Chart 2.1 becomes meaningful instead of arbitrary.</p>
+
+    <p>Structure is the literacy of the chart. Without it, you are guessing. With it, you are reading.</p>
+
+    <p>And reading is what separates a STACKer from someone who is just watching candles move.</p>
+
+    <h2>The Practice That Makes It Stick</h2>
+
+    <p>Reading structure is a skill, which means it improves with repetition. That is exactly why the 30-Day STACK Challenge exists inside The Trading Roux. Every trading day for 30 consecutive days, members post their structural read in #stack-challenge using the full STACK format. By the end of that cycle, the S is no longer something you have to think about &mdash; it is something you see the moment you open a chart.</p>
+
+    <p>If you are just getting started, here is what I want you to do this week: open any chart. Do not look at indicators. Do not look at moving averages. Just identify the last three swing highs and the last three swing lows. Are they rising? Falling? Going nowhere? That single observation &mdash; repeated daily &mdash; is the foundation of every trade plan I build.</p>
+
+    <hr class="article-divider">
+
+    <h2>Structure First. Always.</h2>
+
+    <p>The S in STACK is not glamorous. It does not give you entries. It does not flash signals. It does not tell you what to buy.</p>
+
+    <p>What it does is tell you the truth about where price is sitting. And the truth is what keeps your capital intact long enough to let the other four letters do their work.</p>
+
+    <blockquote>Confirmation over prediction. Structure first. Stay STACKED.</blockquote>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="article-cta">
+    <span class="eyebrow">&#9884; Triple Confirmation Live</span>
+    <h3>Every Friday at 5PM CST</h3>
+    <p>Live setups across monthly, weekly, and daily timeframes. STACK applied in real time. Free and open to everyone.</p>
+    <div class="cta-buttons">
+      <a href="https://mee6.gg/m/tradingroux" class="btn-spice" target="_blank" rel="noopener">Join the Trading Roux &rarr;</a>
+      <a href="https://creoletrades.com/blog" class="btn-outline">More articles</a>
+    </div>
+  </div>
+
+  <!-- ARTICLE FOOTER -->
+  <footer class="article-footer">
+    <div class="author-block">
+      <div class="author-icon">&#9884;</div>
+      <div>
+        <div class="author-name">Coach Que</div>
+        <div class="author-bio">Founder of CreoleTrades &middot; 6+ years in the markets &middot; Options educator, chart analyst, and community builder inside The Trading Roux.</div>
+      </div>
+    </div>
+    <a href="https://creoletrades.com/blog" class="back-link">&larr; Back to The Roux Journal</a>
+  </footer>
+
+</article>
+
+</body>
+</html>
