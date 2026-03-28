@@ -509,6 +509,7 @@
             <a href="stack-academy-module-4.html">Module 4</a>
             <a href="stack-academy-module-5.html">Module 5</a>
             <a href="stack-academy-module-6.html" class="active">Module 6</a>
+            <a href="stack-academy-glossary.html">Glossary</a>
         </div>
     </nav>
 
@@ -562,12 +563,102 @@
             <p><span class="highlight">PT1: First Opposing Order Block or Key Level.</span> This is where you take partial profits and trim. Maybe you close 30-50% of your position here. You lock in wins and reduce risk. This is risk management on the way up (or down).</p>
             <p><span class="highlight">PT2: Next Significant Level.</span> Often a higher timeframe target or previous swing high/low. You trim again here. Another 30-50% comes off. Now you're running mostly on house money.</p>
             <p><span class="highlight">PT3: The Full Extension.</span> Major liquidity pool or higher timeframe supply/demand. This is where the remaining runners stay, riding the impulse as far as it can go. No emotion here—just execution of the plan.</p>
+
+            <div style="background-color: #0D1526; border-radius: 8px; border: 1px solid rgba(201, 168, 76, 0.3); padding: 1.5rem; margin: 1.5rem 0;">
+                <svg viewBox="0 0 800 500" width="100%" height="auto" style="display: block; margin: 0 auto;">
+                    <defs>
+                        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#F0D080;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#C9A84C;stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+
+                    <!-- Background -->
+                    <rect width="800" height="500" fill="#0D1526"/>
+
+                    <!-- Grid lines (subtle) -->
+                    <line x1="100" y1="50" x2="100" y2="400" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+                    <line x1="100" y1="50" x2="750" y2="50" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+                    <line x1="100" y1="400" x2="750" y2="400" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+
+                    <!-- Y-axis (Price) -->
+                    <line x1="100" y1="50" x2="100" y2="400" stroke="#C9A84C" stroke-width="2"/>
+                    <!-- X-axis (Time) -->
+                    <line x1="100" y1="400" x2="750" y2="400" stroke="#C9A84C" stroke-width="2"/>
+
+                    <!-- Entry point (green marker) -->
+                    <g>
+                        <circle cx="120" cy="380" r="6" fill="#22C55E" filter="url(#glow)"/>
+                        <text x="140" y="385" font-family="Lora, serif" font-size="14" fill="#22C55E" font-weight="bold">Entry</text>
+                    </g>
+
+                    <!-- Stop Loss / Invalidation (red marker) -->
+                    <g>
+                        <circle cx="120" cy="410" r="6" fill="#EF4444" filter="url(#glow)"/>
+                        <text x="140" y="415" font-family="Lora, serif" font-size="14" fill="#EF4444" font-weight="bold">Stop Loss / Invalidation</text>
+                    </g>
+
+                    <!-- Price movement line (uptrend) -->
+                    <polyline points="120,380 180,340 240,310 300,270 360,220 420,180 480,130 540,90 600,70 660,75 720,85"
+                              stroke="url(#goldGrad)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+                    <!-- Entry-PT1 zone (lighter) -->
+                    <rect x="120" y="300" width="150" height="80" fill="rgba(240,208,128,0.08)" />
+                    <text x="195" y="345" font-family="Lora, serif" font-size="12" fill="rgba(240,208,128,0.4)" text-anchor="middle">Entry Zone</text>
+
+                    <!-- PT1-PT2 zone (medium) -->
+                    <rect x="270" y="200" width="150" height="100" fill="rgba(240,208,128,0.15)" />
+                    <text x="345" y="250" font-family="Lora, serif" font-size="12" fill="rgba(240,208,128,0.5)" text-anchor="middle">Growth Zone</text>
+
+                    <!-- PT2-PT3 zone (brightest) -->
+                    <rect x="420" y="80" width="300" height="220" fill="rgba(240,208,128,0.22)" />
+                    <text x="570" y="190" font-family="Lora, serif" font-size="12" fill="rgba(240,208,128,0.6)" text-anchor="middle">Runner Zone</text>
+
+                    <!-- PT1 Line and Label -->
+                    <line x1="270" y1="50" x2="270" y2="400" stroke="rgba(201,168,76,0.4)" stroke-width="2" stroke-dasharray="5,5"/>
+                    <circle cx="270" cy="270" r="5" fill="#C9A84C" filter="url(#glow)"/>
+                    <rect x="220" y="240" width="100" height="50" fill="#0D1526" stroke="#C9A84C" stroke-width="1" rx="4"/>
+                    <text x="270" y="260" font-family="Lora, serif" font-size="13" fill="#F0D080" font-weight="bold" text-anchor="middle">PT1</text>
+                    <text x="270" y="278" font-family="Lora, serif" font-size="11" fill="#C8D4E8" text-anchor="middle">Trim 30-50%</text>
+
+                    <!-- PT2 Line and Label -->
+                    <line x1="420" y1="50" x2="420" y2="400" stroke="rgba(201,168,76,0.4)" stroke-width="2" stroke-dasharray="5,5"/>
+                    <circle cx="420" cy="180" r="5" fill="#C9A84C" filter="url(#glow)"/>
+                    <rect x="370" y="150" width="100" height="50" fill="#0D1526" stroke="#C9A84C" stroke-width="1" rx="4"/>
+                    <text x="420" y="170" font-family="Lora, serif" font-size="13" fill="#F0D080" font-weight="bold" text-anchor="middle">PT2</text>
+                    <text x="420" y="188" font-family="Lora, serif" font-size="11" fill="#C8D4E8" text-anchor="middle">Trim 30-50%</text>
+
+                    <!-- PT3 Line and Label -->
+                    <line x1="600" y1="50" x2="600" y2="400" stroke="rgba(201,168,76,0.4)" stroke-width="2" stroke-dasharray="5,5"/>
+                    <circle cx="600" cy="70" r="5" fill="#C9A84C" filter="url(#glow)"/>
+                    <rect x="535" y="30" width="130" height="55" fill="#0D1526" stroke="#C9A84C" stroke-width="1" rx="4"/>
+                    <text x="600" y="50" font-family="Lora, serif" font-size="13" fill="#F0D080" font-weight="bold" text-anchor="middle">PT3</text>
+                    <text x="600" y="68" font-family="Lora, serif" font-size="11" fill="#C8D4E8" text-anchor="middle">Let Runners Ride</text>
+
+                    <!-- Axis Labels -->
+                    <text x="85" y="30" font-family="Lora, serif" font-size="12" fill="#C9A84C" font-weight="bold">PRICE</text>
+                    <text x="730" y="425" font-family="Lora, serif" font-size="12" fill="#C9A84C" font-weight="bold">TIME</text>
+                </svg>
+            </div>
+
             <p>The process: trim at PT1, move your stop to breakeven. Trim more at PT2. Let the rest ride to PT3. <span class="highlight">Full trade plans with all three PTs are available in The Trading Roux for Mastery members.</span></p>
         </section>
 
         <section>
             <h2>The Full Roux Score: Putting It All Together</h2>
             <p>Now you have all five letters. Here's how they score:</p>
+
+            <div style="margin: 2rem auto; max-width: 900px; text-align: center;">
+                <img src="images/18-roux-score-scorecard.png" alt="Roux Score Scorecard — S+T+A+C+K scoring system, 5/5 = A+ Confirmation Stack" style="width: 100%; max-width: 900px; height: auto; border: 2px solid #C9A84C;">
+            </div>
+
             <div class="roux-score">
                 <p><span class="score-letter">S</span><span class="highlight"> Structure:</span> Is the structure clear? (1 or 0)</p>
                 <p><span class="score-letter">T</span><span class="highlight"> Trigger:</span> Did price give a specific trigger? (1 or 0)</p>
