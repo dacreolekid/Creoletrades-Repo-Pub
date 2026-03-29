@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STACK Academy LEAP Strategy Module 2: Selecting LEAP Candidates</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Lora", Georgia, serif;
+            background-color: #070C18;
+            color: #C8D4E8;
+            line-height: 1.7;
+        }
+
+        header {
+            background: #070C18;
+            border-bottom: 3px solid #C9A84C;
+            padding: 2rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header-title h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 1.8rem;
+            color: #EEF2FF;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .module-badge {
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        nav a:hover {
+            color: #C9A84C;
+            border-color: #C9A84C;
+        }
+
+        nav a.active {
+            color: #C9A84C;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .module-intro {
+            background: #0D1526;
+            border-left: 3px solid #C9A84C;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .module-intro p {
+            font-size: 1.1rem;
+            color: #C8D4E8;
+            font-style: italic;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        h3 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #C8D4E8;
+        }
+
+        strong {
+            color: #F0D080;
+        }
+
+        em {
+            color: #F0D080;
+            font-style: italic;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .vocab-card {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .vocab-card:hover {
+            background: #0F1A2E;
+            box-shadow: 0 8px 24px rgba(201, 168, 76, 0.1);
+        }
+
+        .vocab-card h4 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .vocab-card p {
+            font-size: 0.95rem;
+            color: #C8D4E8;
+        }
+
+        .three-step {
+            background: #0D1526;
+            border-left: 3px solid #C9A84C;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .step {
+            margin-bottom: 1.5rem;
+        }
+
+        .step h4 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .step p {
+            color: #C8D4E8;
+        }
+
+        .step:last-child {
+            margin-bottom: 0;
+        }
+
+        .key-takeaways {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .key-takeaways li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: #C8D4E8;
+        }
+
+        .key-takeaways li:before {
+            content: "⚜️";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+        }
+
+        .practice-box {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .practice-box h3 {
+            margin-top: 0;
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-weight: 700;
+        }
+
+        .practice-box p {
+            font-size: 1.05rem;
+            color: #C8D4E8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid #C9A84C;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin: 3rem 0 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        footer {
+            background-color: #070C18;
+            border-top: 3px solid #C9A84C;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 4rem;
+            color: #C9A84C;
+        }
+
+        footer p {
+            color: #C9A84C;
+            margin-bottom: 0.5rem;
+        }
+
+        #password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 22, 40, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        #password-gate.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .password-card {
+            background: #070C18;
+            border: 2px solid #C9A84C;
+            padding: 3rem 2rem;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        .password-card h2 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            border: none;
+        }
+
+        .password-card .subtitle {
+            color: #C8D4E8;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .password-input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        #password-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            background-color: #0D1526;
+            border: 2px solid #C9A84C;
+            color: #FFFFFF;
+            transition: all 0.3s ease;
+            font-family: "Lora", Georgia, serif;
+        }
+
+        #password-input:focus {
+            outline: none;
+            border-color: #FFD699;
+            box-shadow: 0 0 10px rgba(201, 168, 76, 0.5);
+        }
+
+        #password-input.shake {
+            animation: shake 0.5s ease;
+            border-color: #ff4444;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            min-height: 20px;
+        }
+
+        #unlock-btn {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: 2px solid #C9A84C;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: "Lora", Georgia, serif;
+        }
+
+        #unlock-btn:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        .password-helper-text {
+            color: #B0B0B0;
+            font-size: 0.85rem;
+            margin-top: 1.5rem;
+        }
+
+        .password-helper-text a {
+            color: #C9A84C;
+            text-decoration: none;
+            border-bottom: 1px solid #C9A84C;
+            transition: all 0.3s ease;
+        }
+
+        .password-helper-text a:hover {
+            color: #FFD699;
+            border-bottom-color: #FFD699;
+        }
+
+        #course-content {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        #course-content.visible {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .logout-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #C9A84C;
+            transition: all 0.3s ease;
+        }
+
+        .logout-link:hover {
+            color: #FFD699;
+            border-bottom-color: #FFD699;
+        }
+
+        .quiz-section {
+            background: linear-gradient(135deg, #0D1526, #070C18);
+            border: 2px solid #C9A84C;
+            padding: 2.5rem 2rem;
+            margin: 2rem 0;
+        }
+
+        .quiz-section h2 {
+            color: #F0D080;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-intro {
+            color: #C8D4E8;
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-question {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+        }
+
+        .quiz-question:last-of-type {
+            border-bottom: none;
+        }
+
+        .quiz-question p.q-text {
+            color: #EEF2FF;
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .quiz-option {
+            background: #0D1526;
+            border: 1px solid rgba(200, 212, 232, 0.2);
+            padding: 0.8rem 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #C8D4E8;
+            font-family: "Lora", Georgia, serif;
+            font-size: 0.95rem;
+        }
+
+        .quiz-option:hover:not(.selected) {
+            border-color: #C9A84C;
+            background: rgba(201, 168, 76, 0.1);
+        }
+
+        .quiz-option.correct {
+            border-color: #22C55E;
+            background: rgba(34, 197, 94, 0.15);
+            color: #22C55E;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #EF4444;
+            background: rgba(239, 68, 68, 0.15);
+            color: #EF4444;
+        }
+
+        .quiz-option.correct::after {
+            content: " ✓";
+            font-weight: bold;
+        }
+
+        .quiz-option.incorrect::after {
+            content: " ✗";
+            font-weight: bold;
+        }
+
+        .quiz-option.reveal-correct {
+            border-color: #22C55E;
+            background: rgba(34, 197, 94, 0.1);
+            color: #22C55E;
+        }
+
+        .quiz-explanation {
+            margin-top: 0.5rem;
+            padding: 0.8rem 1rem;
+            font-size: 0.9rem;
+            color: #F0D080;
+            font-style: italic;
+            display: none;
+        }
+
+        .quiz-explanation.visible {
+            display: block;
+        }
+
+        .quiz-score {
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 2px solid #C9A84C;
+            background: rgba(201, 168, 76, 0.1);
+            display: none;
+        }
+
+        .quiz-score.visible {
+            display: block;
+        }
+
+        .quiz-score h3 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-score p {
+            color: #C8D4E8;
+        }
+
+        .quiz-reset {
+            margin-top: 1rem;
+            padding: 0.6rem 1.5rem;
+            background: #C9A84C;
+            color: #070C18;
+            border: none;
+            font-family: "Lora", Georgia, serif;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-reset:hover {
+            background: transparent;
+            color: #C9A84C;
+            border: 2px solid #C9A84C;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-title h1 {
+                font-size: 1.5rem;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            nav a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="password-gate">
+        <div class="password-card">
+            <h2>STACK Academy</h2>
+            <p class="subtitle">Enter Your Course Password</p>
+            <div class="password-input-group">
+                <input type="password" id="password-input" placeholder="Password">
+                <div class="error-message" id="error-message"></div>
+            </div>
+            <button id="unlock-btn">Unlock Course</button>
+            <div class="password-helper-text">
+                <p>Purchased STACK Academy? Check your email for your access password.</p>
+                <p><a href="index.html">Don't have a password? Get access at creoletrades.com</a></p>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <div class="header-title">
+                <h1>STACK Academy</h1>
+                <span class="module-badge">Module 2 of 3</span>
+            </div>
+            <nav>
+                <a href="index.html">← Back to Index</a>
+                <a href="module-1.html">Module 1</a>
+                <a href="module-2.html" class="active">Module 2</a>
+                <a href="module-3.html">Module 3</a>
+                <a href="glossary.html">Glossary</a>
+                <a href="final-exam.html">Final Exam</a>
+            </nav>
+        </div>
+    </header>
+
+    <div id="course-content">
+    <main>
+        <div class="module-intro">
+            <p><em>Selecting the right LEAP candidate separates smart capital allocation from guess-and-hope. This module teaches you how to combine fundamental strength, technical setup, and option Greeks to identify trades that give you the best chance of being right over 12–18 months.</em></p>
+        </div>
+
+        <section>
+            <h2>Fundamental Criteria for LEAP Candidates</h2>
+            <p>LEAPs are built for <strong>bullish conviction</strong> in a company's long-term narrative. This means you're trading earnings trends, sector leadership, product cycles, and macro tailwinds—not daily noise. Here's what to look for:</p>
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <h4>Earnings Growth Trajectory</h4>
+                    <p>Look for companies with consistent beat-and-raise patterns. 2–3 consecutive quarters of earnings surprises signal strong operational execution. Check forward guidance and analyst consensus. Is the stock priced for the growth or below fair value?</p>
+                </div>
+                <div class="vocab-card">
+                    <h4>Sector Momentum</h4>
+                    <p>Is your candidate in a sector that's rotating into favor? Tech uptrends, health care leadership, energy tailwinds—sector rotation can lift all boats. Compare your stock's relative strength against its peers and the broader market.</p>
+                </div>
+                <div class="vocab-card">
+                    <h4>Institutional Ownership & Insider Buying</h4>
+                    <p>Check if institutional investors are accumulating shares. Insider buying (executives and board members) is often a bullish signal. High institutional ownership suggests analysts and fund managers believe in the long-term story.</p>
+                </div>
+                <div class="vocab-card">
+                    <h4>Free Cash Flow & Balance Sheet</h4>
+                    <p>Strong FCF and low debt reduce bankruptcy risk over 18 months. A company with $5B in cash and growing earnings has a much higher ceiling for a LEAP than one burning cash. Balance sheet strength = convict strength.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Technical Criteria for LEAP Candidates</h2>
+            <p>Even with bullish fundamentals, a stock in a downtrend or distribution pattern is a weak LEAP candidate. Pair fundamentals with technical alignment:</p>
+            <div class="three-step">
+                <div class="step">
+                    <h4>Step 1: Structure & Trend Confirmation</h4>
+                    <p>Is the stock breaking above key resistance? Are higher lows forming? Look for <strong>Smart Money Structure (SMC) alignment</strong>—supply/demand zones, fair value gaps, and order blocks. A stock respecting demand zones and breaking supply levels is showing structural strength. Don't LEAP into distribution.</p>
+                </div>
+                <div class="step">
+                    <h4>Step 2: Trend Confirmation</h4>
+                    <p>Use moving averages (50, 200) and relative strength index (RSI). A stock trading above its 200-day MA with RSI 50–80 is in a healthy uptrend. Avoid oversold extremes (RSI <20) unless you have contrarian conviction and a clear catalyst for reversal.</p>
+                </div>
+                <div class="step">
+                    <h4>Step 3: Volume & Demand Patterns</h4>
+                    <p>Volume breaks and reversals at demand zones signal institutional accumulation. Heavy volume on updays versus light volume on downdays shows healthy buying. Thin demand (low volume, wide spreads) = avoid.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Choosing the Right Strike Price</h2>
+            <p>Strike selection makes or breaks a LEAP trade. There are three zones to understand:</p>
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <h4>Deep In-The-Money (ITM)</h4>
+                    <p><strong>Strike: -$10 to -$20 below current price</strong></p>
+                    <p>Example: Stock at $150, buy $130 call. Delta ~0.85–0.95. Moves almost like owning stock. Lower leverage, higher probability. Best for <em>capital efficiency</em> with <em>reduced risk</em>.</p>
+                </div>
+                <div class="vocab-card">
+                    <h4>At-The-Money (ATM)</h4>
+                    <p><strong>Strike: Within $2–$5 of current price</strong></p>
+                    <p>Example: Stock at $150, buy $150 call. Delta ~0.50. Balanced risk/reward. Moderate leverage. Requires the stock to move for profit but gives more upside potential per dollar spent.</p>
+                </div>
+                <div class="vocab-card">
+                    <h4>Slight Out-Of-The-Money (OTM)</h4>
+                    <p><strong>Strike: $5–$15 above current price</strong></p>
+                    <p>Example: Stock at $150, buy $160 call. Delta ~0.30–0.40. High leverage, higher risk. Stock must rally for profit. Use only if your conviction is very strong and you're building a diversified portfolio.</p>
+                </div>
+            </div>
+            <p><strong>Pro tip:</strong> For most LEAP traders, deep ITM (0.70–0.80 delta) is the sweet spot. You get 70–80% of the stock move with 60% of the capital. Leverage without roulette.</p>
+        </section>
+
+        <section>
+            <h2>Choosing Expiration: 12–18 Months Minimum</h2>
+            <p>Expiration matters more than most traders realize. Here's the math:</p>
+            <div class="key-takeaways">
+                <ul>
+                    <li><strong>6-month LEAP:</strong> Theta decay accelerates in months 4–6. Not enough time for multi-quarter narratives. Avoid.</li>
+                    <li><strong>12-month LEAP:</strong> The goldilocks expiration. Slow theta decay. Enough time for earnings cycles, sector rotations, product launches. Your default choice.</li>
+                    <li><strong>18–24 month LEAP:</strong> Maximum time decay advantage. Best for <em>very long conviction</em> (multi-year tech trends, sector leadership). Liquidity may be thinner (wider bid-ask).</li>
+                </ul>
+            </div>
+            <p><strong>Why longer is better:</strong> An 18-month LEAP loses ~0.14% per day to theta. A 6-month option loses ~0.25% per day. Over 180 days, that 0.11% daily difference compounds. Plus, you have 50% more time for your thesis to develop.</p>
+        </section>
+
+        <section>
+            <h2>Delta Target Sweet Spots</h2>
+            <p><strong>Delta</strong> is the Greek that tells you how much your option moves with the stock. It ranges from 0 (far OTM) to 1.0 (deep ITM, fully stock-like). For LEAPs, here's what matters:</p>
+            <div class="three-step">
+                <div class="step">
+                    <h4>Delta 0.70–0.80: The LEAP Goldilocks Zone</h4>
+                    <p>This is where most successful LEAPs live. A 0.75 delta call moves roughly $0.75 for every $1 the stock moves. You get strong leveraged exposure with lower vega (volatility) whipsaw. If you're right, you capture most of the move. If wrong, you lose less than owning stock.</p>
+                </div>
+                <div class="step">
+                    <h4>Delta 0.50–0.60: Balanced Risk/Reward</h4>
+                    <p>Useful when your conviction is moderate or you're in a sector with high uncertainty. You get leveraged exposure, but the option has more "theta coffin" to dig out of. Good for diversified portfolios where one position might be wrong.</p>
+                </div>
+                <div class="step">
+                    <h4>Delta <0.50: High-Leverage Gambles</h4>
+                    <p>Use sparingly. You might own 10 positions, 2–3 with lower deltas for sector hedges or conviction plays. But betting your account on delta 0.30 calls is option roulette, not LEAP strategy.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Practical Candidate Checklist</h2>
+            <p>Before you buy a LEAP, run through this checklist:</p>
+            <div class="key-takeaways">
+                <ul>
+                    <li><strong>Earnings:</strong> 2–3 consecutive beats? Forward guidance bullish? Analyst consensus positive?</li>
+                    <li><strong>Sector:</strong> Is the sector rotating into favor relative to the market?</li>
+                    <li><strong>Structure:</strong> Is the stock respecting demand zones? Above 200-day MA? Higher lows forming?</li>
+                    <li><strong>Volume:</strong> Heavy accumulation at demand zones? Or thin, suspicious volume?</li>
+                    <li><strong>Strike:</strong> 0.70–0.80 delta. Deep ITM or ATM. No wild OTM bets unless it's 10% of position size.</li>
+                    <li><strong>Expiration:</strong> 12–18 months minimum. Avoid 6-month LEAPs.</li>
+                    <li><strong>Position Size:</strong> Is this 3–5% of your account? Can you hold it if wrong?</li>
+                    <li><strong>Conviction:</strong> Could you explain this thesis to a friend in 30 seconds? If not, it's not conviction.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Key Takeaways</h2>
+            <div class="key-takeaways">
+                <ul>
+                    <li>LEAP candidates need fundamental strength: earnings growth, sector momentum, institutional buying, strong balance sheets</li>
+                    <li>Technical alignment matters. Stock must be in respectable trend, respecting SMC structure, not in distribution</li>
+                    <li>Strike selection: Target 0.70–0.80 delta (deep ITM). This gives you stock-like leverage with 60–70% less capital</li>
+                    <li>Expiration: 12–18 months minimum. Longer = slower theta decay, more time for thesis to develop</li>
+                    <li>Use a checklist. Discipline beats intuition</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <div class="practice-box">
+                <h3>Practice Exercise</h3>
+                <p>Find a stock you're bullish on for the next 18 months. Run it through the checklist: earnings trend, sector rotation, technical structure, volume patterns. Now look at the 18-month call options. Identify strikes with 0.70–0.80 delta. Calculate: How much capital for one contract? How much would 100 shares cost? What's the savings? Now ask yourself: Do I have real conviction on this thesis, or am I guessing?</p>
+            </div>
+        </section>
+
+        <div class="quiz-section">
+            <h2>Module 2 Quiz</h2>
+            <p class="quiz-intro">Test your understanding. 5 questions — click your answer.</p>
+
+            <div class="quiz-question">
+                <p class="q-text">1. What is the most important fundamental signal for a LEAP candidate?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">The stock is down 50% from its 52-week high</div>
+                    <div class="quiz-option" data-correct="true">Consistent earnings beats with positive forward guidance and sector momentum</div>
+                    <div class="quiz-option" data-correct="false">The company is a household name</div>
+                    <div class="quiz-option" data-correct="false">The option is very cheap</div>
+                </div>
+                <div class="quiz-explanation">LEAPs are conviction trades. You need fundamental strength: earnings growth trends, bullish forward guidance, and sector tailwinds. Cheap options on weak companies are cheap for a reason.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">2. Which strike delta range is ideal for LEAP trades?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">0.30–0.40 (far out-of-the-money)</div>
+                    <div class="quiz-option" data-correct="true">0.70–0.80 (deep in-the-money)</div>
+                    <div class="quiz-option" data-correct="false">0.10–0.20 (ultra-leveraged)</div>
+                    <div class="quiz-option" data-correct="false">1.0 (synthetic stock)</div>
+                </div>
+                <div class="quiz-explanation">The 0.70–0.80 delta sweet spot gives you 70–80% of the stock move with 60–70% less capital. You get leverage without roulette. Ultra-low deltas are gambling; 1.0 deltas defeat the purpose (you want cost efficiency).</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">3. What's the minimum expiration for a LEAP?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">3 months</div>
+                    <div class="quiz-option" data-correct="false">6 months</div>
+                    <div class="quiz-option" data-correct="true">12 months (1 year)</div>
+                    <div class="quiz-option" data-correct="false">Any expiration is fine</div>
+                </div>
+                <div class="quiz-explanation">LEAPs need 12 months minimum. A 6-month option loses theta too quickly and doesn't give enough time for multi-quarter narratives. 12–18 months is the ideal window.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">4. Why is sector momentum important for LEAP selection?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">All sectors perform equally</div>
+                    <div class="quiz-option" data-correct="true">Sector rotation lifts individual stocks and reduces idiosyncratic risk. A stock in a strong sector has institutional buying tailwinds</div>
+                    <div class="quiz-option" data-correct="false">Only individual stock performance matters</div>
+                    <div class="quiz-option" data-correct="false">Sectors are irrelevant to LEAP trades</div>
+                </div>
+                <div class="quiz-explanation">Sector rotation is a powerful multi-quarter tailwind. A stock with strong earnings AND sector momentum has dual catalysts. Conversely, strong earnings in a dying sector often struggle.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">5. What does a 0.75 delta on a LEAP call mean?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="true">For every $1 the stock moves up, the call moves ~$0.75. It moves like 75 shares of stock, not 100</div>
+                    <div class="quiz-option" data-correct="false">The option will expire worthless 75% of the time</div>
+                    <div class="quiz-option" data-correct="false">The option is 75% more expensive than stock</div>
+                    <div class="quiz-option" data-correct="false">You have a 75% chance of profit</div>
+                </div>
+                <div class="quiz-explanation">Delta is the hedge ratio. 0.75 delta = the option moves $0.75 for every $1 the stock moves. It's leveraged exposure without the full stock volatility. This makes 0.70–0.80 delta the goldilocks zone for LEAPs.</div>
+            </div>
+
+            <div class="quiz-score">
+                <h3 class="score-text"></h3>
+                <p class="score-msg"></p>
+                <button class="quiz-reset">Retake Quiz</button>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="module-1.html" class="cta-button nav-btn">← Previous Module</a>
+            <a href="module-3.html" class="cta-button nav-btn">Next Module →</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>LEAP Strategy Course — STACK Academy</p>
+        <p>CreoleTrades © 2026</p>
+        <a href="#" id="logout-link" class="logout-link">Log Out</a>
+    </footer>
+    </div>
+
+    <script>
+        const PASSWORD_HASH = "67e02dce6fc190714beb58757b78d52b97d74b6d5fbe6a20570a2ba47a2c6fba";
+        const STORAGE_KEY = "stack_leaps_access";
+
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkAccess() {
+            const storedToken = localStorage.getItem(STORAGE_KEY);
+            if (storedToken === PASSWORD_HASH) unlockCourse();
+        }
+
+        function unlockCourse() {
+            document.getElementById('password-gate').classList.add('hidden');
+            document.getElementById('course-content').classList.add('visible');
+        }
+
+        document.getElementById('unlock-btn').addEventListener('click', handleUnlock);
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') handleUnlock();
+        });
+
+        async function handleUnlock() {
+            const passwordInput = document.getElementById('password-input');
+            const errorMessage = document.getElementById('error-message');
+            const password = passwordInput.value;
+            if (!password) { errorMessage.textContent = 'Please enter a password.'; return; }
+            const hashedPassword = await hashPassword(password);
+            if (hashedPassword === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, PASSWORD_HASH);
+                errorMessage.textContent = '';
+                unlockCourse();
+            } else {
+                errorMessage.textContent = 'Incorrect password. Please try again.';
+                passwordInput.classList.add('shake');
+                setTimeout(() => passwordInput.classList.remove('shake'), 500);
+            }
+        }
+
+        document.getElementById('logout-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem(STORAGE_KEY);
+            location.reload();
+        });
+
+        checkAccess();
+
+        function initQuiz() {
+            const questions = document.querySelectorAll('.quiz-question');
+            let answered = 0;
+            const total = questions.length;
+            let score = 0;
+
+            questions.forEach(q => {
+                const options = q.querySelectorAll('.quiz-option');
+                const explanation = q.querySelector('.quiz-explanation');
+                options.forEach(opt => {
+                    opt.addEventListener('click', function() {
+                        if (q.classList.contains('answered')) return;
+                        q.classList.add('answered');
+                        answered++;
+                        const isCorrect = this.dataset.correct === 'true';
+                        if (isCorrect) {
+                            this.classList.add('correct');
+                            score++;
+                        } else {
+                            this.classList.add('incorrect');
+                            options.forEach(o => {
+                                if (o.dataset.correct === 'true') o.classList.add('reveal-correct');
+                            });
+                        }
+                        if (explanation) explanation.classList.add('visible');
+                        if (answered === total) {
+                            const scoreEl = document.querySelector('.quiz-score');
+                            scoreEl.querySelector('.score-text').textContent = score + ' / ' + total;
+                            const msg = scoreEl.querySelector('.score-msg');
+                            if (score === total) msg.textContent = 'Perfect score. Stay STACKED. ⚜️';
+                            else if (score >= total * 0.8) msg.textContent = 'Solid read. Review what you missed, then move forward. ⚜️';
+                            else if (score >= total * 0.6) msg.textContent = 'Decent foundation. Re-read the sections you missed before moving on.';
+                            else msg.textContent = 'Review this module again before continuing. The S in STACK demands it.';
+                            scoreEl.classList.add('visible');
+                        }
+                    });
+                });
+            });
+
+            const resetBtn = document.querySelector('.quiz-reset');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function() {
+                    score = 0;
+                    answered = 0;
+                    questions.forEach(q => {
+                        q.classList.remove('answered');
+                        q.querySelectorAll('.quiz-option').forEach(o => {
+                            o.classList.remove('correct', 'incorrect', 'reveal-correct');
+                        });
+                        const exp = q.querySelector('.quiz-explanation');
+                        if (exp) exp.classList.remove('visible');
+                    });
+                    document.querySelector('.quiz-score').classList.remove('visible');
+                });
+            }
+        }
+        initQuiz();
+    </script>
+</body>
+</html>

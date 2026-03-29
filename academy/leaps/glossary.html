@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEAP Strategy Glossary — STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Lora", Georgia, serif;
+            background-color: #070C18;
+            color: #C8D4E8;
+            line-height: 1.7;
+        }
+
+        header {
+            background: #070C18;
+            border-bottom: 3px solid #C9A84C;
+            padding: 2rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-title h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 1.8rem;
+            color: #EEF2FF;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        nav a:hover {
+            color: #C9A84C;
+            border-color: #C9A84C;
+        }
+
+        nav a.active {
+            color: #C9A84C;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        h2 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 3rem 0 2rem 0;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .glossary-intro {
+            background: #0D1526;
+            border-left: 3px solid #C9A84C;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .glossary-intro p {
+            font-size: 1.1rem;
+            color: #C8D4E8;
+            font-style: italic;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .vocab-card {
+            background: linear-gradient(135deg, #0D1526, #0F1A2E);
+            border: 2px solid #C9A84C;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .vocab-card:hover {
+            box-shadow: 0 8px 24px rgba(201, 168, 76, 0.2);
+            border-color: #F0D080;
+        }
+
+        .vocab-card h4 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .vocab-card p {
+            font-size: 0.95rem;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid #C9A84C;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #070C18;
+            border-top: 3px solid #C9A84C;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 4rem;
+            color: #C9A84C;
+        }
+
+        footer p {
+            color: #C9A84C;
+            margin-bottom: 0.5rem;
+        }
+
+        #password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 22, 40, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        #password-gate.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .password-card {
+            background: #070C18;
+            border: 2px solid #C9A84C;
+            padding: 3rem 2rem;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        .password-card h2 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            border: none;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .password-card .subtitle {
+            color: #C8D4E8;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .password-input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        #password-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            background-color: #0D1526;
+            border: 2px solid #C9A84C;
+            color: #FFFFFF;
+            transition: all 0.3s ease;
+            font-family: "Lora", Georgia, serif;
+        }
+
+        #password-input:focus {
+            outline: none;
+            border-color: #FFD699;
+            box-shadow: 0 0 10px rgba(201, 168, 76, 0.5);
+        }
+
+        #password-input.shake {
+            animation: shake 0.5s ease;
+            border-color: #ff4444;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            min-height: 20px;
+        }
+
+        #unlock-btn {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: 2px solid #C9A84C;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: "Lora", Georgia, serif;
+        }
+
+        #unlock-btn:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        .password-helper-text {
+            color: #B0B0B0;
+            font-size: 0.85rem;
+            margin-top: 1.5rem;
+        }
+
+        .password-helper-text a {
+            color: #C9A84C;
+            text-decoration: none;
+            border-bottom: 1px solid #C9A84C;
+            transition: all 0.3s ease;
+        }
+
+        .password-helper-text a:hover {
+            color: #FFD699;
+            border-bottom-color: #FFD699;
+        }
+
+        #course-content {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        #course-content.visible {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .logout-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #C9A84C;
+            transition: all 0.3s ease;
+        }
+
+        .logout-link:hover {
+            color: #FFD699;
+            border-bottom-color: #FFD699;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-title h1 {
+                font-size: 1.5rem;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            nav a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="password-gate">
+        <div class="password-card">
+            <h2>STACK Academy</h2>
+            <p class="subtitle">Enter Your Course Password</p>
+            <div class="password-input-group">
+                <input type="password" id="password-input" placeholder="Password">
+                <div class="error-message" id="error-message"></div>
+            </div>
+            <button id="unlock-btn">Unlock Course</button>
+            <div class="password-helper-text">
+                <p>Purchased STACK Academy? Check your email for your access password.</p>
+                <p><a href="index.html">Don't have a password? Get access at creoletrades.com</a></p>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <div class="header-title">
+                <h1>STACK Academy</h1>
+            </div>
+            <nav>
+                <a href="index.html">← Back to Index</a>
+                <a href="module-1.html">Module 1</a>
+                <a href="module-2.html">Module 2</a>
+                <a href="module-3.html">Module 3</a>
+                <a href="glossary.html" class="active">Glossary</a>
+                <a href="final-exam.html">Final Exam</a>
+            </nav>
+        </div>
+    </header>
+
+    <div id="course-content">
+    <main>
+        <h2>LEAP Strategy Glossary</h2>
+        <div class="glossary-intro">
+            <p>Plain English definitions of key terms used in LEAP trading and options strategy.</p>
+        </div>
+
+        <div class="vocab-grid">
+            <div class="vocab-card">
+                <h4>LEAPs</h4>
+                <p>Long-term Equity AnticiPation Securities. Options contracts with 1+ year expirations. LEAPs give traders extended time for a thesis to develop while managing capital more efficiently than owning stock outright.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h4>Delta</h4>
+                <p>The rate of change of an option's price relative to the underlying stock. Delta ranges from 0 to 1.0. A 0.75 delta call means the option price moves $0.75 for every $1 the stock moves. Higher delta = more stock-like behavior.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h4>Theta (Theta Decay)</h4>
+                <p>The daily loss in an option's value from the passage of time. Long-dated LEAPs have slower theta decay (as a percentage per day) than short-term options, making time work in your favor over 12+ months.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h4>Vega</h4>
+                <p>The sensitivity of an option's price to changes in implied volatility. If volatility increases, vega works in your favor (call values rise). LEAPs have higher vega exposure than short-term options due to longer time remaining.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h4>In-The-Money (ITM)</h4>
+                <p>For a call option, when the stock price is above the strike price. Deep ITM (e.g., stock $150, strike $130) has high delta (~0.85+) and behaves almost like owning stock. ITM options are less risky but cost more.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h4>Out-Of-The-Money (OTM)</h4>
+                <p>For a call option, when the stock price is below the strike price. OTM options are cheaper but have lower delta (~0.30) and require larger stock moves for profit. Higher leverage, higher risk.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h4>At-The-Money (ATM)</h4>
+                <p>When the stock price is near or equal to the option strike price. ATM options have delta ~0.50 and offer balanced risk/reward. They're in the middle between deep ITM and OTM.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h4>Strike Price</h4>
+                <p>The fixed price at which an option gives you the right to buy (call) or sell (put) the underlying stock. A $150 strike call on Apple is the right to buy AAPL at $150 anytime before expiration.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h4>Extrinsic Value</h4>
+                <p>The portion of an option's price that comes from time and volatility (not intrinsic value). As expiration approaches, extrinsic value decays. This is where theta loss lives. Deep ITM options have little extrinsic value left.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h4>Implied Volatility (IV)</h4>
+                <p>The market's expectation of future volatility for a stock. High IV makes options more expensive. Low IV makes them cheaper. LEAP prices are sensitive to IV changes over months/years.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h4>Capital Efficiency</h4>
+                <p>Getting more exposure for less capital. A LEAP on a $150 stock might cost $3,000 while owning 100 shares costs $15,000. LEAPs give you 100-share economic exposure with 60–70% less capital deployed.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h4>Conviction Thesis</h4>
+                <p>Your fundamental and technical reasons for expecting a stock to move in a direction over 12+ months. Examples: earnings growth trajectory, sector rotation, product cycle, insider buying. LEAPs are built for conviction trades, not guesses.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h4>Rolling (Roll Forward)</h4>
+                <p>Selling your current LEAP before expiration and buying a new LEAP with a later expiration date. Rolling allows you to extend a profitable position or reset Greeks without closing completely.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h4>PT1/PT2/PT3 Methodology</h4>
+                <p>Profit-taking framework. PT1: sell 33% at +25% gain. PT2: sell another 33% at +75% gain. PT3: let remaining 33% ride for maximum upside. Locks in capital recovery while maintaining leverage on final tranche.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h4>Poor Man's Covered Call</h4>
+                <p>Selling short-term calls against a long-term LEAP. Example: own January 2026 call, sell May 2025 call. Collect monthly premium while keeping long-term upside. Generates income on your leveraged position.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h4>Smart Money Structure (SMC)</h4>
+                <p>Institutional order blocks, supply/demand zones, and fair value gaps. Respecting SMC structure means you're trading where smart money is accumulating (demand) or distributing (supply). Key for technical confirmation of LEAP candidates.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h4>Sector Rotation</h4>
+                <p>The cyclical movement of capital from one sector to another. Tech in, energy out. Or healthcare in, tech out. LEAPs benefit from sector rotation tailwinds. A good stock in a strong sector outperforms a good stock in a weak one.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h4>Institutional Ownership</h4>
+                <p>The percentage of a company's shares held by mutual funds, pension funds, hedge funds, and other large investors. High institutional ownership (>50%) suggests analysts and large money believe in the long-term story.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h4>Free Cash Flow (FCF)</h4>
+                <p>Cash a company generates after accounting for cash outflows. Positive and growing FCF is a bullish fundamental signal. Companies with strong FCF can sustain growth narratives, reducing LEAP bankruptcy risk over 12+ months.</p>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="index.html" class="cta-button nav-btn">← Back to Index</a>
+            <a href="final-exam.html" class="cta-button nav-btn">Take Final Exam →</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>LEAP Strategy Course — STACK Academy</p>
+        <p>CreoleTrades © 2026</p>
+        <a href="#" id="logout-link" class="logout-link">Log Out</a>
+    </footer>
+    </div>
+
+    <script>
+        const PASSWORD_HASH = "67e02dce6fc190714beb58757b78d52b97d74b6d5fbe6a20570a2ba47a2c6fba";
+        const STORAGE_KEY = "stack_leaps_access";
+
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkAccess() {
+            const storedToken = localStorage.getItem(STORAGE_KEY);
+            if (storedToken === PASSWORD_HASH) unlockCourse();
+        }
+
+        function unlockCourse() {
+            document.getElementById('password-gate').classList.add('hidden');
+            document.getElementById('course-content').classList.add('visible');
+        }
+
+        document.getElementById('unlock-btn').addEventListener('click', handleUnlock);
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') handleUnlock();
+        });
+
+        async function handleUnlock() {
+            const passwordInput = document.getElementById('password-input');
+            const errorMessage = document.getElementById('error-message');
+            const password = passwordInput.value;
+            if (!password) { errorMessage.textContent = 'Please enter a password.'; return; }
+            const hashedPassword = await hashPassword(password);
+            if (hashedPassword === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, PASSWORD_HASH);
+                errorMessage.textContent = '';
+                unlockCourse();
+            } else {
+                errorMessage.textContent = 'Incorrect password. Please try again.';
+                passwordInput.classList.add('shake');
+                setTimeout(() => passwordInput.classList.remove('shake'), 500);
+            }
+        }
+
+        document.getElementById('logout-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem(STORAGE_KEY);
+            location.reload();
+        });
+
+        checkAccess();
+    </script>
+</body>
+</html>

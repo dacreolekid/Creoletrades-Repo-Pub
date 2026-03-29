@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEAP Strategy Course — STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Lora", Georgia, serif;
+            background-color: #070C18;
+            color: #C8D4E8;
+            line-height: 1.7;
+        }
+
+        header {
+            background: #070C18;
+            border-bottom: 3px solid #C9A84C;
+            padding: 2rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-title h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 1.8rem;
+            color: #EEF2FF;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        nav a:hover {
+            color: #C9A84C;
+            border-color: #C9A84C;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
+
+        .course-hero {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #0D1526, #070C18);
+            border: 2px solid #C9A84C;
+        }
+
+        .course-hero h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 2.5rem;
+            color: #F0D080;
+            margin-bottom: 1rem;
+            font-weight: 900;
+        }
+
+        .course-hero p {
+            font-size: 1.2rem;
+            color: #C8D4E8;
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .course-hero .tagline {
+            color: #F0D080;
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .course-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-box {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-box h4 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-box p {
+            color: #C8D4E8;
+            font-size: 0.95rem;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .module-card {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            background: #0F1A2E;
+            box-shadow: 0 8px 24px rgba(201, 168, 76, 0.2);
+        }
+
+        .module-card h3 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .module-card p {
+            color: #C8D4E8;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .module-card .cta-button {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid #C9A84C;
+        }
+
+        .module-card .cta-button:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        .features {
+            background: linear-gradient(135deg, #0D1526, #070C18);
+            border: 2px solid #C9A84C;
+            padding: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .features h3 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .features ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .features li {
+            padding-left: 2rem;
+            position: relative;
+            color: #C8D4E8;
+        }
+
+        .features li:before {
+            content: "⚜️";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 3rem 2rem;
+            margin: 3rem 0;
+            background: linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(7, 12, 24, 0.9));
+            border: 2px solid #C9A84C;
+        }
+
+        .cta-section h3 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .primary-cta {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 1.2rem 3rem;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 2px solid #C9A84C;
+        }
+
+        .primary-cta:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        footer {
+            background-color: #070C18;
+            border-top: 3px solid #C9A84C;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 4rem;
+            color: #C9A84C;
+        }
+
+        footer p {
+            color: #C9A84C;
+            margin-bottom: 0.5rem;
+        }
+
+        .back-to-catalog {
+            display: inline-block;
+            margin-top: 1rem;
+            background-color: transparent;
+            color: #C9A84C;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid #C9A84C;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-catalog:hover {
+            background-color: #C9A84C;
+            color: #070C18;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-title h1 {
+                font-size: 1.5rem;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            nav a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .course-hero h2 {
+                font-size: 1.8rem;
+            }
+
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="header-title">
+                <h1>LEAP Strategy</h1>
+            </div>
+            <nav>
+                <a href="../">← Back to Academy</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="course-hero">
+            <h2>LEAP Strategy Course</h2>
+            <p>Master Long-term Equity AnticiPation Securities (LEAPs) and turn capital efficiency into consistent income.</p>
+            <p class="tagline">"LEAPs are options with patience. That's where the real money plays."</p>
+            <p style="color: #F0D080; font-style: italic;">— CreoleTrades</p>
+        </div>
+
+        <div class="course-stats">
+            <div class="stat-box">
+                <h4>3</h4>
+                <p>Comprehensive Modules</p>
+            </div>
+            <div class="stat-box">
+                <h4>15+</h4>
+                <p>Key Concepts</p>
+            </div>
+            <div class="stat-box">
+                <h4>20</h4>
+                <p>Quiz Questions</p>
+            </div>
+            <div class="stat-box">
+                <h4>100%</h4>
+                <p>Actionable</p>
+            </div>
+        </div>
+
+        <div class="features">
+            <h3>What You'll Learn</h3>
+            <ul>
+                <li>Why LEAPs make sense for bullish conviction trades</li>
+                <li>How to select LEAP candidates using fundamental and technical criteria</li>
+                <li>The delta sweet spots and strike price selection strategy</li>
+                <li>Rolling LEAPs forward to extend your position and manage Greeks</li>
+                <li>Taking profits with the PT1/PT2/PT3 methodology</li>
+                <li>Building a diversified LEAP portfolio across sectors</li>
+                <li>Selling covered calls against LEAPs for income generation</li>
+            </ul>
+        </div>
+
+        <h2 style="text-align: center; font-family: 'Playfair Display', serif; color: #F0D080; margin: 3rem 0 2rem; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 1px;">Course Modules</h2>
+
+        <div class="modules-grid">
+            <div class="module-card">
+                <h3>Module 1</h3>
+                <p><strong>What Are LEAPs & Why They Work</strong></p>
+                <p>Understand the fundamentals. Learn what LEAPs are, why theta decay works in your favor, and when to use them instead of stocks or short-term options.</p>
+                <a href="module-1.html" class="cta-button">Start Module →</a>
+            </div>
+
+            <div class="module-card">
+                <h3>Module 2</h3>
+                <p><strong>Selecting LEAP Candidates</strong></p>
+                <p>Find the right trades. Discover the fundamental and technical criteria for identifying strong LEAP candidates and choosing the right strike and expiration.</p>
+                <a href="module-2.html" class="cta-button">Start Module →</a>
+            </div>
+
+            <div class="module-card">
+                <h3>Module 3</h3>
+                <p><strong>Managing & Rolling LEAPs</strong></p>
+                <p>Execute with precision. Master profit-taking, rolling forward, handling defensive moves, and building a diversified LEAP portfolio.</p>
+                <a href="module-3.html" class="cta-button">Start Module →</a>
+            </div>
+        </div>
+
+        <div class="features">
+            <h3>Supplementary Resources</h3>
+            <ul>
+                <li><a href="glossary.html" style="color: #F0D080; text-decoration: underline;">Complete LEAP Glossary</a> — 15+ terms defined in plain English</li>
+                <li><a href="final-exam.html" style="color: #F0D080; text-decoration: underline;">Final Exam</a> — 15 cumulative questions to test your mastery</li>
+            </ul>
+        </div>
+
+        <div class="cta-section">
+            <h3>Ready to Master LEAPs?</h3>
+            <p>One-time payment. Lifetime access. Work through all 3 modules at your own pace — each includes a quiz to test your knowledge before moving forward.</p>
+            <a href="https://buy.stripe.com/00w3cxgNNcwWcCAaJ09k407" class="primary-cta">Enroll Now — $97</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>LEAP Strategy Course — STACK Academy</p>
+        <p>CreoleTrades © 2026</p>
+        <a href="../" class="back-to-catalog">← Back to Academy Catalog</a>
+    </footer>
+</body>
+</html>
