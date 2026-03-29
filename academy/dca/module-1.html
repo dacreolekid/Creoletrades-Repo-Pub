@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STACK Academy Module 1: DCA Fundamentals & Compounding</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Lora", Georgia, serif;
+            background-color: #070C18;
+            color: #C8D4E8;
+            line-height: 1.7;
+        }
+
+        header {
+            background: #070C18;
+            border-bottom: 3px solid #C9A84C;
+            padding: 2rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header-title h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 1.8rem;
+            color: #EEF2FF;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .module-badge {
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 0.4rem 0.8rem;
+            border-radius: 0px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-family: "Lora", Georgia, serif;
+            padding: 0.5rem 1rem;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        nav a:hover {
+            background-color: transparent;
+            color: #C9A84C;
+            border-color: #C9A84C;
+        }
+
+        nav a.active {
+            background-color: transparent;
+            color: #C9A84C;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .module-intro {
+            background: #0D1526;
+            border-left: 3px solid #C9A84C;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0px;
+        }
+
+        .module-intro p {
+            font-size: 1.1rem;
+            color: #C8D4E8;
+            font-style: italic;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        h3 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #C8D4E8;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .vocab-card {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 1.5rem;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+        }
+
+        .vocab-card:hover {
+            background: #0F1A2E;
+            border-color: #F0D080;
+            box-shadow: 0 8px 24px rgba(201, 168, 76, 0.1);
+        }
+
+        .vocab-card h4 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .vocab-card p {
+            font-size: 0.95rem;
+            color: #C8D4E8;
+        }
+
+        .three-step {
+            background: #0D1526;
+            border-left: 3px solid #C9A84C;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 0px;
+        }
+
+        .step {
+            margin-bottom: 1.5rem;
+        }
+
+        .step h4 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .step p {
+            margin-left: 0;
+            color: #C8D4E8;
+        }
+
+        .step:last-child {
+            margin-bottom: 0;
+        }
+
+        .key-takeaways {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 2rem;
+            border-radius: 0px;
+            margin: 2rem 0;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .key-takeaways li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: #C8D4E8;
+        }
+
+        .key-takeaways li:before {
+            content: "⚜️";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+            font-weight: bold;
+        }
+
+        .practice-box {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 2rem;
+            border-radius: 0px;
+            margin: 2rem 0;
+        }
+
+        .practice-box h3 {
+            margin-top: 0;
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-weight: 700;
+        }
+
+        .practice-box p {
+            font-size: 1.05rem;
+            color: #C8D4E8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 1rem 2rem;
+            border-radius: 0px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid #C9A84C;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin: 3rem 0 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        footer {
+            background-color: #070C18;
+            border-top: 3px solid #C9A84C;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 4rem;
+            color: #C9A84C;
+        }
+
+        footer p {
+            color: #C9A84C;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-title h1 {
+                font-size: 1.5rem;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            nav a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+        }
+
+        strong {
+            color: #F0D080;
+        }
+
+        em {
+            color: #F0D080;
+        }
+
+        /* Password Gate Overlay Styles */
+        #password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 22, 40, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        #password-gate.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .password-card {
+            background: #070C18;
+            border: 2px solid #C9A84C;
+            border-radius: 0px;
+            padding: 3rem 2rem;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        .password-card h2 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            border: none;
+            padding-bottom: 0;
+        }
+
+        .password-card .subtitle {
+            color: #C8D4E8;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .password-input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        #password-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            background-color: #0D1526;
+            border: 2px solid #C9A84C;
+            color: #FFFFFF;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+            font-family: "Lora", Georgia, serif;
+        }
+
+        #password-input:focus {
+            outline: none;
+            border-color: #FFD699;
+            box-shadow: 0 0 10px rgba(201, 168, 76, 0.5);
+        }
+
+        #password-input.shake {
+            animation: shake 0.5s ease;
+            border-color: #ff4444;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            min-height: 20px;
+        }
+
+        #unlock-btn {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: 2px solid #C9A84C;
+            border-radius: 0px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: "Lora", Georgia, serif;
+        }
+
+        #unlock-btn:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        .password-helper-text {
+            color: #B0B0B0;
+            font-size: 0.85rem;
+            margin-top: 1.5rem;
+        }
+
+        .password-helper-text a {
+            color: #C9A84C;
+            text-decoration: none;
+            border-bottom: 1px solid #C9A84C;
+            transition: all 0.3s ease;
+        }
+
+        .password-helper-text a:hover {
+            color: #FFD699;
+            border-bottom-color: #FFD699;
+        }
+
+        #course-content {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        #course-content.visible {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .logout-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #C9A84C;
+            transition: all 0.3s ease;
+        }
+
+        .logout-link:hover {
+            color: #FFD699;
+            border-bottom-color: #FFD699;
+        }
+
+        /* Quiz Styles */
+        .quiz-section {
+            background: linear-gradient(135deg, #0D1526, #070C18);
+            border: 2px solid #C9A84C;
+            padding: 2.5rem 2rem;
+            margin: 2rem 0;
+        }
+
+        .quiz-section h2 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .quiz-intro {
+            color: #C8D4E8;
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-question {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+        }
+
+        .quiz-question:last-of-type {
+            border-bottom: none;
+        }
+
+        .quiz-question p.q-text {
+            color: #EEF2FF;
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .quiz-option {
+            background: #0D1526;
+            border: 1px solid rgba(200, 212, 232, 0.2);
+            padding: 0.8rem 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #C8D4E8;
+            font-family: "Lora", Georgia, serif;
+            font-size: 0.95rem;
+        }
+
+        .quiz-option:hover:not(.selected) {
+            border-color: #C9A84C;
+            background: rgba(201, 168, 76, 0.1);
+        }
+
+        .quiz-option.correct {
+            border-color: #22C55E;
+            background: rgba(34, 197, 94, 0.15);
+            color: #22C55E;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #EF4444;
+            background: rgba(239, 68, 68, 0.15);
+            color: #EF4444;
+        }
+
+        .quiz-option.correct::after {
+            content: " ✓";
+            font-weight: bold;
+        }
+
+        .quiz-option.incorrect::after {
+            content: " ✗";
+            font-weight: bold;
+        }
+
+        .quiz-option.reveal-correct {
+            border-color: #22C55E;
+            background: rgba(34, 197, 94, 0.1);
+            color: #22C55E;
+        }
+
+        .quiz-explanation {
+            margin-top: 0.5rem;
+            padding: 0.8rem 1rem;
+            font-size: 0.9rem;
+            color: #F0D080;
+            font-style: italic;
+            display: none;
+        }
+
+        .quiz-explanation.visible {
+            display: block;
+        }
+
+        .quiz-score {
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 2px solid #C9A84C;
+            background: rgba(201, 168, 76, 0.1);
+            display: none;
+        }
+
+        .quiz-score.visible {
+            display: block;
+        }
+
+        .quiz-score h3 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-score p {
+            color: #C8D4E8;
+        }
+
+        .quiz-reset {
+            margin-top: 1rem;
+            padding: 0.6rem 1.5rem;
+            background: #C9A84C;
+            color: #070C18;
+            border: none;
+            font-family: "Lora", Georgia, serif;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-reset:hover {
+            background: transparent;
+            color: #C9A84C;
+            border: 2px solid #C9A84C;
+        }
+    </style>
+</head>
+<body>
+    <!-- PASSWORD GATE OVERLAY -->
+    <div id="password-gate">
+        <div class="password-card">
+            <h2>STACK Academy</h2>
+            <p class="subtitle">Enter Your Course Password</p>
+            <div class="password-input-group">
+                <input type="password" id="password-input" placeholder="Password">
+                <div class="error-message" id="error-message"></div>
+            </div>
+            <button id="unlock-btn">Unlock Course</button>
+            <div class="password-helper-text">
+                <p>Purchased STACK Academy? Check your email for your access password.</p>
+                <p><a href="index.html">Don't have a password? Get access at creoletrades.com</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-content">
+            <div class="header-title">
+                <h1>STACK Academy</h1>
+                <span class="module-badge">Module 1 of 3</span>
+            </div>
+            <nav>
+                <a href="index.html">← Back to Course</a>
+                <a href="module-1.html" class="active">Module 1</a>
+                <a href="module-2.html">Module 2</a>
+                <a href="module-3.html">Module 3</a>
+                <a href="glossary.html">Glossary</a>
+                <a href="final-exam.html">Final Exam</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- COURSE CONTENT (hidden until password entered) -->
+    <div id="course-content">
+    <main>
+        <!-- Module Intro -->
+        <div class="module-intro">
+            <p>Dollar Cost Averaging is how you remove emotion from investing. Whether the market is up, down, or sideways, you're buying consistently. This module teaches you the foundation: what DCA is, why it works, and the power of compounding that makes time your greatest asset.</p>
+        </div>
+
+        <!-- Section 1: What is DCA -->
+        <section>
+            <h2>What is Dollar Cost Averaging</h2>
+            <p>Dollar Cost Averaging (DCA) is simple: <strong>invest a fixed amount of money at regular intervals, regardless of the asset's price.</strong></p>
+            <p>That's it. No timing. No guessing. No "I'm waiting for a dip." You decide on an amount—say, $500 per month—and you buy your asset every month. When the price is high, your $500 buys fewer shares. When the price is low, your $500 buys more shares. Over time, you end up with an average purchase price that's naturally lower than if you'd tried to time the market perfectly.</p>
+            <p>This is the foundation of professional wealth-building. Billionaires don't wait. They don't guess. They compound.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <h4>Dollar Cost Averaging (DCA)</h4>
+                    <p>A systematic investment strategy where you invest a fixed sum at regular intervals, regardless of market price.</p>
+                </div>
+                <div class="vocab-card">
+                    <h4>Cost Basis</h4>
+                    <p>Your average cost per share or unit. With DCA, this naturally lowers over time as you buy more at lower prices.</p>
+                </div>
+                <div class="vocab-card">
+                    <h4>Frequency</h4>
+                    <p>How often you invest: weekly, bi-weekly, monthly, quarterly. The shorter the interval, the more you reduce timing risk.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Why DCA Works -->
+        <section>
+            <h2>Why DCA Works (The Math)</h2>
+            <p>Let's look at a real example. Say you invest $500 every month in an asset:</p>
+
+            <div class="three-step">
+                <div class="step">
+                    <h4>Scenario: Month 1</h4>
+                    <p>Price: $100/share. You invest $500 and get 5 shares. Cost basis: $100/share.</p>
+                </div>
+                <div class="step">
+                    <h4>Scenario: Month 2 (Price Drops)</h4>
+                    <p>Price: $50/share. You invest $500 and get 10 shares. You've now bought MORE shares at a LOWER price. Your new cost basis is now $66.67/share (you've lowered it).</p>
+                </div>
+                <div class="step">
+                    <h4>Scenario: Month 3 (Price Recovers)</h4>
+                    <p>Price: $100/share again. You invest $500 and get 5 shares. Your total is 20 shares with a cost basis of $75/share. You've profited from the dip because you kept buying.</p>
+                </div>
+            </div>
+
+            <p>This is why DCA works: <strong>You buy more when prices are low, fewer when prices are high.</strong> You never sell at the worst time. You're always averaging down over volatility.</p>
+            <p>A lump-sum investor who dumps $1,500 in at Month 1 pays an average of $100/share and owns 15 shares. A DCA investor with $500/month ends up with 20 shares at a $75 average—more shares, lower cost, more profit when the price recovers.</p>
+        </section>
+
+        <!-- Section 3: Compounding -->
+        <section>
+            <h2>The Power of Compounding</h2>
+            <p>DCA is powerful on its own. Compounding makes it a wealth machine.</p>
+            <p>Here's a real projection: <strong>$500/month, 10% annual return, 10 years.</strong></p>
+            <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                <li><strong>Total invested:</strong> $60,000</li>
+                <li><strong>Earnings from compounding:</strong> ~$35,000</li>
+                <li><strong>Final balance:</strong> ~$95,000</li>
+            </ul>
+            <p>You invested $60K and got nearly $35K for free. That's not gambling. That's not a get-rich scheme. That's how professionals build wealth—time + consistency + compounding.</p>
+            <p>Push that to 20 years with $500/month at 10% returns? You're looking at $313,000 on $120,000 invested. The compounding made you more than double your money.</p>
+
+            <div class="key-takeaways">
+                <h3>Why Compounding Matters</h3>
+                <ul>
+                    <li>Earnings don't stop—they earn. Your $500/month isn't just buying shares, it's buying interest on previous earnings.</li>
+                    <li>Time is your best friend. The longer you stay in, the exponential the returns become.</li>
+                    <li>You can't compound if you panic-sell. DCA removes the temptation to time the exit.</li>
+                    <li>Discipline beats timing every single time.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 4: DCA vs Lump Sum -->
+        <section>
+            <h2>DCA vs Lump Sum: When Each Wins</h2>
+            <p><strong>DCA is better when:</strong> You're building wealth over time, don't have a large sum upfront, want to reduce timing risk, or have unpredictable income. DCA removes emotion and keeps you disciplined through market cycles.</p>
+            <p><strong>Lump sum is better when:</strong> You have cash sitting in your account earning 0%, the market is near a historical low, or you're certain you won't need the money. Historical data shows lump sum wins about 70% of the time—but only if you can time the market. Since no one can, DCA wins in real life.</p>
+            <p>The truth: <strong>DCA isn't about beating lump sum. It's about beating yourself.</strong> Most investors fail because they sell at the wrong time. DCA removes the choice to sell at the worst time. You're always accumulating.</p>
+        </section>
+
+        <!-- Section 5: Psychological Edge -->
+        <section>
+            <h2>The Psychological Advantage</h2>
+            <p>Here's what separates DCA from every other investment strategy: <strong>emotion removal.</strong></p>
+            <p>When the market crashes 20%, most traders panic. "I should have sold at the top!" "Should I sell now?" The emotional spiral begins. DCA says: keep buying. The price dropped? Great, your $500 just bought more shares at a discount.</p>
+            <p>This is the S in STACK. <strong>System, Consistency, Compounding.</strong> You remove the need to guess. You remove the fear. You remove the ego.</p>
+            <p>Over a 10-year cycle, the trader who panicked and sold at the bottom probably made nothing. The DCA investor who kept buying through the crash just locked in the lowest prices of the decade.</p>
+            <p>Psychology is 90% of investing. DCA handles it for you.</p>
+        </section>
+
+        <!-- Key Takeaways -->
+        <section>
+            <h2>Key Takeaways</h2>
+            <div class="key-takeaways">
+                <ul>
+                    <li>DCA is systematic: fixed amount, regular interval, regardless of price.</li>
+                    <li>You buy more shares when prices are low, fewer when prices are high.</li>
+                    <li>Compounding turns consistency into exponential wealth over decades.</li>
+                    <li>DCA beats lump sum because it prevents you from timing the market (and failing).</li>
+                    <li>The real power is psychological: DCA removes emotion and keeps you disciplined through cycles.</li>
+                    <li>Time + Discipline + Compounding = Generational wealth.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Practice Exercise -->
+        <section>
+            <div class="practice-box">
+                <h3>Practice Exercise</h3>
+                <p>Find the current price of a stock, ETF, or crypto you're interested in. Calculate how many units you could buy with a $500 investment. Now imagine the price drops 20% next month. How many more units could you buy with that same $500? Write it down. That's the DCA advantage in action.</p>
+            </div>
+        </section>
+
+        <!-- QUIZ SECTION -->
+        <div class="quiz-section">
+            <h2>Module 1 Quiz</h2>
+            <p class="quiz-intro">Test your understanding. 5 questions — click your answer.</p>
+
+            <!-- Question 1 -->
+            <div class="quiz-question">
+                <p class="q-text">1. In Dollar Cost Averaging, what happens when the asset price drops?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">You stop investing to avoid losses.</div>
+                    <div class="quiz-option" data-correct="true">Your fixed investment amount buys more shares at the lower price.</div>
+                    <div class="quiz-option" data-correct="false">Your cost basis increases automatically.</div>
+                    <div class="quiz-option" data-correct="false">You sell your existing holdings to buy at the new low.</div>
+                </div>
+                <div class="quiz-explanation">When prices drop in DCA, your fixed investment buys more units. This lowers your average cost basis and gives you more exposure to the recovery when prices rebound.</div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question">
+                <p class="q-text">2. Over a 10-year period with $500/month invested at 10% annual returns, approximately how much comes from compounding?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">$10,000</div>
+                    <div class="quiz-option" data-correct="true">$35,000</div>
+                    <div class="quiz-option" data-correct="false">$60,000</div>
+                    <div class="quiz-option" data-correct="false">$95,000</div>
+                </div>
+                <div class="quiz-explanation">Out of approximately $95,000 total (with $60,000 contributed), about $35,000 comes purely from compound growth. This demonstrates why time is critical to wealth-building.</div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question">
+                <p class="q-text">3. Why does DCA psychologically outperform lump-sum investing in real-world practice?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">It guarantees higher returns.</div>
+                    <div class="quiz-option" data-correct="true">It removes the emotional temptation to sell during downturns.</div>
+                    <div class="quiz-option" data-correct="false">It requires more active trading decisions.</div>
+                    <div class="quiz-option" data-correct="false">It only works with volatile assets.</div>
+                </div>
+                <div class="quiz-explanation">While lump sum wins mathematically 70% of the time, DCA wins in real life because most investors panic-sell during crashes. DCA's systematic nature prevents emotional decisions.</div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question">
+                <p class="q-text">4. What is your cost basis after this DCA sequence: Buy 5 shares at $100, then 10 shares at $50?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">$100 per share</div>
+                    <div class="quiz-option" data-correct="true">$66.67 per share</div>
+                    <div class="quiz-option" data-correct="false">$75 per share</div>
+                    <div class="quiz-option" data-correct="false">$50 per share</div>
+                </div>
+                <div class="quiz-explanation">Total invested: $1,000 ($500 + $500). Total shares: 15. Cost basis: $1,000 ÷ 15 = $66.67/share. DCA automatically lowers your average price.</div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question">
+                <p class="q-text">5. Which statement best describes the S in STACK for DCA?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">Sell at the highest price possible.</div>
+                    <div class="quiz-option" data-correct="true">System, Consistency, and Compounding remove emotion and build discipline.</div>
+                    <div class="quiz-option" data-correct="false">Speculate on short-term price movements.</div>
+                    <div class="quiz-option" data-correct="false">Speed—invest as fast as possible before prices rise.</div>
+                </div>
+                <div class="quiz-explanation">The S in STACK is about systematic, consistent investing through compounding. DCA is the ultimate expression of this—it's designed to remove emotion and keep you disciplined regardless of market conditions.</div>
+            </div>
+
+            <!-- Score Display -->
+            <div class="quiz-score">
+                <h3 class="score-text"></h3>
+                <p class="score-msg"></p>
+                <button class="quiz-reset">Retake Quiz</button>
+            </div>
+        </div>
+
+        <!-- NAVIGATION BUTTONS -->
+        <div class="navigation-buttons">
+            <a href="index.html" class="cta-button nav-btn">← Back to Course</a>
+            <a href="module-2.html" class="cta-button nav-btn">Next Module →</a>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>STACK Academy — CreoleTrades © 2026</p>
+        <a href="#" id="logout-link" class="logout-link">Log Out</a>
+    </footer>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // === PASSWORD GATE ===
+        const PASSWORD_HASH = "b6d25ec79f51bf59843148d198e660e817a116748b6b24063cc904f01e1ed054";
+        const STORAGE_KEY = "stack_dca_access";
+
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkAccess() {
+            const storedToken = localStorage.getItem(STORAGE_KEY);
+            if (storedToken === PASSWORD_HASH) unlockCourse();
+        }
+
+        function unlockCourse() {
+            document.getElementById('password-gate').classList.add('hidden');
+            document.getElementById('course-content').classList.add('visible');
+        }
+
+        document.getElementById('unlock-btn').addEventListener('click', handleUnlock);
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') handleUnlock();
+        });
+
+        async function handleUnlock() {
+            const passwordInput = document.getElementById('password-input');
+            const errorMessage = document.getElementById('error-message');
+            const password = passwordInput.value;
+            if (!password) { errorMessage.textContent = 'Please enter a password.'; return; }
+            const hashedPassword = await hashPassword(password);
+            if (hashedPassword === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, PASSWORD_HASH);
+                errorMessage.textContent = '';
+                unlockCourse();
+            } else {
+                errorMessage.textContent = 'Incorrect password. Please try again.';
+                passwordInput.classList.add('shake');
+                setTimeout(() => passwordInput.classList.remove('shake'), 500);
+            }
+        }
+
+        document.getElementById('logout-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem(STORAGE_KEY);
+            location.reload();
+        });
+
+        checkAccess();
+
+        // === QUIZ ===
+        function initQuiz() {
+            const questions = document.querySelectorAll('.quiz-question');
+            let answered = 0;
+            const total = questions.length;
+            let score = 0;
+
+            questions.forEach(q => {
+                const options = q.querySelectorAll('.quiz-option');
+                const explanation = q.querySelector('.quiz-explanation');
+                options.forEach(opt => {
+                    opt.addEventListener('click', function() {
+                        if (q.classList.contains('answered')) return;
+                        q.classList.add('answered');
+                        answered++;
+                        const isCorrect = this.dataset.correct === 'true';
+                        if (isCorrect) {
+                            this.classList.add('correct');
+                            score++;
+                        } else {
+                            this.classList.add('incorrect');
+                            options.forEach(o => {
+                                if (o.dataset.correct === 'true') o.classList.add('reveal-correct');
+                            });
+                        }
+                        if (explanation) explanation.classList.add('visible');
+                        if (answered === total) {
+                            const scoreEl = document.querySelector('.quiz-score');
+                            scoreEl.querySelector('.score-text').textContent = score + ' / ' + total;
+                            const msg = scoreEl.querySelector('.score-msg');
+                            if (score === total) msg.textContent = 'Perfect score. Stay STACKED. ⚜️';
+                            else if (score >= total * 0.8) msg.textContent = 'Solid read. Review what you missed, then move forward. ⚜️';
+                            else if (score >= total * 0.6) msg.textContent = 'Decent foundation. Re-read the sections you missed before moving on.';
+                            else msg.textContent = 'Review this module again before continuing. The S in STACK demands it.';
+                            scoreEl.classList.add('visible');
+                        }
+                    });
+                });
+            });
+
+            const resetBtn = document.querySelector('.quiz-reset');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function() {
+                    score = 0;
+                    answered = 0;
+                    questions.forEach(q => {
+                        q.classList.remove('answered');
+                        q.querySelectorAll('.quiz-option').forEach(o => {
+                            o.classList.remove('correct', 'incorrect', 'reveal-correct');
+                        });
+                        const exp = q.querySelector('.quiz-explanation');
+                        if (exp) exp.classList.remove('visible');
+                    });
+                    document.querySelector('.quiz-score').classList.remove('visible');
+                });
+            }
+        }
+        initQuiz();
+    </script>
+</body>
+</html>

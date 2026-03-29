@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dollar Cost Averaging Course - STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Lora", Georgia, serif;
+            background-color: #070C18;
+            color: #C8D4E8;
+            line-height: 1.7;
+        }
+
+        header {
+            background: #070C18;
+            border-bottom: 3px solid #C9A84C;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 2.5rem;
+            color: #EEF2FF;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            color: #C9A84C;
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .course-hero {
+            background: linear-gradient(135deg, #0D1526, #070C18);
+            border: 2px solid #C9A84C;
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .course-hero h2 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .course-hero p {
+            color: #C8D4E8;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .course-description {
+            background: #0D1526;
+            border-left: 3px solid #C9A84C;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .course-description h3 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .module-card {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            background: #0F1A2E;
+            border-color: #F0D080;
+            box-shadow: 0 8px 24px rgba(201, 168, 76, 0.1);
+        }
+
+        .module-card h4 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .module-card p {
+            color: #C8D4E8;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid #C9A84C;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: "Lora", Georgia, serif;
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        .stripe-cta {
+            background: linear-gradient(135deg, rgba(201, 168, 76, 0.2), #0D1526);
+            border: 2px solid #C9A84C;
+            padding: 2.5rem 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .stripe-cta h3 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stripe-cta p {
+            color: #C8D4E8;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .what-youll-learn {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .what-youll-learn h3 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .what-youll-learn ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .what-youll-learn li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: #C8D4E8;
+        }
+
+        .what-youll-learn li:before {
+            content: "⚜️";
+            position: absolute;
+            left: 0;
+        }
+
+        footer {
+            background-color: #070C18;
+            border-top: 3px solid #C9A84C;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 4rem;
+            color: #C9A84C;
+        }
+
+        footer p {
+            color: #C9A84C;
+            margin: 0;
+        }
+
+        .back-to-catalog {
+            margin-bottom: 2rem;
+        }
+
+        .back-link {
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #F0D080;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .course-hero h2 {
+                font-size: 1.5rem;
+            }
+
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        strong {
+            color: #F0D080;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>STACK Academy</h1>
+            <p class="subtitle">Dollar Cost Averaging Course</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="back-to-catalog">
+            <a href="../" class="back-link">← Back to Academy Catalog</a>
+        </div>
+
+        <div class="course-hero">
+            <h2>Master Dollar Cost Averaging</h2>
+            <p>The foundation of consistent wealth-building. Learn how to remove emotion from investing and build generational wealth through systematic, disciplined contribution strategies.</p>
+            <p style="font-style: italic; color: #C9A84C;">3 modules. 5 quizzes. 1 final exam. Direct mentorship from CreoleTrades.</p>
+        </div>
+
+        <div class="course-description">
+            <h3>What is This Course?</h3>
+            <p>Dollar Cost Averaging (DCA) is not some get-rich-quick scheme. It's the cornerstone of professional investing. Whether you're building an index fund portfolio, accumulating individual stocks, or stacking crypto—DCA removes the noise, removes the emotion, and removes the pressure of timing the market perfectly.</p>
+            <p>This course teaches you exactly how DCA works, why it works, and how to implement it in your own portfolio. You'll learn the math behind compounding, when to use DCA vs lump sum investing, and advanced strategies like Value Averaging that the professionals use.</p>
+            <p>By the end, you'll understand the mental framework that separates traders from hoarders—and why DCA is the S in STACK.</p>
+        </div>
+
+        <div class="what-youll-learn">
+            <h3>What You'll Learn</h3>
+            <ul>
+                <li>The exact mechanics of DCA and why it beats emotion-based investing</li>
+                <li>The power of compounding with real-world examples and math</li>
+                <li>How to choose assets, set contribution frequency, and determine amounts</li>
+                <li>DCA vs lump sum: when each strategy wins</li>
+                <li>Advanced strategies: Value Averaging, Tactical DCA, multi-asset portfolios</li>
+                <li>Tax optimization and platform selection for automated DCA</li>
+                <li>Real projections: 5-year, 10-year, and 20-year DCA timelines</li>
+            </ul>
+        </div>
+
+        <h2 style="font-family: 'Playfair Display', serif; color: #EEF2FF; font-size: 1.8rem; text-align: center; margin: 3rem 0 2rem 0; border-bottom: 2px solid #C9A84C; padding-bottom: 1rem;">Course Modules</h2>
+
+        <div class="modules-grid">
+            <div class="module-card">
+                <h4>Module 1</h4>
+                <p><strong>DCA Fundamentals & Compounding</strong></p>
+                <p>Start here. Learn what DCA really is, why it works, and why the math is your best friend. Understand the power of buying low and the psychology of staying the course.</p>
+            </div>
+
+            <div class="module-card">
+                <h4>Module 2</h4>
+                <p><strong>Building Your DCA Plan</strong></p>
+                <p>Apply DCA to your portfolio. Choose your assets, set your frequency, determine your amount, and pick your platform. Learn about rebalancing and tax-efficient lot identification.</p>
+            </div>
+
+            <div class="module-card">
+                <h4>Module 3</h4>
+                <p><strong>Advanced DCA & Value Averaging</strong></p>
+                <p>Level up. Master Value Averaging, learn how to DCA tactically during dips, combine DCA with options, and build a multi-year projection for your wealth.</p>
+            </div>
+        </div>
+
+        <div class="stripe-cta">
+            <h3>Ready to Get STACKED?</h3>
+            <p>Unlock all 3 modules, glossary, and final exam. Direct access to CreoleTrades mentorship framework.</p>
+            <a href="https://buy.stripe.com/8x28wR41154u5a8eZg9k408" class="cta-button">Enroll Now — $97</a>
+        </div>
+
+        <div class="what-youll-learn" style="margin-bottom: 0;">
+            <h3>After This Course, You Will:</h3>
+            <ul>
+                <li>Understand DCA at a molecular level—no BS, just the truth</li>
+                <li>Have a written plan for your own DCA strategy</li>
+                <li>Know how to leverage Value Averaging for better results</li>
+                <li>Be able to project your portfolio 5, 10, even 20 years out</li>
+                <li>Have the discipline framework to stick with it through market cycles</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <p>STACK Academy — CreoleTrades © 2026 | Dollar Cost Averaging Course</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STACK Academy: DCA Glossary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Lora", Georgia, serif;
+            background-color: #070C18;
+            color: #C8D4E8;
+            line-height: 1.7;
+        }
+
+        header {
+            background: #070C18;
+            border-bottom: 3px solid #C9A84C;
+            padding: 2rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header-title h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 1.8rem;
+            color: #EEF2FF;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .module-badge {
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 0.4rem 0.8rem;
+            border-radius: 0px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-family: "Lora", Georgia, serif;
+            padding: 0.5rem 1rem;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        nav a:hover {
+            background-color: transparent;
+            color: #C9A84C;
+            border-color: #C9A84C;
+        }
+
+        nav a.active {
+            background-color: transparent;
+            color: #C9A84C;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        h2 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .glossary-card {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 1.5rem;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+        }
+
+        .glossary-card:hover {
+            background: #0F1A2E;
+            border-color: #F0D080;
+            box-shadow: 0 8px 24px rgba(201, 168, 76, 0.1);
+        }
+
+        .glossary-card h4 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .glossary-card p {
+            font-size: 0.95rem;
+            color: #C8D4E8;
+            margin-bottom: 0;
+        }
+
+        footer {
+            background-color: #070C18;
+            border-top: 3px solid #C9A84C;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 4rem;
+            color: #C9A84C;
+        }
+
+        footer p {
+            color: #C9A84C;
+            margin-bottom: 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 1rem 2rem;
+            border-radius: 0px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid #C9A84C;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-buttons a {
+            min-width: 180px;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-title h1 {
+                font-size: 1.5rem;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            nav a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .glossary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        strong {
+            color: #F0D080;
+        }
+
+        em {
+            color: #F0D080;
+        }
+
+        /* Password Gate Overlay Styles */
+        #password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 22, 40, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        #password-gate.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .password-card {
+            background: #070C18;
+            border: 2px solid #C9A84C;
+            border-radius: 0px;
+            padding: 3rem 2rem;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        .password-card h2 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            border: none;
+            padding-bottom: 0;
+        }
+
+        .password-card .subtitle {
+            color: #C8D4E8;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .password-input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        #password-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            background-color: #0D1526;
+            border: 2px solid #C9A84C;
+            color: #FFFFFF;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+            font-family: "Lora", Georgia, serif;
+        }
+
+        #password-input:focus {
+            outline: none;
+            border-color: #FFD699;
+            box-shadow: 0 0 10px rgba(201, 168, 76, 0.5);
+        }
+
+        #password-input.shake {
+            animation: shake 0.5s ease;
+            border-color: #ff4444;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            min-height: 20px;
+        }
+
+        #unlock-btn {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: 2px solid #C9A84C;
+            border-radius: 0px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: "Lora", Georgia, serif;
+        }
+
+        #unlock-btn:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        .password-helper-text {
+            color: #B0B0B0;
+            font-size: 0.85rem;
+            margin-top: 1.5rem;
+        }
+
+        .password-helper-text a {
+            color: #C9A84C;
+            text-decoration: none;
+            border-bottom: 1px solid #C9A84C;
+            transition: all 0.3s ease;
+        }
+
+        .password-helper-text a:hover {
+            color: #FFD699;
+            border-bottom-color: #FFD699;
+        }
+
+        #course-content {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        #course-content.visible {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .logout-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #C9A84C;
+            transition: all 0.3s ease;
+        }
+
+        .logout-link:hover {
+            color: #FFD699;
+            border-bottom-color: #FFD699;
+        }
+    </style>
+</head>
+<body>
+    <!-- PASSWORD GATE OVERLAY -->
+    <div id="password-gate">
+        <div class="password-card">
+            <h2>STACK Academy</h2>
+            <p class="subtitle">Enter Your Course Password</p>
+            <div class="password-input-group">
+                <input type="password" id="password-input" placeholder="Password">
+                <div class="error-message" id="error-message"></div>
+            </div>
+            <button id="unlock-btn">Unlock Course</button>
+            <div class="password-helper-text">
+                <p>Purchased STACK Academy? Check your email for your access password.</p>
+                <p><a href="index.html">Don't have a password? Get access at creoletrades.com</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-content">
+            <div class="header-title">
+                <h1>STACK Academy</h1>
+                <span class="module-badge">Glossary</span>
+            </div>
+            <nav>
+                <a href="index.html">← Back to Course</a>
+                <a href="module-1.html">Module 1</a>
+                <a href="module-2.html">Module 2</a>
+                <a href="module-3.html">Module 3</a>
+                <a href="glossary.html" class="active">Glossary</a>
+                <a href="final-exam.html">Final Exam</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- COURSE CONTENT (hidden until password entered) -->
+    <div id="course-content">
+    <main>
+        <h2>Dollar Cost Averaging Glossary</h2>
+        <p style="text-align: center; color: #6B84AA; margin-bottom: 2rem;">All terms used in the DCA course, explained in plain English.</p>
+
+        <div class="glossary-grid">
+            <div class="glossary-card">
+                <h4>Dollar Cost Averaging (DCA)</h4>
+                <p>A systematic investment strategy where you invest a fixed sum of money at regular intervals, regardless of the asset's current price. This removes timing risk and creates a disciplined approach to wealth-building.</p>
+            </div>
+
+            <div class="glossary-card">
+                <h4>Cost Basis</h4>
+                <p>Your average cost per share or unit. With DCA, your cost basis naturally lowers over time as you buy more shares at lower prices. It's the foundation for calculating capital gains when you sell.</p>
+            </div>
+
+            <div class="glossary-card">
+                <h4>Compounding</h4>
+                <p>When your investment returns generate their own returns. Your $100 earns $10, then that $10 earns $1—exponential growth. Over decades, compounding turns small contributions into massive wealth.</p>
+            </div>
+
+            <div class="glossary-card">
+                <h4>Value Averaging (VA)</h4>
+                <p>A smarter cousin of DCA. Instead of fixed contributions, you invest whatever amount reaches your target portfolio value. You invest less in up markets, more in down markets—automating tactical buying.</p>
+            </div>
+
+            <div class="glossary-card">
+                <h4>Tactical DCA</h4>
+                <p>Combining DCA with market awareness. You maintain baseline DCA but increase contributions during significant market dips (e.g., 15-20% drops). This lets you buy fear at discount prices systematically.</p>
+            </div>
+
+            <div class="glossary-card">
+                <h4>Cash-Secured Put</h4>
+                <p>An options strategy where you sell a put option and collect premium income. If assigned, you buy shares at the strike price (usually a discount). If not assigned, you keep the premium and repeat.</p>
+            </div>
+
+            <div class="glossary-card">
+                <h4>Frequency</h4>
+                <p>How often you invest: weekly, bi-weekly, monthly, quarterly. Monthly is standard. Shorter frequencies reduce timing risk but increase transaction costs. Longer frequencies are lazy but better than nothing.</p>
+            </div>
+
+            <div class="glossary-card">
+                <h4>Contribution Amount</h4>
+                <p>How much you invest each period. Can be fixed ($500/month) or percentage-based (5-10% of income). Most professionals recommend 5-10% of gross income for aggressive wealth-building.</p>
+            </div>
+
+            <div class="glossary-card">
+                <h4>Rebalancing</h4>
+                <p>Adjusting your portfolio back to your target allocation. Example: You wanted 60% stocks / 40% bonds, but it drifted to 70% / 30%. Rebalance by directing new contributions to underweight assets.</p>
+            </div>
+
+            <div class="glossary-card">
+                <h4>FIFO (First-In, First-Out)</h4>
+                <p>A tax lot method where you sell your oldest shares first. Simple default but usually triggers higher capital gains because oldest shares often have bigger gains. Use only if you want simplicity over taxes.</p>
+            </div>
+
+            <div class="glossary-card">
+                <h4>Specific Lot Identification</h4>
+                <p>Choosing which specific shares to sell when liquidating. You pick the highest-cost shares first, minimizing capital gains taxes. Requires record-keeping but can save thousands in taxes over time.</p>
+            </div>
+
+            <div class="glossary-card">
+                <h4>Capital Gains</h4>
+                <p>Profit from selling an asset at a higher price than you bought it. Short-term gains (held <1 year) are taxed at ordinary income rates. Long-term gains (held >1 year) get preferential tax rates.</p>
+            </div>
+
+            <div class="glossary-card">
+                <h4>Index Funds / ETFs</h4>
+                <p>Passive investments tracking a market index (S&P 500, total stock market). Low fees, broad diversification, perfect for DCA. Examples: SPY, VOO, VTI.</p>
+            </div>
+
+            <div class="glossary-card">
+                <h4>Brokerage</h4>
+                <p>A platform where you buy and sell securities. Choose ones with low fees and automation (recurring investments). Examples: Fidelity, Charles Schwab, TD Ameritrade.</p>
+            </div>
+
+            <div class="glossary-card">
+                <h4>401(k) / IRA</h4>
+                <p>Retirement accounts with tax advantages. 401(k) is employer-sponsored (often with matching). IRA is individual. Both support DCA automatically. Maximize these before regular brokerage accounts.</p>
+            </div>
+
+            <div class="glossary-card">
+                <h4>Volatility</h4>
+                <p>Price swings. High volatility = wild price movements (crypto). Low volatility = steady price (bonds). DCA works best with high volatility because you buy more at lower prices.</p>
+            </div>
+
+            <div class="glossary-card">
+                <h4>Market Dip / Correction</h4>
+                <p>A temporary price drop. Corrections are 10-20% drops. Bear markets are 20%+ drops. DCA investors celebrate dips because they buy more at discounts.</p>
+            </div>
+
+            <div class="glossary-card">
+                <h4>Lump Sum Investing</h4>
+                <p>Investing all your money at once instead of over time. Historically wins 70% of the time BUT requires perfect timing. In real life, DCA wins because most people can't time the market.</p>
+            </div>
+
+            <div class="glossary-card">
+                <h4>Time Horizon</h4>
+                <p>How long you plan to hold investments. Longer horizons (5+ years) let you weather volatility. DCA is designed for 10-20+ year horizons where compounding dominates.</p>
+            </div>
+
+            <div class="glossary-card">
+                <h4>Asset Allocation</h4>
+                <p>How you distribute investments across asset classes (stocks, bonds, crypto, etc.). Example: 60% stocks / 30% bonds / 10% crypto. Your age and risk tolerance determine allocation.</p>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="module-3.html" class="cta-button">← Back to Module 3</a>
+            <a href="final-exam.html" class="cta-button">Take Final Exam →</a>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>STACK Academy — CreoleTrades © 2026</p>
+        <a href="#" id="logout-link" class="logout-link">Log Out</a>
+    </footer>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // === PASSWORD GATE ===
+        const PASSWORD_HASH = "b6d25ec79f51bf59843148d198e660e817a116748b6b24063cc904f01e1ed054";
+        const STORAGE_KEY = "stack_dca_access";
+
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkAccess() {
+            const storedToken = localStorage.getItem(STORAGE_KEY);
+            if (storedToken === PASSWORD_HASH) unlockCourse();
+        }
+
+        function unlockCourse() {
+            document.getElementById('password-gate').classList.add('hidden');
+            document.getElementById('course-content').classList.add('visible');
+        }
+
+        document.getElementById('unlock-btn').addEventListener('click', handleUnlock);
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') handleUnlock();
+        });
+
+        async function handleUnlock() {
+            const passwordInput = document.getElementById('password-input');
+            const errorMessage = document.getElementById('error-message');
+            const password = passwordInput.value;
+            if (!password) { errorMessage.textContent = 'Please enter a password.'; return; }
+            const hashedPassword = await hashPassword(password);
+            if (hashedPassword === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, PASSWORD_HASH);
+                errorMessage.textContent = '';
+                unlockCourse();
+            } else {
+                errorMessage.textContent = 'Incorrect password. Please try again.';
+                passwordInput.classList.add('shake');
+                setTimeout(() => passwordInput.classList.remove('shake'), 500);
+            }
+        }
+
+        document.getElementById('logout-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem(STORAGE_KEY);
+            location.reload();
+        });
+
+        checkAccess();
+    </script>
+</body>
+</html>
