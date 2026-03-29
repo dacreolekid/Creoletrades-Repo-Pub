@@ -1,15 +1,18 @@
-# Force www → non-www
-https://www.CreoleTrades.com/*  https://CreoleTrades.com/:splat  301
+# ============================================================
+# CreoleTrades Academy — Netlify Redirects
+# Place this file at the REPO ROOT (not inside /academy/)
+# ============================================================
 
-# Named pages
-/thank-you    /thank-you.html    200
-/starter-guide    /starter-guide.html    200
+# Old flat SMC URLs → new /academy/smc/ subfolder (301 permanent)
+/academy/stack-academy-module-1.html    /academy/smc/stack-academy-module-1.html    301
+/academy/stack-academy-module-2.html    /academy/smc/stack-academy-module-2.html    301
+/academy/stack-academy-module-3.html    /academy/smc/stack-academy-module-3.html    301
+/academy/stack-academy-module-4.html    /academy/smc/stack-academy-module-4.html    301
+/academy/stack-academy-module-5.html    /academy/smc/stack-academy-module-5.html    301
+/academy/stack-academy-module-6.html    /academy/smc/stack-academy-module-6.html    301
+/academy/stack-academy-glossary.html    /academy/smc/stack-academy-glossary.html    301
+/academy/stack-academy-final-exam.html  /academy/smc/stack-academy-final-exam.html  301
+/academy/thank-you.html                 /academy/smc/thank-you.html                 301
 
-# Academy static assets (serve as-is, don't redirect)
-/academy/images/*    /academy/images/:splat    200
-
-# SPA fallback
-/*    /index.html    200
-
-# Custom 404
-/404    /404.html    404
+# Old academy index (if anyone bookmarked the flat landing page)
+/academy/stack-academy-index.html       /academy/smc/                               301
