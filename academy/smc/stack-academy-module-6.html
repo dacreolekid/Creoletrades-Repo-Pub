@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 6: Trade Management — The C and K in STACK | STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Lora", Georgia, serif;
+            background-color: #070C18;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #070C18;
+            border-bottom: 2px solid #C9A84C;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .header-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header-container h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #EEF2FF;
+            font-weight: 700;
+        }
+
+        .header-container p {
+            font-size: 1.1rem;
+            color: #C8D4E8;
+        }
+
+        nav {
+            background-color: #0D1526;
+            padding: 1rem;
+            border-bottom: 1px solid #C9A84C;
+            overflow-x: auto;
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-family: "Lora", Georgia, serif;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        nav a.active {
+            background-color: #C9A84C;
+            color: #070C18;
+            font-weight: 600;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .module-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .module-header h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 2.2rem;
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .module-header p {
+            font-size: 1.1rem;
+            color: #C8D4E8;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+            border-left: 3px solid #C9A84C;
+            padding-left: 1rem;
+        }
+
+        h3 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #C8D4E8;
+            font-size: 1rem;
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+            color: #C8D4E8;
+        }
+
+        .highlight {
+            color: #F0D080;
+            font-weight: 600;
+        }
+
+        .template {
+            background-color: #0D1526;
+            border: 2px solid #C9A84C;
+            border-radius: 0px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-family: monospace;
+            font-size: 0.95rem;
+        }
+
+        .template-field {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background-color: #070C18;
+            border-left: 3px solid #C9A84C;
+            padding-left: 1rem;
+        }
+
+        .template-label {
+            color: #F0D080;
+            font-weight: 600;
+        }
+
+        .cta-box {
+            background-color: #0D1526;
+            border: 2px solid #C9A84C;
+            border-radius: 0px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .cta-box h3 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-top: 0;
+        }
+
+        .key-takeaways {
+            background-color: #0D1526;
+            border-left: 3px solid #C9A84C;
+            padding: 1.5rem;
+            border-radius: 0px;
+            margin: 2rem 0;
+        }
+
+        .key-takeaways h3 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-top: 0;
+        }
+
+        .roux-score {
+            background-color: #0D1526;
+            border: 2px solid #C9A84C;
+            border-radius: 0px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .score-letter {
+            display: inline-block;
+            width: 3rem;
+            height: 3rem;
+            background-color: #C9A84C;
+            color: #070C18;
+            text-align: center;
+            line-height: 3rem;
+            font-weight: 700;
+            font-size: 1.5rem;
+            border-radius: 50%;
+            margin: 0.5rem;
+        }
+
+        footer {
+            background-color: #070C18;
+            border-top: 2px solid #C9A84C;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            color: #B0B0B0;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: space-between;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-buttons a {
+            flex: 1;
+            min-width: 200px;
+            padding: 1rem;
+            text-align: center;
+            border: 2px solid #C9A84C;
+            color: #C9A84C;
+            text-decoration: none;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .nav-buttons a:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        .nav-buttons a.prev {
+            flex: 0 1 auto;
+        }
+
+        .nav-buttons a.next {
+            flex: 0 1 auto;
+        }
+
+        @media (max-width: 768px) {
+            .header-container h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            .module-header h1 {
+                font-size: 1.6rem;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            nav a {
+                flex: 1;
+                text-align: center;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+            }
+
+            .nav-buttons a {
+                min-width: auto;
+            }
+        }
+
+        /* Password Gate Overlay Styles */
+        #password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 22, 40, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        #password-gate.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .password-card {
+            background: #070C18;
+            border: 2px solid #C9A84C;
+            border-radius: 0px;
+            padding: 3rem 2rem;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        .password-card h2 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            border: none;
+            padding-bottom: 0;
+        }
+
+        .password-card .subtitle {
+            color: #C8D4E8;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .password-input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        #password-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            background-color: #0D1526;
+            border: 2px solid #C9A84C;
+            color: #FFFFFF;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+            font-family: "Lora", Georgia, serif;
+        }
+
+        #password-input:focus {
+            outline: none;
+            border-color: #FFD699;
+            box-shadow: 0 0 10px rgba(201, 168, 76, 0.5);
+        }
+
+        #password-input.shake {
+            animation: shake 0.5s ease;
+            border-color: #ff4444;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            min-height: 20px;
+        }
+
+        #unlock-btn {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: 2px solid #C9A84C;
+            border-radius: 0px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: "Lora", Georgia, serif;
+        }
+
+        #unlock-btn:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        .password-helper-text {
+            color: #B0B0B0;
+            font-size: 0.85rem;
+            margin-top: 1.5rem;
+        }
+
+        .password-helper-text a {
+            color: #C9A84C;
+            text-decoration: none;
+            border-bottom: 1px solid #C9A84C;
+            transition: all 0.3s ease;
+        }
+
+        .password-helper-text a:hover {
+            color: #FFD699;
+            border-bottom-color: #FFD699;
+        }
+
+        #course-content {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        #course-content.visible {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .logout-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #C9A84C;
+            transition: all 0.3s ease;
+        }
+
+        .logout-link:hover {
+            color: #FFD699;
+            border-bottom-color: #FFD699;
+        }
+
+        /* Quiz Styles */
+        .quiz-section { background: linear-gradient(135deg, #0D1526, #070C18); border: 2px solid #C9A84C; padding: 2.5rem 2rem; margin: 2rem 0; }
+        .quiz-section h2 { font-family: "Playfair Display", serif; color: #F0D080; font-size: 1.8rem; margin-bottom: 0.5rem; border-bottom: none; padding-bottom: 0; }
+        .quiz-intro { color: #C8D4E8; font-style: italic; margin-bottom: 2rem; }
+        .quiz-question { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(201, 168, 76, 0.2); }
+        .quiz-question:last-of-type { border-bottom: none; }
+        .quiz-question p.q-text { color: #EEF2FF; font-weight: 600; font-size: 1.05rem; margin-bottom: 1rem; }
+        .quiz-options { display: flex; flex-direction: column; gap: 0.6rem; }
+        .quiz-option { background: #0D1526; border: 1px solid rgba(200, 212, 232, 0.2); padding: 0.8rem 1.2rem; cursor: pointer; transition: all 0.3s ease; color: #C8D4E8; font-family: "Lora", Georgia, serif; font-size: 0.95rem; }
+        .quiz-option:hover:not(.selected) { border-color: #C9A84C; background: rgba(201, 168, 76, 0.1); }
+        .quiz-option.correct { border-color: #22C55E; background: rgba(34, 197, 94, 0.15); color: #22C55E; }
+        .quiz-option.incorrect { border-color: #EF4444; background: rgba(239, 68, 68, 0.15); color: #EF4444; }
+        .quiz-option.correct::after { content: " ✓"; font-weight: bold; }
+        .quiz-option.incorrect::after { content: " ✗"; font-weight: bold; }
+        .quiz-option.reveal-correct { border-color: #22C55E; background: rgba(34, 197, 94, 0.1); color: #22C55E; }
+        .quiz-explanation { margin-top: 0.5rem; padding: 0.8rem 1rem; font-size: 0.9rem; color: #F0D080; font-style: italic; display: none; }
+        .quiz-explanation.visible { display: block; }
+        .quiz-score { text-align: center; padding: 1.5rem; margin-top: 1.5rem; border: 2px solid #C9A84C; background: rgba(201, 168, 76, 0.1); display: none; }
+        .quiz-score.visible { display: block; }
+        .quiz-score h3 { font-family: "Playfair Display", serif; color: #F0D080; font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .quiz-score p { color: #C8D4E8; }
+        .quiz-reset { margin-top: 1rem; padding: 0.6rem 1.5rem; background: #C9A84C; color: #070C18; border: none; font-family: "Lora", Georgia, serif; font-weight: bold; cursor: pointer; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
+        .quiz-reset:hover { background: transparent; color: #C9A84C; border: 2px solid #C9A84C; }
+    </style>
+</head>
+<body>
+    <!-- Password Gate Overlay -->
+    <div id="password-gate">
+        <div class="password-card">
+            <h2>STACK Academy</h2>
+            <p class="subtitle">Enter Your Course Password</p>
+            <div class="password-input-group">
+                <input type="password" id="password-input" placeholder="Password">
+                <div class="error-message" id="error-message"></div>
+            </div>
+            <button id="unlock-btn">Unlock Course</button>
+            <div class="password-helper-text">
+                <p>Purchased STACK Academy? Check your email for your access password.</p>
+                <p><a href="index.html">Don't have a password? Get access at creoletrades.com</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="course-content">
+    <header>
+        <div class="header-container">
+            <h1>STACK Academy</h1>
+            <p>Module 6 of 6</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-container">
+            <a href="../">← All Courses</a>
+            <a href="index.html">← Back to Overview</a>
+            <a href="stack-academy-module-1.html">Module 1</a>
+            <a href="stack-academy-module-2.html">Module 2</a>
+            <a href="stack-academy-module-3.html">Module 3</a>
+            <a href="stack-academy-module-4.html">Module 4</a>
+            <a href="stack-academy-module-5.html">Module 5</a>
+            <a href="stack-academy-module-6.html" class="active">Module 6</a>
+            <a href="stack-academy-glossary.html">Glossary</a>
+            <a href="stack-academy-final-exam.html">Final Exam</a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="module-header">
+            <h1>Trade Management: The C and K in STACK</h1>
+            <p>Where Most Traders Fail—And How You Won't</p>
+        </div>
+
+        <section>
+            <h2>The Final Two Letters: Where Winning Gets Real</h2>
+            <p>You've learned how to read structure, identify triggers, confirm alignment across timeframes, and spot the setups that Smart Money respects. By Module 5, you have S, T, and A locked in. But here's the truth that separates winning traders from the rest: <span class="highlight">the setup is only half the battle.</span></p>
+            <p>This module covers the final two letters of STACK—the C and the K—and they are where most traders fail. It's not sexy. It's not the part that gets posted on X in screenshots. But it's the part that determines whether you keep the money you've earned or hand it back to the market.</p>
+            <p><span class="highlight">C = Confirmation.</span> After Structure, Trigger, and Alignment all check out, you need one final mechanical gate before execution. That gate is Wolf Chart 2.1.</p>
+            <p><span class="highlight">K = Keep Discipline.</span> This is position sizing. Invalidation. No exceptions. This is where you write the rules and enforce them on yourself before the emotion hits.</p>
+        </section>
+
+        <section>
+            <h2>C: Confirmation with Wolf Chart 2.1</h2>
+            <p>You've done the work. Your structure is clean. Your trigger fired. Your timeframes are aligned. You're convinced this trade is going your way. But conviction is not enough. This is where <span class="highlight">Wolf Chart 2.1 becomes your final checkpoint.</span></p>
+            <p>Wolf Chart is a TradingView indicator tool that provides mechanical confirmation. It's the last gate before execution. Without C, the Roux Score maxes out at 4/5. You can have the perfect S, T, and A, but if Wolf Chart doesn't confirm, you're missing a critical piece of the puzzle.</p>
+            <p>Think of it this way: Structure, Trigger, and Alignment are your thesis. Wolf Chart is your confirmation that the thesis is ready. It's the indicator that says, "Yes, everything you've analyzed lines up with what price is actually doing right now."</p>
+            <p>The beauty of Wolf Chart is that it's rules-based. No ambiguity. No "should I, shouldn't I?" It either confirms or it doesn't. This removes emotion and keeps you mechanical.</p>
+            <p><span class="highlight">Wolf Chart members get dedicated walkthroughs in The Trading Roux Discord—type !wolf to learn more.</span> If you don't have Wolf Chart yet, grab it on TradingView. It pays for itself in the first week of trading clean setups.</p>
+        </section>
+
+        <section>
+            <h2>K: Keep Discipline—The Foundation of Winning</h2>
+            <p>Confirmation gets you in. But Discipline keeps you alive. The K in STACK stands for Keep—Keep your rules, Keep your position size, Keep your invalidation, Keep your plan.</p>
+            <p>This is where traders lose the war. A beautiful setup gets confirmed. You take the trade. Price moves your way. And then suddenly, greed whispers: "Just add a little more position. Just move your stop a little closer. Just hold this one extra swing." Then a wick hits. Your account is down 5%. You panic. You close the trade early. You hand back all your gains.</p>
+            <p>The K doesn't negotiate. Your rules are written in stone before you enter the trade. The market can't change them. Your emotions can't change them. Only you can, and you only do that outside of market hours, in cold blood, when you're not in a live trade.</p>
+
+            <h3>Position Sizing: The Math That Keeps You Alive</h3>
+            <p>Never risk more than 1-2% of your account on a single trade. This isn't a suggestion. This is the rule that separates traders from gamblers.</p>
+            <p>Here's how it works: <span class="highlight">You calculate position size based on your stop loss distance, not on how "good" the setup looks.</span></p>
+            <p><span class="highlight">Formula: Risk Amount ÷ Stop Loss Distance = Position Size</span></p>
+            <p>Let's say your account is $10,000. You're willing to risk 1% = $100 on this trade. Your stop loss is 50 pips away (or 50 points, or $5 per share—the unit doesn't matter). Your math is: $100 ÷ $5 per share = 20 shares.</p>
+            <p>That's your position size. Not more. Not "just a little more because this one looks better." 20 shares.</p>
+            <p>Here's the critical insight: <span class="highlight">a bigger stop loss means a smaller position. A tighter stop loss means more shares, but also more chance of getting stopped out.</span> This is the trade-off. You can't have infinite shares with a 500-pip stop. The math won't let you. And that's the protection. The math is your guardrail.</p>
+            <p>If your stop loss is so wide that it breaks your 1-2% risk rule, the trade doesn't fit your account. Walk away. There will be another setup tomorrow. Your job is not to take every trade. Your job is to take <em>the right trades at the right size.</em></p>
+
+            <h3>Setting Invalidation: Where Your Thesis Dies</h3>
+            <p>Your invalidation goes where your thesis breaks—<span class="highlight">not where it's comfortable.</span></p>
+            <p>For a bullish order block trade: your invalidation is <span class="highlight">below the OB low.</span> That's the point at which the order block is no longer valid and Smart Money's buying thesis has broken down.</p>
+            <p>For a bearish order block trade: your invalidation is <span class="highlight">above the OB high.</span> Same logic. Price closes above the high, the supply is breached, and your thesis is invalid.</p>
+            <p>This is mechanical. Not emotional. You don't move your stop to a "safer" place because you're scared. You place it where the thesis actually breaks. If a wick pokes through and stops you out, fine. That's the trade telling you were wrong. Accept it and move on.</p>
+            <p><span class="highlight">If your invalidation is too far and the risk doesn't fit your 1-2% rule, the trade doesn't fit. Walk away. "The K doesn't negotiate."</span></p>
+
+            <h3>Profit Targets: The Exit Plan</h3>
+            <p>You have three profit targets. This is not optional. You plan all three before you enter.</p>
+            <p><span class="highlight">PT1: First Opposing Order Block or Key Level.</span> This is where you take partial profits and trim. Maybe you close 30-50% of your position here. You lock in wins and reduce risk. This is risk management on the way up (or down).</p>
+            <p><span class="highlight">PT2: Next Significant Level.</span> Often a higher timeframe target or previous swing high/low. You trim again here. Another 30-50% comes off. Now you're running mostly on house money.</p>
+            <p><span class="highlight">PT3: The Full Extension.</span> Major liquidity pool or higher timeframe supply/demand. This is where the remaining runners stay, riding the impulse as far as it can go. No emotion here—just execution of the plan.</p>
+
+            <div style="background-color: #0D1526; border-radius: 8px; border: 1px solid rgba(201, 168, 76, 0.3); padding: 1.5rem; margin: 1.5rem 0;">
+                <svg viewBox="0 0 800 500" width="100%" height="auto" style="display: block; margin: 0 auto;">
+                    <defs>
+                        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#F0D080;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#C9A84C;stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+
+                    <!-- Background -->
+                    <rect width="800" height="500" fill="#0D1526"/>
+
+                    <!-- Grid lines (subtle) -->
+                    <line x1="100" y1="50" x2="100" y2="400" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+                    <line x1="100" y1="50" x2="750" y2="50" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+                    <line x1="100" y1="400" x2="750" y2="400" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+
+                    <!-- Y-axis (Price) -->
+                    <line x1="100" y1="50" x2="100" y2="400" stroke="#C9A84C" stroke-width="2"/>
+                    <!-- X-axis (Time) -->
+                    <line x1="100" y1="400" x2="750" y2="400" stroke="#C9A84C" stroke-width="2"/>
+
+                    <!-- Entry point (green marker) -->
+                    <g>
+                        <circle cx="120" cy="380" r="6" fill="#22C55E" filter="url(#glow)"/>
+                        <text x="140" y="385" font-family="Lora, serif" font-size="14" fill="#22C55E" font-weight="bold">Entry</text>
+                    </g>
+
+                    <!-- Stop Loss / Invalidation (red marker) -->
+                    <g>
+                        <circle cx="120" cy="410" r="6" fill="#EF4444" filter="url(#glow)"/>
+                        <text x="140" y="415" font-family="Lora, serif" font-size="14" fill="#EF4444" font-weight="bold">Stop Loss / Invalidation</text>
+                    </g>
+
+                    <!-- Price movement line (uptrend) -->
+                    <polyline points="120,380 180,340 240,310 300,270 360,220 420,180 480,130 540,90 600,70 660,75 720,85"
+                              stroke="url(#goldGrad)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+                    <!-- Entry-PT1 zone (lighter) -->
+                    <rect x="120" y="300" width="150" height="80" fill="rgba(240,208,128,0.08)" />
+                    <text x="195" y="345" font-family="Lora, serif" font-size="12" fill="rgba(240,208,128,0.4)" text-anchor="middle">Entry Zone</text>
+
+                    <!-- PT1-PT2 zone (medium) -->
+                    <rect x="270" y="200" width="150" height="100" fill="rgba(240,208,128,0.15)" />
+                    <text x="345" y="250" font-family="Lora, serif" font-size="12" fill="rgba(240,208,128,0.5)" text-anchor="middle">Growth Zone</text>
+
+                    <!-- PT2-PT3 zone (brightest) -->
+                    <rect x="420" y="80" width="300" height="220" fill="rgba(240,208,128,0.22)" />
+                    <text x="570" y="190" font-family="Lora, serif" font-size="12" fill="rgba(240,208,128,0.6)" text-anchor="middle">Runner Zone</text>
+
+                    <!-- PT1 Line and Label -->
+                    <line x1="270" y1="50" x2="270" y2="400" stroke="rgba(201,168,76,0.4)" stroke-width="2" stroke-dasharray="5,5"/>
+                    <circle cx="270" cy="270" r="5" fill="#C9A84C" filter="url(#glow)"/>
+                    <rect x="220" y="240" width="100" height="50" fill="#0D1526" stroke="#C9A84C" stroke-width="1" rx="4"/>
+                    <text x="270" y="260" font-family="Lora, serif" font-size="13" fill="#F0D080" font-weight="bold" text-anchor="middle">PT1</text>
+                    <text x="270" y="278" font-family="Lora, serif" font-size="11" fill="#C8D4E8" text-anchor="middle">Trim 30-50%</text>
+
+                    <!-- PT2 Line and Label -->
+                    <line x1="420" y1="50" x2="420" y2="400" stroke="rgba(201,168,76,0.4)" stroke-width="2" stroke-dasharray="5,5"/>
+                    <circle cx="420" cy="180" r="5" fill="#C9A84C" filter="url(#glow)"/>
+                    <rect x="370" y="150" width="100" height="50" fill="#0D1526" stroke="#C9A84C" stroke-width="1" rx="4"/>
+                    <text x="420" y="170" font-family="Lora, serif" font-size="13" fill="#F0D080" font-weight="bold" text-anchor="middle">PT2</text>
+                    <text x="420" y="188" font-family="Lora, serif" font-size="11" fill="#C8D4E8" text-anchor="middle">Trim 30-50%</text>
+
+                    <!-- PT3 Line and Label -->
+                    <line x1="600" y1="50" x2="600" y2="400" stroke="rgba(201,168,76,0.4)" stroke-width="2" stroke-dasharray="5,5"/>
+                    <circle cx="600" cy="70" r="5" fill="#C9A84C" filter="url(#glow)"/>
+                    <rect x="535" y="30" width="130" height="55" fill="#0D1526" stroke="#C9A84C" stroke-width="1" rx="4"/>
+                    <text x="600" y="50" font-family="Lora, serif" font-size="13" fill="#F0D080" font-weight="bold" text-anchor="middle">PT3</text>
+                    <text x="600" y="68" font-family="Lora, serif" font-size="11" fill="#C8D4E8" text-anchor="middle">Let Runners Ride</text>
+
+                    <!-- Axis Labels -->
+                    <text x="85" y="30" font-family="Lora, serif" font-size="12" fill="#C9A84C" font-weight="bold">PRICE</text>
+                    <text x="730" y="425" font-family="Lora, serif" font-size="12" fill="#C9A84C" font-weight="bold">TIME</text>
+                </svg>
+            </div>
+
+            <p>The process: trim at PT1, move your stop to breakeven. Trim more at PT2. Let the rest ride to PT3. <span class="highlight">Full trade plans with all three PTs are available in The Trading Roux for Mastery members.</span></p>
+        </section>
+
+        <section>
+            <h2>The Full Roux Score: Putting It All Together</h2>
+            <p>Now you have all five letters. Here's how they score:</p>
+
+            <div style="margin: 2rem auto; max-width: 900px; text-align: center;">
+                <img src="images/18-roux-score-scorecard.png" alt="Roux Score Scorecard — S+T+A+C+K scoring system, 5/5 = A+ Confirmation Stack" style="width: 100%; max-width: 900px; height: auto; border: 2px solid #C9A84C;">
+            </div>
+
+            <div class="roux-score">
+                <p><span class="score-letter">S</span><span class="highlight"> Structure:</span> Is the structure clear? (1 or 0)</p>
+                <p><span class="score-letter">T</span><span class="highlight"> Trigger:</span> Did price give a specific trigger? (1 or 0)</p>
+                <p><span class="score-letter">A</span><span class="highlight"> Alignment:</span> Do all timeframes agree? (1 or 0)</p>
+                <p><span class="score-letter">C</span><span class="highlight"> Confirmation:</span> Does Wolf Chart confirm? (1 or 0)</p>
+                <p><span class="score-letter">K</span><span class="highlight"> Keep Discipline:</span> Is position sizing correct, invalidation set, and plan written? (1 or 0)</p>
+                <p style="margin-top: 1.5rem;"><span class="highlight">5/5 = A+ Confirmation Stack.</span> Anything less = reduced conviction or no trade.</p>
+            </div>
+            <p>This is your grading system. You don't guess. You don't hope. You score every opportunity and only take the ones that hit 5/5. That's what separates professional traders from amateurs. Amateurs take 3/5 trades and wonder why they blow accounts. Professionals wait for 5/5.</p>
+        </section>
+
+        <section>
+            <h2>The Trading Plan Template</h2>
+            <p>Before you enter any trade, fill this out. Write it down. Keep it open while the trade is live. This is your contract with yourself.</p>
+            <div class="template">
+                <div class="template-field">
+                    <span class="template-label">Ticker / Direction:</span> [e.g., NVDA / BULLISH]
+                </div>
+                <div class="template-field">
+                    <span class="template-label">S (Structure):</span> [Describe the order block, support/resistance, or liquidity pool you're targeting]
+                </div>
+                <div class="template-field">
+                    <span class="template-label">T (Trigger):</span> [What was the specific trigger? Mitigation of OB? Rejection at supply? Breaking a swing?]
+                </div>
+                <div class="template-field">
+                    <span class="template-label">A (Alignment):</span> [Confirm all timeframes agree. Example: Daily = bullish. 4H = bullish. 1H = bullish.]
+                </div>
+                <div class="template-field">
+                    <span class="template-label">C (Wolf Chart Confirmation):</span> [Does Wolf Chart confirm? Yes/No]
+                </div>
+                <div class="template-field">
+                    <span class="template-label">K (Keep Discipline):</span>
+                    <br>— Position Size: [X shares/contracts]
+                    <br>— Entry: [Price level]
+                    <br>— Invalidation (Stop Loss): [Price level & why thesis breaks here]
+                    <br>— PT1: [Level & % to trim]
+                    <br>— PT2: [Level & % to trim]
+                    <br>— PT3: [Level & target]
+                </div>
+                <div class="template-field">
+                    <span class="template-label">Roux Score:</span> __/5
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Key Takeaways</h2>
+            <div class="key-takeaways">
+                <ul>
+                    <li><span class="highlight">Wolf Chart 2.1 is your mechanical gate.</span> Without C, your setup is incomplete. Use it. Trust it.</li>
+                    <li><span class="highlight">Position sizing is not negotiable.</span> Risk 1-2% per trade. Let the math tell you how many shares. Bigger risk on bigger stops—that's the rule.</li>
+                    <li><span class="highlight">Your invalidation is where your thesis breaks,</span> not where it's comfortable. Place it there and never move it.</li>
+                    <li><span class="highlight">Plan three profit targets before you enter.</span> Trim at PT1, trim at PT2, let runners ride to PT3. Execution, not emotion.</li>
+                    <li><span class="highlight">A 5/5 Roux Score is rare and beautiful.</span> When you get it, trade it with conviction. When you don't, walk away. The K doesn't negotiate.</li>
+                </ul>
+                <p style="margin-top: 1.5rem; font-style: italic; color: #C9A84C;">You don't rush a roux. You don't rush a trade. Stay STACKED.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Practice Exercise</h2>
+            <div class="cta-box">
+                <h3>Build a Complete Trade Plan</h3>
+                <p>Pick any ticker and any setup you've spotted recently. Run your top-down analysis. Find the structure. Wait for a trigger. And fill in every field of the STACK template above.</p>
+                <p>Score your own Roux Score. Be honest. Is it 5/5, or are you forcing a trade that doesn't quite fit?</p>
+                <p style="font-style: italic; margin-top: 1rem;">This is the exercise that turns a student into a STACKer.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>You've Completed STACK Academy</h2>
+            <div class="cta-box">
+                <h3>What's Next?</h3>
+                <p>You now have the foundation to read price like Smart Money. You know Structure. You know Triggers. You know Alignment. You know Confirmation. And you know Discipline.</p>
+                <p>But knowledge and execution are two different things. To take your trading further:</p>
+                <ul style="text-align: left; display: inline-block;">
+                    <li>Join <span class="highlight">The Trading Roux on Discord</span> (free tier available)</li>
+                    <li>Grab <span class="highlight">Wolf Chart 2.1 on TradingView</span> for mechanical confirmation</li>
+                    <li>Show up to <span class="highlight">Friday Triple Confirmation Live at 5PM CST</span> to see these concepts in real time</li>
+                </ul>
+                <p style="margin-top: 1.5rem; font-size: 1.1rem;"><span class="highlight">Stay STACKED. ⚜️ — Que</span></p>
+            </div>
+        </section>
+
+        <section>
+            <div class="quiz-section">
+                <h2>Check Your Learning</h2>
+                <p class="quiz-intro">5 questions on Module 6. Click your answer — no second chances per question.</p>
+
+                <div class="quiz-question">
+                    <p class="q-text">1. What does the K in STACK stand for?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">Knowledge — understanding the markets deeply</div>
+                        <div class="quiz-option" data-correct="true">Keep Discipline — position sizing, invalidation, and sticking to the plan</div>
+                        <div class="quiz-option" data-correct="false">Key Levels — the most important support and resistance zones</div>
+                        <div class="quiz-option" data-correct="false">Kill Zone — the best time windows to trade</div>
+                    </div>
+                    <div class="quiz-explanation">K = Keep Discipline. Position sizing, invalidation levels, and never deviating from the plan. The K doesn't negotiate. Ever.</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p class="q-text">2. A Roux Score of 5/5 means:</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">The trade is guaranteed to be profitable</div>
+                        <div class="quiz-option" data-correct="true">All five STACK criteria — Structure, Trigger, Alignment, Confirmation, Keep Discipline — are met. A+ setup.</div>
+                        <div class="quiz-option" data-correct="false">You should use maximum position size</div>
+                        <div class="quiz-option" data-correct="false">The trade will reach all three profit targets</div>
+                    </div>
+                    <div class="quiz-explanation">5/5 = A+ Confirmation Stack. Every letter passes. This is the highest-conviction setup — but it still doesn't guarantee profit. It means probability is maximally in your favor.</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p class="q-text">3. What is the purpose of PT1, PT2, and PT3?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">They are three different entry points for scaling in</div>
+                        <div class="quiz-option" data-correct="false">They represent three different timeframes to monitor</div>
+                        <div class="quiz-option" data-correct="true">They are progressive profit targets where you trim position size and manage the trade</div>
+                        <div class="quiz-option" data-correct="false">They are stop loss levels in case the trade moves against you</div>
+                    </div>
+                    <div class="quiz-explanation">PT1, PT2, PT3 are graduated profit targets. You trim at each level — locking in gains progressively while letting winners run. This is disciplined execution.</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p class="q-text">4. When your invalidation level is hit, you should:</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">Move your stop loss further to give the trade more room</div>
+                        <div class="quiz-option" data-correct="false">Average down and add to the position</div>
+                        <div class="quiz-option" data-correct="false">Wait and see if price reverses back in your favor</div>
+                        <div class="quiz-option" data-correct="true">Exit the trade immediately — invalidation means the thesis is broken</div>
+                    </div>
+                    <div class="quiz-explanation">Invalidation = exit. No exceptions. Moving stops, hoping, or averaging down is how accounts blow up. The K doesn't negotiate.</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p class="q-text">5. Which Roux Score would you NOT take a full-conviction trade on?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">5/5 — all criteria met</div>
+                        <div class="quiz-option" data-correct="false">4/5 — one minor criterion missed</div>
+                        <div class="quiz-option" data-correct="true">2/5 — structure and alignment are both missing</div>
+                        <div class="quiz-option" data-correct="false">All scores above 3/5 deserve full conviction</div>
+                    </div>
+                    <div class="quiz-explanation">A 2/5 with Structure and Alignment missing is not a STACK trade — it's a gamble. The Roux Score exists to keep you disciplined. Low score = stand down or reduce size.</div>
+                </div>
+
+                <div class="quiz-score">
+                    <h3>Your Score: <span class="score-text"></span></h3>
+                    <p class="score-msg"></p>
+                    <button class="quiz-reset">Retake Quiz</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="nav-buttons">
+            <a href="stack-academy-module-5.html" class="prev">← Previous Module</a>
+            <a href="index.html">Back to Course Overview</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>© CreoleTrades | @creoletrades | creoletrades.com | Stay STACKED. ⚜️</p>
+            <p><a href="#" class="logout-link" id="logout-link">Log Out</a></p>
+        </div>
+    </footer>
+    </div>
+
+    <script>
+        // SHA-256 hash of "STACKED2026"
+        const PASSWORD_HASH = "c74006541acbe74a1a356069d8fdbd661c2aaa4b612605cb9313d533e99b9d25";
+        const STORAGE_KEY = "stack_academy_access";
+
+        // Async function to hash password using Web Crypto API
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hashHex;
+        }
+
+        // Check localStorage on page load
+        async function checkAccess() {
+            const storedToken = localStorage.getItem(STORAGE_KEY);
+            if (storedToken === PASSWORD_HASH) {
+                unlockCourse();
+            }
+        }
+
+        // Unlock the course
+        function unlockCourse() {
+            const gate = document.getElementById('password-gate');
+            const content = document.getElementById('course-content');
+
+            gate.classList.add('hidden');
+            content.classList.add('visible');
+        }
+
+        // Handle unlock button click
+        document.getElementById('unlock-btn').addEventListener('click', handleUnlock);
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handleUnlock();
+            }
+        });
+
+        async function handleUnlock() {
+            const passwordInput = document.getElementById('password-input');
+            const errorMessage = document.getElementById('error-message');
+            const password = passwordInput.value;
+
+            if (!password) {
+                errorMessage.textContent = 'Please enter a password.';
+                return;
+            }
+
+            const hashedPassword = await hashPassword(password);
+
+            if (hashedPassword === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, PASSWORD_HASH);
+                errorMessage.textContent = '';
+                unlockCourse();
+            } else {
+                errorMessage.textContent = 'Incorrect password. Please try again.';
+                passwordInput.classList.add('shake');
+                setTimeout(() => {
+                    passwordInput.classList.remove('shake');
+                }, 500);
+            }
+        }
+
+        // Logout functionality
+        document.getElementById('logout-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem(STORAGE_KEY);
+            location.reload();
+        });
+
+        // Check access on page load
+        checkAccess();
+
+        // Quiz functionality
+        function initQuiz() {
+            const questions = document.querySelectorAll('.quiz-question');
+            let answered = 0;
+            const total = questions.length;
+            let score = 0;
+            questions.forEach(q => {
+                const options = q.querySelectorAll('.quiz-option');
+                const explanation = q.querySelector('.quiz-explanation');
+                options.forEach(opt => {
+                    opt.addEventListener('click', function() {
+                        if (q.classList.contains('answered')) return;
+                        q.classList.add('answered');
+                        answered++;
+                        const isCorrect = this.dataset.correct === 'true';
+                        if (isCorrect) { this.classList.add('correct'); score++; }
+                        else { this.classList.add('incorrect'); options.forEach(o => { if (o.dataset.correct === 'true') o.classList.add('reveal-correct'); }); }
+                        if (explanation) explanation.classList.add('visible');
+                        if (answered === total) {
+                            const scoreEl = document.querySelector('.quiz-score');
+                            scoreEl.querySelector('.score-text').textContent = score + ' / ' + total;
+                            const msg = scoreEl.querySelector('.score-msg');
+                            if (score === total) msg.textContent = 'Perfect score. You read the structure. Stay STACKED. ⚜️';
+                            else if (score >= total * 0.8) msg.textContent = 'Solid read. Review what you missed, then move forward. Stay STACKED. ⚜️';
+                            else if (score >= total * 0.6) msg.textContent = 'Decent foundation. Re-read the sections you missed before moving on.';
+                            else msg.textContent = 'Review this module again before continuing. The S in STACK demands it.';
+                            scoreEl.classList.add('visible');
+                        }
+                    });
+                });
+            });
+            const resetBtn = document.querySelector('.quiz-reset');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function() {
+                    score = 0; answered = 0;
+                    questions.forEach(q => { q.classList.remove('answered'); q.querySelectorAll('.quiz-option').forEach(o => { o.classList.remove('correct', 'incorrect', 'reveal-correct'); }); const exp = q.querySelector('.quiz-explanation'); if (exp) exp.classList.remove('visible'); });
+                    document.querySelector('.quiz-score').classList.remove('visible');
+                });
+            }
+        }
+        initQuiz();
+    </script>
+</body>
+</html>

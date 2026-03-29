@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STACK Academy - Module 3: Order Blocks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Lora", Georgia, serif;
+            background-color: #070C18;
+            color: #C8D4E8;
+            line-height: 1.7;
+        }
+
+        header {
+            background: #070C18;
+            border-bottom: 3px solid #C9A84C;
+            padding: 2rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            flex: 1;
+        }
+
+        .brand {
+            font-family: "Playfair Display", serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #EEF2FF;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 0.3rem 0.8rem;
+            border-radius: 0px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-family: "Lora", Georgia, serif;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0px;
+        }
+
+        nav a:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        nav a.active {
+            background-color: transparent;
+            color: #C9A84C;
+            font-weight: 600;
+        }
+
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .module-title {
+            font-family: "Playfair Display", serif;
+            font-size: 2.5rem;
+            color: #EEF2FF;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .module-subtitle {
+            font-size: 1.3rem;
+            color: #C8D4E8;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-family: "Playfair Display", serif;
+            font-size: 1.6rem;
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+            border-left: 3px solid #C9A84C;
+            padding-left: 1rem;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .section-content {
+            color: #C8D4E8;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .section-content p {
+            margin-bottom: 1rem;
+        }
+
+        .section-content ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-content li {
+            margin-bottom: 0.7rem;
+        }
+
+        .section-content strong {
+            color: #F0D080;
+        }
+
+        .visual-description {
+            background-color: #0D1526;
+            border-left: 3px solid #C9A84C;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0px;
+            font-style: italic;
+            color: #C8D4E8;
+        }
+
+        .key-takeaways {
+            background-color: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 1.5rem;
+            border-radius: 0px;
+            margin: 2rem 0;
+        }
+
+        .key-takeaways h3 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .key-takeaways ul {
+            list-style-position: inside;
+        }
+
+        .key-takeaways li {
+            margin-bottom: 0.8rem;
+            color: #C8D4E8;
+        }
+
+        .practice-exercise {
+            background-color: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 1.5rem;
+            border-radius: 0px;
+            margin: 2rem 0;
+        }
+
+        .practice-exercise h3 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .practice-exercise p {
+            color: #C8D4E8;
+            line-height: 1.8;
+        }
+
+        .quote {
+            background-color: #0D1526;
+            border-left: 3px solid #C9A84C;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            font-size: 1.1rem;
+            color: #C8D4E8;
+            font-weight: 500;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .nav-button {
+            display: inline-block;
+            padding: 1rem 1.5rem;
+            background-color: #C9A84C;
+            color: #070C18;
+            text-decoration: none;
+            border-radius: 0px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .nav-button:hover {
+            background-color: transparent;
+            color: #C9A84C;
+            border: 2px solid #C9A84C;
+            box-shadow: 0 6px 12px rgba(201, 168, 76, 0.1);
+        }
+
+        .nav-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .nav-button.prev {
+            margin-right: auto;
+        }
+
+        .nav-button.next {
+            margin-left: auto;
+        }
+
+        footer {
+            background-color: #070C18;
+            border-top: 3px solid #C9A84C;
+            padding: 2rem 1rem;
+            text-align: center;
+            color: #888888;
+            font-size: 0.95rem;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav {
+                justify-content: center;
+                margin-top: 1rem;
+            }
+
+            .module-title {
+                font-size: 1.8rem;
+            }
+
+            .module-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .main-container {
+                padding: 2rem 1rem;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .nav-button {
+                max-width: 100%;
+            }
+
+            .nav-button.prev {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .nav-button.next {
+                margin-left: 0;
+            }
+        }
+
+        /* Password Gate Overlay Styles */
+        #password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 22, 40, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        #password-gate.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .password-card {
+            background: #070C18;
+            border: 2px solid #C9A84C;
+            border-radius: 0px;
+            padding: 3rem 2rem;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        .password-card h2 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            border: none;
+            padding-bottom: 0;
+        }
+
+        .password-card .subtitle {
+            color: #C8D4E8;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .password-input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        #password-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            background-color: #0D1526;
+            border: 2px solid #C9A84C;
+            color: #FFFFFF;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+            font-family: "Lora", Georgia, serif;
+        }
+
+        #password-input:focus {
+            outline: none;
+            border-color: #FFD699;
+            box-shadow: 0 0 10px rgba(201, 168, 76, 0.5);
+        }
+
+        #password-input.shake {
+            animation: shake 0.5s ease;
+            border-color: #ff4444;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            min-height: 20px;
+        }
+
+        #unlock-btn {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: 2px solid #C9A84C;
+            border-radius: 0px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: "Lora", Georgia, serif;
+        }
+
+        #unlock-btn:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        .password-helper-text {
+            color: #B0B0B0;
+            font-size: 0.85rem;
+            margin-top: 1.5rem;
+        }
+
+        .password-helper-text a {
+            color: #C9A84C;
+            text-decoration: none;
+            border-bottom: 1px solid #C9A84C;
+            transition: all 0.3s ease;
+        }
+
+        .password-helper-text a:hover {
+            color: #FFD699;
+            border-bottom-color: #FFD699;
+        }
+
+        #course-content {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        #course-content.visible {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .logout-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #C9A84C;
+            transition: all 0.3s ease;
+        }
+
+        .logout-link:hover {
+            color: #FFD699;
+            border-bottom-color: #FFD699;
+        }
+
+        /* Quiz Styles */
+        .quiz-section {
+            background: linear-gradient(135deg, #0D1526, #070C18);
+            border: 2px solid #C9A84C;
+            padding: 2.5rem 2rem;
+            margin: 2rem 0;
+        }
+
+        .quiz-section h2 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .quiz-intro {
+            color: #C8D4E8;
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-question {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+        }
+
+        .quiz-question:last-of-type {
+            border-bottom: none;
+        }
+
+        .quiz-question p.q-text {
+            color: #EEF2FF;
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .quiz-option {
+            background: #0D1526;
+            border: 1px solid rgba(200, 212, 232, 0.2);
+            padding: 0.8rem 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #C8D4E8;
+            font-family: "Lora", Georgia, serif;
+            font-size: 0.95rem;
+        }
+
+        .quiz-option:hover:not(.selected) {
+            border-color: #C9A84C;
+            background: rgba(201, 168, 76, 0.1);
+        }
+
+        .quiz-option.correct {
+            border-color: #22C55E;
+            background: rgba(34, 197, 94, 0.15);
+            color: #22C55E;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #EF4444;
+            background: rgba(239, 68, 68, 0.15);
+            color: #EF4444;
+        }
+
+        .quiz-option.correct::after {
+            content: " ✓";
+            font-weight: bold;
+        }
+
+        .quiz-option.incorrect::after {
+            content: " ✗";
+            font-weight: bold;
+        }
+
+        .quiz-option.reveal-correct {
+            border-color: #22C55E;
+            background: rgba(34, 197, 94, 0.1);
+            color: #22C55E;
+        }
+
+        .quiz-explanation {
+            margin-top: 0.5rem;
+            padding: 0.8rem 1rem;
+            font-size: 0.9rem;
+            color: #F0D080;
+            font-style: italic;
+            display: none;
+        }
+
+        .quiz-explanation.visible {
+            display: block;
+        }
+
+        .quiz-score {
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 2px solid #C9A84C;
+            background: rgba(201, 168, 76, 0.1);
+            display: none;
+        }
+
+        .quiz-score.visible {
+            display: block;
+        }
+
+        .quiz-score h3 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-score p {
+            color: #C8D4E8;
+        }
+
+        .quiz-reset {
+            margin-top: 1rem;
+            padding: 0.6rem 1.5rem;
+            background: #C9A84C;
+            color: #070C18;
+            border: none;
+            font-family: "Lora", Georgia, serif;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-reset:hover {
+            background: transparent;
+            color: #C9A84C;
+            border: 2px solid #C9A84C;
+        }
+    </style>
+</head>
+<body>
+    <!-- Password Gate Overlay -->
+    <div id="password-gate">
+        <div class="password-card">
+            <h2>STACK Academy</h2>
+            <p class="subtitle">Enter Your Course Password</p>
+            <div class="password-input-group">
+                <input type="password" id="password-input" placeholder="Password">
+                <div class="error-message" id="error-message"></div>
+            </div>
+            <button id="unlock-btn">Unlock Course</button>
+            <div class="password-helper-text">
+                <p>Purchased STACK Academy? Check your email for your access password.</p>
+                <p><a href="index.html">Don't have a password? Get access at creoletrades.com</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="course-content">
+    <header>
+        <div class="header-container">
+            <div class="header-left">
+                <div class="brand">⚜️ STACK ACADEMY</div>
+                <span class="module-badge">Module 3 of 6</span>
+            </div>
+        </div>
+        <nav>
+            <a href="../">← All Courses</a>
+            <a href="index.html">Home</a>
+            <a href="stack-academy-module-1.html">Module 1</a>
+            <a href="stack-academy-module-2.html">Module 2</a>
+            <a href="stack-academy-module-3.html" class="active">Module 3</a>
+            <a href="stack-academy-module-4.html">Module 4</a>
+            <a href="stack-academy-module-5.html">Module 5</a>
+            <a href="stack-academy-module-6.html">Module 6</a>
+            <a href="stack-academy-glossary.html">Glossary</a>
+            <a href="stack-academy-final-exam.html">Final Exam</a>
+        </nav>
+    </header>
+
+    <div class="main-container">
+        <h1 class="module-title">Order Blocks</h1>
+        <p class="module-subtitle">Where Institutions Leave Their Footprint</p>
+
+        <div class="section">
+            <h2 class="section-title">1. What is an Order Block?</h2>
+            <div class="section-content">
+                <p>An order block is the <strong>last opposing candle before a strong impulsive move</strong>. This is the exact zone where institutional money placed large orders, and it represents one of the most powerful concepts in ICT (Inner Circle Trader) methodology.</p>
+
+                <p>Here's the critical insight: when price returns to this zone after the displacement move, those institutional orders may still be sitting there, waiting to be filled or defended. This makes the order block a <strong>high-probability reaction zone</strong> where price is likely to reverse, consolidate, or engage with institutional liquidity.</p>
+
+                <p>Think of it like this: an institution places a massive buy order at $100. The price dips to $100 briefly, institutions load up, then price rips to $110. Later, when price comes back down to $100, the institutions remember they still have unfilled orders and buy again. That $100 zone is your order block.</p>
+
+                <div style="margin: 2rem auto; max-width: 900px; text-align: center;">
+                    <img src="images/7-order-block-structure.png" alt="Order Block Structure — Last opposing candle before strong impulsive move" style="width: 100%; max-width: 900px; height: auto; border: 2px solid #C9A84C;">
+                </div>
+
+                <p>Order blocks are not random zones—they're the institutional footprint. They tell you exactly where the smart money was active, and they show you where price is likely to interact with that liquidity again.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">2. Bullish Order Blocks</h2>
+            <div class="section-content">
+                <p>A bullish order block forms when the <strong>last bearish (down) candle precedes a strong bullish displacement move</strong>. This is where institutional buyers loaded their positions before price spiked upward.</p>
+
+                <p>The process looks like this:</p>
+                <ul>
+                    <li>Price drops sharply on a bearish candle—this triggers stop losses and shakes out weak hands</li>
+                    <li>Institutions recognize this as a buying opportunity and load large buy orders in this "fear zone"</li>
+                    <li>Price then rips upward in a strong, impulsive move—this is the displacement</li>
+                    <li>The bearish candle that preceded this bullish move is your bullish order block</li>
+                </ul>
+
+                <p>When price later returns to this bullish order block zone, expect a reaction (bounce). Price may bounce sharply off the level, consolidate within the zone, or use it as support. The key is that bullish order blocks are magnets for price. Institutions still have orders sitting there, and they will either fill them or defend the level.</p>
+
+                <div style="margin: 2rem auto; max-width: 900px; text-align: center;">
+                    <img src="images/8-bullish-order-block.png" alt="Bullish Order Block in Action — Price bounces off demand zone" style="width: 100%; max-width: 900px; height: auto; border: 2px solid #C9A84C;">
+                </div>
+
+                <p>Bullish order blocks are entry points on pullbacks, retest levels, and support zones. They're gold for traders who understand that institutions leave their orders sitting.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">3. Bearish Order Blocks</h2>
+            <div class="section-content">
+                <p>A bearish order block is the mirror image of a bullish order block. It forms when the <strong>last bullish (up) candle precedes a strong bearish displacement move</strong>. This is where institutional sellers loaded their positions before price spiked downward.</p>
+
+                <p>The process:</p>
+                <ul>
+                    <li>Price rallies sharply on a bullish candle—this triggers FOMO and shakes out shorters</li>
+                    <li>Institutions recognize this as a selling opportunity and load large sell orders in this "greed zone"</li>
+                    <li>Price then crashes downward in a strong, impulsive move—this is the displacement</li>
+                    <li>The bullish candle that preceded this bearish move is your bearish order block</li>
+                </ul>
+
+                <p>When price returns to a bearish order block, expect selling pressure and a potential rejection. Institutions will either fill their sell orders or defend the resistance level. Bearish order blocks become resistance zones on bounces and retests.</p>
+
+                <div style="margin: 2rem auto; max-width: 900px; text-align: center;">
+                    <img src="images/9-bearish-order-blocks.png" alt="Bearish Order Block in Action — Price rejects at supply zone" style="width: 100%; max-width: 900px; height: auto; border: 2px solid #C9A84C;">
+                </div>
+
+                <p>Bearish order blocks are rejection points on rallies, resistance zones, and entry points for short trades on pullbacks into the zone.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">4. How to Identify a Valid Order Block</h2>
+            <div class="section-content">
+                <p>Not every candle before a move is a valid order block. There are specific criteria that separate high-probability order blocks from false signals:</p>
+
+                <ul>
+                    <li><strong>Displacement After It:</strong> The candle must be followed by a strong, impulsive move. This should be obvious and powerful—not a weak drift or slow creep. The stronger the displacement, the more institutional presence was in that order block zone.</li>
+
+                    <li><strong>Fair Value Gap (FVG):</strong> A valid order block often creates a Fair Value Gap as part of the displacement. The FVG is the gap between the high of the opposing candle and the low of the displacement candle (or vice versa for bearish blocks). This gap represents the zone where no trading occurred—institutional orders were so strong that price gapped over it.</li>
+
+                    <li><strong>Break of Structure (BOS):</strong> The displacement should break structure in the direction of the move. If you're identifying a bullish order block, the displacement should break a previous swing low or create a higher low. This confirms institutional presence and directional conviction.</li>
+
+                    <li><strong>Unmitigated Status:</strong> The more unmitigated (untouched) an order block is, the stronger it is. A fresh order block that hasn't been retested yet carries more weight than one that's been touched multiple times.</li>
+
+                    <li><strong>Timeframe Hierarchy:</strong> Order blocks on higher timeframes carry more weight than those on lower timeframes. A 4-hour order block is stronger than a 15-minute order block because it represents more institutional activity and larger order sizes.</li>
+                </ul>
+
+                <div class="quote">
+                    "The strongest order blocks are those that created a clear Fair Value Gap, broke significant structure, and have never been retested. These are institutional magnets waiting for price to return."
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">5. Mitigated vs Unmitigated Order Blocks</h2>
+            <div class="section-content">
+                <p>Understanding mitigation is critical to order block trading. This concept separates trade setups with low probability from those with high probability.</p>
+
+                <p><strong>Unmitigated Order Blocks</strong> are fresh and untouched. Price has not yet returned to retest the zone where institutional orders were placed. These are the most powerful order blocks because the liquidity is still there, waiting to be engaged. When price finally returns to an unmitigated order block, the reaction is typically strong and reliable.</p>
+
+                <p><strong>Mitigated Order Blocks</strong> are "used" order blocks. Price has returned to the zone and filled (partially or completely) the institutional orders that were sitting there. Once an order block is mitigated, it loses its significance. The institutions have either filled their orders or moved their liquidity elsewhere. A mitigated order block is no longer a high-probability level.</p>
+
+                <p>This is why identifying the status of an order block matters:</p>
+                <ul>
+                    <li><strong>Unmitigated:</strong> Price has never returned to touch the order block zone. This is high-probability. When price reaches this level, expect a strong reaction.</li>
+                    <li><strong>Recently Mitigated:</strong> Price just touched the order block and created a reaction. The level is "warmed up" but still has some probability. Watch for a potential re-trade.</li>
+                    <li><strong>Heavily Mitigated:</strong> Price has retested the order block multiple times. The institutional liquidity is likely exhausted or moved. The level is weakening with each touch. This is lower probability.</li>
+                </ul>
+
+                <p>The principle is simple: <strong>unmitigated order blocks are stronger than mitigated ones</strong>. Always prioritize trading into fresh, untouched order blocks.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">6. Order Block Refinement</h2>
+            <div class="section-content">
+                <p>Once you've identified an order block, the next step is refinement—narrowing down the exact zone where institutions are most likely to react.</p>
+
+                <p><strong>Use the Body, Not the Wick:</strong> When marking your order block zone, use the open to close of the candle (the body), not the wick. Wicks represent brief touches by weak hands and panic sellers. The institutional orders are placed within the body of the candle. A tighter zone gives you better entries and more accurate reaction predictions.</p>
+
+                <p><strong>Multi-Timeframe Refinement:</strong> On higher timeframes, you identify the overall order block structure. Then, drop down to lower timeframes and identify which specific candle within that zone shows the most displacement. That candle is your refined order block.</p>
+
+                <p>For example: On a weekly chart, you identify a bullish order block between $100-$102. Then you drop to a daily chart and see that the candle from $101-$101.50 preceded the strongest upward impulse. That $101-$101.50 zone is your refined, tighter order block. This refinement gives you a more precise entry level and tighter stops.</p>
+
+                <div style="margin: 2rem auto; max-width: 900px; text-align: center;">
+                    <img src="images/10-order-block-refinement.png" alt="Order Block Refinement — 1W to 1D timeframe zoom for precise entry" style="width: 100%; max-width: 900px; height: auto; border: 2px solid #C9A84C;">
+                </div>
+
+                <p>Refinement transforms a broad zone into a precise, actionable level where you can place entries and stops with surgical accuracy.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">7. Order Blocks and the STACK Method</h2>
+            <div class="section-content">
+                <p>Order blocks don't exist in a vacuum. They live inside <strong>Structure</strong>—the framework we discussed in Module 2. This is the critical integration point that turns order blocks from interesting observations into executable trades.</p>
+
+                <p><strong>The STACK Method Hierarchy:</strong></p>
+                <ul>
+                    <li><strong>Step 1:</strong> Identify the structure first (Module 2). Is price in an uptrend? Downtrend? Are we in the grind phase or displacement phase?</li>
+                    <li><strong>Step 2:</strong> THEN look for order blocks within that structure that align with your directional bias.</li>
+                    <li><strong>Step 3:</strong> Trade the order blocks that support the structure, not against it.</li>
+                </ul>
+
+                <p><strong>Structure Alignment is Critical:</strong> An order block that goes against the current structure is a low-probability trade. For example, if you're in a clear uptrend (higher highs, higher lows), a bearish order block at the resistance level is weak. The structure is bullish, so bullish order blocks within the uptrend structure are your high-probability setups.</p>
+
+                <p>Conversely, in a downtrend, bullish order blocks against the structure should be avoided. You want bearish order blocks that align with the overall downtrend structure.</p>
+
+                <p>Order blocks are the micro-level confirmation. Structure is the macro-level bias. Together, they create the STACK Method's power: <strong>trade order blocks that confirm the structure, and avoid order blocks that contradict it</strong>.</p>
+            </div>
+        </div>
+
+        <div class="key-takeaways">
+            <h3>Key Takeaways</h3>
+            <ul>
+                <li>An order block is the last opposing candle before a strong impulsive move—it's where institutional money placed large orders.</li>
+                <li>Bullish order blocks form before upward displacement moves; bearish order blocks form before downward moves. Each type creates a reaction zone when price returns.</li>
+                <li>Valid order blocks must show clear displacement, create Fair Value Gaps, and break structure. Higher timeframe order blocks carry more weight than lower timeframe ones.</li>
+                <li>Unmitigated (untouched) order blocks are stronger than mitigated ones. Always prioritize fresh, unused levels where institutional liquidity is still waiting.</li>
+                <li>Order blocks live inside structure. Always identify the structure first (Module 2), then trade order blocks that align with your directional bias. Trading order blocks against the structure is low-probability.</li>
+            </ul>
+        </div>
+
+        <div class="practice-exercise">
+            <h3>Practice Exercise</h3>
+            <p><strong>Find a strong impulsive move on any chart you're familiar with.</strong> Look back and identify the last opposing candle before that move began. Mark that candle's open-to-close zone (the body, not the wicks). That's your order block.</p>
+
+            <p>Now ask yourself: Has price returned to mitigate this order block yet? If not, it's a level to watch. If it has returned, what happened? Did price bounce off it? Create a reaction? Did it get retested multiple times (becoming heavily mitigated)?</p>
+
+            <p>This exercise builds your pattern recognition. The more order blocks you identify and track, the faster you'll spot them in real-time trading. And the faster you spot them, the faster you'll catch high-probability reactions at institutional liquidity zones.</p>
+        </div>
+
+        <section>
+            <div class="quiz-section">
+                <h2>Check Your Learning</h2>
+                <p class="quiz-intro">5 questions on Module 3. Click your answer — no second chances per question.</p>
+
+                <div class="quiz-question">
+                    <p class="q-text">1. A bullish order block forms when:</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">Price breaks above resistance with high volume</div>
+                        <div class="quiz-option" data-correct="true">The last bearish candle before a strong bullish displacement marks institutional buying</div>
+                        <div class="quiz-option" data-correct="false">Two bullish candles appear in a row</div>
+                        <div class="quiz-option" data-correct="false">Price fills a fair value gap from above</div>
+                    </div>
+                    <div class="quiz-explanation">A bullish OB is the last bearish (down) candle before displacement upward — that's where Smart Money placed their buy orders.</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p class="q-text">2. What is order block refinement?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">Deleting order blocks that didn't work</div>
+                        <div class="quiz-option" data-correct="true">Dropping to a lower timeframe to narrow the OB zone for a tighter entry</div>
+                        <div class="quiz-option" data-correct="false">Adding more indicators to confirm the order block</div>
+                        <div class="quiz-option" data-correct="false">Waiting for the order block to be tested three times</div>
+                    </div>
+                    <div class="quiz-explanation">Refinement means dropping to a lower timeframe to find the specific candle within the larger OB zone where institutional orders were most concentrated — giving you a tighter, more precise entry.</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p class="q-text">3. A liquidity sweep occurs when:</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">Price consolidates in a tight range for several candles</div>
+                        <div class="quiz-option" data-correct="false">A large volume candle breaks through all support levels</div>
+                        <div class="quiz-option" data-correct="true">Price pushes into a zone where stop losses cluster, triggers them, then reverses</div>
+                        <div class="quiz-option" data-correct="false">An indicator gives an overbought or oversold signal</div>
+                    </div>
+                    <div class="quiz-explanation">Liquidity sweeps target stop-loss clusters. Smart Money pushes price into those zones, triggers the stops to collect liquidity, then reverses in their intended direction.</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p class="q-text">4. Where does Smart Money prefer to buy?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">At premium levels above the 50% range</div>
+                        <div class="quiz-option" data-correct="true">At discount levels — below the 50% range, especially near demand zones</div>
+                        <div class="quiz-option" data-correct="false">At any price where volume is high</div>
+                        <div class="quiz-option" data-correct="false">Wherever retail traders are also buying</div>
+                    </div>
+                    <div class="quiz-explanation">Institutions buy at discount (below 50% of the range) and sell at premium (above 50%). This is core institutional risk management — buy low, sell high.</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p class="q-text">5. What makes an order block "valid" versus just any candle on the chart?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">It must be a large candle with high volume</div>
+                        <div class="quiz-option" data-correct="false">It must be on the daily timeframe or higher</div>
+                        <div class="quiz-option" data-correct="true">It must be followed by displacement — strong impulsive movement away from the zone</div>
+                        <div class="quiz-option" data-correct="false">It must have been tested and held at least twice</div>
+                    </div>
+                    <div class="quiz-explanation">No displacement = no valid OB. The impulsive move away from the zone is what confirms institutional orders were there. Without displacement, it's just a candle.</div>
+                </div>
+
+                <div class="quiz-score">
+                    <h3>Your Score: <span class="score-text"></span></h3>
+                    <p class="score-msg"></p>
+                    <button class="quiz-reset">Retake Quiz</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="navigation-buttons">
+            <a href="stack-academy-module-2.html" class="nav-button prev">← Previous</a>
+            <a href="stack-academy-module-4.html" class="nav-button next">Next →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© CreoleTrades | @creoletrades | creoletrades.com</p>
+        <p>Stay STACKED. ⚜️</p>
+        <p><a href="#" class="logout-link" id="logout-link">Log Out</a></p>
+    </footer>
+    </div>
+
+    <script>
+        // SHA-256 hash of "STACKED2026"
+        const PASSWORD_HASH = "c74006541acbe74a1a356069d8fdbd661c2aaa4b612605cb9313d533e99b9d25";
+        const STORAGE_KEY = "stack_academy_access";
+
+        // Async function to hash password using Web Crypto API
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hashHex;
+        }
+
+        // Check localStorage on page load
+        async function checkAccess() {
+            const storedToken = localStorage.getItem(STORAGE_KEY);
+            if (storedToken === PASSWORD_HASH) {
+                unlockCourse();
+            }
+        }
+
+        // Unlock the course
+        function unlockCourse() {
+            const gate = document.getElementById('password-gate');
+            const content = document.getElementById('course-content');
+
+            gate.classList.add('hidden');
+            content.classList.add('visible');
+        }
+
+        // Handle unlock button click
+        document.getElementById('unlock-btn').addEventListener('click', handleUnlock);
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handleUnlock();
+            }
+        });
+
+        async function handleUnlock() {
+            const passwordInput = document.getElementById('password-input');
+            const errorMessage = document.getElementById('error-message');
+            const password = passwordInput.value;
+
+            if (!password) {
+                errorMessage.textContent = 'Please enter a password.';
+                return;
+            }
+
+            const hashedPassword = await hashPassword(password);
+
+            if (hashedPassword === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, PASSWORD_HASH);
+                errorMessage.textContent = '';
+                unlockCourse();
+            } else {
+                errorMessage.textContent = 'Incorrect password. Please try again.';
+                passwordInput.classList.add('shake');
+                setTimeout(() => {
+                    passwordInput.classList.remove('shake');
+                }, 500);
+            }
+        }
+
+        // Logout functionality
+        document.getElementById('logout-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem(STORAGE_KEY);
+            location.reload();
+        });
+
+        // Check access on page load
+        checkAccess();
+
+        // Quiz functionality
+        function initQuiz() {
+            const questions = document.querySelectorAll('.quiz-question');
+            let answered = 0;
+            const total = questions.length;
+            let score = 0;
+
+            questions.forEach(q => {
+                const options = q.querySelectorAll('.quiz-option');
+                const explanation = q.querySelector('.quiz-explanation');
+
+                options.forEach(opt => {
+                    opt.addEventListener('click', function() {
+                        if (q.classList.contains('answered')) return;
+                        q.classList.add('answered');
+                        answered++;
+
+                        const isCorrect = this.dataset.correct === 'true';
+                        if (isCorrect) {
+                            this.classList.add('correct');
+                            score++;
+                        } else {
+                            this.classList.add('incorrect');
+                            options.forEach(o => {
+                                if (o.dataset.correct === 'true') o.classList.add('reveal-correct');
+                            });
+                        }
+
+                        if (explanation) explanation.classList.add('visible');
+
+                        if (answered === total) {
+                            const scoreEl = document.querySelector('.quiz-score');
+                            const scoreText = scoreEl.querySelector('.score-text');
+                            scoreText.textContent = score + ' / ' + total;
+
+                            const msg = scoreEl.querySelector('.score-msg');
+                            if (score === total) msg.textContent = 'Perfect score. You read the structure. Stay STACKED. ⚜️';
+                            else if (score >= total * 0.8) msg.textContent = 'Solid read. Review what you missed, then move forward. Stay STACKED. ⚜️';
+                            else if (score >= total * 0.6) msg.textContent = 'Decent foundation. Re-read the sections you missed before moving on.';
+                            else msg.textContent = 'Review this module again before continuing. The S in STACK demands it.';
+
+                            scoreEl.classList.add('visible');
+                        }
+                    });
+                });
+            });
+
+            const resetBtn = document.querySelector('.quiz-reset');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function() {
+                    score = 0;
+                    answered = 0;
+                    questions.forEach(q => {
+                        q.classList.remove('answered');
+                        const options = q.querySelectorAll('.quiz-option');
+                        options.forEach(o => {
+                            o.classList.remove('correct', 'incorrect', 'reveal-correct');
+                        });
+                        const exp = q.querySelector('.quiz-explanation');
+                        if (exp) exp.classList.remove('visible');
+                    });
+                    document.querySelector('.quiz-score').classList.remove('visible');
+                });
+            }
+        }
+        initQuiz();
+    </script>
+</body>
+</html>
