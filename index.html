@@ -1594,7 +1594,6 @@
   <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
   <a href="#contact" onclick="closeMobileMenu()">Contact</a>
   <a href="/blog" onclick="closeMobileMenu()">Blog</a>
-  <a href="/academy/" onclick="closeMobileMenu()">Academy</a>
 </div>
 
 <!-- ══════════════ NAV ══════════════ -->
@@ -1612,7 +1611,6 @@
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="/blog">Blog</a></li>
-    <li><a href="/academy/">Academy</a></li>
   </ul>
   <button class="nav-burger" onclick="toggleMobileMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -2311,6 +2309,7 @@
 <script>
   /* ── CONFIG ── */
   const YT_CHANNEL_ID    = "UCli2uMiGU1r4A4kTamj6zlw";
+  const YT_API_KEY       = "PASTE_YOUR_YOUTUBE_API_KEY_HERE";
   const FORMSPREE        = "https://formspree.io/f/xgolbebw";
 
   /* ── NAV scroll ── */
@@ -2351,19 +2350,19 @@
     if (!isOpen) item.classList.add("open");
   }
 
-  /* ── YouTube latest video ── */
+  /* ── YouTube latest video (YouTube Data API v3) ── */
   async function loadLatestVideo() {
-    const rssFeed = "https://www.youtube.com/feeds/videos.xml?channel_id=" + YT_CHANNEL_ID;
-    const apiUrl  = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(rssFeed);
+    const apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${YT_API_KEY}&channelId=${YT_CHANNEL_ID}&part=snippet&order=date&maxResults=1&type=video`;
     try {
       const res  = await fetch(apiUrl);
       const data = await res.json();
-      if (data.status !== "ok" || !data.items || !data.items.length) throw new Error();
+      if (data.error || !data.items || !data.items.length) throw new Error(data.error?.message || "No videos found");
 
-      const v      = data.items[0];
-      const vidId  = (v.link.split("v=")[1] || "").split("&")[0];
-      const date   = new Date(v.pubDate).toLocaleDateString("en-US", { year:"numeric", month:"long", day:"numeric" });
-      const desc   = (v.description || "").replace(/<[^>]+>/g, "").slice(0, 280);
+      const item  = data.items[0];
+      const vidId = item.id.videoId;
+      const snip  = item.snippet;
+      const date  = new Date(snip.publishedAt).toLocaleDateString("en-US", { year:"numeric", month:"long", day:"numeric" });
+      const desc  = (snip.description || "").slice(0, 280);
 
       document.getElementById("yt-loading").style.display = "none";
 
@@ -2377,10 +2376,10 @@
         </div>
         <div>
           <span class="yt-badge">Latest Upload</span>
-          <div class="yt-vtitle">${v.title}</div>
+          <div class="yt-vtitle">${snip.title}</div>
           <div class="yt-date">Published ${date}</div>
           <div class="yt-vdesc">${desc}…</div>
-          <a href="${v.link}" target="_blank" rel="noopener noreferrer" class="btn btn-spice">Watch on YouTube</a>
+          <a href="https://www.youtube.com/watch?v=${vidId}" target="_blank" rel="noopener noreferrer" class="btn btn-spice">Watch on YouTube</a>
         </div>
       `;
     } catch {
