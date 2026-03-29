@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Options Trading Course — STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Lora", Georgia, serif;
+            background-color: #070C18;
+            color: #C8D4E8;
+            line-height: 1.7;
+        }
+
+        header {
+            background: #070C18;
+            border-bottom: 3px solid #C9A84C;
+            padding: 2rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header-title h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 1.8rem;
+            color: #EEF2FF;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .module-badge {
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 0.4rem 0.8rem;
+            border-radius: 0px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-family: "Lora", Georgia, serif;
+            padding: 0.5rem 1rem;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        nav a:hover {
+            background-color: transparent;
+            color: #C9A84C;
+            border-color: #C9A84C;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #0D1526, #070C18);
+            border: 2px solid #C9A84C;
+            border-radius: 0px;
+        }
+
+        .hero-section h1 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-section p {
+            color: #C8D4E8;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 1.2rem 2.5rem;
+            border-radius: 0px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid #C9A84C;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .hero-cta:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        .course-overview {
+            margin-bottom: 4rem;
+        }
+
+        .course-overview h2 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .course-overview p {
+            color: #C8D4E8;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .module-card {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 2rem;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            background: #0F1A2E;
+            box-shadow: 0 8px 24px rgba(201, 168, 76, 0.1);
+        }
+
+        .module-card h3 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .module-card ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .module-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #C8D4E8;
+        }
+
+        .module-card li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+            font-weight: bold;
+        }
+
+        .what-you-learn {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border-radius: 0px;
+        }
+
+        .what-you-learn h2 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .what-you-learn ul {
+            list-style: none;
+            margin-left: 0;
+            columns: 2;
+            gap: 2rem;
+        }
+
+        .what-you-learn li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: #C8D4E8;
+        }
+
+        .what-you-learn li:before {
+            content: "⚜️";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+        }
+
+        .course-features {
+            background: linear-gradient(135deg, #0D1526, #070C18);
+            border: 2px solid #C9A84C;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border-radius: 0px;
+        }
+
+        .course-features h2 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-item {
+            padding: 1rem;
+            background: rgba(201, 168, 76, 0.05);
+            border-left: 3px solid #C9A84C;
+        }
+
+        .feature-item h4 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .feature-item p {
+            color: #C8D4E8;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            background-color: #070C18;
+            border-top: 3px solid #C9A84C;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 4rem;
+            color: #C9A84C;
+        }
+
+        footer p {
+            color: #C9A84C;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-title h1 {
+                font-size: 1.5rem;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            nav a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .what-you-learn ul {
+                columns: 1;
+            }
+
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        strong {
+            color: #F0D080;
+        }
+
+        em {
+            color: #F0D080;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="header-title">
+                <h1>STACK Academy</h1>
+                <span class="module-badge">Options Trading</span>
+            </div>
+            <nav>
+                <a href="../">← Back to Academy</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero-section">
+            <h1>Master Options Trading</h1>
+            <p>Learn to read options chains, spot smart money positioning through flow analysis, and build a repeatable trading playbook. A practical, no-nonsense course for active traders.</p>
+            <a href="https://buy.stripe.com/28E8wR2WXaoO5a82cu9k406" class="hero-cta">Enroll Now — $97</a>
+        </div>
+
+        <div class="course-overview">
+            <h2>What This Course Covers</h2>
+            <p>Options trading is not optional when you understand how institutions move markets. This 4-module course teaches you the mechanics, the reading, and the execution.</p>
+
+            <div class="modules-grid">
+                <div class="module-card">
+                    <h3>Module 1: Options Fundamentals</h3>
+                    <ul>
+                        <li>Calls vs puts: what they are and why they matter</li>
+                        <li>Premium, strike price, and expiration</li>
+                        <li>Intrinsic vs time value</li>
+                        <li>The Greeks decoded in plain English</li>
+                    </ul>
+                </div>
+
+                <div class="module-card">
+                    <h3>Module 2: Reading the Options Chain</h3>
+                    <ul>
+                        <li>Bid-ask spread and why it matters</li>
+                        <li>Open interest and volume decoded</li>
+                        <li>ITM, ATM, OTM explained</li>
+                        <li>Finding liquid contracts to trade</li>
+                    </ul>
+                </div>
+
+                <div class="module-card">
+                    <h3>Module 3: Options Flow & Smart Money</h3>
+                    <ul>
+                        <li>Unusual options activity (UOA) signals</li>
+                        <li>Sweep orders and block trades</li>
+                        <li>How institutions telegraph positions</li>
+                        <li>Flow + SMC structure = edge</li>
+                    </ul>
+                </div>
+
+                <div class="module-card">
+                    <h3>Module 4: Building Your Playbook</h3>
+                    <ul>
+                        <li>Position sizing and risk per trade</li>
+                        <li>Entry and exit rules</li>
+                        <li>Core strategies: long calls, long puts, spreads</li>
+                        <li>Building a repeatable process</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="what-you-learn">
+            <h2>By the End You'll Understand</h2>
+            <ul>
+                <li>How options pricing works and what moves it</li>
+                <li>How to read an options chain like a pro</li>
+                <li>What unusual activity tells you about smart money</li>
+                <li>How to spot institutional accumulation and distribution</li>
+                <li>How to size positions to protect your account</li>
+                <li>How to set stop losses and take profits systematically</li>
+                <li>How to execute trades with real money</li>
+                <li>How options fit into a STACK Method trading plan</li>
+            </ul>
+        </div>
+
+        <div class="course-features">
+            <h2>Course Features</h2>
+            <div class="features-list">
+                <div class="feature-item">
+                    <h4>4 Modules</h4>
+                    <p>Structured from fundamentals to execution. Each module includes a 5-question quiz.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Options Glossary</h4>
+                    <p>20+ essential terms with plain-English definitions. Reference anytime.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Final Exam</h4>
+                    <p>20 questions spanning all modules. Pass it and you're certified in options basics.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Discord Community</h4>
+                    <p>Join The Trading Roux. Ask questions, share trades, grow together.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>CreoleTrades Voice</h4>
+                    <p>No jargon. No fluff. Direct, mentorship-style teaching.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Lifetime Access</h4>
+                    <p>One-time purchase. Access forever. Course updates at no extra cost.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>STACK Academy — CreoleTrades © 2026</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STACK Academy Final Exam: Options Trading</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Lora", Georgia, serif; background-color: #070C18; color: #C8D4E8; line-height: 1.7; }
+        header { background: #070C18; border-bottom: 3px solid #C9A84C; padding: 2rem 1rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); }
+        .header-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .header-title { display: flex; align-items: center; gap: 0.5rem; }
+        .header-title h1 { font-family: "Playfair Display", serif; font-size: 1.8rem; color: #EEF2FF; font-weight: 900; letter-spacing: 1px; }
+        .module-badge { background-color: #C9A84C; color: #070C18; padding: 0.4rem 0.8rem; border-radius: 0px; font-size: 0.85rem; font-weight: bold; }
+        nav { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+        nav a { color: #C8D4E8; text-decoration: none; font-size: 0.95rem; font-family: "Lora", Georgia, serif; padding: 0.5rem 1rem; border-radius: 0px; transition: all 0.3s ease; border: 1px solid transparent; }
+        nav a:hover { background-color: transparent; color: #C9A84C; border-color: #C9A84C; }
+        nav a.active { background-color: transparent; color: #C9A84C; font-weight: bold; }
+        main { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+        #password-gate { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10, 22, 40, 0.95); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 1; transition: opacity 0.5s ease; }
+        #password-gate.hidden { opacity: 0; pointer-events: none; }
+        .password-card { background: #070C18; border: 2px solid #C9A84C; border-radius: 0px; padding: 3rem 2rem; max-width: 450px; width: 90%; text-align: center; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7); }
+        .password-card h2 { font-family: "Playfair Display", serif; color: #EEF2FF; font-size: 2rem; font-weight: 900; margin-bottom: 0.5rem; border: none; padding-bottom: 0; }
+        .password-card .subtitle { color: #C8D4E8; font-size: 1.1rem; margin-bottom: 2rem; font-style: italic; }
+        .password-input-group { margin-bottom: 1.5rem; }
+        #password-input { width: 100%; padding: 0.8rem 1rem; font-size: 1rem; background-color: #0D1526; border: 2px solid #C9A84C; color: #FFFFFF; border-radius: 0px; transition: all 0.3s ease; font-family: "Lora", Georgia, serif; }
+        #password-input:focus { outline: none; border-color: #FFD699; box-shadow: 0 0 10px rgba(201, 168, 76, 0.5); }
+        #password-input.shake { animation: shake 0.5s ease; border-color: #ff4444; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+        .error-message { color: #ff4444; font-size: 0.9rem; margin-top: 0.5rem; min-height: 20px; }
+        #unlock-btn { width: 100%; padding: 0.8rem 1rem; font-size: 1rem; background-color: #C9A84C; color: #070C18; border: 2px solid #C9A84C; border-radius: 0px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; font-family: "Lora", Georgia, serif; }
+        #unlock-btn:hover { background-color: transparent; color: #C9A84C; }
+        .password-helper-text { color: #B0B0B0; font-size: 0.85rem; margin-top: 1.5rem; }
+        .password-helper-text a { color: #C9A84C; text-decoration: none; border-bottom: 1px solid #C9A84C; transition: all 0.3s ease; }
+        .password-helper-text a:hover { color: #FFD699; border-bottom-color: #FFD699; }
+        #course-content { display: none; animation: fadeIn 0.6s ease; }
+        #course-content.visible { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .logout-link { display: inline-block; margin-top: 1rem; color: #C9A84C; text-decoration: none; font-size: 0.85rem; padding: 0.5rem 0; border-bottom: 1px solid #C9A84C; transition: all 0.3s ease; }
+        .logout-link:hover { color: #FFD699; border-bottom-color: #FFD699; }
+        .quiz-section { background: linear-gradient(135deg, #0D1526, #070C18); border: 2px solid #C9A84C; padding: 2.5rem 2rem; margin: 2rem 0; }
+        .quiz-section h2 { font-family: "Playfair Display", serif; color: #F0D080; font-size: 1.8rem; margin-bottom: 0.5rem; border-bottom: none; padding-bottom: 0; }
+        .quiz-intro { color: #C8D4E8; font-style: italic; margin-bottom: 2rem; }
+        .quiz-question { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(201, 168, 76, 0.2); }
+        .quiz-question:last-of-type { border-bottom: none; }
+        .quiz-question p.q-text { color: #EEF2FF; font-weight: 600; font-size: 1.05rem; margin-bottom: 1rem; }
+        .quiz-options { display: flex; flex-direction: column; gap: 0.6rem; }
+        .quiz-option { background: #0D1526; border: 1px solid rgba(200, 212, 232, 0.2); padding: 0.8rem 1.2rem; cursor: pointer; transition: all 0.3s ease; color: #C8D4E8; font-family: "Lora", Georgia, serif; font-size: 0.95rem; }
+        .quiz-option:hover:not(.selected) { border-color: #C9A84C; background: rgba(201, 168, 76, 0.1); }
+        .quiz-option.correct { border-color: #22C55E; background: rgba(34, 197, 94, 0.15); color: #22C55E; }
+        .quiz-option.incorrect { border-color: #EF4444; background: rgba(239, 68, 68, 0.15); color: #EF4444; }
+        .quiz-option.correct::after { content: " ✓"; font-weight: bold; }
+        .quiz-option.incorrect::after { content: " ✗"; font-weight: bold; }
+        .quiz-option.reveal-correct { border-color: #22C55E; background: rgba(34, 197, 94, 0.1); color: #22C55E; }
+        .quiz-explanation { margin-top: 0.5rem; padding: 0.8rem 1rem; font-size: 0.9rem; color: #F0D080; font-style: italic; display: none; }
+        .quiz-explanation.visible { display: block; }
+        .quiz-score { text-align: center; padding: 1.5rem; margin-top: 1.5rem; border: 2px solid #C9A84C; background: rgba(201, 168, 76, 0.1); display: none; }
+        .quiz-score.visible { display: block; }
+        .quiz-score h3 { font-family: "Playfair Display", serif; color: #F0D080; font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .quiz-score p { color: #C8D4E8; }
+        .quiz-reset { margin-top: 1rem; padding: 0.6rem 1.5rem; background: #C9A84C; color: #070C18; border: none; font-family: "Lora", Georgia, serif; font-weight: bold; cursor: pointer; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
+        .quiz-reset:hover { background: transparent; color: #C9A84C; border: 2px solid #C9A84C; }
+        .graduation-section { display: none; text-align: center; padding: 3rem 2rem; margin-top: 2rem; border: 2px solid #C9A84C; background: linear-gradient(135deg, rgba(201, 168, 76, 0.1), rgba(7, 12, 24, 0.9)); border-radius: 0px; }
+        .graduation-section.visible { display: block; }
+        .graduation-section h2 { font-family: "Playfair Display", serif; color: #F0D080; font-size: 2.2rem; margin-bottom: 1rem; border: none; }
+        .graduation-section p { color: #C8D4E8; margin: 1rem auto; max-width: 600px; }
+        .graduation-section .quote { color: #F0D080; font-style: italic; font-size: 1.2rem; margin: 1.5rem auto; }
+        .graduation-section .quote-author { color: #C8D4E8; margin-bottom: 2rem; }
+        .graduation-cta { display: inline-block; padding: 1rem 2.5rem; background: #C9A84C; color: #070C18; font-weight: bold; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; border-radius: 0px; border: 2px solid #C9A84C; transition: all 0.3s ease; cursor: pointer; }
+        .graduation-cta:hover { background: transparent; color: #C9A84C; }
+        footer { background-color: #070C18; border-top: 3px solid #C9A84C; padding: 2rem 1rem; text-align: center; margin-top: 4rem; color: #C9A84C; }
+        footer p { color: #C9A84C; margin-bottom: 0; }
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; align-items: flex-start; }
+            .header-title h1 { font-size: 1.5rem; }
+            nav { width: 100%; justify-content: flex-start; flex-wrap: wrap; gap: 0.5rem; }
+            nav a { padding: 0.4rem 0.8rem; font-size: 0.85rem; }
+        }
+        strong { color: #F0D080; }
+        em { color: #F0D080; }
+    </style>
+</head>
+<body>
+    <div id="password-gate">
+        <div class="password-card">
+            <h2>STACK Academy</h2>
+            <p class="subtitle">Enter Your Course Password</p>
+            <div class="password-input-group">
+                <input type="password" id="password-input" placeholder="Password">
+                <div class="error-message" id="error-message"></div>
+            </div>
+            <button id="unlock-btn">Unlock Course</button>
+            <div class="password-helper-text">
+                <p>Purchased STACK Academy? Check your email for your access password.</p>
+                <p><a href="index.html">Don't have a password? Get access at creoletrades.com</a></p>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <div class="header-title">
+                <h1>STACK Academy</h1>
+                <span class="module-badge">Final Exam</span>
+            </div>
+            <nav>
+                <a href="index.html">← Back to Options Course</a>
+                <a href="module-1.html">Module 1</a>
+                <a href="module-2.html">Module 2</a>
+                <a href="module-3.html">Module 3</a>
+                <a href="module-4.html">Module 4</a>
+                <a href="glossary.html">Glossary</a>
+                <a href="final-exam.html" class="active">Final Exam</a>
+            </nav>
+        </div>
+    </header>
+
+    <div id="course-content">
+    <main>
+        <div class="quiz-section">
+            <h2>STACK Academy Final Exam</h2>
+            <p class="quiz-intro">20 cumulative questions covering all modules. No second chances per question. Click your answer.</p>
+
+            <div class="quiz-question">
+                <p class="q-text">1. What is the main advantage of trading options instead of stock?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="true">Leverage (control 100 shares for less capital), defined risk (max loss is the premium), and visibility into institutional positioning.</div>
+                    <div class="quiz-option" data-correct="false">Options always move further than stock.</div>
+                    <div class="quiz-option" data-correct="false">Options never expire.</div>
+                    <div class="quiz-option" data-correct="false">Options require no capital.</div>
+                </div>
+                <div class="quiz-explanation">These three reasons are why active traders choose options: leverage, defined risk, and institutional signal visibility through flow.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">2. What does delta approximately tell you?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">The time value remaining in the option.</div>
+                    <div class="quiz-option" data-correct="true">How much the option price moves for every $1 stock move, and the probability the option expires in-the-money.</div>
+                    <div class="quiz-option" data-correct="false">The volatility of the underlying stock.</div>
+                    <div class="quiz-option" data-correct="false">The cost of the option.</div>
+                </div>
+                <div class="quiz-explanation">Delta is directional sensitivity and approximates probability. A 0.65 delta call roughly has a 65% chance of expiring ITM and moves $0.65 for every $1 stock move.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">3. Why is theta (time decay) the biggest enemy for option buyers?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="true">Because every day you hold, time value erodes regardless of stock price movement. You're fighting the clock.</div>
+                    <div class="quiz-option" data-correct="false">Theta only affects puts.</div>
+                    <div class="quiz-option" data-correct="false">Theta increases your profit.</div>
+                    <div class="quiz-option" data-correct="false">Theta is not relevant to traders.</div>
+                </div>
+                <div class="quiz-explanation">Theta decay accelerates near expiration. If you buy a short-dated option and the stock doesn't move, you lose money from time passing alone. This is why you need fast moves or longer expirations.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">4. What does a tight bid-ask spread on an options contract indicate?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">The option is about to expire.</div>
+                    <div class="quiz-option" data-correct="true">High liquidity. You can enter and exit without slippage destroying your P&L.</div>
+                    <div class="quiz-option" data-correct="false">The option is out-of-the-money.</div>
+                    <div class="quiz-option" data-correct="false">Volume is low.</div>
+                </div>
+                <div class="quiz-explanation">Tight spreads mean market makers are comfortable buying and selling frequently. This is liquid. Aim for spreads under $0.05 or 1% of mid-price. Wide spreads = illiquid, skip it.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">5. How do volume and open interest differ?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="true">Volume is contracts traded today; open interest is total contracts still outstanding (not yet closed).</div>
+                    <div class="quiz-option" data-correct="false">They are the same thing.</div>
+                    <div class="quiz-option" data-correct="false">Open interest is only for puts.</div>
+                    <div class="quiz-option" data-correct="false">Volume can never be higher than open interest.</div>
+                </div>
+                <div class="quiz-explanation">High OI shows historical accumulation. High volume shows today's activity. Look for both above 1,000 and 10,000 respectively. One without the other tells a different story about the contract.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">6. If SPY is at $480 and you see a $485 call, what is its moneyness?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">In-the-money.</div>
+                    <div class="quiz-option" data-correct="false">At-the-money.</div>
+                    <div class="quiz-option" data-correct="true">Out-of-the-money.</div>
+                    <div class="quiz-option" data-correct="false">Cannot be determined.</div>
+                </div>
+                <div class="quiz-explanation">For a call, OTM means stock < strike. $480 < $485, so it's OTM. Zero intrinsic value, all premium is time value. Decays faster than ATM.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">7. What is unusual options activity (UOA) a signal of?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">Retail traders having fun.</div>
+                    <div class="quiz-option" data-correct="true">Institutional positioning. Sweep orders, block trades, or volume spikes 5-10x normal indicate smart money.</div>
+                    <div class="quiz-option" data-correct="false">The stock is crashing.</div>
+                    <div class="quiz-option" data-correct="false">Options are about to expire.</div>
+                </div>
+                <div class="quiz-explanation">UOA is how institutions telegraph positions before moving the stock. A surge in call buying, IV expansion, and buying at the ask = bullish conviction. Reading this is your edge.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">8. What does a sweep order indicate about the trader?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">They are hesitant and testing the market.</div>
+                    <div class="quiz-option" data-correct="true">They are aggressive and confident. They want size NOW, regardless of price.</div>
+                    <div class="quiz-option" data-correct="false">They are market making.</div>
+                    <div class="quiz-option" data-correct="false">They are closing a position.</div>
+                </div>
+                <div class="quiz-explanation">Sweeps execute across exchanges simultaneously to minimize display. This is institutional conviction. Bullish sweep (buying calls) or bearish sweep (buying puts) tells you the direction they expect.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">9. How do you align options flow with STACK Method chart structure?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">Flow and structure are unrelated.</div>
+                    <div class="quiz-option" data-correct="true">Identify a structural level (demand/supply zone), then check if options accumulation aligns (calls if bullish, puts if bearish). Alignment = high conviction trade.</div>
+                    <div class="quiz-option" data-correct="false">Always trade flow regardless of chart.</div>
+                    <div class="quiz-option" data-correct="false">Charts are irrelevant when flow is present.</div>
+                </div>
+                <div class="quiz-explanation">Structure + Flow is the power combo. If both say the same thing, your conviction is high. If they diverge (e.g., bullish structure but put accumulation), it's a red flag. Respect the divergence.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">10. What is the 2% risk rule in position sizing?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="true">Never risk more than 2% of your account on a single trade. On a $10k account, max loss is $200 per trade.</div>
+                    <div class="quiz-option" data-correct="false">Always use 2 contracts per trade.</div>
+                    <div class="quiz-option" data-correct="false">The stock must move 2% for you to profit.</div>
+                    <div class="quiz-option" data-correct="false">Only for small accounts.</div>
+                </div>
+                <div class="quiz-explanation">The 2% rule protects your account from catastrophic losses. It's the baseline of professional risk management. Ignore this and you will blow up.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">11. Where should your stop loss be set?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">A fixed percentage (e.g., 10% loss).</div>
+                    <div class="quiz-option" data-correct="true">Just beyond the structural level (demand/supply zone) you traded from. If the zone breaks, your thesis is broken.</div>
+                    <div class="quiz-option" data-correct="false">At expiration.</div>
+                    <div class="quiz-option" data-correct="false">You should never use a stop loss.</div>
+                </div>
+                <div class="quiz-explanation">Structural stops are objective and tied to your trading thesis. If the structural level breaks, you're wrong. Exit immediately. Don't "wait for reversal."</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">12. What is the multi-exit strategy for taking profits?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">Hold everything to expiration.</div>
+                    <div class="quiz-option" data-correct="true">Sell 50% at 50% gain, 25% at 100% gain, let last 25% run to structural exit or target.</div>
+                    <div class="quiz-option" data-correct="false">Sell everything as soon as you're profitable.</div>
+                    <div class="quiz-option" data-correct="false">Never take profits.</div>
+                </div>
+                <div class="quiz-explanation">Multi-exit locks in gains while letting winners run. This is professional money management. You're not being greedy; you're protecting profits while staying exposed to bigger moves.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">13. What are the four requirements for entry into an options trade?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="true">Structure (zone identified), Flow (options align with bias), Liquidity (tight spread/high volume), Price confirmation (touch or breakout).</div>
+                    <div class="quiz-option" data-correct="false">Just a good feeling.</div>
+                    <div class="quiz-option" data-correct="false">High volume alone.</div>
+                    <div class="quiz-option" data-correct="false">Your gut instinct.</div>
+                </div>
+                <div class="quiz-explanation">All four must align. If three are present but flow diverges or liquidity is poor, skip it. Discipline is the edge. The next trade is always coming.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">14. What is the best strategy to start with as a beginner options trader?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">Iron condors and complex spreads.</div>
+                    <div class="quiz-option" data-correct="true">Long calls and long puts. Master these first. Once consistently profitable, add spreads.</div>
+                    <div class="quiz-option" data-correct="false">Only sell options.</div>
+                    <div class="quiz-option" data-correct="false">Straddles and strangles.</div>
+                </div>
+                <div class="quiz-explanation">Long calls/puts are simple, directional, and have defined risk (max loss = premium paid). Master them before adding complexity. Spreads have execution risk and are harder to manage.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">15. What does implied volatility (IV) represent?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">The actual stock price movement.</div>
+                    <div class="quiz-option" data-correct="true">The market's expectation of future volatility, implied by the option price. Higher IV = higher option premiums.</div>
+                    <div class="quiz-option" data-correct="false">The time remaining until expiration.</div>
+                    <div class="quiz-option" data-correct="false">The strike price divided by stock price.</div>
+                </div>
+                <div class="quiz-explanation">IV is what the market thinks will happen (volatility-wise). High IV = expensive options. IV spikes signal uncertainty or expected big moves. IV crush (decline) hurts long options holders (vega loss).</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">16. What is intrinsic value?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">The premium you pay.</div>
+                    <div class="quiz-option" data-correct="true">The real, measurable value if exercised right now. For calls: max(0, stock - strike). For puts: max(0, strike - stock).</div>
+                    <div class="quiz-option" data-correct="false">The volatility component.</div>
+                    <div class="quiz-option" data-correct="false">The time decay rate.</div>
+                </div>
+                <div class="quiz-explanation">Intrinsic value is objective. Only ITM options have intrinsic value. OTM options have zero intrinsic value (all premium is time value). Time value = total premium - intrinsic value.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">17. What does "assignment" mean for an options trader?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">When you sell your option to someone else.</div>
+                    <div class="quiz-option" data-correct="true">When a short option is exercised against you. If you sold a call, you're assigned to sell 100 shares at the strike.</div>
+                    <div class="quiz-option" data-correct="false">When the option expires worthless.</div>
+                    <div class="quiz-option" data-correct="false">A homework task.</div>
+                </div>
+                <div class="quiz-explanation">Assignment is the obligation to fulfill the contract. If you sold a call above the stock price, you could be assigned (forced to sell shares). Plan for this risk when selling options.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">18. What is a "bull call spread" and when would you use it?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">Selling a call to fund a stock purchase.</div>
+                    <div class="quiz-option" data-correct="true">Buy a call, sell a call at higher strike. Used for defined risk with lower capital requirement. Limits max profit. Good for neutral-to-bullish outlook.</div>
+                    <div class="quiz-option" data-correct="false">Always bullish, always profitable.</div>
+                    <div class="quiz-option" data-correct="false">Used to short the market.</div>
+                </div>
+                <div class="quiz-explanation">Bull call spread reduces theta impact and capital needed, but caps profit. The sold call premium offsets your cost. Theta works partially in your favor (it helps the short call decay).</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">19. If your account is $50,000 and you follow the 2% rule, what's your maximum position size on an option costing $5 per contract?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="true">20 contracts. 2% of $50k = $1,000 max risk. $1,000 / $500 (per contract) = 2 contracts. Wait, $5 * 100 = $500/contract, so $1,000/$500 = 2 contracts.</div>
+                    <div class="quiz-option" data-correct="false">50 contracts.</div>
+                    <div class="quiz-option" data-correct="false">100 contracts.</div>
+                    <div class="quiz-option" data-correct="false">No limit.</div>
+                </div>
+                <div class="quiz-explanation">Max loss = 2% of $50k = $1,000. Option cost = $5 * 100 = $500 per contract. $1,000/$500 = 2 contracts max. Size everything this way. Never guess.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">20. What is the most important thing to do before entering an options trade?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">Tell others about your trade.</div>
+                    <div class="quiz-option" data-correct="true">Set your stop loss and profit targets in advance. Define risk before you enter.</div>
+                    <div class="quiz-option" data-correct="false">Hope the trade works out.</div>
+                    <div class="quiz-option" data-correct="false">Check your broker's margin requirements.</div>
+                </div>
+                <div class="quiz-explanation">Before you execute, your exit plan is locked in. Stop loss is set. Targets are defined. This is the baseline of professional trading. Emotion has no say once you're in.</div>
+            </div>
+
+            <!-- Score Display -->
+            <div class="quiz-score">
+                <h3 class="score-text"></h3>
+                <p class="score-msg"></p>
+                <button class="quiz-reset">Retake Exam</button>
+            </div>
+        </div>
+
+        <!-- GRADUATION SECTION -->
+        <div class="graduation-section" id="graduation">
+            <h2>You've Completed STACK Academy Options Trading</h2>
+            <p>You've earned the foundation. You understand options mechanics, how to read chains, how institutions move, and how to build a repeatable playbook.</p>
+            <p>Now the real work begins. Every trade teaches a lesson. Every loss is tuition. Keep a journal. Respect your stops. Follow your process. Trust the structure.</p>
+            <p class="quote">"You don't rush a roux. You don't rush a trade."</p>
+            <p class="quote-author">— Que, CreoleTrades</p>
+            <p>Join The Trading Roux on Discord. Share trades. Ask questions. Grow with the community.</p>
+            <a href="https://discord.gg/gzxcV6HDTM" class="graduation-cta">Join The Trading Roux →</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>STACK Academy — CreoleTrades © 2026</p>
+        <a href="#" id="logout-link" class="logout-link">Log Out</a>
+    </footer>
+    </div>
+
+    <script>
+        const PASSWORD_HASH = "517736a23d18568618f50f3b403159dbf753758bd9b9bb4eae02549a1f1bcf31";
+        const STORAGE_KEY = "stack_options_access";
+
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkAccess() {
+            const storedToken = localStorage.getItem(STORAGE_KEY);
+            if (storedToken === PASSWORD_HASH) unlockCourse();
+        }
+
+        function unlockCourse() {
+            document.getElementById('password-gate').classList.add('hidden');
+            document.getElementById('course-content').classList.add('visible');
+        }
+
+        document.getElementById('unlock-btn').addEventListener('click', handleUnlock);
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') handleUnlock();
+        });
+
+        async function handleUnlock() {
+            const passwordInput = document.getElementById('password-input');
+            const errorMessage = document.getElementById('error-message');
+            const password = passwordInput.value;
+            if (!password) { errorMessage.textContent = 'Please enter a password.'; return; }
+            const hashedPassword = await hashPassword(password);
+            if (hashedPassword === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, PASSWORD_HASH);
+                errorMessage.textContent = '';
+                unlockCourse();
+            } else {
+                errorMessage.textContent = 'Incorrect password. Please try again.';
+                passwordInput.classList.add('shake');
+                setTimeout(() => passwordInput.classList.remove('shake'), 500);
+            }
+        }
+
+        document.getElementById('logout-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem(STORAGE_KEY);
+            location.reload();
+        });
+
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.target.id === 'course-content' && mutation.target.classList.contains('visible')) {
+                    initQuiz();
+                    observer.disconnect();
+                }
+            });
+        });
+        const courseContent = document.getElementById('course-content');
+        observer.observe(courseContent, { attributes: true, attributeFilter: ['class'] });
+        if (courseContent.classList.contains('visible')) initQuiz();
+
+        checkAccess();
+
+        function initQuiz() {
+            const questions = document.querySelectorAll('.quiz-question');
+            let answered = 0;
+            const total = questions.length;
+            let score = 0;
+
+            questions.forEach(q => {
+                const options = q.querySelectorAll('.quiz-option');
+                const explanation = q.querySelector('.quiz-explanation');
+                options.forEach(opt => {
+                    opt.addEventListener('click', function() {
+                        if (q.classList.contains('answered')) return;
+                        q.classList.add('answered');
+                        answered++;
+                        const isCorrect = this.dataset.correct === 'true';
+                        if (isCorrect) {
+                            this.classList.add('correct');
+                            score++;
+                        } else {
+                            this.classList.add('incorrect');
+                            options.forEach(o => {
+                                if (o.dataset.correct === 'true') o.classList.add('reveal-correct');
+                            });
+                        }
+                        if (explanation) explanation.classList.add('visible');
+                        if (answered === total) {
+                            const scoreEl = document.querySelector('.quiz-score');
+                            scoreEl.querySelector('.score-text').textContent = score + ' / ' + total;
+                            const msg = scoreEl.querySelector('.score-msg');
+                            if (score === total) msg.textContent = 'Perfect. You\'ve mastered the STACK. Stay STACKED. ⚜️';
+                            else if (score >= 16) msg.textContent = 'Strong result. You understand the STACK Method.';
+                            else if (score >= 12) msg.textContent = 'Passing grade. Revisit modules where you missed.';
+                            else msg.textContent = 'Not quite there yet. Review and retake. The K in STACK says: no shortcuts.';
+                            scoreEl.classList.add('visible');
+                            if (score >= 12) document.getElementById('graduation').classList.add('visible');
+                        }
+                    });
+                });
+            });
+
+            const resetBtn = document.querySelector('.quiz-reset');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function() {
+                    score = 0;
+                    answered = 0;
+                    questions.forEach(q => {
+                        q.classList.remove('answered');
+                        q.querySelectorAll('.quiz-option').forEach(o => {
+                            o.classList.remove('correct', 'incorrect', 'reveal-correct');
+                        });
+                        const exp = q.querySelector('.quiz-explanation');
+                        if (exp) exp.classList.remove('visible');
+                    });
+                    document.querySelector('.quiz-score').classList.remove('visible');
+                    document.getElementById('graduation').classList.remove('visible');
+                });
+            }
+        }
+    </script>
+</body>
+</html>

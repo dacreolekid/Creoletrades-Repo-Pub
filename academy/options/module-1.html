@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STACK Academy Module 1: Options Fundamentals</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Lora", Georgia, serif;
+            background-color: #070C18;
+            color: #C8D4E8;
+            line-height: 1.7;
+        }
+
+        header {
+            background: #070C18;
+            border-bottom: 3px solid #C9A84C;
+            padding: 2rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header-title h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 1.8rem;
+            color: #EEF2FF;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .module-badge {
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 0.4rem 0.8rem;
+            border-radius: 0px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-family: "Lora", Georgia, serif;
+            padding: 0.5rem 1rem;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        nav a:hover {
+            background-color: transparent;
+            color: #C9A84C;
+            border-color: #C9A84C;
+        }
+
+        nav a.active {
+            background-color: transparent;
+            color: #C9A84C;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .module-intro {
+            background: #0D1526;
+            border-left: 3px solid #C9A84C;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0px;
+        }
+
+        .module-intro p {
+            font-size: 1.1rem;
+            color: #C8D4E8;
+            font-style: italic;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        h3 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #C8D4E8;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .vocab-card {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 1.5rem;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+        }
+
+        .vocab-card:hover {
+            background: #0F1A2E;
+            border-color: #F0D080;
+            box-shadow: 0 8px 24px rgba(201, 168, 76, 0.1);
+        }
+
+        .vocab-card h4 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .vocab-card p {
+            font-size: 0.95rem;
+            color: #C8D4E8;
+        }
+
+        .three-step {
+            background: #0D1526;
+            border-left: 3px solid #C9A84C;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 0px;
+        }
+
+        .step {
+            margin-bottom: 1.5rem;
+        }
+
+        .step h4 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .step p {
+            margin-left: 0;
+            color: #C8D4E8;
+        }
+
+        .step:last-child {
+            margin-bottom: 0;
+        }
+
+        .key-takeaways {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 2rem;
+            border-radius: 0px;
+            margin: 2rem 0;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .key-takeaways li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: #C8D4E8;
+        }
+
+        .key-takeaways li:before {
+            content: "⚜️";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+            font-weight: bold;
+        }
+
+        .practice-box {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 2rem;
+            border-radius: 0px;
+            margin: 2rem 0;
+        }
+
+        .practice-box h3 {
+            margin-top: 0;
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-weight: 700;
+        }
+
+        .practice-box p {
+            font-size: 1.05rem;
+            color: #C8D4E8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 1rem 2rem;
+            border-radius: 0px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid #C9A84C;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin: 3rem 0 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        footer {
+            background-color: #070C18;
+            border-top: 3px solid #C9A84C;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 4rem;
+            color: #C9A84C;
+        }
+
+        footer p {
+            color: #C9A84C;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-title h1 {
+                font-size: 1.5rem;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            nav a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+        }
+
+        strong {
+            color: #F0D080;
+        }
+
+        em {
+            color: #F0D080;
+        }
+
+        /* Password Gate Overlay Styles */
+        #password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 22, 40, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        #password-gate.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .password-card {
+            background: #070C18;
+            border: 2px solid #C9A84C;
+            border-radius: 0px;
+            padding: 3rem 2rem;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        .password-card h2 {
+            font-family: "Playfair Display", serif;
+            color: #EEF2FF;
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            border: none;
+            padding-bottom: 0;
+        }
+
+        .password-card .subtitle {
+            color: #C8D4E8;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .password-input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        #password-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            background-color: #0D1526;
+            border: 2px solid #C9A84C;
+            color: #FFFFFF;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+            font-family: "Lora", Georgia, serif;
+        }
+
+        #password-input:focus {
+            outline: none;
+            border-color: #FFD699;
+            box-shadow: 0 0 10px rgba(201, 168, 76, 0.5);
+        }
+
+        #password-input.shake {
+            animation: shake 0.5s ease;
+            border-color: #ff4444;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            min-height: 20px;
+        }
+
+        #unlock-btn {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: 2px solid #C9A84C;
+            border-radius: 0px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: "Lora", Georgia, serif;
+        }
+
+        #unlock-btn:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        .password-helper-text {
+            color: #B0B0B0;
+            font-size: 0.85rem;
+            margin-top: 1.5rem;
+        }
+
+        .password-helper-text a {
+            color: #C9A84C;
+            text-decoration: none;
+            border-bottom: 1px solid #C9A84C;
+            transition: all 0.3s ease;
+        }
+
+        .password-helper-text a:hover {
+            color: #FFD699;
+            border-bottom-color: #FFD699;
+        }
+
+        #course-content {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        #course-content.visible {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .logout-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #C9A84C;
+            transition: all 0.3s ease;
+        }
+
+        .logout-link:hover {
+            color: #FFD699;
+            border-bottom-color: #FFD699;
+        }
+
+        /* Quiz Styles */
+        .quiz-section {
+            background: linear-gradient(135deg, #0D1526, #070C18);
+            border: 2px solid #C9A84C;
+            padding: 2.5rem 2rem;
+            margin: 2rem 0;
+        }
+
+        .quiz-section h2 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .quiz-intro {
+            color: #C8D4E8;
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-question {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+        }
+
+        .quiz-question:last-of-type {
+            border-bottom: none;
+        }
+
+        .quiz-question p.q-text {
+            color: #EEF2FF;
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .quiz-option {
+            background: #0D1526;
+            border: 1px solid rgba(200, 212, 232, 0.2);
+            padding: 0.8rem 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #C8D4E8;
+            font-family: "Lora", Georgia, serif;
+            font-size: 0.95rem;
+        }
+
+        .quiz-option:hover:not(.selected) {
+            border-color: #C9A84C;
+            background: rgba(201, 168, 76, 0.1);
+        }
+
+        .quiz-option.correct {
+            border-color: #22C55E;
+            background: rgba(34, 197, 94, 0.15);
+            color: #22C55E;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #EF4444;
+            background: rgba(239, 68, 68, 0.15);
+            color: #EF4444;
+        }
+
+        .quiz-option.correct::after {
+            content: " ✓";
+            font-weight: bold;
+        }
+
+        .quiz-option.incorrect::after {
+            content: " ✗";
+            font-weight: bold;
+        }
+
+        .quiz-option.reveal-correct {
+            border-color: #22C55E;
+            background: rgba(34, 197, 94, 0.1);
+            color: #22C55E;
+        }
+
+        .quiz-explanation {
+            margin-top: 0.5rem;
+            padding: 0.8rem 1rem;
+            font-size: 0.9rem;
+            color: #F0D080;
+            font-style: italic;
+            display: none;
+        }
+
+        .quiz-explanation.visible {
+            display: block;
+        }
+
+        .quiz-score {
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 2px solid #C9A84C;
+            background: rgba(201, 168, 76, 0.1);
+            display: none;
+        }
+
+        .quiz-score.visible {
+            display: block;
+        }
+
+        .quiz-score h3 {
+            font-family: "Playfair Display", serif;
+            color: #F0D080;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-score p {
+            color: #C8D4E8;
+        }
+
+        .quiz-reset {
+            margin-top: 1rem;
+            padding: 0.6rem 1.5rem;
+            background: #C9A84C;
+            color: #070C18;
+            border: none;
+            font-family: "Lora", Georgia, serif;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-reset:hover {
+            background: transparent;
+            color: #C9A84C;
+            border: 2px solid #C9A84C;
+        }
+    </style>
+</head>
+<body>
+    <!-- PASSWORD GATE OVERLAY -->
+    <div id="password-gate">
+        <div class="password-card">
+            <h2>STACK Academy</h2>
+            <p class="subtitle">Enter Your Course Password</p>
+            <div class="password-input-group">
+                <input type="password" id="password-input" placeholder="Password">
+                <div class="error-message" id="error-message"></div>
+            </div>
+            <button id="unlock-btn">Unlock Course</button>
+            <div class="password-helper-text">
+                <p>Purchased STACK Academy? Check your email for your access password.</p>
+                <p><a href="../index.html">Don't have a password? Get access at creoletrades.com</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-content">
+            <div class="header-title">
+                <h1>STACK Academy</h1>
+                <span class="module-badge">Module 1 of 4</span>
+            </div>
+            <nav>
+                <a href="index.html">← Back to Options Course</a>
+                <a href="module-1.html" class="active">Module 1</a>
+                <a href="module-2.html">Module 2</a>
+                <a href="module-3.html">Module 3</a>
+                <a href="module-4.html">Module 4</a>
+                <a href="glossary.html">Glossary</a>
+                <a href="final-exam.html">Final Exam</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- COURSE CONTENT (hidden until password entered) -->
+    <div id="course-content">
+    <main>
+        <!-- Module Intro -->
+        <div class="module-intro">
+            <p><em>Options are derivatives—contracts that give you the right to buy or sell an asset at a specific price by a specific date. They're not some exotic instrument. They're a tool. This module covers what they are, how they work, and why they matter for active traders.</em></p>
+        </div>
+
+        <!-- What Are Options -->
+        <section>
+            <h2>What Are Options</h2>
+            <p>An option is a contract between two parties. One party (the buyer) has the right to buy or sell an asset. The other party (the seller) has the obligation to fulfill that contract if the buyer chooses to exercise it.</p>
+            <p>There are <strong>two types: calls and puts</strong>.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <h4>Call Option</h4>
+                    <p>Gives you the right to <strong>buy</strong> an asset at a fixed price (the strike) by a fixed date (expiration). You buy a call when you're bullish.</p>
+                </div>
+                <div class="vocab-card">
+                    <h4>Put Option</h4>
+                    <p>Gives you the right to <strong>sell</strong> an asset at a fixed price (the strike) by a fixed date (expiration). You buy a put when you're bearish.</p>
+                </div>
+                <div class="vocab-card">
+                    <h4>Strike Price</h4>
+                    <p>The fixed price at which you can buy (call) or sell (put) the underlying asset if you exercise the option.</p>
+                </div>
+                <div class="vocab-card">
+                    <h4>Expiration Date</h4>
+                    <p>The date the option contract expires. After this date, the option is worthless. For stocks, this is the third Friday of each month.</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Key principle:</strong> You don't have to exercise the option. You can sell it anytime before expiration. Most retail traders close positions before expiration—they don't actually exercise.</p>
+        </section>
+
+        <!-- Premium, Strike, Expiration -->
+        <section>
+            <h2>Premium, Strike, and Expiration</h2>
+            <p>Every option quote gives you three numbers. Know them.</p>
+
+            <div class="three-step">
+                <div class="step">
+                    <h4>Premium (The Price)</h4>
+                    <p>What you pay to buy an option or receive if you sell one. Premium is quoted per share, but you control 100 shares per contract. So a premium of $2.50 means $250 total. Premium decreases as expiration gets closer (unless volatility spikes).</p>
+                </div>
+                <div class="step">
+                    <h4>Strike Price (The Level)</h4>
+                    <p>Your entry price if you exercise. For calls, lower strikes are cheaper and more "out of the money." For puts, higher strikes are cheaper and more "out of the money." Strike selection defines your risk/reward.</p>
+                </div>
+                <div class="step">
+                    <h4>Expiration (The Date)</h4>
+                    <p>How long until the contract expires. Shorter expiration = higher theta decay (time value loss). Longer expiration = more expensive but more time for the trade to work. Most active traders use weekly or monthly expirations.</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Example:</strong> You buy a call on SPY (stock price $480) with a strike of $485, expiring in 7 days, for a premium of $1.50. You pay $150 total. If SPY closes above $485 at expiration, the call has intrinsic value and you profit. If it closes below $485, your call expires worthless and you lose your $150.</p>
+        </section>
+
+        <!-- Intrinsic vs Time Value -->
+        <section>
+            <h2>Intrinsic Value vs Time Value</h2>
+            <p>Option premium has two components. Understanding this is critical for exits and risk management.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <h4>Intrinsic Value</h4>
+                    <p>The real, mathematical value of the option right now. For a call: max(0, stock price - strike). For a put: max(0, strike - stock price). Only in-the-money options have intrinsic value.</p>
+                </div>
+                <div class="vocab-card">
+                    <h4>Time Value</h4>
+                    <p>Everything else in the premium. It's the probability that the option will move in the money before expiration, plus volatility. Time value decreases every day (theta decay).</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Example:</strong> SPY is trading at $485. You buy a $485 call for $2.00 premium. If this call is at-the-money, it has zero intrinsic value—all $2.00 is time value. Now SPY rallies to $487. The same call might now be worth $3.50. That $1.50 gain includes $2.00 intrinsic value (487 - 485) plus time value erosion.</p>
+
+            <p><strong>Why this matters:</strong> Buying options means you're betting on the stock to move a lot AND fast (before time decay kills the trade). Selling options means you're betting on time decay and/or stagnation. Most retail traders lose money on long calls and puts because they ignore theta.</p>
+        </section>
+
+        <!-- The Greeks -->
+        <section>
+            <h2>The Greeks: Delta, Gamma, Theta, Vega</h2>
+            <p>The Greeks measure how your option's price changes based on different market conditions. You don't need to be a quant to understand them. Think of them as sensitivities.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <h4>Delta (Δ)</h4>
+                    <p>How much your option price moves when the stock moves $1. A delta of 0.50 means your option moves $0.50 for every $1 stock move. Calls have positive delta (0 to 1). Puts have negative delta (-1 to 0). At-the-money options have delta around 0.50.</p>
+                </div>
+                <div class="vocab-card">
+                    <h4>Gamma (Γ)</h4>
+                    <p>How much delta changes. It's the acceleration. High gamma = delta swings a lot with small stock moves. Low gamma = delta stays stable. At-the-money options have the highest gamma, especially near expiration.</p>
+                </div>
+                <div class="vocab-card">
+                    <h4>Theta (Θ)</h4>
+                    <p>Time decay. How much value your option loses every day just from time passing (assuming stock price stays the same). Negative theta is enemy number one for buyers. Positive theta is your friend if you're selling. Short-dated options have higher absolute theta.</p>
+                </div>
+                <div class="vocab-card">
+                    <h4>Vega (ν)</h4>
+                    <p>Volatility sensitivity. How much your option price changes if volatility (IV) increases by 1%. Longer-dated options have higher vega. Buying long-dated options is a bet on volatility expansion.</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Practical take:</strong> When you buy a call, you're long delta (betting on the stock to go up), short theta (betting against time), and long vega (betting on volatility). Most retail losses come from theta working against them day after day.</p>
+        </section>
+
+        <!-- Why Options Matter -->
+        <section>
+            <h2>Why Options Matter for Active Traders</h2>
+            <p><strong>Leverage.</strong> Control 100 shares for a fraction of the stock's cost. A $1 call option costs $100. The same 100 shares of a $100 stock costs $10,000. That's 100x leverage (in effect). Leverage cuts both ways—gains and losses are amplified.</p>
+
+            <p><strong>Risk definition.</strong> Your max loss on a long call or put is the premium you paid. You can't lose more. This is clean risk.</p>
+
+            <p><strong>Directional and volatility plays.</strong> You can isolate bets. Buy a call to bet on up-and-volatile. Buy a put to bet on down-and-volatile. Sell to bet on stagnation or volatility contraction.</p>
+
+            <p><strong>Smart money signaling.</strong> Institutions use options flows to build or unwind positions before moving the stock. When you learn to read options chains and flows, you see what smart money sees. This ties directly into STACK Method trading.</p>
+
+            <p><strong>Hedging and income.</strong> Sell covered calls to generate income on stocks you own. Use protective puts to cap downside. Use spreads to define risk. Options give you fine control.</p>
+        </section>
+
+        <!-- Key Takeaways -->
+        <section>
+            <h2>Key Takeaways</h2>
+            <div class="key-takeaways">
+                <ul>
+                    <li>A call gives you the right to buy at a fixed price; a put gives you the right to sell.</li>
+                    <li>Premium is what you pay for the option; strike is your buy/sell price; expiration is when it expires.</li>
+                    <li>Premium has two parts: intrinsic (real value) and time (probability + volatility).</li>
+                    <li>Delta is how much your option moves; theta is how much time decay costs; vega is volatility sensitivity; gamma is acceleration.</li>
+                    <li>Options give leverage, defined risk, and a window into smart money positioning.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Practice Exercise -->
+        <section>
+            <div class="practice-box">
+                <h3>Practice Exercise</h3>
+                <p>Open a broker platform and pull up an options chain for a stock you trade. Pick a call and a put at the money (ATM). Write down their premiums, deltas, and theta. Now, move 5% in either direction—mentally price the options using delta as your guide. See how delta changes (gamma). This is how real options pricing works. Do this on 3 different underlyings and you'll have muscle memory.</p>
+            </div>
+        </section>
+
+        <!-- QUIZ SECTION -->
+        <div class="quiz-section">
+            <h2>Module 1 Quiz</h2>
+            <p class="quiz-intro">Test your understanding. 5 questions — click your answer.</p>
+
+            <div class="quiz-question">
+                <p class="q-text">1. What is the main difference between a call and a put?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">A call is more expensive than a put.</div>
+                    <div class="quiz-option" data-correct="true">A call gives you the right to buy; a put gives you the right to sell.</div>
+                    <div class="quiz-option" data-correct="false">A call has positive delta; a put has no delta.</div>
+                    <div class="quiz-option" data-correct="false">Calls expire monthly; puts expire weekly.</div>
+                </div>
+                <div class="quiz-explanation">A call is the right to buy at the strike price. A put is the right to sell at the strike price. This is the fundamental distinction between the two contract types.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">2. What is intrinsic value?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">The premium you pay for the option.</div>
+                    <div class="quiz-option" data-correct="true">The real, mathematical value of the option right now—for calls, stock price minus strike (if positive).</div>
+                    <div class="quiz-option" data-correct="false">The amount of time decay left until expiration.</div>
+                    <div class="quiz-option" data-correct="false">The volatility component of the premium.</div>
+                </div>
+                <div class="quiz-explanation">Intrinsic value is the value the option has if you exercised it today. For a call at a $485 strike when the stock is at $487, the intrinsic value is $2.00. Out-of-the-money options have zero intrinsic value.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">3. What does delta measure?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">How much time value is in the option.</div>
+                    <div class="quiz-option" data-correct="true">How much the option price moves when the stock moves $1.</div>
+                    <div class="quiz-option" data-correct="false">How much volatility affects the option.</div>
+                    <div class="quiz-option" data-correct="false">The strike price minus the stock price.</div>
+                </div>
+                <div class="quiz-explanation">Delta is your option's sensitivity to stock price moves. A delta of 0.60 means the option moves $0.60 for every $1 the stock moves. It's the most important Greek for directional traders.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">4. What is theta?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">The change in delta as the stock price changes.</div>
+                    <div class="quiz-option" data-correct="false">The change in option value if volatility changes.</div>
+                    <div class="quiz-option" data-correct="true">Time decay—how much value the option loses every day from time passing alone.</div>
+                    <div class="quiz-option" data-correct="false">The probability the option will expire in the money.</div>
+                </div>
+                <div class="quiz-explanation">Theta is time decay. If an option has a theta of -0.05, it loses $5 per day (0.05 × 100 shares) just from time passing, assuming the stock doesn't move. This is why buying short-dated options is challenging—theta works against you every single day.</div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="q-text">5. Why do active traders use options instead of stock?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">Options are always cheaper than stocks.</div>
+                    <div class="quiz-option" data-correct="true">Options provide leverage, defined risk, and a window into smart money positioning through flow analysis.</div>
+                    <div class="quiz-option" data-correct="false">Options can never expire worthless.</div>
+                    <div class="quiz-option" data-correct="false">Options don't require capital.</div>
+                </div>
+                <div class="quiz-explanation">Options give you 100x effective leverage (control 100 shares for less capital), defined max loss (the premium paid), and visibility into institutional activity through options flows. These are the three reasons traders choose options.</div>
+            </div>
+
+            <!-- Score Display -->
+            <div class="quiz-score">
+                <h3 class="score-text"></h3>
+                <p class="score-msg"></p>
+                <button class="quiz-reset">Retake Quiz</button>
+            </div>
+        </div>
+
+        <!-- NAVIGATION BUTTONS -->
+        <div class="navigation-buttons">
+            <span style="flex: 1; min-width: 200px;"></span>
+            <a href="module-2.html" class="cta-button nav-btn">Next Module →</a>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>STACK Academy — CreoleTrades © 2026</p>
+        <a href="#" id="logout-link" class="logout-link">Log Out</a>
+    </footer>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // === PASSWORD GATE ===
+        const PASSWORD_HASH = "517736a23d18568618f50f3b403159dbf753758bd9b9bb4eae02549a1f1bcf31";
+        const STORAGE_KEY = "stack_options_access";
+
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkAccess() {
+            const storedToken = localStorage.getItem(STORAGE_KEY);
+            if (storedToken === PASSWORD_HASH) unlockCourse();
+        }
+
+        function unlockCourse() {
+            document.getElementById('password-gate').classList.add('hidden');
+            document.getElementById('course-content').classList.add('visible');
+        }
+
+        document.getElementById('unlock-btn').addEventListener('click', handleUnlock);
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') handleUnlock();
+        });
+
+        async function handleUnlock() {
+            const passwordInput = document.getElementById('password-input');
+            const errorMessage = document.getElementById('error-message');
+            const password = passwordInput.value;
+            if (!password) { errorMessage.textContent = 'Please enter a password.'; return; }
+            const hashedPassword = await hashPassword(password);
+            if (hashedPassword === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, PASSWORD_HASH);
+                errorMessage.textContent = '';
+                unlockCourse();
+            } else {
+                errorMessage.textContent = 'Incorrect password. Please try again.';
+                passwordInput.classList.add('shake');
+                setTimeout(() => passwordInput.classList.remove('shake'), 500);
+            }
+        }
+
+        document.getElementById('logout-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem(STORAGE_KEY);
+            location.reload();
+        });
+
+        checkAccess();
+
+        // === QUIZ ===
+        function initQuiz() {
+            const questions = document.querySelectorAll('.quiz-question');
+            let answered = 0;
+            const total = questions.length;
+            let score = 0;
+
+            questions.forEach(q => {
+                const options = q.querySelectorAll('.quiz-option');
+                const explanation = q.querySelector('.quiz-explanation');
+                options.forEach(opt => {
+                    opt.addEventListener('click', function() {
+                        if (q.classList.contains('answered')) return;
+                        q.classList.add('answered');
+                        answered++;
+                        const isCorrect = this.dataset.correct === 'true';
+                        if (isCorrect) {
+                            this.classList.add('correct');
+                            score++;
+                        } else {
+                            this.classList.add('incorrect');
+                            options.forEach(o => {
+                                if (o.dataset.correct === 'true') o.classList.add('reveal-correct');
+                            });
+                        }
+                        if (explanation) explanation.classList.add('visible');
+                        if (answered === total) {
+                            const scoreEl = document.querySelector('.quiz-score');
+                            scoreEl.querySelector('.score-text').textContent = score + ' / ' + total;
+                            const msg = scoreEl.querySelector('.score-msg');
+                            if (score === total) msg.textContent = 'Perfect score. Stay STACKED. ⚜️';
+                            else if (score >= total * 0.8) msg.textContent = 'Solid read. Review what you missed, then move forward. ⚜️';
+                            else if (score >= total * 0.6) msg.textContent = 'Decent foundation. Re-read the sections you missed before moving on.';
+                            else msg.textContent = 'Review this module again before continuing. The S in STACK demands it.';
+                            scoreEl.classList.add('visible');
+                        }
+                    });
+                });
+            });
+
+            const resetBtn = document.querySelector('.quiz-reset');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function() {
+                    score = 0;
+                    answered = 0;
+                    questions.forEach(q => {
+                        q.classList.remove('answered');
+                        q.querySelectorAll('.quiz-option').forEach(o => {
+                            o.classList.remove('correct', 'incorrect', 'reveal-correct');
+                        });
+                        const exp = q.querySelector('.quiz-explanation');
+                        if (exp) exp.classList.remove('visible');
+                    });
+                    document.querySelector('.quiz-score').classList.remove('visible');
+                });
+            }
+        }
+        initQuiz();
+    </script>
+</body>
+</html>
