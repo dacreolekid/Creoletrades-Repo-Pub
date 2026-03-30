@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Session Confirmed — CreoleTrades 1-on-1</title>
+  <meta name="description" content="Your CreoleTrades 1-on-1 coaching session is confirmed. Book your time with Coach Que." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="author" content="CreoleTrades" />
+  <link rel="canonical" href="https://creoletrades.com/coaching-confirmed" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://creoletrades.com/coaching-confirmed" />
+  <meta property="og:title" content="Session Confirmed — CreoleTrades 1-on-1" />
+  <meta property="og:description" content="Your 1-on-1 coaching session is confirmed. Book your time with Coach Que now." />
+  <meta property="og:image" content="https://creoletrades.com/logo.jpg" />
+  <meta property="og:site_name" content="CreoleTrades" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bayou:      #070C18;
+      --cypress:    #0D1526;
+      --deep:       #050911;
+      --spice:      #C9A84C;
+      --spice-lite: #E2BC6B;
+      --firefly:    #F0D080;
+      --moss:       #3D5278;
+      --moss-lite:  #6B84AA;
+      --parchment:  #EEF2FF;
+      --cream:      #F5F7FF;
+      --iron:       #0F1A2E;
+      --border:     rgba(201,168,76,0.25);
+      --border-dim: rgba(201,168,76,0.08);
+      --text:       #C8D4E8;
+      --muted:      #5A7099;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bayou);
+      color: var(--text);
+      font-family: 'Lora', Georgia, serif;
+      font-weight: 400;
+      line-height: 1.75;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(201,168,76,0.012) 2px,
+        rgba(201,168,76,0.012) 4px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ═══ NAV ═══ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(7,12,24,0.97);
+      border-bottom: 1px solid var(--border-dim);
+      padding: 1rem 2rem;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.2rem;
+      color: var(--parchment);
+      font-weight: 600;
+    }
+    .nav-logo em { font-style: italic; color: var(--firefly); }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 0.82rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--firefly); }
+
+    /* ═══ MAIN ═══ */
+    .main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .confirm-card {
+      max-width: 680px;
+      width: 100%;
+      background: var(--cypress);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .confirm-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--spice), var(--firefly));
+    }
+
+    .confirm-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .confirm-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2rem;
+      color: var(--firefly);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .confirm-subtitle {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .confirm-divider {
+      width: 60%;
+      margin: 0 auto 2rem;
+      border: none;
+      border-top: 1px solid var(--border-dim);
+    }
+
+    .confirm-message {
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      line-height: 1.85;
+    }
+
+    /* ═══ WHAT YOU GET ═══ */
+    .included-section {
+      text-align: left;
+      background: rgba(201,168,76,0.04);
+      border: 1px solid var(--border-dim);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .included-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.05rem;
+      color: var(--spice);
+      margin-bottom: 1rem;
+      text-align: center;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .included-list {
+      list-style: none;
+      padding: 0;
+    }
+    .included-list li {
+      font-size: 0.85rem;
+      color: var(--text);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border-dim);
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+    }
+    .included-list li:last-child { border-bottom: none; }
+    .included-list li span.icon { color: var(--firefly); flex-shrink: 0; }
+
+    /* ═══ BOOKING CTA ═══ */
+    .coaching-box {
+      background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(240,208,128,0.05));
+      border: 2px solid var(--spice);
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .coaching-box-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.2rem;
+      color: var(--firefly);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .coaching-box-desc {
+      font-size: 0.88rem;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .btn-book {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      font-family: 'Lora', Georgia, serif;
+      font-size: 1rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--spice), var(--firefly));
+      color: var(--bayou);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.03em;
+    }
+    .btn-book:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(201,168,76,0.35);
+    }
+
+    /* ═══ NEXT STEPS ═══ */
+    .next-steps {
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+    .next-steps-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.95rem;
+      color: var(--spice);
+      margin-bottom: 1rem;
+      text-align: center;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .step {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.85rem;
+      color: var(--firefly);
+      font-weight: 700;
+    }
+    .step-text {
+      font-size: 0.85rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .step-text strong { color: var(--firefly); }
+
+    /* ═══ UPSELL ═══ */
+    .upsell-section {
+      background: rgba(61,82,120,0.08);
+      border: 1px solid var(--border-dim);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .upsell-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1rem;
+      color: var(--moss-lite);
+      margin-bottom: 0.4rem;
+    }
+    .upsell-desc {
+      font-size: 0.85rem;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+      line-height: 1.7;
+    }
+    .btn-upsell {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      font-family: 'Lora', Georgia, serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      background: transparent;
+      color: var(--firefly);
+      border: 2px solid var(--spice);
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      letter-spacing: 0.03em;
+    }
+    .btn-upsell:hover {
+      transform: translateY(-2px);
+      background: rgba(201,168,76,0.08);
+      box-shadow: 0 6px 20px rgba(201,168,76,0.2);
+    }
+
+    /* ═══ TAGLINE ═══ */
+    .tagline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1rem;
+      color: var(--firefly);
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+
+    .back-link {
+      font-size: 0.82rem;
+      color: var(--muted);
+      transition: color 0.3s;
+    }
+    .back-link:hover { color: var(--firefly); }
+
+    /* ═══ FOOTER ═══ */
+    .footer {
+      background: var(--deep);
+      border-top: 1px solid var(--border-dim);
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-text {
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 640px) {
+      .confirm-card { padding: 2rem 1.5rem; }
+      .confirm-title { font-size: 1.6rem; }
+      .nav-links { display: none; }
+      .coaching-box { padding: 1.5rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="/" class="nav-logo">⚜ <em>CreoleTrades</em></a>
+    <div class="nav-links">
+      <a href="/#products">Products</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/academy/">Academy</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="confirm-card">
+
+      <span class="confirm-icon">⚜</span>
+      <h1 class="confirm-title">You're In — Let's Work</h1>
+      <p class="confirm-subtitle">Your CreoleTrades 1-on-1 coaching session is confirmed.</p>
+
+      <hr class="confirm-divider" />
+
+      <p class="confirm-message">
+        You just booked 60 minutes of direct, private time with Que — founder of CreoleTrades and architect of the STACK Method.
+        You bring the topic. We work through it together. No fluff, no filler — just focused execution.
+      </p>
+
+      <!-- What You Get -->
+      <div class="included-section">
+        <div class="included-title">Your Session Includes</div>
+        <ul class="included-list">
+          <li><span class="icon">⚜</span> 60-minute private session with Coach Que</li>
+          <li><span class="icon">⚜</span> You choose the topic — chart reads, trade reviews, STACK breakdown, strategy building, or anything trading</li>
+          <li><span class="icon">⚜</span> Live screen share — we look at your charts together in real time</li>
+          <li><span class="icon">⚜</span> Actionable takeaways you can apply to your next session at the desk</li>
+        </ul>
+      </div>
+
+      <!-- Book CTA -->
+      <div class="coaching-box">
+        <div class="coaching-box-title">Schedule Your Session</div>
+        <p class="coaching-box-desc">
+          Pick a time that works for you. Come prepared — pull up your charts, your questions, your trades from the week. This is your hour.
+        </p>
+        <a href="https://calendly.com/qilion24/60min" target="_blank" rel="noopener noreferrer" class="btn-book">Book Your Time Slot →</a>
+      </div>
+
+      <!-- Next Steps -->
+      <div class="next-steps">
+        <div class="next-steps-title">Next Steps</div>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Book your session</strong> using the button above. Pick a time slot that works for your schedule.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Prep your charts.</strong> Pull up TradingView with Wolf Chart 2.1 loaded. Have 2–3 tickers ready that you want to walk through.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Write down your questions.</strong> What's been tripping you up? Where are you leaking money? Bring specifics — the more focused, the more you'll get out of this.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>Show up ready to execute.</strong> We'll work through your reads, sharpen your entries, and build a plan you can run with.</div>
+        </div>
+      </div>
+
+      <!-- Mastery Upsell -->
+      <div class="upsell-section">
+        <div class="upsell-title">Want Ongoing Coaching?</div>
+        <p class="upsell-desc">
+          STACKED: Mastery includes 4 coaching sessions per month, full STACK trade plans, options guidance across all 5 zones, Wolf Chart screenshots, and access to every #pro- channel in Discord.
+        </p>
+        <a href="https://mee6.xyz/en/m/tradingroux?subscribe=1471656319198171136" target="_blank" rel="noopener noreferrer" class="btn-upsell">Explore Mastery →</a>
+      </div>
+
+      <p class="tagline">"You don't rush a roux. You don't rush a trade."</p>
+
+      <a href="/" class="back-link">← Back to CreoleTrades</a>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p class="footer-text">
+      &copy; 2026 CreoleTrades. All rights reserved.<br />
+      CreoleTrades does not provide financial advice. All content is for educational purposes only.
+    </p>
+  </footer>
+
+</body>
+</html>
