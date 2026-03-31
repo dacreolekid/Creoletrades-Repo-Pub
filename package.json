@@ -1,0 +1,9 @@
+{
+  "name": "creoletrades",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CreoleTrades — Netlify function dependencies",
+  "dependencies": {
+    "nodemailer": "^6.9.0"
+  }
+}
