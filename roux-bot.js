@@ -26,41 +26,55 @@ KNOWLEDGE BASE:
 ## Community Tiers (The Trading Roux Discord)
 - Join link: mee6.gg/m/tradingroux
 
-### Crescent Tier — $29.99/month
-- Full Trading Roux Discord community access
-- Bot integration
-- Wolf Chart 2.1 compatibility
-- REQUIRES Wolf Chart 2.1 subscription first
-- Best for: traders ready to join the community ecosystem
+### STACKED (Free)
+- No credit card required
+- Daily market bias Mon–Thu
+- Friday Triple Confirmation Live — 5PM CST
+- Full YouTube education library
+- #general community access in The Trading Roux
+- STACK Method doctrine education
+- Join free at mee6.gg/m/tradingroux
 
-### Delta Calls — $79.99/month
-- Everything in Crescent
-- Premium real-time trade calls delivered inside Discord
-- Signal flow with entries, targets, and context
-- Best for: traders ready to execute at a higher level
+### STACKED: Wolf — $29.99/month
+- Everything in free PLUS:
+- Wolf Chart 2.1 walkthroughs
+- Indicator education & annotated chart breakdowns
+- #wolf-chart private channel access
+- Confirmation system training tied to STACK
+- Requires active Wolf Chart 2.1 subscription
 
-### Roux Mastery — $399.99/month
-- Direct 1-on-1 coaching with Que personally (4 sessions included)
-- Personalized trading strategy development
-- Full accountability and hands-on mentorship
+### STACKED: Signals — $79.99/month
+- Everything in Wolf PLUS:
+- Compressed STACK signal alerts in #signals
+- Format: Ticker | Direction | Trigger | Entry Zone | PT1 | Primary Invalidation
+- #signals and #signals-chat private channel access
+
+### STACKED: Mastery — $399.99/month
+- Everything in Signals PLUS:
+- Full STACK trade plans — nothing compressed, nothing withheld
+- Options guidance across all 5 zones
+- Wolf Chart 2.1 confirmation screenshot on every trade plan
+- 4 x 1-on-1 coaching sessions with Que (1 per week, first month)
+- Monthly Live Q&A with Que
+- All #pro- channels
 - Best for: serious traders who want accelerated growth
 
 ### STACKED: Mastery Silver — $99 (one-time)
 - Single 60-minute private coaching session with Que
-- You bring the topic — chart reads, trade reviews, STACK breakdown, strategy building
+- Includes temporary Mastery-level Discord access for one week
 - Available to any tier, no subscription required
 - Book at: mee6.xyz/en/m/tradingroux
 
 ## Onboarding Steps
-1. Grab the Free Starter Guide at creoletrades.com/starter-guide
-2. Subscribe to Wolf Chart 2.1 (required for Crescent Tier): thewolfchart.com/?via=creoletrades
-3. Submit your TradingView username after subscribing (access granted within 24 hours)
-4. Join the Trading Roux Discord and select your tier: mee6.gg/m/tradingroux
-5. Introduce yourself in the community and get to work
+1. Start free — join The Trading Roux: mee6.gg/m/tradingroux
+2. Grab the Free Starter Guide: creoletrades.com/starter-guide
+3. If upgrading to Wolf tier — subscribe to Wolf Chart 2.1 first: thewolfchart.com/?via=creoletrades
+4. Select your tier inside Discord via MEE6
+5. Introduce yourself and get to work
 
 ## Wolf Chart 2.1
 - Built by Shon The Wolf on TradingView
-- Required for Crescent Tier membership
+- Required for STACKED: Wolf tier
 - Subscribe via affiliate link: thewolfchart.com/?via=creoletrades
 - Features: Arc Confirmation System, Wolf Pack Buy/Sell Signals, WTMA (Wolf Trend Moving Average), Smart Money Concepts (order blocks, liquidity zones, fair value gaps), ATR Tracker for stop loss placement, 400-Day Support/Resistance levels
 - After subscribing: submit TradingView username, access granted within 24 hours
@@ -76,11 +90,11 @@ KNOWLEDGE BASE:
 ## Contact
 - Contact form: creoletrades.com/#contact
 - Response time: 24-48 hours
-- For coaching inquiries: select Roux Mastery tier or use contact form
+- For coaching inquiries: select STACKED: Mastery or STACKED: Mastery Silver, or use contact form
 
 ## FAQ
 Q: Do I need Wolf Chart to join the community?
-A: Wolf Chart is required for the Crescent Tier. You can get it at thewolfchart.com/?via=creoletrades before joining.
+A: No — the free STACKED tier requires nothing. Wolf Chart 2.1 is only required if you upgrade to STACKED: Wolf ($29.99/mo). Get it at thewolfchart.com/?via=creoletrades.
 
 Q: How much money do I need to start trading?
 A: You can start with paper trading (simulated) for free. For live trading, start with only what you can afford to lose — $500-$1,000 is a reasonable starting point.
