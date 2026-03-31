@@ -156,7 +156,7 @@ function identifyProduct(event) {
   // Match Mastery Silver first (more specific)
   if (
     PRODUCTS.masterySilver.keywords.some(k => productName.includes(k)) ||
-    amount === 9900 // $99.00 in cents
+    amount === 9999 // $99.99 in cents
   ) {
     return 'masterySilver';
   }
@@ -200,46 +200,59 @@ exports.handler = async (event) => {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
+  // Handle Netlify's base64 encoding of request body
+  const rawBody = event.isBase64Encoded
+    ? Buffer.from(event.body, 'base64').toString('utf8')
+    : event.body;
+
   const sig = event.headers['stripe-signature'];
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
 
   if (!sig || !secret) {
     console.error('Missing stripe-signature header or STRIPE_WEBHOOK_SECRET env var');
-    return { statusCode: 400, body: 'Missing signature' };
+    return { statusCode: 400, body: JSON.stringify({ error: 'missing_signature', hasSig: !!sig, hasSecret: !!secret }) };
   }
 
   // Verify webhook signature
-  const isValid = verifyStripeSignature(event.body, sig, secret);
+  const isValid = verifyStripeSignature(rawBody, sig, secret);
   if (!isValid) {
-    console.error('Invalid Stripe signature');
-    return { statusCode: 401, body: 'Invalid signature' };
+    console.error('Invalid Stripe signature — likely signing secret mismatch between live/test mode');
+    return { statusCode: 401, body: JSON.stringify({ error: 'invalid_signature' }) };
   }
 
-  const stripeEvent = JSON.parse(event.body);
+  let stripeEvent;
+  try {
+    stripeEvent = JSON.parse(rawBody);
+  } catch (e) {
+    console.error('Failed to parse webhook body:', e.message);
+    return { statusCode: 400, body: JSON.stringify({ error: 'invalid_json' }) };
+  }
+
+  console.log('Webhook received:', stripeEvent.type);
 
   // Only handle checkout.session.completed
   if (stripeEvent.type !== 'checkout.session.completed') {
-    return { statusCode: 200, body: JSON.stringify({ received: true, skipped: true }) };
+    return { statusCode: 200, body: JSON.stringify({ received: true, skipped: stripeEvent.type }) };
   }
 
   const session = stripeEvent.data.object;
   const customerEmail = session.customer_details?.email || session.customer_email;
   const customerName = session.customer_details?.name || '';
+  const amount = session.amount_total || session.amount || 0;
+
+  console.log('Checkout session:', { email: customerEmail, amount, mode: session.mode });
 
   if (!customerEmail) {
     console.error('No customer email found in checkout session');
-    return { statusCode: 200, body: JSON.stringify({ received: true, error: 'no email' }) };
+    return { statusCode: 200, body: JSON.stringify({ received: true, error: 'no_email', amount }) };
   }
 
   // Identify which product was purchased
   const product = identifyProduct(stripeEvent);
 
   if (!product) {
-    console.log('Checkout completed but product not matched for booking email:', {
-      amount: session.amount_total,
-      email: customerEmail
-    });
-    return { statusCode: 200, body: JSON.stringify({ received: true, skipped: 'unknown product' }) };
+    console.log('Product not matched:', { amount, email: customerEmail });
+    return { statusCode: 200, body: JSON.stringify({ received: true, skipped: 'unknown_product', amount }) };
   }
 
   // Send the booking email
@@ -248,7 +261,7 @@ exports.handler = async (event) => {
     console.log(`Booking email sent: ${product} → ${customerEmail}`);
     return {
       statusCode: 200,
-      body: JSON.stringify({ received: true, emailSent: true, product })
+      body: JSON.stringify({ received: true, emailSent: true, product, to: customerEmail })
     };
   } catch (err) {
     console.error('Email send failed:', err.message);
