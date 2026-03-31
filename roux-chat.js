@@ -57,7 +57,7 @@ KNOWLEDGE BASE:
 - A+ trigger logic on every plan
 - PT1, PT2, PT3 with trim & trail instructions
 - Wolf Chart 2.1 confirmation screenshot on every trade plan
-- 4 x 1-on-1 coaching sessions with Que via Calendly (1 per week, first month)
+- 4 x 1-on-1 coaching sessions with Que (1 per week, first month) — included in Mastery. Additional sessions available via STACKED: Mastery Silver ($99/session)
 - Monthly Live Q&A with Que
 - Early video access + direct mentoring access
 - All #pro- channels: #pro-setups | #pro-trade-plans | #pro-qa | #pro-live-qa | #pro-wins | #pro-coaching | #pro-early-access

@@ -40,10 +40,16 @@ KNOWLEDGE BASE:
 - Best for: traders ready to execute at a higher level
 
 ### Roux Mastery — $399.99/month
-- Direct 1-on-1 coaching with Que personally
+- Direct 1-on-1 coaching with Que personally (4 sessions included)
 - Personalized trading strategy development
 - Full accountability and hands-on mentorship
 - Best for: serious traders who want accelerated growth
+
+### STACKED: Mastery Silver — $99 (one-time)
+- Single 60-minute private coaching session with Que
+- You bring the topic — chart reads, trade reviews, STACK breakdown, strategy building
+- Available to any tier, no subscription required
+- Book at: mee6.xyz/en/m/tradingroux
 
 ## Onboarding Steps
 1. Grab the Free Starter Guide at creoletrades.com/starter-guide
