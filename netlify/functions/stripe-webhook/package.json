@@ -1,0 +1,8 @@
+{
+  "name": "stripe-webhook",
+  "version": "1.0.0",
+  "description": "Stripe webhook handler — sends Calendly booking emails after payment",
+  "dependencies": {
+    "nodemailer": "^6.9.0"
+  }
+}
