@@ -9,10 +9,8 @@ KNOWLEDGE BASE:
 ## About CreoleTrades
 - Founded by Que — 6+ years trading experience, Creole roots
 - Focus: options trading, chart analysis, smart money concepts, risk management
-- Framework: STACK Method (Structure, Trigger, Alignment, Confirmation, Keep Discipline)
-- Community identity: STACKers
+- Motto: "Where southern grit meets clarity"
 - Website: creoletrades.com
-- Blog: creoletrades.com/blog
 
 ## Free Starter Guide
 - Free resource covering: options trading basics, how to read charts, risk management, Wolf Chart setup, how the Trading Roux community works
@@ -22,94 +20,73 @@ KNOWLEDGE BASE:
 
 ## Community Tiers (The Trading Roux Discord)
 - Join link: mee6.gg/m/tradingroux
-- Funnel: See the signal → Want the plan → Need the Mastery
 
-### TIER 1 — STACKED (Free)
-- No credit card required
-- Daily market bias Mon–Thu
-- Friday Triple Confirmation Live — 5PM CST
-- Full YouTube education library @creoletrades
-- #general community access in The Trading Roux
-- STACK Method doctrine education
-- CTA: Join free at mee6.gg/m/tradingroux
+### Crescent Tier — $29.99/month
+- Full Trading Roux Discord community access
+- Bot integration
+- Wolf Chart 2.1 compatibility
+- REQUIRES Wolf Chart 2.1 subscription first
+- Best for: traders ready to join the community ecosystem
 
-### TIER 2 — STACKED: Wolf — $29/month
-- Everything in free PLUS:
-- Wolf Chart 2.1 walkthroughs
-- Indicator education & annotated chart breakdowns
-- #wolf-chart private channel access
-- Confirmation system training tied to STACK
-- ⚠️ Requires active Wolf Chart 2.1 subscription
-- Note: Affiliate entry lane — members from Wolf Chart 2.1 affiliate link enter here
+### Delta Calls — $79.99/month
+- Everything in Crescent
+- Premium real-time trade calls delivered inside Discord
+- Signal flow with entries, targets, and context
+- Best for: traders ready to execute at a higher level
 
-### TIER 3 — STACKED: Signals — $79/month
-- Everything in Wolf PLUS:
-- Compressed STACK signal alerts in #signals
-- Format: Ticker | Direction | Trigger | Entry Zone | PT1 | Primary Invalidation
-- #signals private channel access
-- #signals-chat access
-- NOTE: Full trade plans, options guidance, and Wolf Chart confirmation screenshots are in Mastery only
-
-### TIER 4 — STACKED: Mastery — $399/month (Featured)
-- Everything in Signals PLUS:
-- Full STACK trade plans — nothing compressed, nothing withheld
-- Options guidance across all 5 zones: Primary | Primary 2 | Reload | EDZ | LEAP
-- A+ trigger logic on every plan
-- PT1, PT2, PT3 with trim & trail instructions
-- Wolf Chart 2.1 confirmation screenshot on every trade plan
+### STACKED: Mastery — $399.99/month
+- Direct 1-on-1 coaching with Que personally
 - 4 x 1-on-1 coaching sessions with Que (1 per week, first month) — included in Mastery. Additional sessions available via STACKED: Mastery Silver ($99/session)
-- Monthly Live Q&A with Que
-- Early video access + direct mentoring access
-- All #pro- channels: #pro-setups | #pro-trade-plans | #pro-qa | #pro-live-qa | #pro-wins | #pro-coaching | #pro-early-access
+- Personalized trading strategy development
+- Full accountability and hands-on mentorship
+- Best for: serious traders who want accelerated growth
 
-## Wolf Chart 2.1 — The Confirmation System
-- Powers the C in STACK
-- Standalone affiliate product — not a tier feature
-- Required for STACKED: Wolf tier
-- Referenced in every Mastery trade plan
-- Built by Shon The Wolf on TradingView
-- Subscribe via affiliate link: thewolfchart.com/?via=creoletrades
-- Features: Arc Confirmation System, Wolf Pack Buy/Sell Signals, WTMA, Smart Money Concepts, ATR Tracker, 400-Day Support/Resistance levels
+### STACKED: Mastery Silver — $99 one-time
+- Single 60-minute 1-on-1 coaching session with Que
+- Perfect for traders who want a taste of Mastery-level coaching
+- Includes temporary Mastery-level Discord access for one week
+- Book at: mee6.xyz/en/m/tradingroux
+- Best for: traders curious about coaching or needing a single deep-dive session
 
 ## Onboarding Steps
-1. Start free — join The Trading Roux: mee6.gg/m/tradingroux
-2. Grab the Free Starter Guide: creoletrades.com/starter-guide
-3. If upgrading to Wolf tier — subscribe to Wolf Chart 2.1 first: thewolfchart.com/?via=creoletrades
-4. Select your tier inside Discord via MEE6
-5. Introduce yourself and get to work
+1. Grab the Free Starter Guide at creoletrades.com/starter-guide
+2. Subscribe to Wolf Chart 2.1 (required for Crescent Tier): thewolfchart.com/?via=creoletrades
+3. Submit your TradingView username after subscribing (access granted within 24 hours)
+4. Join the Trading Roux Discord and select your tier: mee6.gg/m/tradingroux
+5. Introduce yourself in the community and get to work
+
+## Wolf Chart 2.1
+- Built by Shon The Wolf on TradingView
+- Required for Crescent Tier membership
+- Subscribe via affiliate link: thewolfchart.com/?via=creoletrades
+- Features: Arc Confirmation System, Wolf Pack Buy/Sell Signals, WTMA, Smart Money Concepts, ATR Tracker, 400-Day Support/Resistance levels
+- After subscribing: submit TradingView username, access granted within 24 hours
+- Also unlocks Wolf Empire Discord role automatically
 
 ## Socials
 - YouTube: youtube.com/@Creole_Trades
 - Instagram: @creoletrades
 - TikTok: @creoletrades
 - Facebook: facebook.com/profile.php?id=61581502905271
-- Twitter/X: @creoletrades
-- Threads: @creoletrades
 - Discord: mee6.gg/m/tradingroux
 
 ## Contact
 - Contact form: creoletrades.com/#contact
 - Response time: 24-48 hours
-- For Mastery/coaching inquiries: creoletrades.com/#contact
+- For coaching inquiries: select STACKED: Mastery tier or STACKED: Mastery Silver, or use contact form
 
 ## FAQ
 Q: Do I need Wolf Chart to join the community?
-A: No — the free STACKED tier requires nothing. Wolf Chart 2.1 is only required if you upgrade to STACKED: Wolf ($29/mo).
-
-Q: What's the difference between Signals and Mastery?
-A: Signals gives you compressed signal alerts (ticker, direction, entry zone, PT1, invalidation). Mastery gives you the full trade plan — all 5 option zones, PT1/PT2/PT3, trim & trail logic, Wolf Chart screenshots, and 1-on-1 coaching with Que.
+A: Wolf Chart is required for the Crescent Tier. Get it at thewolfchart.com/?via=creoletrades before joining.
 
 Q: How much money do I need to start trading?
 A: Start with paper trading (simulated) for free. For live trading, only risk what you can afford to lose.
 
 Q: What markets does Que focus on?
-A: Primarily options trading on stocks, with chart analysis using the STACK Method and smart money concepts.
+A: Primarily options trading on stocks, with chart analysis using smart money concepts.
 
 Q: Can I cancel my subscription?
-A: Yes, all memberships are monthly and can be cancelled anytime through MEE6.
-
-Q: What is the STACK Method?
-A: STACK stands for Structure, Trigger, Alignment, Confirmation, Keep Discipline. It's the five-layer framework that drives every trade decision at CreoleTrades. Read the full breakdown at creoletrades.com/blog/stack-framework.
+A: Yes, subscriptions are monthly and can be cancelled anytime through MEE6.
 
 IMPORTANT RULES:
 - Never provide financial advice or tell anyone to buy/sell specific assets
@@ -117,8 +94,7 @@ IMPORTANT RULES:
 - If asked something outside your knowledge, direct them to creoletrades.com/#contact
 - Keep responses concise — 2-4 sentences max unless detail is needed
 - Always end with a helpful next step or link when relevant
-- Never make up information — if unsure, point to the contact form
-- All memberships are for educational purposes only`;
+- Never make up information — if unsure, point to the contact form`;
 
 exports.handler = async (event) => {
   const headers = {
