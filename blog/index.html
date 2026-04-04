@@ -1,0 +1,2467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CreoleTrades — Trading Education, Chart Flow & Community</title>
+  <meta name="description" content="CreoleTrades offers trading education, real-time trade calls, and a community rooted in Creole culture. Learn options trading, chart analysis, and risk management with Coach Que." />
+  <meta name="keywords" content="trading education, options trading, CreoleTrades, Wolf Chart, Trading Roux, chart analysis, risk management, Creole culture, discord trading community, trade calls" />
+  <meta name="author" content="CreoleTrades" />
+  <link rel="canonical" href="https://creoletrades.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://creoletrades.com/" />
+  <meta property="og:title" content="CreoleTrades — Trading Education, Chart Flow & Community" />
+  <meta property="og:description" content="Learn options trading, smart money concepts, and chart flow inside the Trading Roux community. Built by Coach Que — rooted in Creole culture." />
+  <meta property="og:image" content="https://creoletrades.com/logo.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="CreoleTrades" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter/X Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://creoletrades.com/" />
+  <meta name="twitter:title" content="CreoleTrades — Trading Education, Chart Flow & Community" />
+  <meta name="twitter:description" content="Learn options trading, smart money concepts, and chart flow inside the Trading Roux community. Built by Coach Que — rooted in Creole culture." />
+  <meta name="twitter:image" content="https://creoletrades.com/logo.jpg" />
+
+  <!-- Schema.org structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "CreoleTrades",
+    "url": "https://creoletrades.com",
+    "logo": "https://creoletrades.com/logo.jpg",
+    "description": "Trading education, chart flow, and community rooted in Creole culture.",
+    "founder": {
+      "@type": "Person",
+      "name": "Que",
+      "jobTitle": "Trading Educator & Coach"
+    },
+    "sameAs": [
+      "https://www.youtube.com/@Creole_Trades",
+      "https://www.instagram.com/creoletrades",
+      "https://www.tiktok.com/@creoletrades",
+      "https://www.facebook.com/profile.php?id=61581502905271"
+    ],
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Crescent Tier",
+        "price": "29.99",
+        "priceCurrency": "USD",
+        "description": "Full Trading Roux community access with Wolf Chart integration."
+      },
+      {
+        "@type": "Offer",
+        "name": "Delta Calls",
+        "price": "79.99",
+        "priceCurrency": "USD",
+        "description": "Premium trade calls with real-time signal flow."
+      },
+      {
+        "@type": "Offer",
+        "name": "Roux Mastery",
+        "price": "399.99",
+        "priceCurrency": "USD",
+        "description": "1-on-1 coaching directly with Coach Que."
+      }
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ═══════════════════════════════════════
+       TOKENS
+    ═══════════════════════════════════════ */
+    :root {
+      --bayou:      #070C18;
+      --cypress:    #0D1526;
+      --deep:       #050911;
+      --spice:      #C9A84C;
+      --spice-lite: #E2BC6B;
+      --firefly:    #F0D080;
+      --moss:       #3D5278;
+      --moss-lite:  #6B84AA;
+      --parchment:  #EEF2FF;
+      --cream:      #F5F7FF;
+      --iron:       #0F1A2E;
+      --border:     rgba(201,168,76,0.25);
+      --border-dim: rgba(201,168,76,0.08);
+      --text:       #C8D4E8;
+      --muted:      #5A7099;
+    }
+
+    /* ═══════════════════════════════════════
+       RESET
+    ═══════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bayou);
+      color: var(--text);
+      font-family: 'Lora', Georgia, serif;
+      font-weight: 400;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ═══════════════════════════════════════
+       TEXTURE OVERLAY
+    ═══════════════════════════════════════ */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ═══════════════════════════════════════
+       TYPOGRAPHY UTILITIES
+    ═══════════════════════════════════════ */
+    .display {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+    }
+    .eyebrow {
+      font-family: 'Lora', serif;
+      font-size: 0.7rem;
+      font-style: italic;
+      letter-spacing: 0.18em;
+      color: var(--firefly);
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .fleur {
+      color: var(--spice);
+      font-size: 1.1em;
+      margin: 0 0.4em;
+    }
+
+    /* ═══════════════════════════════════════
+       SECTION DIVIDER
+    ═══════════════════════════════════════ */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+    .divider-mark {
+      color: var(--spice);
+      font-size: 1.2rem;
+    }
+
+    /* ═══════════════════════════════════════
+       BUTTONS
+    ═══════════════════════════════════════ */
+    .btn {
+      display: inline-block;
+      font-family: 'Lora', serif;
+      font-size: 0.8rem;
+      font-style: italic;
+      letter-spacing: 0.12em;
+      padding: 0.875rem 2.25rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.35s;
+      position: relative;
+    }
+    .btn-spice {
+      background: var(--spice);
+      color: var(--cream);
+    }
+    .btn-spice:hover {
+      background: var(--spice-lite);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(201,168,76,0.35);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--parchment);
+      border: 1px solid rgba(240,230,207,0.3);
+    }
+    .btn-ghost:hover {
+      border-color: var(--firefly);
+      color: var(--firefly);
+    }
+
+    /* ═══════════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════════ */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 800;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 5vw;
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+    #nav.scrolled {
+      background: rgba(7,12,24,0.97);
+      box-shadow: 0 1px 0 var(--border-dim);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--parchment);
+      letter-spacing: 0.04em;
+    }
+    .nav-logo em { font-style: italic; color: var(--firefly); }
+    .nav-logo img { width: 34px; height: 34px; object-fit: contain; }
+
+    /* Product pricing */
+    .product-price {
+      display: inline-block;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--firefly);
+      margin-top: 1rem;
+    }
+    .product-price span {
+      font-family: 'Lora', serif;
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--muted);
+      font-style: italic;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Lora', serif;
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--moss-lite);
+      letter-spacing: 0.06em;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--firefly); }
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-burger span {
+      display: block;
+      width: 26px;
+      height: 1.5px;
+      background: var(--parchment);
+      transition: all 0.3s;
+    }
+
+    /* Mobile menu */
+    #mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(5,9,17,0.98);
+      z-index: 700;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    #mobile-menu.open { display: flex; }
+    #mobile-menu a {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-style: italic;
+      color: var(--parchment);
+      transition: color 0.3s;
+    }
+    #mobile-menu a:hover { color: var(--firefly); }
+
+    /* ═══════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════ */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 9rem 5vw 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Sleek navy background */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(30,60,120,0.35) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(201,168,76,0.06) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 50% at 20% 80%, rgba(13,21,38,0.8) 0%, transparent 60%),
+        linear-gradient(180deg, var(--deep) 0%, var(--bayou) 50%, var(--cypress) 100%);
+    }
+
+    /* Geometric grid lines */
+    .water-lines {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      opacity: 1;
+    }
+    .water-line {
+      position: absolute;
+      left: -10%;
+      right: -10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.08) 30%, rgba(201,168,76,0.18) 50%, rgba(201,168,76,0.08) 70%, transparent 100%);
+      animation: waterFlow 8s ease-in-out infinite;
+    }
+    .water-line:nth-child(1) { top: 20%; animation-delay: 0s; animation-duration: 9s; }
+    .water-line:nth-child(2) { top: 35%; animation-delay: 1.5s; animation-duration: 7s; }
+    .water-line:nth-child(3) { top: 50%; animation-delay: 3s; animation-duration: 11s; }
+    .water-line:nth-child(4) { top: 65%; animation-delay: 0.8s; animation-duration: 8s; }
+    .water-line:nth-child(5) { top: 80%; animation-delay: 2s; animation-duration: 10s; }
+
+    /* Vertical grid lines */
+    .water-lines::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(90deg, rgba(201,168,76,0.04) 0px, transparent 1px, transparent 120px, rgba(201,168,76,0.04) 121px);
+      pointer-events: none;
+    }
+
+    @keyframes waterFlow {
+      0%   { transform: translateX(-2%) scaleY(1); opacity: 0.4; }
+      50%  { transform: translateX(2%) scaleY(1.5); opacity: 1; }
+      100% { transform: translateX(-2%) scaleY(1); opacity: 0.4; }
+    }
+
+    /* Gold particle dots */
+    .fireflies {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .ff {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: var(--spice);
+      animation: ffGlow 5s ease-in-out infinite;
+    }
+    .ff:nth-child(1)  { top: 20%; left: 15%; animation-delay: 0s; }
+    .ff:nth-child(2)  { top: 35%; left: 75%; animation-delay: 1s; }
+    .ff:nth-child(3)  { top: 55%; left: 25%; animation-delay: 2s; }
+    .ff:nth-child(4)  { top: 25%; left: 60%; animation-delay: 0.5s; }
+    .ff:nth-child(5)  { top: 65%; left: 85%; animation-delay: 1.5s; }
+    .ff:nth-child(6)  { top: 15%; left: 88%; animation-delay: 3s; }
+    .ff:nth-child(7)  { top: 75%; left: 45%; animation-delay: 2.5s; }
+    .ff:nth-child(8)  { top: 45%; left: 92%; animation-delay: 0.8s; }
+
+    @keyframes ffGlow {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(2); box-shadow: 0 0 10px 3px rgba(201,168,76,0.6); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.8rem;
+      color: var(--firefly);
+      letter-spacing: 0.15em;
+      border: 1px solid var(--border);
+      padding: 0.4rem 1.25rem;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.2s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: clamp(3.8rem, 10vw, 8rem);
+      line-height: 0.95;
+      color: var(--parchment);
+      letter-spacing: -0.01em;
+      margin-bottom: 0.15em;
+      opacity: 0;
+      animation: fadeUp 1s 0.4s forwards;
+    }
+    .hero-title span {
+      display: block;
+      font-style: italic;
+      color: var(--spice);
+    }
+
+    .hero-motto {
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--moss-lite);
+      margin: 1.75rem auto 2.75rem;
+      max-width: 500px;
+      opacity: 0;
+      animation: fadeUp 1s 0.6s forwards;
+    }
+
+    .hero-motto strong {
+      color: var(--firefly);
+      font-weight: 500;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 1s 0.8s forwards;
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--moss);
+      font-style: italic;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      opacity: 0;
+      animation: fadeUp 1s 1.2s forwards;
+    }
+    .scroll-cue::after {
+      content: '';
+      width: 1px;
+      height: 2.5rem;
+      background: linear-gradient(180deg, var(--moss), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ═══════════════════════════════════════
+       SECTIONS BASE
+    ═══════════════════════════════════════ */
+    .section {
+      padding: 7rem 5vw;
+      position: relative;
+    }
+    .section-alt { background: var(--cypress); }
+    .section-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .section-header {
+      margin-bottom: 3.5rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      color: var(--parchment);
+      line-height: 1.15;
+    }
+    .section-title em {
+      font-style: italic;
+      color: var(--spice);
+    }
+
+    /* Gold accent border */
+    .iron-border {
+      display: inline-block;
+      width: 5rem;
+      height: 2px;
+      background: linear-gradient(90deg, var(--spice), var(--firefly));
+      margin: 1.25rem 0 1.75rem;
+      border-radius: 2px;
+    }
+
+    /* ═══════════════════════════════════════
+       ABOUT
+    ═══════════════════════════════════════ */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-portrait {
+      aspect-ratio: 4/5;
+      background: linear-gradient(135deg, var(--iron) 0%, var(--cypress) 60%, rgba(201,168,76,0.1) 100%);
+      border: 1px solid var(--border);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .about-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .about-portrait::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 35%;
+      background: linear-gradient(0deg, rgba(5,9,17,0.88), transparent);
+      pointer-events: none;
+    }
+    .portrait-label {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--firefly);
+      z-index: 2;
+    }
+    .about-body p {
+      color: var(--text);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.85;
+    }
+    .about-body p:first-of-type::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--spice);
+      float: left;
+      line-height: 0.8;
+      margin: 0.1em 0.12em 0 0;
+    }
+    .about-quote {
+      border-left: 3px solid var(--spice);
+      padding: 1rem 1.5rem;
+      margin: 2rem 0;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--firefly);
+      background: rgba(201,168,76,0.05);
+    }
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-dim);
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--firefly);
+      line-height: 1;
+      display: block;
+    }
+    .stat-lbl {
+      font-style: italic;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    /* ═══════════════════════════════════════
+       YOUTUBE
+    ═══════════════════════════════════════ */
+    .yt-card {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+    .yt-embed {
+      position: relative;
+      padding-bottom: 56.25%;
+      background: var(--deep);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .yt-embed iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .yt-badge {
+      display: inline-block;
+      background: var(--spice);
+      color: var(--cream);
+      font-style: italic;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      padding: 0.3rem 0.9rem;
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
+    }
+    .yt-vtitle {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--parchment);
+      line-height: 1.3;
+      margin-bottom: 0.75rem;
+    }
+    .yt-date {
+      font-style: italic;
+      font-size: 0.75rem;
+      color: var(--moss);
+      margin-bottom: 1rem;
+    }
+    .yt-vdesc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 6;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    #yt-loading {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 4rem;
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    /* ═══════════════════════════════════════
+       PRODUCTS
+    ═══════════════════════════════════════ */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .product-card {
+      display: block;
+      background: var(--iron);
+      border: 1px solid var(--border-dim);
+      padding: 2.25rem 2rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.35s, transform 0.35s, box-shadow 0.35s;
+    }
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--spice), var(--firefly));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s;
+    }
+    .product-card:hover {
+      border-color: rgba(201,168,76,0.35);
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.1);
+    }
+    .product-card:hover::before { transform: scaleX(1); }
+    .product-icon {
+      font-size: 1.75rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .product-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--parchment);
+      margin-bottom: 0.5rem;
+    }
+    .product-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .product-link-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.25rem;
+      font-style: italic;
+      font-size: 0.78rem;
+      color: var(--firefly);
+      transition: gap 0.3s;
+    }
+    .product-card:hover .product-link-label { gap: 0.7rem; }
+
+    /* Affiliate callout strip */
+    .affiliate-callout {
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, var(--iron), rgba(201,168,76,0.04));
+      padding: 2rem 2.5rem;
+    }
+    .affiliate-callout-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .affiliate-callout-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--parchment);
+      margin-bottom: 0.4rem;
+    }
+    .affiliate-callout-title::after {
+      content: ' — Affiliate';
+      font-size: 0.65rem;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      color: var(--spice);
+      letter-spacing: 0.1em;
+      vertical-align: middle;
+      margin-left: 0.5rem;
+    }
+    .affiliate-callout-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      max-width: 580px;
+      line-height: 1.7;
+    }
+
+    /* ═══════════════════════════════════════
+       TESTIMONIALS
+    ═══════════════════════════════════════ */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .testimonial-card {
+      background: var(--iron);
+      border: 1px solid var(--border-dim);
+      padding: 2rem;
+      position: relative;
+      transition: border-color 0.35s, transform 0.35s, box-shadow 0.35s;
+    }
+    .testimonial-card:hover {
+      border-color: var(--border);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+    }
+    .testimonial-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      line-height: 0.8;
+      color: var(--spice);
+      opacity: 0.4;
+      margin-bottom: 0.75rem;
+      font-weight: 900;
+    }
+    .testimonial-text {
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.85;
+      margin-bottom: 1.5rem;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border-dim);
+    }
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--spice), var(--firefly));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--deep);
+      flex-shrink: 0;
+    }
+    .testimonial-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      color: var(--parchment);
+      display: block;
+      font-weight: 600;
+    }
+    .testimonial-tier {
+      font-style: italic;
+      font-size: 0.72rem;
+      color: var(--spice);
+      letter-spacing: 0.08em;
+    }
+
+    /* FEATURED TESTIMONIAL */
+    .testimonial-featured {
+      background: var(--iron);
+      border: 1px solid var(--border);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .testimonial-featured::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--spice), var(--firefly), transparent);
+    }
+    .testimonial-featured-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .testimonial-featured-badge {
+      font-style: italic;
+      font-size: 0.65rem;
+      color: var(--spice);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.75rem;
+    }
+    .testimonial-featured-stats {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .testimonial-stat {
+      text-align: center;
+    }
+    .testimonial-stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--spice);
+      display: block;
+      line-height: 1;
+    }
+    .testimonial-stat-label {
+      font-style: italic;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+    .testimonial-featured-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      line-height: 0.8;
+      color: var(--spice);
+      opacity: 0.4;
+      font-weight: 900;
+      margin-bottom: 0.75rem;
+    }
+    .testimonial-featured-text {
+      font-style: italic;
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.9;
+      margin-bottom: 1.75rem;
+    }
+    .testimonial-featured-text strong {
+      color: var(--parchment);
+      font-style: normal;
+    }
+    .testimonial-featured-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-dim);
+    }
+    .testimonial-featured-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--spice), var(--firefly));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.85rem; font-weight: 700;
+      color: var(--night); flex-shrink: 0;
+    }
+    .testimonial-featured-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--parchment); display: block;
+    }
+    .testimonial-featured-tier {
+      font-style: italic; font-size: 0.72rem;
+      color: var(--spice); letter-spacing: 0.08em;
+    }
+    @media (max-width: 600px) {
+      .testimonial-featured { padding: 1.5rem; }
+      .testimonial-featured-stats { gap: 1rem; }
+    }
+
+    /* ═══════════════════════════════════════
+       SOCIALS
+    ═══════════════════════════════════════ */
+    .socials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+    .social-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--iron);
+      border: 1px solid var(--border-dim);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .social-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.05), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .social-card:hover {
+      border-color: var(--border);
+      transform: translateX(4px);
+    }
+    .social-card:hover::after { opacity: 1; }
+    .social-sym {
+      font-size: 1.4rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .social-info { flex: 1; }
+    .social-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--parchment);
+      display: block;
+    }
+    .social-handle {
+      font-style: italic;
+      font-size: 0.75rem;
+      color: var(--moss);
+    }
+    .social-arrow {
+      color: var(--firefly);
+      font-size: 0.9rem;
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: all 0.3s;
+    }
+    .social-card:hover .social-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ═══════════════════════════════════════
+       FAQ
+    ═══════════════════════════════════════ */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .faq-item { background: var(--iron); border: 1px solid var(--border-dim); }
+    .faq-q {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      cursor: pointer;
+      gap: 1rem;
+      transition: background 0.3s;
+      user-select: none;
+    }
+    .faq-q:hover { background: rgba(201,168,76,0.03); }
+    .faq-q-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--parchment);
+      font-style: italic;
+    }
+    .faq-icon {
+      color: var(--spice);
+      font-size: 1.3rem;
+      min-width: 24px;
+      text-align: center;
+      transition: transform 0.35s;
+      line-height: 1;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1);
+    }
+    .faq-a-inner {
+      padding: 0 2rem 1.75rem;
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.9;
+      border-top: 1px solid var(--border-dim);
+      padding-top: 1.25rem;
+    }
+    .faq-item.open .faq-a { max-height: 400px; }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+    footer {
+      background: var(--deep);
+      border-top: 1px solid var(--border-dim);
+      padding: 4rem 5vw 3rem;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--parchment);
+      margin-bottom: 0.5rem;
+    }
+    .footer-logo em { color: var(--firefly); font-style: italic; }
+    .footer-motto {
+      font-style: italic;
+      font-size: 0.8rem;
+      color: var(--moss-lite);
+      margin-bottom: 2rem;
+    }
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      list-style: none;
+      margin-bottom: 2.5rem;
+    }
+    .footer-links a {
+      font-style: italic;
+      font-size: 0.8rem;
+      color: var(--moss-lite);
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--firefly); }
+    .footer-copy {
+      font-size: 0.72rem;
+      color: var(--muted);
+      opacity: 0.6;
+    }
+    .footer-fleur {
+      font-size: 1.5rem;
+      color: rgba(201,168,76,0.25);
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    /* ═══════════════════════════════════════
+       REVEAL ANIMATIONS
+    ═══════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    /* ═══════════════════════════════════════
+       EMAIL CAPTURE
+    ═══════════════════════════════════════ */
+    .email-capture-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .email-capture-desc {
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.85;
+      margin-bottom: 1.5rem;
+    }
+    .email-perks {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .email-perks li {
+      font-size: 0.88rem;
+      color: var(--text);
+      padding-left: 1.5rem;
+      position: relative;
+      line-height: 1.6;
+    }
+    .email-perks li::before {
+      content: '⚜';
+      position: absolute;
+      left: 0;
+      color: var(--spice);
+      font-size: 0.65rem;
+      top: 0.3em;
+    }
+    .email-capture-card {
+      background: var(--iron);
+      border: 1px solid var(--border);
+      padding: 2.25rem;
+    }
+    .email-card-label {
+      font-style: italic;
+      font-size: 0.7rem;
+      color: var(--spice);
+      letter-spacing: 0.15em;
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+    .email-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--parchment);
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+    }
+    .email-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .email-disclaimer {
+      font-style: italic;
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════
+       EMAIL POPUP
+    ═══════════════════════════════════════ */
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(5,9,17,0.88);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 5vw;
+      backdrop-filter: blur(6px);
+    }
+    .popup-overlay.open { display: flex; }
+    .popup-box {
+      background: var(--cypress);
+      border: 1px solid var(--border);
+      max-width: 480px;
+      width: 100%;
+      padding: 2.5rem;
+      position: relative;
+      animation: fadeUp 0.4s ease forwards;
+    }
+    .popup-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: 1px solid var(--border-dim);
+      color: var(--muted);
+      font-size: 0.85rem;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .popup-close:hover { border-color: var(--border); color: var(--parchment); }
+    .popup-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--parchment);
+      line-height: 1.2;
+      margin: 0.75rem 0;
+      text-align: center;
+    }
+    .popup-title em { font-style: italic; color: var(--spice); }
+    .popup-desc {
+      font-style: italic;
+      font-size: 0.88rem;
+      color: var(--moss-lite);
+      line-height: 1.75;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .popup-skip {
+      background: none;
+      border: none;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.72rem;
+      color: var(--muted);
+      cursor: pointer;
+      display: block;
+      margin: 0.75rem auto 0;
+      transition: color 0.3s;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .popup-skip:hover { color: var(--moss-lite); }
+
+    /* ═══════════════════════════════════════
+       CONTACT
+    ═══════════════════════════════════════ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-info p {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.85;
+      margin-bottom: 2rem;
+    }
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .contact-detail {
+      padding: 1rem 1.25rem;
+      background: var(--iron);
+      border: 1px solid var(--border-dim);
+      border-left: 3px solid var(--spice);
+    }
+    .contact-detail-label {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.7rem;
+      color: var(--spice);
+      letter-spacing: 0.1em;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    .contact-detail-val {
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .form-label {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.75rem;
+      color: var(--moss-lite);
+      letter-spacing: 0.08em;
+    }
+    .form-input {
+      background: var(--iron);
+      border: 1px solid var(--border-dim);
+      color: var(--parchment);
+      font-family: 'Lora', serif;
+      font-size: 0.88rem;
+      padding: 0.875rem 1rem;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-input::placeholder { color: var(--muted); }
+    .form-input:focus {
+      border-color: var(--spice);
+      box-shadow: 0 0 0 2px rgba(201,168,76,0.1);
+    }
+    .form-select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A7099' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+    .form-select option { background: var(--iron); color: var(--parchment); }
+    .form-textarea {
+      min-height: 140px;
+      resize: vertical;
+      line-height: 1.7;
+    }
+    .form-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .form-note {
+      font-style: italic;
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .modal-link {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: inherit;
+      color: var(--spice);
+      transition: color 0.3s;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .modal-link:hover { color: var(--firefly); }
+    .form-error {
+      font-style: italic;
+      font-size: 0.8rem;
+      color: #e05c5c;
+      padding: 0.75rem 1rem;
+      background: rgba(224,92,92,0.08);
+      border: 1px solid rgba(224,92,92,0.2);
+    }
+
+    /* ═══════════════════════════════════════
+       MODALS
+    ═══════════════════════════════════════ */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(5,9,17,0.88);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 5vw;
+      backdrop-filter: blur(6px);
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--cypress);
+      border: 1px solid var(--border);
+      max-width: 680px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 2.5rem;
+      position: relative;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: none;
+      border: 1px solid var(--border-dim);
+      color: var(--muted);
+      font-size: 0.9rem;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-close:hover { border-color: var(--border); color: var(--parchment); }
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--parchment);
+      margin-bottom: 0.25rem;
+    }
+    .modal-title em { font-style: italic; color: var(--spice); }
+    .modal-date {
+      font-style: italic;
+      font-size: 0.72rem;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border-dim);
+    }
+    .modal-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      color: var(--firefly);
+      font-style: italic;
+      margin: 1.5rem 0 0.5rem;
+    }
+    .modal-body h3:first-child { margin-top: 0; }
+    .modal-body p {
+      font-size: 0.85rem;
+      color: var(--text);
+      line-height: 1.85;
+    }
+    .footer-modal-link {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.8rem;
+      color: var(--moss-lite);
+      text-decoration: none;
+    }
+    .footer-modal-link:hover { color: var(--firefly); }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .nav-links { gap: 1.5rem; }
+      .nav-links a { font-size: 0.72rem; }
+    }
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-burger { display: flex; }
+      .section { padding: 5rem 5vw; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-portrait { aspect-ratio: 4/3; max-height: 420px; }
+      .yt-card { grid-template-columns: 1fr; gap: 2rem; }
+      .about-stats { grid-template-columns: repeat(3, 1fr); }
+      .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+      .affiliate-callout-inner { flex-direction: column; align-items: flex-start; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .email-capture-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    @media (max-width: 600px) {
+      .hero-title { font-size: clamp(3rem, 16vw, 5rem); }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      .about-portrait { aspect-ratio: 1/1; max-height: 360px; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .products-grid { grid-template-columns: 1fr; }
+      .socials-grid { grid-template-columns: 1fr; }
+      .hero-ctas { flex-direction: column; align-items: center; }
+      .hero-ctas .btn { width: 100%; max-width: 280px; text-align: center; }
+      .section { padding: 4rem 5vw; }
+      .section-title { font-size: clamp(1.9rem, 8vw, 2.8rem); }
+      footer { padding: 3rem 5vw 2rem; }
+      .footer-links { gap: 1.25rem; }
+      .faq-q { padding: 1.25rem 1.25rem; }
+      .faq-a-inner { padding: 0 1.25rem 1.5rem; padding-top: 1rem; }
+      .affiliate-callout { padding: 1.5rem; }
+      .product-card { padding: 1.75rem 1.5rem; }
+      .testimonial-card { padding: 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-footer { flex-direction: column; align-items: flex-start; }
+      .modal-box { padding: 1.75rem 1.25rem; }
+    }
+
+    /* ── BLOG PREVIEW ── */
+    .blog-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .blog-card {
+      background: var(--iron);
+      border: 1px solid var(--border-dim);
+      padding: 1.75rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .blog-card:hover {
+      border-color: var(--border);
+      transform: translateY(-3px);
+    }
+    .blog-card-tag {
+      font-style: italic;
+      font-size: 0.68rem;
+      color: var(--spice);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .blog-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--parchment);
+      line-height: 1.35;
+      margin-bottom: 0.75rem;
+    }
+    .blog-card p {
+      font-size: 0.82rem;
+      color: var(--text);
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+    }
+    .blog-card-link {
+      font-style: italic;
+      font-size: 0.78rem;
+      color: var(--spice);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+      padding-bottom: 0.15rem;
+      transition: border-color 0.3s;
+    }
+    .blog-card-link:hover { border-color: var(--spice); }
+    .blog-cta { text-align: center; margin-top: 1rem; }
+    @media (max-width: 900px) { .blog-preview-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .blog-preview-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ MOBILE MENU ══════════════ -->
+<div id="mobile-menu">
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#watch" onclick="closeMobileMenu()">Watch</a>
+  <a href="#products" onclick="closeMobileMenu()">Products</a>
+  <a href="#testimonials" onclick="closeMobileMenu()">Testimonials</a>
+  <a href="#socials" onclick="closeMobileMenu()">Socials</a>
+  <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
+  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+  <a href="/blog" onclick="closeMobileMenu()">Blog</a>
+</div>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">
+    <img src="logo.jpg" alt="CreoleTrades Logo" onerror="this.style.display='none'" />
+    Creole<em>Trades</em>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#watch">Watch</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#socials">Socials</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="/blog">Blog</a></li>
+  </ul>
+  <button class="nav-burger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="water-lines">
+    <div class="water-line"></div>
+    <div class="water-line"></div>
+    <div class="water-line"></div>
+    <div class="water-line"></div>
+    <div class="water-line"></div>
+  </div>
+  <div class="fireflies">
+    <div class="ff"></div><div class="ff"></div><div class="ff"></div>
+    <div class="ff"></div><div class="ff"></div><div class="ff"></div>
+    <div class="ff"></div><div class="ff"></div>
+  </div>
+  <div class="hero-content">
+    <span class="hero-tag">⚜ Education &bull; Chart Flow &bull; Community ⚜</span>
+    <h1 class="hero-title">
+      Creole
+      <span>Trades</span>
+    </h1>
+    <p class="hero-motto">
+      <strong>"Where southern grit meets clarity."</strong><br>
+      Real education. Real charts. A community built to last.
+    </p>
+    <div class="hero-ctas">
+      <a href="#products" class="btn btn-spice">Explore Products</a>
+      <a href="#watch" class="btn btn-ghost">Latest Video ↓</a>
+    </div>
+  </div>
+  <div class="scroll-cue">scroll</div>
+</section>
+
+<!-- ══════════════ ABOUT ══════════════ -->
+<section id="about" class="section section-alt">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">⚜ Who I Am</span>
+      <h2 class="section-title">Rooted in culture,<br><em>built for the markets.</em></h2>
+      <span class="iron-border"></span>
+    </div>
+    <div class="about-grid">
+      <div class="about-portrait reveal">
+        <img src="profile.jpg" alt="CreoleTrades — The man behind the markets" />
+        <span class="portrait-label">CreoleTrades</span>
+      </div>
+      <div class="about-body">
+        <p class="reveal">Born and raised with the spirit of Creole culture — resilient, resourceful, and built for community — I created CreoleTrades to break barriers in the financial world and bring real market education to those who need it most.</p>
+        <blockquote class="about-quote reveal reveal-delay-1">
+          "The bayou taught me patience. The markets taught me precision. I'm here to teach you both."
+        </blockquote>
+        <p class="reveal reveal-delay-1">Whether you're brand new to trading or looking to sharpen your edge, my goal is to give you the tools, knowledge, and mindset to trade with confidence — no overnight-riches promises, no fluff.</p>
+        <p class="reveal reveal-delay-2">Just solid strategy, consistent execution, and a community pushing each other forward every single day.</p>
+        <div class="about-stats reveal reveal-delay-2">
+          <div>
+            <span class="stat-num">6+</span>
+            <span class="stat-lbl">Years in the markets</span>
+          </div>
+          <div>
+            <span class="stat-num">500+</span>
+            <span class="stat-lbl">Community members</span>
+          </div>
+          <div>
+            <span class="stat-num">⚜</span>
+            <span class="stat-lbl">Creole roots</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ YOUTUBE ══════════════ -->
+<section id="watch" class="section">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">⚜ Fresh Off the Feed</span>
+      <h2 class="section-title">Latest from <em>the channel</em></h2>
+      <span class="iron-border"></span>
+      <p style="font-style:italic;font-size:0.875rem;color:var(--muted);">Auto-updated every time a new video drops.</p>
+    </div>
+    <div id="yt-loading" class="reveal" style="font-style:italic;color:var(--muted);padding:3rem 0;">Loading latest video from the bayou…</div>
+    <div id="yt-card" class="yt-card" style="display:none;"></div>
+  </div>
+</section>
+
+<!-- ══════════════ PRODUCTS ══════════════ -->
+<section id="products" class="section section-alt">
+  <div class="section-inner">
+
+    <div class="section-header reveal">
+      <span class="eyebrow">⚜ The Trading Roux</span>
+      <h2 class="section-title">Choose Your <em>Level</em></h2>
+      <p class="section-sub">Start STACKED. Confirm with Wolf. Execute on Signals. Master it all.</p>
+      <span class="iron-border"></span>
+    </div>
+
+    <!-- FUNNEL LINE -->
+    <div class="reveal" style="text-align:center;margin-bottom:2.5rem;">
+      <div style="display:inline-flex;align-items:center;gap:0.75rem;flex-wrap:wrap;justify-content:center;font-style:italic;font-size:0.82rem;color:var(--muted);">
+        <span style="color:var(--text);">See the signal</span>
+        <span style="color:var(--spice);">→</span>
+        <span style="color:var(--text);">Want the plan</span>
+        <span style="color:var(--spice);">→</span>
+        <span style="color:var(--text);">Need the Mastery</span>
+      </div>
+    </div>
+
+    <!-- FTC DISCLOSURE -->
+    <p class="reveal" style="font-size:0.72rem;font-style:italic;color:var(--muted);margin-bottom:2rem;padding:0.75rem 1.25rem;border-left:2px solid rgba(196,98,45,0.3);line-height:1.7;">
+      <strong style="color:var(--moss-lite);font-style:normal;">Affiliate Disclosure:</strong> The Wolf Chart link is an affiliate link. I may earn a commission if you purchase through it, at no extra cost to you. I only recommend tools I personally use and believe in.
+    </p>
+
+    <!-- TIER GRID -->
+    <div class="products-grid" style="grid-template-columns:repeat(4,1fr);gap:1rem;">
+
+      <!-- TIER 1 — STACKED FREE -->
+      <div class="product-card reveal" style="display:flex;flex-direction:column;">
+        <div style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);font-style:italic;margin-bottom:0.5rem;">Tier 01</div>
+        <div class="product-name" style="font-size:1.05rem;">STACKED</div>
+        <div class="product-price" style="color:var(--spice);font-size:1rem;margin:0.5rem 0 1rem;">Free <span style="font-size:0.72rem;color:var(--muted);">— No Credit Card</span></div>
+        <ul style="list-style:none;padding:0;margin:0 0 1.5rem;flex:1;">
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--spice);">⚜</span> Daily market bias Mon–Thu</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--spice);">⚜</span> Friday Triple Confirmation Live — 5PM CST</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--spice);">⚜</span> Full YouTube education library</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--spice);">⚜</span> #general community access</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;display:flex;gap:0.5rem;"><span style="color:var(--spice);">⚜</span> STACK Method doctrine education</li>
+        </ul>
+        <a href="https://discord.gg/gzxcV6HDTM" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="text-align:center;padding:0.7rem;font-size:0.82rem;">Join Free →</a>
+      </div>
+
+      <!-- TIER 2 — STACKED: WOLF -->
+      <div class="product-card reveal reveal-delay-1" style="display:flex;flex-direction:column;">
+        <div style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);font-style:italic;margin-bottom:0.5rem;">Tier 02</div>
+        <div class="product-name" style="font-size:1.05rem;">STACKED: Wolf</div>
+        <div class="product-price" style="font-size:1rem;margin:0.5rem 0 1rem;">$29<span style="font-size:0.72rem;color:var(--muted);">/month</span></div>
+        <ul style="list-style:none;padding:0;margin:0 0 1rem;flex:1;">
+          <li style="font-size:0.78rem;color:var(--spice);font-style:italic;padding:0.35rem 0;border-bottom:1px solid var(--border-dim);">Everything in free +</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--spice);">⚜</span> Wolf Chart 2.1 walkthroughs</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--spice);">⚜</span> Indicator education & annotated chart breakdowns</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--spice);">⚜</span> #wolf-chart private channel</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;display:flex;gap:0.5rem;"><span style="color:var(--spice);">⚜</span> Confirmation system training</li>
+        </ul>
+        <p style="font-size:0.68rem;color:var(--muted);font-style:italic;margin-bottom:1rem;padding:0.5rem;background:rgba(201,168,76,0.05);border:1px solid var(--border-dim);">⚠️ Active Wolf Chart 2.1 subscription required</p>
+        <a href="https://mee6.xyz/en/m/tradingroux?subscribe=1424116688441454592" target="_blank" rel="noopener noreferrer" class="btn btn-spice" style="text-align:center;padding:0.7rem;font-size:0.82rem;">Get Access →</a>
+      </div>
+
+      <!-- TIER 3 — STACKED: SIGNALS -->
+      <div class="product-card reveal reveal-delay-2" style="display:flex;flex-direction:column;">
+        <div style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);font-style:italic;margin-bottom:0.5rem;">Tier 03</div>
+        <div class="product-name" style="font-size:1.05rem;">STACKED: Signals</div>
+        <div class="product-price" style="font-size:1rem;margin:0.5rem 0 1rem;">$79<span style="font-size:0.72rem;color:var(--muted);">/month</span></div>
+        <ul style="list-style:none;padding:0;margin:0 0 1rem;flex:1;">
+          <li style="font-size:0.78rem;color:var(--spice);font-style:italic;padding:0.35rem 0;border-bottom:1px solid var(--border-dim);">Everything in Wolf +</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--spice);">⚜</span> Compressed STACK signal alerts</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--spice);">⚜</span> Ticker · Direction · Trigger · Entry Zone · PT1 · Invalidation</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--spice);">⚜</span> #signals private channel</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;display:flex;gap:0.5rem;"><span style="color:var(--spice);">⚜</span> #signals-chat access</li>
+        </ul>
+        <p style="font-size:0.68rem;color:var(--muted);font-style:italic;margin-bottom:1rem;padding:0.5rem;background:rgba(201,168,76,0.05);border:1px solid var(--border-dim);">Full trade plans & Wolf Chart confirmation screenshots available in Mastery only.</p>
+        <a href="https://mee6.xyz/en/m/tradingroux?subscribe=1424117433878454272" target="_blank" rel="noopener noreferrer" class="btn btn-spice" style="text-align:center;padding:0.7rem;font-size:0.82rem;">Get Access →</a>
+      </div>
+
+      <!-- TIER 4 — STACKED: MASTERY (FEATURED) -->
+      <div class="product-card reveal reveal-delay-3" style="display:flex;flex-direction:column;border-color:var(--spice);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--spice),var(--firefly));"></div>
+        <div style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--spice);font-style:italic;margin-bottom:0.5rem;">Tier 04 · Featured</div>
+        <div class="product-name" style="font-size:1.05rem;color:var(--firefly);">STACKED: Mastery</div>
+        <div class="product-price" style="font-size:1rem;margin:0.5rem 0 1rem;">$399<span style="font-size:0.72rem;color:var(--muted);">/month</span></div>
+        <ul style="list-style:none;padding:0;margin:0 0 1rem;flex:1;">
+          <li style="font-size:0.78rem;color:var(--spice);font-style:italic;padding:0.35rem 0;border-bottom:1px solid var(--border-dim);">Everything in Signals +</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--firefly);">⚜</span> Full STACK trade plans — nothing compressed</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--firefly);">⚜</span> Options guidance across all 5 zones</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--firefly);">⚜</span> PT1, PT2, PT3 with trim & trail instructions</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--firefly);">⚜</span> Wolf Chart 2.1 confirmation screenshot on every plan</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--firefly);">⚜</span> 4 × 1-on-1 coaching sessions with Que (1/week, first month)</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--firefly);">⚜</span> Monthly Live Q&A with Que</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--firefly);">⚜</span> Early video access + direct mentoring</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;display:flex;gap:0.5rem;"><span style="color:var(--firefly);">⚜</span> All #pro- channels unlocked</li>
+        </ul>
+        <a href="https://mee6.xyz/en/m/tradingroux?subscribe=1471656319198171136" target="_blank" rel="noopener noreferrer" class="btn btn-spice" style="text-align:center;padding:0.85rem;font-size:0.9rem;font-weight:700;background:linear-gradient(135deg,var(--spice),var(--firefly));color:var(--night);">Join Mastery →</a>
+      </div>
+
+    </div>
+
+    <!-- WOLF CHART CALLOUT -->
+    <div class="affiliate-callout reveal" style="margin-top:2.5rem;">
+      <div class="affiliate-callout-inner">
+        <div>
+          <span class="eyebrow" style="margin-bottom:0.5rem;">⚜ The Confirmation System</span>
+          <div class="affiliate-callout-title">Wolf Chart 2.1</div>
+          <p class="affiliate-callout-desc">Wolf Chart 2.1 is the TradingView indicator suite that powers the C in STACK. It is a standalone affiliate product — not a tier feature. Required for STACKED: Wolf. Referenced in every Mastery trade plan.</p>
+        </div>
+        <a href="https://thewolfchart.com/?via=creoletrades" target="_blank" rel="noopener noreferrer" class="btn btn-spice" style="white-space:nowrap;align-self:center;">Get Wolf Chart 2.1 ↗</a>
+      </div>
+    </div>
+
+    <!-- DISCLAIMER -->
+    <p class="reveal" style="font-size:0.68rem;font-style:italic;color:var(--muted);margin-top:2rem;text-align:center;line-height:1.7;max-width:640px;margin-left:auto;margin-right:auto;">
+      All memberships are for educational purposes only and do not constitute personalized financial advice. Trading involves substantial risk of loss. You are solely responsible for your own trading decisions.
+    </p>
+
+  </div>
+</section>
+
+<!-- ══════════════ TESTIMONIALS ══════════════ -->
+<section id="testimonials" class="section">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">⚜ From the Community</span>
+      <h2 class="section-title">What members <em>are saying</em></h2>
+      <span class="iron-border"></span>
+    </div>
+    <div class="testimonials-grid">
+
+      <!-- FEATURED — Cherell Winters -->
+      <div class="testimonial-featured reveal" style="grid-column: 1 / -1;">
+        <div class="testimonial-featured-header">
+          <span class="testimonial-featured-badge">⚜ Featured Review — STACKED: Mastery Client</span>
+          <div class="testimonial-featured-stats">
+            <div class="testimonial-stat">
+              <span class="testimonial-stat-value">Green</span>
+              <span class="testimonial-stat-label">Every Week</span>
+            </div>
+            <div class="testimonial-stat">
+              <span class="testimonial-stat-value">10–300%</span>
+              <span class="testimonial-stat-label">Monthly Gains</span>
+            </div>
+            <div class="testimonial-stat">
+              <span class="testimonial-stat-value">~1 mo.</span>
+              <span class="testimonial-stat-label">Time to Profitability</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-featured-quote">"</div>
+        <p class="testimonial-featured-text">I started my trading journey two and a half years ago — spending thousands on programs that left me more lost than when I started. One cost me <strong>$8,000</strong> and barely taught me to read a chart. When I found CreoleTrades, I was ready to quit altogether.<br><br>During our sessions, he encouraged me to ask questions about anything — no matter how small. <strong>What stood out most is that he's just as excited about this journey as I am.</strong> He genuinely wants the people he teaches to succeed.<br><br>It's now been about a month since we started working together, and I'm happy to say that <strong>I've been green every week.</strong> My gains over the last month have ranged from 10 to 300%.<br><br>The investment I made in myself was returned within the same week. CreoleTrades is someone who truly stands behind what he teaches — he's not someone who just says they want to help, takes your money, and leaves you on your own.</p>
+        <div class="testimonial-featured-author">
+          <div class="testimonial-featured-avatar">CW</div>
+          <div>
+            <span class="testimonial-featured-name">Cherell Winters</span>
+            <span class="testimonial-featured-tier">1-on-1 Mastery Client · Swing Trader</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">After making 100% gains, he can talk ALL DAY, ALL NIGHT, ALL YEAR LONG about his setups — I DO NOT CARE. Why? Because every time he posts his setups, I CASH IN.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">NW</div>
+          <div>
+            <span class="testimonial-name">NatusWolf</span>
+            <span class="testimonial-tier">Wolf Pack/Trading Roux Member</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">He whips up some special sauce that creates intraday fibs inside the daily fibs. I've been nipping at his heels so closely with this one. Thank you for letting us all sit at the table and eat with you.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">MG</div>
+          <div>
+            <span class="testimonial-name">MandyGoneWolf</span>
+            <span class="testimonial-tier">Wolf Pack/Trading Roux Member</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Thanks for the Google guidance Coach Creole. +$104.00 realized profit, +18.91% — your guidance on that play made it happen.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">MC</div>
+          <div>
+            <span class="testimonial-name">marvelouscakes08</span>
+            <span class="testimonial-tier">Wolf Pack/Trading Roux Member</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-3">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Thank you for sharing SLV and Fib target. It helps me a lot.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">SW</div>
+          <div>
+            <span class="testimonial-name">Seer of Waves_Wolf</span>
+            <span class="testimonial-tier">Wolf Pack/Trading Roux Member</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">I enter and exit a call on Friday using the CreoleWolf indicator and this is the result. Thank you. +$152.80 on MSFT — one trade, one Friday.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">MA</div>
+          <div>
+            <span class="testimonial-name">Marsi</span>
+            <span class="testimonial-tier">Wolf Pack/Trading Roux Member</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Thank you for the trade plans, one on one support and all you and the others do in the community to make sure we all eat. That SLV was an awesome rinse and repeat. Wins include: SLV +$520 (+18.38%), SLV Put +$335 (+50.38%), APLD +$620 (+21.02%), GE +$120 (+48.98%), JPM +$300 (+47.62%).</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">RC</div>
+          <div>
+            <span class="testimonial-name">Rell@Chosen2Win</span>
+            <span class="testimonial-tier">Roux Mastery Tier</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="socials" class="section">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">⚜ Stay Connected</span>
+      <h2 class="section-title">Find me <em>out there</em></h2>
+      <span class="iron-border"></span>
+    </div>
+    <div class="socials-grid">
+
+      <a href="https://www.youtube.com/@Creole_Trades" target="_blank" rel="noopener noreferrer" class="social-card reveal">
+        <span class="social-sym">▶</span>
+        <div class="social-info">
+          <span class="social-name">YouTube</span>
+          <span class="social-handle">@Creole_Trades</span>
+        </div>
+        <span class="social-arrow">→</span>
+      </a>
+
+      <a href="https://www.tiktok.com/@creoletrades" target="_blank" rel="noopener noreferrer" class="social-card reveal reveal-delay-1">
+        <span class="social-sym">♪</span>
+        <div class="social-info">
+          <span class="social-name">TikTok</span>
+          <span class="social-handle">@creoletrades</span>
+        </div>
+        <span class="social-arrow">→</span>
+      </a>
+
+      <a href="https://www.instagram.com/creoletrades" target="_blank" rel="noopener noreferrer" class="social-card reveal reveal-delay-2">
+        <span class="social-sym">◈</span>
+        <div class="social-info">
+          <span class="social-name">Instagram</span>
+          <span class="social-handle">@creoletrades</span>
+        </div>
+        <span class="social-arrow">→</span>
+      </a>
+
+      <a href="https://mee6.gg/m/tradingroux" target="_blank" rel="noopener noreferrer" class="social-card reveal reveal-delay-3">
+        <span class="social-sym">⚜</span>
+        <div class="social-info">
+          <span class="social-name">Discord</span>
+          <span class="social-handle">The Trading Roux</span>
+        </div>
+        <span class="social-arrow">→</span>
+      </a>
+
+      <a href="https://www.facebook.com/profile.php?id=61581502905271" target="_blank" rel="noopener noreferrer" class="social-card reveal reveal-delay-4">
+        <span class="social-sym">ƒ</span>
+        <div class="social-info">
+          <span class="social-name">Facebook</span>
+          <span class="social-handle">CreoleTrades</span>
+        </div>
+        <span class="social-arrow">→</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FAQ ══════════════ -->
+<!-- ── BLOG PREVIEW ── -->
+<section id="blog" class="section">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">⚜ The Roux Journal</span>
+      <h2>From the <em>Blog</em></h2>
+      <p class="section-sub">Education, chart breakdowns, and mindset from Coach Que.</p>
+    </div>
+
+    <div class="blog-preview-grid reveal">
+
+      <article class="blog-card">
+        <div class="blog-card-tag">Trading Education</div>
+        <h3>What Is the STACK Framework — and Why Does It Change How You Trade?</h3>
+        <p>Structure. Trigger. Alignment. Confirmation. Keep Discipline. Five layers that separate disciplined traders from reactive ones.</p>
+        <a href="/blog/stack-framework" class="blog-card-link">Read article →</a>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-card-tag">Market Recap</div>
+        <h3>The VIX Is Speaking — What the Fear Gauge Is Telling Us and Why the Iran Conflict Makes It Louder</h3>
+        <p>VIX above 29. Strait of Hormuz near-closed. Oil up 15%. The market is not panicking — but it is paying attention.</p>
+        <a href="/blog/vix-iran-breakdown" class="blog-card-link">Read article →</a>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-card-tag">Trading Education</div>
+        <h3>How to Trade Around FOMC Without Predicting the Outcome</h3>
+        <p>FOMC week doesn't require a prediction. It requires a process. Here's how STACK turns the Fed's most volatile days into the clearest setups.</p>
+        <a href="/blog/fomc-trading-stack" class="blog-card-link">Read article →</a>
+      </article>
+
+    </div>
+
+    <div class="blog-cta reveal">
+      <a href="/blog" class="btn btn-outline">View all posts →</a>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="section section-alt">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">⚜ Getting Started</span>
+      <h2 class="section-title">Common <em>questions</em></h2>
+      <span class="iron-border"></span>
+    </div>
+    <div class="faq-list reveal">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Where do I start if I'm brand new to trading?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Start with the Free Starter Guide — it covers the absolute basics of how markets work, what key terms you need to know, and what you actually need to get going. From there, the Trading Course walks you through everything step by step at your own pace. No experience needed whatsoever.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">How much money do I need to start?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">You can start learning and practicing with zero capital using a paper trading (simulated) account. For live trading, the amount depends on the market — forex and crypto can be started with smaller amounts, while futures and stocks may require more. I always recommend mastering the skill before risking real money.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">What markets do you focus on?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">I primarily cover futures (ES, NQ, MES, MNQ), forex, and crypto. My strategies are built on price action and market structure — concepts that apply across all major markets. Whatever market you prefer, the foundation I teach transfers directly.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Do I need special software or tools?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Not to start. TradingView (free version) is all you need for charting and analysis. For Crescent Tier members, Wolf Chart is required and available via the affiliate link in the Products section. I also provide my own Trade Journal template to help you build consistency from day one.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">What is The Trading Roux Discord?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">The Trading Roux is the CreoleTrades community — where the real work happens. You'll find daily watchlists, live trade reviews, Q&amp;A sessions, accountability partners, and a crew of traders at all levels pushing each other forward. The community is the product. Link is in the Products section above.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">What is the Crescent Tier?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">The Crescent Tier is a membership level inside The Trading Roux Discord with access to premium content, closer mentorship, and exclusive resources. Crescent Tier members are required to have Wolf Chart, which you can get through the affiliate link in the Products section.</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ EMAIL CAPTURE ══════════════ -->
+<section id="email-capture" class="section section-alt">
+  <div class="section-inner">
+    <div class="email-capture-grid">
+      <div class="email-capture-left reveal">
+        <span class="eyebrow">⚜ Free Resource</span>
+        <h2 class="section-title">Get the Free <em>Starter Guide</em></h2>
+        <span class="iron-border"></span>
+        <p class="email-capture-desc">Everything you need to know before risking a single dollar — options basics, chart reading, risk management, Wolf Chart, and how the Trading Roux community works. Straight to your inbox, free.</p>
+        <ul class="email-perks">
+          <li>Options trading explained from zero</li>
+          <li>How to read a candlestick chart</li>
+          <li>Risk management rules that protect your capital</li>
+          <li>How to set up and use Wolf Chart</li>
+          <li>How to join the Trading Roux community</li>
+        </ul>
+      </div>
+      <div class="email-capture-right reveal reveal-delay-1">
+        <div class="email-capture-card">
+          <span class="email-card-label">⚜ No spam. Just value.</span>
+          <h3 class="email-card-title">Drop your email and I'll send it over.</h3>
+          <form class="email-form" id="email-form-inline" action="https://subscribe-forms.beehiiv.com/e548aca8-c755-4cba-a14a-f042402a4cad" method="POST" target="_blank" novalidate>
+            <input type="hidden" name="SIGNUP_SOURCE" value="inline" />
+            <div class="form-group">
+              <label class="form-label" for="ec-name">First Name</label>
+              <input class="form-input" type="text" id="ec-name" name="first_name" placeholder="Your first name" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ec-email">Email Address</label>
+              <input class="form-input" type="email" id="ec-email" name="email" placeholder="your@email.com" required />
+            </div>
+            <button type="submit" class="btn btn-spice" style="width:100%;text-align:center;">Send Me the Guide →</button>
+            <p class="email-disclaimer">By subscribing you agree to our <button type="button" class="modal-link" onclick="openModal('privacy')">Privacy Policy</button>. Unsubscribe anytime.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CONTACT ══════════════ -->
+<section id="contact" class="section">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">⚜ Get in Touch</span>
+      <h2 class="section-title">Let's <em>connect</em></h2>
+      <span class="iron-border"></span>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <p>Have a question about the community, a tier, or just want to connect? Drop a message and I'll get back to you personally.</p>
+        <div class="contact-details">
+          <div class="contact-detail">
+            <span class="contact-detail-label">Response time</span>
+            <span class="contact-detail-val">Within 24–48 hours</span>
+          </div>
+          <div class="contact-detail">
+            <span class="contact-detail-label">Discord</span>
+            <span class="contact-detail-val">Fastest way to reach the community</span>
+          </div>
+          <div class="contact-detail">
+            <span class="contact-detail-label">For coaching inquiries</span>
+            <span class="contact-detail-val">Select Roux Mastery below</span>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form reveal reveal-delay-1" id="contact-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="cf-name">Name</label>
+            <input class="form-input" type="text" id="cf-name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cf-email">Email</label>
+            <input class="form-input" type="email" id="cf-email" name="email" placeholder="your@email.com" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cf-tier">Interested in</label>
+          <select class="form-input form-select" id="cf-tier" name="tier" required>
+            <option value="" disabled selected>Select a tier or topic</option>
+            <option value="General Question">General Question</option>
+            <option value="Crescent Tier">Crescent Tier — $29.99/mo</option>
+            <option value="Delta Calls">Delta Calls — $79.99/mo</option>
+            <option value="Roux Mastery">Roux Mastery (1-on-1 Coaching) — $399.99/mo</option>
+            <option value="Wolf Chart">Wolf Chart / Affiliate</option>
+            <option value="Free Starter Guide">Free Starter Guide</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cf-subject">Subject</label>
+          <input class="form-input" type="text" id="cf-subject" name="subject" placeholder="What's this about?" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cf-message">Message</label>
+          <textarea class="form-input form-textarea" id="cf-message" name="message" placeholder="Tell me what's on your mind..." required></textarea>
+        </div>
+        <div class="form-footer">
+          <p class="form-note">By submitting you agree to our <button type="button" class="modal-link" onclick="openModal('privacy')">Privacy Policy</button> and <button type="button" class="modal-link" onclick="openModal('terms')">Terms of Service</button>.</p>
+          <button type="submit" class="btn btn-spice" id="cf-submit">Send Message →</button>
+        </div>
+        <div id="cf-error" class="form-error" style="display:none;"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <span class="footer-fleur">⚜</span>
+  <div class="footer-logo">Creole<em>Trades</em></div>
+  <p class="footer-motto">"Where southern grit meets clarity."</p>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#watch">Watch</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#socials">Socials</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <ul class="footer-links" style="margin-bottom:1.5rem;">
+    <li><button class="modal-link footer-modal-link" onclick="openModal('privacy')">Privacy Policy</button></li>
+    <li><button class="modal-link footer-modal-link" onclick="openModal('terms')">Terms of Service</button></li>
+  </ul>
+  <p class="footer-copy">© 2025 CreoleTrades. All rights reserved. Not financial advice.</p>
+</footer>
+
+<!-- ══════════════ PRIVACY MODAL ══════════════ -->
+<div id="modal-privacy" class="modal-overlay" onclick="closeModalOutside(event,'privacy')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('privacy')">✕</button>
+    <h2 class="modal-title">Privacy <em>Policy</em></h2>
+    <span class="modal-date">Last updated: March 2025</span>
+    <div class="modal-body">
+      <h3>Information We Collect</h3>
+      <p>When you use the contact form on this site, we collect your name, email address, and the content of your message. This information is processed through Formspree and sent directly to CreoleTrades.</p>
+      <h3>How We Use Your Information</h3>
+      <p>Your information is used solely to respond to your inquiry. We do not sell, rent, or share your personal information with third parties for marketing purposes.</p>
+      <h3>Affiliate Links</h3>
+      <p>This site contains affiliate links to Wolf Chart 2.1. If you click these links and make a purchase, CreoleTrades may earn a commission at no extra cost to you. We only recommend products we personally use and believe in.</p>
+      <h3>Cookies</h3>
+      <p>This site uses minimal cookies for basic functionality. No tracking cookies or advertising cookies are used by CreoleTrades directly. Third-party services (YouTube, Formspree, Cloudflare) may set their own cookies in accordance with their policies.</p>
+      <h3>Data Retention</h3>
+      <p>Contact form submissions are retained only as long as necessary to respond to your inquiry. You may request deletion of your data at any time by contacting us directly.</p>
+      <h3>Third-Party Services</h3>
+      <p>This site uses Formspree for form processing, YouTube for embedded video content, Cloudflare for security and performance, and MEE6 for Discord subscription management. Each service has its own privacy policy.</p>
+      <h3>Your Rights</h3>
+      <p>You have the right to access, correct, or delete any personal information we hold about you. To exercise these rights, contact us through the form on this site.</p>
+      <h3>Contact</h3>
+      <p>Questions about this policy? Use the contact form on creoletrades.com.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ TERMS MODAL ══════════════ -->
+<div id="modal-terms" class="modal-overlay" onclick="closeModalOutside(event,'terms')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('terms')">✕</button>
+    <h2 class="modal-title">Terms of <em>Service</em></h2>
+    <span class="modal-date">Last updated: March 2025</span>
+    <div class="modal-body">
+      <h3>Not Financial Advice</h3>
+      <p>All content on CreoleTrades — including videos, Discord messages, trade calls, chart analysis, and educational materials — is for informational and educational purposes only. Nothing on this site constitutes financial advice, investment advice, or a recommendation to buy or sell any security.</p>
+      <h3>Trading Risk Disclosure</h3>
+      <p>Trading options, stocks, and other financial instruments involves substantial risk of loss. Past results shared by community members do not guarantee future performance. You are solely responsible for your own trading decisions and any resulting profits or losses.</p>
+      <h3>Subscriptions</h3>
+      <p>Subscription fees are charged on a monthly basis through MEE6. You may cancel at any time. Refunds are not provided for partial months. CreoleTrades reserves the right to modify subscription pricing or tier benefits with reasonable notice.</p>
+      <h3>Community Standards</h3>
+      <p>Members of The Trading Roux Discord community are expected to treat others with respect. Harassment, spam, or sharing of other members' personal information is strictly prohibited and may result in removal from the community without refund.</p>
+      <h3>Affiliate Disclosure</h3>
+      <p>CreoleTrades participates in affiliate programs. Links to Wolf Chart and other third-party services may generate commissions. These relationships do not influence our editorial content or recommendations.</p>
+      <h3>Intellectual Property</h3>
+      <p>All content produced by CreoleTrades — including videos, written materials, and educational resources — is the intellectual property of CreoleTrades. Reproduction or redistribution without express written permission is prohibited.</p>
+      <h3>Limitation of Liability</h3>
+      <p>CreoleTrades shall not be liable for any financial losses incurred as a result of acting on information provided through this site, the Discord community, or any affiliated channels.</p>
+      <h3>Changes to These Terms</h3>
+      <p>We reserve the right to update these terms at any time. Continued use of this site or community following any changes constitutes acceptance of the updated terms.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ EMAIL POPUP ══════════════ -->
+<div id="email-popup" class="popup-overlay">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup()" aria-label="Close">✕</button>
+    <div class="popup-inner">
+      <span class="eyebrow" style="text-align:center;display:block;">⚜ Free Resource</span>
+      <h3 class="popup-title">Before you go —<br><em>grab the free guide.</em></h3>
+      <p class="popup-desc">Options basics, chart reading, risk management and more. Everything you need before risking a single dollar.</p>
+      <form class="email-form" id="email-form-popup" action="https://subscribe-forms.beehiiv.com/e548aca8-c755-4cba-a14a-f042402a4cad" method="POST" target="_blank" novalidate>
+        <input type="hidden" name="SIGNUP_SOURCE" value="popup" />
+        <div class="form-group">
+          <input class="form-input" type="text" name="first_name" placeholder="First name" />
+        </div>
+        <div class="form-group">
+          <input class="form-input" type="email" name="email" placeholder="your@email.com" required />
+        </div>
+        <button type="submit" class="btn btn-spice" style="width:100%;text-align:center;">Send Me the Guide →</button>
+      </form>
+      <button class="popup-skip" onclick="closePopup()">No thanks, I'll figure it out myself</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SCRIPTS ══════════════ -->
+<script>
+  /* ── CONFIG ── */
+  const YT_CHANNEL_ID    = "UCli2uMiGU1r4A4kTamj6zlw";
+  const FORMSPREE        = "https://formspree.io/f/xgolbebw";
+
+  /* ── NAV scroll ── */
+  const nav = document.getElementById("nav");
+  window.addEventListener("scroll", () => {
+    nav.classList.toggle("scrolled", window.scrollY > 60);
+  });
+
+  /* ── Mobile menu ── */
+  let menuOpen = false;
+  function toggleMobileMenu() {
+    menuOpen = !menuOpen;
+    document.getElementById("mobile-menu").classList.toggle("open", menuOpen);
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+  }
+  function closeMobileMenu() {
+    menuOpen = false;
+    document.getElementById("mobile-menu").classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  /* ── Scroll reveal ── */
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        revealObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll(".reveal").forEach(el => revealObs.observe(el));
+
+  /* ── FAQ accordion ── */
+  function toggleFaq(el) {
+    const item = el.closest(".faq-item");
+    const isOpen = item.classList.contains("open");
+    document.querySelectorAll(".faq-item.open").forEach(i => i.classList.remove("open"));
+    if (!isOpen) item.classList.add("open");
+  }
+
+  /* ── YouTube latest video ── */
+  async function loadLatestVideo() {
+    const rssFeed = "https://www.youtube.com/feeds/videos.xml?channel_id=" + YT_CHANNEL_ID;
+    const apiUrl  = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(rssFeed);
+    try {
+      const res  = await fetch(apiUrl);
+      const data = await res.json();
+      if (data.status !== "ok" || !data.items || !data.items.length) throw new Error();
+
+      const v      = data.items[0];
+      const vidId  = (v.link.split("v=")[1] || "").split("&")[0];
+      const date   = new Date(v.pubDate).toLocaleDateString("en-US", { year:"numeric", month:"long", day:"numeric" });
+      const desc   = (v.description || "").replace(/<[^>]+>/g, "").slice(0, 280);
+
+      document.getElementById("yt-loading").style.display = "none";
+
+      const card = document.getElementById("yt-card");
+      card.style.display = "grid";
+      card.innerHTML = `
+        <div class="yt-embed">
+          <iframe src="https://www.youtube.com/embed/${vidId}?rel=0&modestbranding=1"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+        <div>
+          <span class="yt-badge">Latest Upload</span>
+          <div class="yt-vtitle">${v.title}</div>
+          <div class="yt-date">Published ${date}</div>
+          <div class="yt-vdesc">${desc}…</div>
+          <a href="${v.link}" target="_blank" rel="noopener noreferrer" class="btn btn-spice">Watch on YouTube</a>
+        </div>
+      `;
+    } catch {
+      document.getElementById("yt-loading").innerHTML =
+        '<em style="color:var(--muted)">Could not load latest video. <a href="https://www.youtube.com/@Creole_Trades" target="_blank" style="color:var(--firefly)">Visit the channel →</a></em>';
+    }
+  }
+
+  /* ── Email popup ── */
+  (function() {
+    const POPUP_DELAY  = 12000; // 12 seconds
+    const STORAGE_KEY  = 'ct_popup_dismissed';
+    if (sessionStorage.getItem(STORAGE_KEY)) return;
+    setTimeout(() => {
+      document.getElementById('email-popup').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }, POPUP_DELAY);
+  })();
+
+  function closePopup() {
+    document.getElementById('email-popup').classList.remove('open');
+    document.body.style.overflow = '';
+    sessionStorage.setItem('ct_popup_dismissed', '1');
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closePopup();
+      ['privacy','terms'].forEach(closeModal);
+    }
+  });
+
+  /* ── Contact form ── */
+  document.getElementById('contact-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('cf-submit');
+    const err = document.getElementById('cf-error');
+    err.style.display = 'none';
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    const data = new FormData(this);
+    try {
+      const res = await fetch(FORMSPREE, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        window.location.href = '/thank-you';
+      } else {
+        throw new Error();
+      }
+    } catch {
+      err.textContent = 'Something went wrong. Please try again or reach out via Discord.';
+      err.style.display = 'block';
+      btn.textContent = 'Send Message →';
+      btn.disabled = false;
+    }
+  });
+
+  /* ── Modals ── */
+  function openModal(id) {
+    document.getElementById('modal-' + id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(id) {
+    document.getElementById('modal-' + id).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeModalOutside(e, id) {
+    if (e.target === document.getElementById('modal-' + id)) closeModal(id);
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      ['privacy','terms'].forEach(closeModal);
+    }
+  });
+
+  /* ── Init ── */
+  document.addEventListener("DOMContentLoaded", loadLatestVideo);
+</script>
+<!-- MailerLite -->
+
+<script src="/roux-bot.js"></script>
+</body>
+</html>
