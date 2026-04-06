@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equities Risk Management - STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #070C18;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .password-gate.hidden {
+            display: none;
+        }
+
+        .password-container {
+            background-color: #0D1526;
+            padding: 60px 40px;
+            border-radius: 0px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .password-container h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .password-container p {
+            color: #C8D4E8;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 15px;
+            background-color: #070C18;
+            border: 1px solid #6B84AA;
+            border-radius: 0px;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #C9A84C;
+        }
+
+        .password-btn {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .password-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .password-error {
+            color: #EF4444;
+            margin-top: 15px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
+        .password-help {
+            margin-top: 20px;
+            border-top: 1px solid #6B84AA;
+            padding-top: 20px;
+        }
+
+        .password-help a {
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .password-help a:hover {
+            color: #F0D080;
+        }
+
+        header {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-bottom: 1px solid #0F1A2E;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 6px 12px;
+            border-radius: 0px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        nav {
+            background-color: #0F1A2E;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #0D1526;
+            overflow-x: auto;
+        }
+
+        nav a {
+            flex: 0 0 auto;
+            padding: 16px 20px;
+            color: #C8D4E8;
+            text-decoration: none;
+            border-right: 1px solid #0D1526;
+            font-size: 13px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            background-color: #070C18;
+            color: #C9A84C;
+        }
+
+        nav a.active {
+            background-color: #070C18;
+            color: #C9A84C;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .content-section {
+            margin-bottom: 50px;
+        }
+
+        .content-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .content-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .content-section p {
+            color: #C8D4E8;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .content-section strong {
+            color: #EEF2FF;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .vocab-card {
+            background-color: #0D1526;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .vocab-card:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .vocab-card .term {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #F0D080;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .vocab-card .definition {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .three-step {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .three-step h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .step {
+            background-color: #070C18;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+        }
+
+        .step .step-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #C9A84C;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .step .step-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .step .step-text {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .key-takeaways {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .key-takeaways h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-takeaways li {
+            color: #C8D4E8;
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .key-takeaways li:before {
+            content: "⚜";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+            font-size: 14px;
+        }
+
+        .practice-box {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #22C55E;
+        }
+
+        .practice-box h3 {
+            color: #22C55E;
+            margin-top: 0;
+        }
+
+        .practice-box p {
+            color: #C8D4E8;
+            font-style: italic;
+        }
+
+        .quiz-section {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .quiz-section h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .quiz-question {
+            margin-bottom: 30px;
+        }
+
+        .quiz-question .question-text {
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .quiz-option {
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            border: 1px solid #0F1A2E;
+            border-radius: 0px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            user-select: none;
+        }
+
+        .quiz-option:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option input[type="radio"] {
+            margin-right: 12px;
+        }
+
+        .quiz-option label {
+            cursor: pointer;
+            color: #C8D4E8;
+        }
+
+        .quiz-option.selected {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option.correct {
+            background-color: #0F1A2E;
+            border-color: #22C55E;
+        }
+
+        .quiz-option.incorrect {
+            background-color: #0F1A2E;
+            border-color: #EF4444;
+        }
+
+        .quiz-explanation {
+            display: none;
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-top: 8px;
+            border-left: 3px solid #C9A84C;
+            color: #C8D4E8;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .quiz-explanation.show {
+            display: block;
+        }
+
+        .quiz-score {
+            background-color: #0F1A2E;
+            padding: 20px;
+            border-radius: 0px;
+            margin-top: 30px;
+            border: 1px solid #C9A84C;
+            text-align: center;
+        }
+
+        .quiz-score .score-text {
+            color: #EEF2FF;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .quiz-score .score-percentage {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #C9A84C;
+            font-weight: 900;
+        }
+
+        .quiz-btn {
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .quiz-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0;
+            gap: 20px;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 16px 24px;
+            background-color: #0D1526;
+            color: #C9A84C;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .nav-button:hover {
+            background-color: #C9A84C;
+            color: #070C18;
+        }
+
+        .nav-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-button.disabled:hover {
+            background-color: #0D1526;
+            color: #C9A84C;
+        }
+
+        footer {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-top: 1px solid #0F1A2E;
+            color: #6B84AA;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            nav {
+                padding: 0;
+            }
+
+            nav a {
+                padding: 12px 16px;
+                font-size: 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .content-section h2 {
+                font-size: 24px;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate" id="passwordGate">
+        <div class="password-container">
+            <h2>STACK Academy</h2>
+            <p>Enter your password to access Equities Risk Management</p>
+            <input type="password" id="passwordInput" class="password-input" placeholder="Password">
+            <button class="password-btn" onclick="checkPassword()">Access Course</button>
+            <div class="password-error" id="passwordError">Incorrect password. Try again.</div>
+            <div class="password-help">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <h1>Equities Risk Management</h1>
+        <span class="module-badge">Module 2 of 6</span>
+    </header>
+
+    <nav>
+        <a href="../">← All Courses</a>
+        <a href="module-1.html">Module 1</a>
+        <a href="module-2.html" class="active">Module 2</a>
+        <a href="module-3.html">Module 3</a>
+        <a href="module-4.html">Module 4</a>
+        <a href="module-5.html">Module 5</a>
+        <a href="module-6.html">Module 6</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="final-exam.html">Final Exam</a>
+    </nav>
+
+    <div class="container">
+        <div class="content-section">
+            <h2>Equity-Specific Risks</h2>
+            <p>You now understand the fundamentals of risk management. But stocks are unique. They have risks that options and forex don't face in the same way. Before you trade a single share, you need to understand these dangers.</p>
+            <p><strong>Gap Risk:</strong> Stocks can gap 5-20% on earnings, news, or macro events. Your stop loss doesn't protect you when the market opens 10% below it. A $450 entry with a $445 stop doesn't matter if SPY opens at $405.</p>
+            <p><strong>Earnings Announcements:</strong> These are volatility bombs. A company can report earnings and move 10-15% in seconds. Your position size might be fine for normal days—but not for earnings.</p>
+            <p><strong>Sector Correlation:</strong> You think you have 4 independent positions holding AAPL, MSFT, GOOGL, and NVDA. You actually have 1 position on "big tech." If the sector rotates, all four move together.</p>
+            <p><strong>Single-Stock Concentration:</strong> A $50,000 position in one stock is dangerous. What if that stock has a CEO scandal? A regulatory ruling? Your account just dropped 20%. Diversification across uncorrelated assets matters.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Gap Risk & Overnight Exposure</h2>
+            <p>This is the one that gets amateurs. You set a stop loss at market close. Overnight, there's a news flash: FDA approval, bankruptcy filing, accounting scandal. The stock gaps 10% against you at the open.</p>
+            <p>Your broker executes your stop loss at the opening price—not your stop level. You wanted out at $445. Instead, you're out at $405. That's not 1% risk anymore. That's 10% risk.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Gap Risk</div>
+                    <div class="definition">The danger that a stock opens far from its closing price, bypassing your stop loss entirely.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">After-Hours Trading</div>
+                    <div class="definition">Trading that happens after the market close (4-8 PM) and before the open (4-9:30 AM). Lower volume, bigger price swings.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Pre-Market</div>
+                    <div class="definition">Trading before the 9:30 AM market open. Thin volume means big gaps and slippage.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Circuit Breaker</div>
+                    <div class="definition">Automatic market halt when an index drops 7%, 13%, or 20% in a day. Prevents panic selling cascades.</div>
+                </div>
+            </div>
+
+            <p><strong>Strategy:</strong> Reduce position size before earnings. If you can't monitor a position overnight, close it Friday afternoon. Overnight exposure is unpaid risk.</p>
+            <p>Here's the pro move: look at your calendar. Know which stocks have earnings this week. Know which macro events are scheduled (Fed announcements, jobs reports). Reduce or close positions ahead of these events.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Stop Loss Strategies for Stocks</h2>
+            <p>Not all stops are created equal. You have three types. Each has a place. Choose wrong and you'll either get stopped out too early or hold through losses you wanted to avoid.</p>
+
+            <div class="three-step">
+                <h3>Three Stop Loss Types Breakdown</h3>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Hard Stop (Limit Order)</div>
+                        <div class="step-text">Set in your broker at entry. Automatic exit if price hits your level. Most reliable. Works even if you sleep or panic.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Mental Stop</div>
+                        <div class="step-text">You tell yourself you'll exit at a price. No actual order. Most dangerous. Emotion overrides discipline when stocks fall fast.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Trailing Stop</div>
+                        <div class="step-text">Automatically moves up as price rises, locking in profit. Protects gains while still catching upside. Best for runners.</div>
+                    </div>
+                </div>
+            </div>
+
+            <p><strong>Mental Stops Are Dangerous:</strong> The stock drops and drops. You think "maybe it bounces." You wait. It drops more. Now you're at -8% instead of -2%. You've just turned a manageable loss into an account killer.</p>
+            <p>Use hard stops for core positions. Use trailing stops for runners (positions that are working). Avoid mental stops entirely if you're trading with real money.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Sector & Correlation Risk</h2>
+            <p>Here's a beginner trader's favorite mistake: "I'm diversified! I own AAPL, MSFT, GOOGL, and NVDA."</p>
+            <p>No. You don't have 4 positions. You have 1 position on technology and 3x leverage into it.</p>
+            <p>All four of these stocks move together. When the Nasdaq drops 5% on tech fears, all four drop 5-8%. Your "diversification" just made things worse. You felt safe owning 4 names. You actually magnified your risk.</p>
+            <p><strong>Real diversification means uncorrelated positions.</strong> Own a healthcare stock (XBI), an energy stock (XLE), a consumer stock (XLY), and a tech stock (QQQ). These move independently. When tech sells off, energy might hold or rally.</p>
+            <p><strong>Sector Rotation:</strong> Money flows between sectors. Tech leads the rally—until it doesn't. Then value stocks take over. Smart traders understand this and adjust position sizing accordingly.</p>
+            <p>Check your portfolio right now. List every open position. What sectors are they in? If you have more than 30% in any single sector, you're concentrated. That's a hidden risk you haven't accounted for.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Earnings Season Playbook</h2>
+            <p>Earnings announcements are the most volatile event in a stock's calendar. A 50 cents per share beat or miss can move a stock 10-20%. Your position sizing needs to account for this.</p>
+            <p>You have three choices when earnings are coming:</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Close Before</div>
+                    <div class="definition">Exit the position entirely before earnings. Zero risk, zero reward. Best for small positions or tight stops.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Hedge with Puts</div>
+                    <div class="definition">Buy protective puts to limit downside while keeping upside. Costs money (the put premium) but protects the position.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Reduce Size</div>
+                    <div class="definition">Cut position in half and hold through earnings. You keep some upside, limit downside, and accept the volatility risk.</div>
+                </div>
+            </div>
+
+            <p><strong>The Pro's Playbook:</strong></p>
+            <ul style="margin-left: 20px; color: #C8D4E8;">
+                <li>If position is small (under $5,000 risk), close before earnings.</li>
+                <li>If position is large and you're confident, hedge with puts.</li>
+                <li>If you're unsure, reduce position size by 50% and hold.</li>
+                <li>Never hold full position through earnings if your stop loss is tight.</li>
+            </ul>
+
+            <p>Check your calendar every Sunday. Mark all earnings dates for your holdings. Plan ahead. The traders who get hurt by earnings are always the ones surprised by them.</p>
+        </div>
+
+        <div class="content-section">
+            <div class="key-takeaways">
+                <h3>Key Takeaways</h3>
+                <ul>
+                    <li>Gap risk is real: stocks can open 10-20% away from yesterday's close, bypassing your stop loss entirely.</li>
+                    <li>Overnight exposure is unpaid risk. Reduce position size before earnings or news. Consider closing Friday afternoon.</li>
+                    <li>Use hard stops for discipline, trailing stops for runners. Avoid mental stops—they fail when you need them most.</li>
+                    <li>Sector correlation is hidden risk. Owning 4 tech stocks isn't diversification—it's 4x leverage on tech.</li>
+                    <li>Plan for earnings. Close early, hedge with puts, or reduce size. Don't hold full positions through volatility bombs.</li>
+                    <li>True diversification means owning uncorrelated assets across different sectors that move independently.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="practice-box">
+                <h3>Practice Exercise</h3>
+                <p><strong>Pull up your current portfolio:</strong></p>
+                <p>List every open position and its sector. Are you overexposed to any single sector? Calculate your total risk if that sector dropped 10% overnight. Is that acceptable portfolio heat? If not, you need to reposition or reduce.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="quiz-section">
+                <h3>Knowledge Check</h3>
+                <div class="quiz-question">
+                    <div class="question-text">1. Why is gap risk dangerous for equity traders?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 0)">
+                        <label><input type="radio" name="q1"> It increases commissions</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 1)">
+                        <label><input type="radio" name="q1"> Price can move past your stop loss overnight, resulting in bigger losses than planned</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 2)">
+                        <label><input type="radio" name="q1"> It requires more margin</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 3)">
+                        <label><input type="radio" name="q1"> It makes trading more profitable</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation0">
+                        Gap risk bypasses your stop loss. If you set a $445 stop and the stock opens at $405 on bad news, your stop executes at market—costing far more than your planned 1% risk.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">2. You hold 5 tech stocks: AAPL, MSFT, GOOGL, NVDA, and TSLA. How many independent positions do you actually have?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 0)">
+                        <label><input type="radio" name="q2"> 5 independent positions</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 1)">
+                        <label><input type="radio" name="q2"> Essentially 1 — they move together</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 2)">
+                        <label><input type="radio" name="q2"> 2.5 positions</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 3)">
+                        <label><input type="radio" name="q2"> 10 positions (they double in correlation)</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation1">
+                        Sector correlation means they move together. When tech sells off, all 5 drop. You don't have diversification—you have concentrated tech exposure with 5x the capital.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">3. Which stop loss type is most dangerous for beginner traders?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 0)">
+                        <label><input type="radio" name="q3"> Hard stops</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 1)">
+                        <label><input type="radio" name="q3"> Mental stops — emotion overrides discipline</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 2)">
+                        <label><input type="radio" name="q3"> Trailing stops</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 3)">
+                        <label><input type="radio" name="q3"> Limit stops</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation2">
+                        Mental stops are discipline failures waiting to happen. The stock drops and you think "maybe it bounces." Next thing, you're down 8% instead of 2%. Hard stops enforce your plan automatically.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">4. Your $30,000 account holds NVDA going into earnings. Best risk management approach?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 0)">
+                        <label><input type="radio" name="q4"> Hold full position through earnings</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 1)">
+                        <label><input type="radio" name="q4"> Reduce position size or hedge with a protective put</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 2)">
+                        <label><input type="radio" name="q4"> Double your position to profit from volatility</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 3)">
+                        <label><input type="radio" name="q4"> Ignore earnings and trade normally</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation3">
+                        Earnings can move a stock 10-15% in seconds. Either close early (zero risk), hedge with puts (limited risk), or reduce position size (accept limited upside and downside). Don't hold full size through a volatility bomb.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">5. What does a trailing stop do that a hard stop doesn't?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 0)">
+                        <label><input type="radio" name="q5"> It's cheaper</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 1)">
+                        <label><input type="radio" name="q5"> It moves up with price, locking in profits while protecting against reversal</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 2)">
+                        <label><input type="radio" name="q5"> It guarantees execution</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 3)">
+                        <label><input type="radio" name="q5"> It prevents gap risk</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation4">
+                        A hard stop stays fixed. A trailing stop dynamically adjusts as price rises, protecting gains. You keep upside exposure while locking in profit levels. Perfect for winners you want to ride.
+                    </div>
+                </div>
+
+                <button class="quiz-btn" onclick="submitQuiz()">Submit Quiz</button>
+                <div class="quiz-score" id="quizScore" style="display: none;">
+                    <div class="score-text">Quiz Complete</div>
+                    <div class="score-percentage" id="scorePercentage">0%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="module-1.html" class="nav-button">← Previous Module</a>
+            <a href="module-3.html" class="nav-button">Next Module →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 CreoleTrades. STACK Academy Risk Management Course. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const PASSWORD_HASH = "b0f5040194da418dee6da0842006d9a22ea72928ec3c0177c4b6c9eb9007c7ea";
+        const STORAGE_KEY = "stack_risk_access";
+
+        function sha256(str) {
+            return new Promise(resolve => {
+                const buffer = new TextEncoder().encode(str);
+                crypto.subtle.digest('SHA-256', buffer).then(hashBuffer => {
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                    resolve(hashHex);
+                });
+            });
+        }
+
+        async function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const errorDiv = document.getElementById('passwordError');
+            const hash = await sha256(passwordInput.value);
+
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                document.getElementById('passwordGate').classList.add('hidden');
+            } else {
+                errorDiv.classList.add('show');
+                passwordInput.value = '';
+                setTimeout(() => errorDiv.classList.remove('show'), 3000);
+            }
+        }
+
+        function checkAccess() {
+            if (localStorage.getItem(STORAGE_KEY) !== 'true') {
+                document.getElementById('passwordGate').classList.remove('hidden');
+            } else {
+                document.getElementById('passwordGate').classList.add('hidden');
+            }
+        }
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        window.addEventListener('load', checkAccess);
+
+        const quizAnswers = [1, 1, 1, 1, 1];
+        let selectedAnswers = [-1, -1, -1, -1, -1];
+
+        function selectOption(element, questionNum, optionNum) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedAnswers[questionNum] = optionNum;
+        }
+
+        function submitQuiz() {
+            let correct = 0;
+            for (let i = 0; i < quizAnswers.length; i++) {
+                const options = document.querySelectorAll(`.quiz-question`)[i].querySelectorAll('.quiz-option');
+                if (selectedAnswers[i] === quizAnswers[i]) {
+                    options[selectedAnswers[i]].classList.add('correct');
+                    correct++;
+                } else if (selectedAnswers[i] !== -1) {
+                    options[selectedAnswers[i]].classList.add('incorrect');
+                    options[quizAnswers[i]].classList.add('correct');
+                }
+                document.getElementById(`explanation${i}`).classList.add('show');
+            }
+            const percentage = Math.round((correct / quizAnswers.length) * 100);
+            document.getElementById('scorePercentage').textContent = percentage + '%';
+            document.getElementById('quizScore').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

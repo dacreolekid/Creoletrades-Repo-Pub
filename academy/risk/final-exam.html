@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Management Final Exam</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #0D1526;
+            padding: 2rem;
+            border-bottom: 1px solid #C9A84C;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #EEF2FF;
+            margin-bottom: 0.5rem;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        nav {
+            background-color: #0D1526;
+            padding: 1rem 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #0F1A2E;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            background-color: #0F1A2E;
+            color: #F0D080;
+        }
+
+        nav a.active {
+            color: #C9A84C;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem 2rem;
+        }
+
+        .password-gate {
+            background-color: #0D1526;
+            padding: 2rem;
+            border: 1px solid #0F1A2E;
+            margin-bottom: 2rem;
+        }
+
+        .password-form {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .password-form input {
+            flex: 1;
+            padding: 0.75rem;
+            background-color: #070C18;
+            border: 1px solid #C9A84C;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            border-radius: 0px;
+        }
+
+        .password-form input::placeholder {
+            color: #6B84AA;
+        }
+
+        .password-form input:focus {
+            outline: none;
+            border-color: #F0D080;
+        }
+
+        button {
+            background-color: #C9A84C;
+            color: #070C18;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #F0D080;
+        }
+
+        .password-message {
+            color: #EF4444;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .password-message.success {
+            color: #22C55E;
+        }
+
+        .password-help {
+            font-size: 0.9rem;
+            color: #6B84AA;
+            margin-top: 1rem;
+        }
+
+        .password-help a {
+            color: #C9A84C;
+            text-decoration: none;
+        }
+
+        .password-help a:hover {
+            color: #F0D080;
+        }
+
+        #course-content {
+            display: none;
+        }
+
+        #course-content.visible {
+            display: block;
+        }
+
+        .quiz-progress {
+            background-color: #0D1526;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #0F1A2E;
+            margin-bottom: 1rem;
+            border-radius: 0px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #C9A84C;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            color: #C8D4E8;
+        }
+
+        .question-card {
+            background-color: #0D1526;
+            border: 1px solid #0F1A2E;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 0px;
+        }
+
+        .question-card.hidden {
+            display: none;
+        }
+
+        .question-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: #F0D080;
+            margin-bottom: 1rem;
+        }
+
+        .question-text {
+            color: #C8D4E8;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+        }
+
+        .option input[type="radio"] {
+            margin-right: 1rem;
+            cursor: pointer;
+        }
+
+        .option label {
+            flex: 1;
+            cursor: pointer;
+            padding: 0.75rem;
+            background-color: #070C18;
+            border: 1px solid #0F1A2E;
+            color: #C8D4E8;
+            transition: all 0.3s ease;
+            border-radius: 0px;
+        }
+
+        .option input[type="radio"]:checked + label {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+            color: #F0D080;
+        }
+
+        .option label:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        button.secondary {
+            background-color: transparent;
+            border: 1px solid #C9A84C;
+            color: #C9A84C;
+        }
+
+        button.secondary:hover {
+            background-color: #0F1A2E;
+            border-color: #F0D080;
+            color: #F0D080;
+        }
+
+        .results-section {
+            background-color: #0D1526;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #0F1A2E;
+            text-align: center;
+        }
+
+        .results-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #F0D080;
+            margin-bottom: 1rem;
+        }
+
+        .score-display {
+            font-size: 3rem;
+            color: #C9A84C;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .feedback {
+            color: #C8D4E8;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        #graduation {
+            display: none;
+            background-color: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        #graduation h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: #F0D080;
+            margin-bottom: 1rem;
+        }
+
+        #graduation .quote {
+            font-size: 1.3rem;
+            font-style: italic;
+            color: #C8D4E8;
+            margin: 2rem 0;
+            line-height: 1.8;
+        }
+
+        #graduation .discord-link {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+        }
+
+        #graduation .discord-link:hover {
+            background-color: #F0D080;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #6B84AA;
+            font-size: 0.9rem;
+            border-top: 1px solid #0F1A2E;
+        }
+
+        .warning-text {
+            color: #EF4444;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="module-badge">Final Exam</div>
+        <h1>Risk Management Final Exam</h1>
+    </header>
+
+    <nav>
+        <a href="../">← All Courses</a>
+        <a href="module-1.html">Module 1</a>
+        <a href="module-2.html">Module 2</a>
+        <a href="module-3.html">Module 3</a>
+        <a href="module-4.html">Module 4</a>
+        <a href="module-5.html">Module 5</a>
+        <a href="module-6.html">Module 6</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="final-exam.html" class="active">Final Exam</a>
+    </nav>
+
+    <div class="container">
+        <div class="password-gate">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #EEF2FF; margin-bottom: 1rem;">Unlock Exam</h2>
+            <div class="password-form">
+                <input type="password" id="password-input" placeholder="Enter password">
+                <button onclick="verifyPassword()">Unlock</button>
+            </div>
+            <div class="password-message" id="password-message"></div>
+            <div class="password-help">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+
+        <div id="course-content">
+            <div class="quiz-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-text"><span id="question-counter">1</span> of 20 questions</div>
+            </div>
+
+            <div id="quiz-container"></div>
+
+            <div class="quiz-controls">
+                <button class="secondary" onclick="previousQuestion()">← Previous</button>
+                <button onclick="nextQuestion()">Next →</button>
+                <button class="secondary" onclick="submitQuiz()" style="background-color: #22C55E; border-color: #22C55E; color: #070C18;">Submit Exam</button>
+            </div>
+
+            <div class="results-section" id="results-section" style="display: none;">
+                <h2>Exam Results</h2>
+                <div class="score-display"><span id="score">0</span>/20</div>
+                <div class="feedback" id="feedback"></div>
+                <button onclick="resetQuiz()" style="margin-top: 1rem;">Retake Exam</button>
+            </div>
+
+            <div id="graduation" style="margin-top: 2rem;">
+                <h2>Congratulations</h2>
+                <p style="font-size: 1.1rem; color: #C8D4E8; margin-bottom: 1rem;">You've completed the Risk Management course and mastered the K in STACK.</p>
+                <div class="quote">"You don't rush a roux. You don't rush a trade."</div>
+                <p style="color: #C8D4E8; margin-bottom: 1.5rem;">Join our community of traders and stay sharp.</p>
+                <a href="https://discord.gg/gzxcV6HDTM" class="discord-link">Join Discord</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 STACK Academy. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Password verification
+        const PASSWORD_HASH = "b0f5040194da418dee6da0842006d9a22ea72928ec3c0177c4b6c9eb9007c7ea";
+        const STORAGE_KEY = "stack_risk_access";
+
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function verifyPassword() {
+            const passwordInput = document.getElementById('password-input');
+            const messageEl = document.getElementById('password-message');
+            const password = passwordInput.value;
+
+            if (!password) {
+                messageEl.textContent = 'Please enter a password';
+                messageEl.style.display = 'block';
+                messageEl.classList.remove('success');
+                return;
+            }
+
+            const hash = await hashPassword(password);
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                messageEl.textContent = 'Access granted!';
+                messageEl.classList.add('success');
+                messageEl.style.display = 'block';
+                document.querySelector('.password-gate').style.display = 'none';
+                document.getElementById('course-content').classList.add('visible');
+            } else {
+                messageEl.textContent = 'Incorrect password';
+                messageEl.style.display = 'block';
+                messageEl.classList.remove('success');
+                passwordInput.value = '';
+            }
+        }
+
+        // Check if already unlocked
+        document.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem(STORAGE_KEY)) {
+                document.querySelector('.password-gate').style.display = 'none';
+                document.getElementById('course-content').classList.add('visible');
+            }
+
+            // Allow Enter key to submit password
+            document.getElementById('password-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') verifyPassword();
+            });
+        });
+
+        // Quiz questions
+        const quizData = [
+            {
+                module: 1,
+                question: "You have a $10,000 account. Using the 1% rule, what is your maximum risk per trade?",
+                options: ["$50", "$100", "$500", "$1,000"],
+                correct: 1,
+                type: "calculation"
+            },
+            {
+                module: 1,
+                question: "A trade has a risk-reward ratio of 1:2. You risk $200. What is your potential profit if the trade wins?",
+                options: ["$100", "$200", "$400", "$600"],
+                correct: 2,
+                type: "calculation"
+            },
+            {
+                module: 1,
+                question: "Your account is $50,000. You have 5 open positions with individual heat of 0.8%, 0.7%, 1.2%, 0.5%, and 0.3%. What is your total portfolio heat?",
+                options: ["1.2%", "3.5%", "5%", "7%"],
+                correct: 1,
+                type: "calculation"
+            },
+            {
+                module: 1,
+                question: "What does Expected Value measure in trading?",
+                options: ["The maximum loss on a single trade", "The average profit or loss per trade over time", "The price target for entry", "The speed of market execution"],
+                correct: 1,
+                type: "conceptual"
+            },
+            {
+                module: 2,
+                question: "Gap risk is most likely to occur during which scenario?",
+                options: ["Normal intraday trading hours", "Right before the market closes", "Overnight or around earnings announcements", "When volume is highest"],
+                correct: 2,
+                type: "conceptual"
+            },
+            {
+                module: 2,
+                question: "What is the primary advantage of a trailing stop over a hard stop?",
+                options: ["It prevents losses", "It allows winning trades to run while protecting profits", "It eliminates fees", "It guarantees execution"],
+                correct: 1,
+                type: "conceptual"
+            },
+            {
+                module: 2,
+                question: "You own stocks in 4 companies in the semiconductor sector. All move in lockstep. How would you characterize your diversification?",
+                options: ["Well diversified", "False diversification due to high correlation", "Properly hedged", "Sector-neutral"],
+                correct: 1,
+                type: "conceptual"
+            },
+            {
+                module: 3,
+                question: "A call option has a delta of 0.65. If the stock rises $2, approximately how much will the option gain?",
+                options: ["$0.65", "$1.30", "$2.00", "$6.50"],
+                correct: 1,
+                type: "calculation"
+            },
+            {
+                module: 3,
+                question: "What is true about theta (time decay) as options approach expiration?",
+                options: ["Theta slows down", "Theta accelerates", "Theta remains constant", "Theta reverses"],
+                correct: 1,
+                type: "conceptual"
+            },
+            {
+                module: 3,
+                question: "You sell a credit spread on XYZ stock. The width between strikes is $5. You receive $1.50 in premium. What is your maximum loss on this trade?",
+                options: ["$1.50", "$3.50", "$5.00", "$6.50"],
+                correct: 1,
+                type: "calculation"
+            },
+            {
+                module: 3,
+                question: "Which option moneyness (ITM/ATM/OTM) has the highest gamma?",
+                options: ["ITM (In-The-Money)", "ATM (At-The-Money)", "OTM (Out-of-The-Money)", "All are equal"],
+                correct: 1,
+                type: "conceptual"
+            },
+            {
+                module: 4,
+                question: "In forex, what is one pip worth on 1 standard lot of EURUSD?",
+                options: ["$0.10", "$1", "$10", "$100"],
+                correct: 2,
+                type: "calculation"
+            },
+            {
+                module: 4,
+                question: "Your account is $5,000 and you trade 1 standard lot (100,000 units). What is your effective leverage?",
+                options: ["2:1", "5:1", "10:1", "20:1"],
+                correct: 3,
+                type: "calculation"
+            },
+            {
+                module: 4,
+                question: "You monitor EURUSD and GBPUSD. Both pairs have high positive correlation. What risk does this create?",
+                options: ["No risk, both are majors", "Liquidation risk", "False diversification and concentrated exposure", "Pip value compression"],
+                correct: 2,
+                type: "conceptual"
+            },
+            {
+                module: 5,
+                question: "You open a 5x leveraged long position on Bitcoin at $40,000. Your liquidation price is $32,000. What is your max loss on this position?",
+                options: ["Unlimited", "$8,000 per contract", "Equal to your margin deposit", "Determined by exchange limits"],
+                correct: 2,
+                type: "conceptual"
+            },
+            {
+                module: 5,
+                question: "What is impermanent loss in crypto liquidity provision?",
+                options: ["Losses from smart contract hacks", "The loss when one asset outperforms another in an LP", "Temporary losses that always recover", "Losses from rug pulls"],
+                correct: 1,
+                type: "conceptual"
+            },
+            {
+                module: 6,
+                question: "You take a loss of $500 on your $10,000 account (5% drawdown). How much profit do you need to break even?",
+                options: ["$500 (5%)", "$526 (5.26%)", "$600 (6%)", "$1,000 (10%)"],
+                correct: 1,
+                type: "calculation"
+            },
+            {
+                module: 6,
+                question: "What is the main psychological benefit of maintaining a trading journal?",
+                options: ["It increases win rate automatically", "It allows objective analysis of your edge and prevents repeating mistakes", "It guarantees profitability", "It eliminates emotional trading"],
+                correct: 1,
+                type: "conceptual"
+            },
+            {
+                module: 6,
+                question: "What does the 'K' in STACK stand for?",
+                options: ["Knowledge", "Keeping capital safe", "Knowing the Greeks", "Risk management (it's the foundation)"],
+                correct: 3,
+                type: "conceptual"
+            },
+            {
+                module: 6,
+                question: "When the S&P 500 drops 5%, risk-off sentiment dominates. How should this affect your position sizing?",
+                options: ["Increase size to profit from the move", "Keep size constant", "Reduce size and tighten stops", "Close all positions"],
+                correct: 2,
+                type: "conceptual"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let answers = new Array(quizData.length).fill(null);
+        let quizSubmitted = false;
+
+        function initQuiz() {
+            if (quizSubmitted) return;
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+
+            quizData.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = 'question-card' + (idx === currentQuestion ? '' : ' hidden');
+                card.innerHTML = `
+                    <h3>Question ${idx + 1}: Module ${q.module}</h3>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options">
+                        ${q.options.map((opt, optIdx) => `
+                            <div class="option">
+                                <input type="radio" id="q${idx}o${optIdx}" name="q${idx}" value="${optIdx}" ${answers[idx] === optIdx ? 'checked' : ''}>
+                                <label for="q${idx}o${optIdx}">${opt}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(card);
+
+                q.options.forEach((_, optIdx) => {
+                    const radio = document.getElementById(`q${idx}o${optIdx}`);
+                    radio.addEventListener('change', () => {
+                        answers[idx] = optIdx;
+                    });
+                });
+            });
+
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / quizData.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('question-counter').textContent = currentQuestion + 1;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < quizData.length - 1) {
+                currentQuestion++;
+                renderQuestion();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion();
+            }
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            answers.forEach((answer, idx) => {
+                if (answer === quizData[idx].correct) score++;
+            });
+
+            quizSubmitted = true;
+
+            let feedbackText = '';
+            let feedbackClass = '';
+
+            if (score === 20) {
+                feedbackText = "Perfect. You've mastered risk management across all asset classes. Stay STACKED.";
+                feedbackClass = "perfect";
+            } else if (score >= 16) {
+                feedbackText = "Strong result. You understand risk management. Review what you missed.";
+                feedbackClass = "strong";
+            } else if (score >= 12) {
+                feedbackText = "Passing grade. Revisit the modules where you struggled.";
+                feedbackClass = "passing";
+            } else {
+                feedbackText = "Not quite there yet. Review and retake. Risk management is the K in STACK — no shortcuts.";
+                feedbackClass = "needs_work";
+            }
+
+            document.getElementById('score').textContent = score;
+            document.getElementById('feedback').textContent = feedbackText;
+            document.getElementById('results-section').style.display = 'block';
+            document.getElementById('quiz-container').style.display = 'none';
+            document.querySelector('.quiz-controls').style.display = 'none';
+
+            if (score >= 16) {
+                document.getElementById('graduation').style.display = 'block';
+            }
+        }
+
+        function resetQuiz() {
+            currentQuestion = 0;
+            answers = new Array(quizData.length).fill(null);
+            quizSubmitted = false;
+            document.getElementById('quiz-container').style.display = 'block';
+            document.querySelector('.quiz-controls').style.display = 'flex';
+            document.getElementById('results-section').style.display = 'none';
+            document.getElementById('graduation').style.display = 'none';
+            renderQuestion();
+        }
+
+        // MutationObserver pattern for quiz init
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.target.id === 'course-content' && mutation.target.classList.contains('visible')) {
+                    initQuiz();
+                    observer.disconnect();
+                }
+            });
+        });
+
+        const courseContent = document.getElementById('course-content');
+        observer.observe(courseContent, { attributes: true, attributeFilter: ['class'] });
+        if (courseContent.classList.contains('visible')) initQuiz();
+
+        // Set active nav link
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector('nav a[href="final-exam.html"]').classList.add('active');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Risk Management — STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 680px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .fleur {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: #C9A84C;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #EEF2FF;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #C8D4E8;
+            margin-bottom: 3rem;
+            font-weight: 400;
+        }
+
+        /* Password Card */
+        .password-card {
+            background-color: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .password-card:hover {
+            background-color: #141c2f;
+            border-color: #F0D080;
+        }
+
+        .password-label {
+            font-size: 0.85rem;
+            color: #6B84AA;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .password-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #C9A84C;
+            letter-spacing: 2px;
+            word-break: break-all;
+        }
+
+        .password-hint {
+            font-size: 0.8rem;
+            color: #6B84AA;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        /* Steps */
+        .steps {
+            background-color: #0D1526;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .steps h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: #EEF2FF;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .step {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #C9A84C;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .step-content {
+            text-align: left;
+        }
+
+        .step-content p {
+            color: #C8D4E8;
+            font-size: 0.95rem;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Lora', serif;
+            margin-bottom: 3rem;
+        }
+
+        .cta-button:hover {
+            background-color: #F0D080;
+            transform: translateY(-2px);
+        }
+
+        /* Community Section */
+        .community {
+            background-color: #0D1526;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 2px solid #C9A84C;
+        }
+
+        .community h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: #EEF2FF;
+            margin-bottom: 1rem;
+        }
+
+        .community p {
+            color: #C8D4E8;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .community a {
+            color: #C9A84C;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .community a:hover {
+            color: #F0D080;
+            text-decoration: underline;
+        }
+
+        /* Quote Section */
+        .quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: #EEF2FF;
+            font-style: italic;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .quote-author {
+            color: #6B84AA;
+            font-family: 'Lora', serif;
+            font-size: 0.9rem;
+            font-style: normal;
+        }
+
+        /* Footer */
+        footer {
+            color: #6B84AA;
+            font-size: 0.85rem;
+            padding-top: 2rem;
+            border-top: 1px solid #0D1526;
+        }
+
+        footer a {
+            color: #C9A84C;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #F0D080;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: #22C55E;
+            color: #070C18;
+            padding: 1rem 1.5rem;
+            border-radius: 0px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .password-text {
+                font-size: 1.6rem;
+            }
+
+            .fleur {
+                font-size: 2rem;
+            }
+
+            .steps {
+                padding: 1.5rem;
+            }
+
+            .step {
+                gap: 1rem;
+            }
+
+            .step-number {
+                min-width: 40px;
+                font-size: 1.4rem;
+            }
+
+            .quote {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Fleur de Lis -->
+        <div class="fleur">⚜</div>
+
+        <!-- Main Heading -->
+        <h1>You're in, STACKer.</h1>
+        <p class="subtitle">Your purchase is confirmed. Welcome to the Risk Management Course.</p>
+
+        <!-- Password Card -->
+        <div class="password-card" onclick="copyPassword()">
+            <div class="password-label">Your Access Password</div>
+            <div class="password-text" id="passwordText">RiskStack2026</div>
+            <div class="password-hint">Click the password to copy it</div>
+        </div>
+
+        <!-- Steps -->
+        <div class="steps">
+            <h3>How to Get Started</h3>
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <p><strong>Click the button below</strong> to start Module 1</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <p><strong>Enter your password</strong> (RiskStack2026) when prompted</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <p><strong>Your browser will remember it</strong> — you won't need to enter it again</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <p><strong>Work through all 6 modules</strong> at your own pace. Complete quizzes and the final exam.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Button -->
+        <a href="module-1.html" class="cta-button">Start Module 1 →</a>
+
+        <!-- Community Section -->
+        <div class="community">
+            <h3>Join the Community</h3>
+            <p>Bookmark this page or take a screenshot of your password. Connect with other traders in our Discord — ask questions, share wins, and stay accountable.</p>
+            <p><a href="https://discord.gg/gzxcV6HDTM">Join the Discord ⚜️</a></p>
+        </div>
+
+        <!-- Quote -->
+        <div class="quote">
+            "You don't rush a roux. You don't rush a trade."
+            <div class="quote-author">— Que, CreoleTrades</div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; CreoleTrades | <a href="https://creoletrades.com">creoletrades.com</a> | Stay STACKED. ⚜️</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">Password copied to clipboard!</div>
+
+    <script>
+        function copyPassword() {
+            const password = 'RiskStack2026';
+            navigator.clipboard.writeText(password).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                console.log('Failed to copy:', err);
+            });
+        }
+    </script>
+</body>
+</html>

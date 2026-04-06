@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 5: Crypto Risk Management - STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #070C18;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .password-gate.hidden {
+            display: none;
+        }
+
+        .password-gate-content {
+            background-color: #0D1526;
+            padding: 3rem;
+            border-radius: 0px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .password-gate-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #EEF2FF;
+            margin-bottom: 1rem;
+        }
+
+        .password-gate-content p {
+            color: #C8D4E8;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .password-input-wrapper {
+            margin-bottom: 1.5rem;
+        }
+
+        .password-input-wrapper input {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #0F1A2E;
+            border: 1px solid #6B84AA;
+            color: #EEF2FF;
+            font-size: 1rem;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+        }
+
+        .password-input-wrapper input:focus {
+            outline: none;
+            border-color: #C9A84C;
+            box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.1);
+        }
+
+        .password-button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            transition: background-color 0.2s;
+        }
+
+        .password-button:hover {
+            background-color: #F0D080;
+        }
+
+        .password-error {
+            color: #EF4444;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
+        .password-helper {
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+        }
+
+        .password-helper a {
+            color: #C9A84C;
+            text-decoration: none;
+        }
+
+        .password-helper a:hover {
+            color: #F0D080;
+        }
+
+        header {
+            background-color: #0D1526;
+            padding: 2rem 0;
+            border-bottom: 1px solid #0F1A2E;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .module-badge {
+            color: #C9A84C;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #EEF2FF;
+            margin-bottom: 0.5rem;
+        }
+
+        nav {
+            background-color: #0D1526;
+            padding: 0;
+            border-bottom: 1px solid #0F1A2E;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        nav a {
+            display: inline-block;
+            padding: 1rem 1.5rem;
+            color: #C8D4E8;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover {
+            color: #C9A84C;
+            border-bottom-color: #C9A84C;
+        }
+
+        nav a.active {
+            color: #C9A84C;
+            border-bottom-color: #C9A84C;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #EEF2FF;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            color: #C8D4E8;
+        }
+
+        .creole-voice {
+            background-color: #0D1526;
+            border-left: 4px solid #C9A84C;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0px;
+            font-style: italic;
+            color: #F0D080;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .vocab-card {
+            background-color: #0D1526;
+            padding: 1.5rem;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+            transition: all 0.2s;
+        }
+
+        .vocab-card:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .vocab-card strong {
+            color: #C9A84C;
+            display: block;
+            margin-bottom: 0.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .vocab-card p {
+            font-size: 0.9rem;
+            color: #C8D4E8;
+        }
+
+        .three-step {
+            background-color: #0D1526;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+        }
+
+        .three-step h3 {
+            font-family: 'Playfair Display', serif;
+            color: #EEF2FF;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .step {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #0F1A2E;
+        }
+
+        .step:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 2rem;
+            height: 2rem;
+            background-color: #C9A84C;
+            color: #070C18;
+            border-radius: 0px;
+            text-align: center;
+            line-height: 2rem;
+            font-weight: 700;
+            margin-right: 0.75rem;
+        }
+
+        .step-title {
+            display: inline;
+            font-family: 'Playfair Display', serif;
+            color: #EEF2FF;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .step-content {
+            color: #C8D4E8;
+            margin-top: 0.5rem;
+            margin-left: 2.75rem;
+        }
+
+        .key-takeaways {
+            background-color: #0D1526;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 0px;
+            border: 2px solid #C9A84C;
+        }
+
+        .key-takeaways h3 {
+            font-family: 'Playfair Display', serif;
+            color: #C9A84C;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .key-takeaways li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #C8D4E8;
+        }
+
+        .key-takeaways li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+            font-weight: 700;
+        }
+
+        .practice-box {
+            background-color: #0F1A2E;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 0px;
+            border-left: 4px solid #22C55E;
+        }
+
+        .practice-box h3 {
+            font-family: 'Playfair Display', serif;
+            color: #22C55E;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .practice-box p {
+            color: #C8D4E8;
+            font-style: italic;
+        }
+
+        .quiz-section {
+            background-color: #0D1526;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+        }
+
+        .quiz-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: #EEF2FF;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .quiz-question {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #0F1A2E;
+        }
+
+        .quiz-question:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .quiz-question-text {
+            font-weight: 600;
+            color: #EEF2FF;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+        }
+
+        .quiz-option {
+            background-color: #0F1A2E;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-radius: 0px;
+            cursor: pointer;
+            border: 1px solid #0F1A2E;
+            transition: all 0.2s;
+            color: #C8D4E8;
+        }
+
+        .quiz-option:hover {
+            background-color: #172236;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option input {
+            margin-right: 0.75rem;
+            cursor: pointer;
+        }
+
+        .quiz-option.selected {
+            background-color: #172236;
+            border-color: #C9A84C;
+        }
+
+        .quiz-explanation {
+            background-color: #0F1A2E;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0px;
+            border-left: 4px solid #C9A84C;
+            display: none;
+            color: #C8D4E8;
+        }
+
+        .quiz-explanation.show {
+            display: block;
+        }
+
+        .quiz-explanation.correct {
+            border-left-color: #22C55E;
+        }
+
+        .quiz-explanation.incorrect {
+            border-left-color: #EF4444;
+        }
+
+        .quiz-score {
+            background-color: #0D1526;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-radius: 0px;
+            border: 2px solid #C9A84C;
+            text-align: center;
+        }
+
+        .quiz-score h4 {
+            color: #C9A84C;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-score .score {
+            font-size: 2.5rem;
+            color: #EEF2FF;
+            font-family: 'Playfair Display', serif;
+            margin: 1rem 0;
+        }
+
+        .quiz-score p {
+            color: #C8D4E8;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin: 3rem 0;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 1rem;
+            border: 1px solid #C9A84C;
+            background-color: transparent;
+            color: #C9A84C;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.2s;
+            font-family: 'Lora', serif;
+            border-radius: 0px;
+            cursor: pointer;
+        }
+
+        .nav-button:hover {
+            background-color: #C9A84C;
+            color: #070C18;
+        }
+
+        .nav-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-button.disabled:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        footer {
+            background-color: #0D1526;
+            padding: 2rem;
+            text-align: center;
+            color: #6B84AA;
+            font-size: 0.85rem;
+            border-top: 1px solid #0F1A2E;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .section h2 {
+                font-size: 1.3rem;
+            }
+
+            nav a {
+                padding: 0.75rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .password-gate-content {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate" id="passwordGate">
+        <div class="password-gate-content">
+            <h1>STACK Academy</h1>
+            <p>Enter password to access this module</p>
+            <div class="password-input-wrapper">
+                <input
+                    type="password"
+                    id="passwordInput"
+                    placeholder="Enter password"
+                    autocomplete="off"
+                >
+            </div>
+            <div class="password-error" id="passwordError">Invalid password. Try again.</div>
+            <button class="password-button" onclick="checkPassword()">Unlock Module</button>
+            <div class="password-helper">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="mainContent" style="display: none;">
+        <header>
+            <div class="header-content">
+                <div class="module-badge">Module 5 of 6</div>
+                <h1>Crypto Risk Management</h1>
+            </div>
+        </header>
+
+        <nav>
+            <a href="../">← All Courses</a>
+            <a href="module-1.html">Module 1</a>
+            <a href="module-2.html">Module 2</a>
+            <a href="module-3.html">Module 3</a>
+            <a href="module-4.html">Module 4</a>
+            <a href="module-5.html" class="active">Module 5</a>
+            <a href="module-6.html">Module 6</a>
+            <a href="glossary.html">Glossary</a>
+            <a href="final-exam.html">Final Exam</a>
+        </nav>
+
+        <div class="container">
+            <section class="section">
+                <h2>The Wild West of Trading</h2>
+                <p>Crypto is 24/7, unregulated in many jurisdictions, and 3-5x more volatile than equities. Bitcoin can move 10% in hours. Altcoins can move 30-50% in a day. The same principles apply — but the stakes are amplified.</p>
+                <p>You thought equity risk management was tough? Crypto is equity risk management with the volume cranked to eleven and no circuit breakers. There's no closing bell. There's no weekend off. Markets never sleep, and neither can your risk discipline.</p>
+                <div class="creole-voice">
+                    "Crypto doesn't sleep. Your risk management can't either." — CreoleTrades Doctrine
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Volatility Management</h2>
+                <p>Crypto's average daily range dwarfs equities. Position sizing must be adjusted down. If you risk 1% on stocks, consider 0.5% on crypto. Wider stops are needed to avoid being stopped out by normal noise.</p>
+                <p>Think about it: a 5% intraday swing is a disaster in equities. In crypto, that's a quiet afternoon. You need to adjust your position sizing accordingly, or you'll be stopped out by the market's natural breathing.</p>
+
+                <div class="vocab-grid">
+                    <div class="vocab-card">
+                        <strong>Volatility</strong>
+                        <p>The magnitude and frequency of price swings. Crypto volatility is 3-5x higher than equities.</p>
+                    </div>
+                    <div class="vocab-card">
+                        <strong>Average True Range (ATR)</strong>
+                        <p>The average of the true range over a period. Use this to set stops that account for normal market movement.</p>
+                    </div>
+                    <div class="vocab-card">
+                        <strong>Liquidation Price</strong>
+                        <p>The price at which your leveraged position is forcefully closed by the exchange.</p>
+                    </div>
+                    <div class="vocab-card">
+                        <strong>Funding Rate</strong>
+                        <p>In perpetual futures, traders pay each other. High funding rates indicate extreme leverage — a sign of danger.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Exchange & Custodial Risk</h2>
+                <p>Your broker going bankrupt in stocks is rare and SIPC-insured. In crypto? Exchanges have collapsed: FTX, Celsius, and countless others. Billions lost. Users had no recourse.</p>
+                <p>This isn't theoretical. This is the new frontier of risk you have to manage.</p>
+
+                <div class="three-step">
+                    <h3>How to Manage Exchange Risk</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <span class="step-title">Assess the Exchange</span>
+                        <div class="step-content">
+                            Check: Is it regulated? Who owns it? What insurance exists? How long has it been operating? Does it have a history of hacks?
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <span class="step-title">Split Your Funds</span>
+                        <div class="step-content">
+                            Never keep more than you need on an exchange. Active trading capital on the exchange. Long-term holds in cold storage. Emergency capital in a second exchange.
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <span class="step-title">Understand Custody</span>
+                        <div class="step-content">
+                            Custodial (exchange holds your keys): Convenient, risky if exchange fails. Non-custodial (you hold your keys): Inconvenient, you're the only point of failure.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Leverage in Crypto</h2>
+                <p>Many crypto exchanges offer 20x-125x leverage. At 100x leverage, a 1% move liquidates you. This isn't trading. This is gambling.</p>
+                <p>Let's be clear: leverage in crypto isn't a tool for smart traders. It's a tool for the house. They win your money whether you win or lose — they take the friction. Every liquidation that happens, the exchange keeps the fees. They're incentivized to watch you blow up.</p>
+
+                <div class="three-step">
+                    <h3>Leverage Rules for Crypto</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <span class="step-title">Maximum Leverage Rule</span>
+                        <div class="step-content">
+                            If you use leverage in crypto, keep it to 3x-5x maximum. Anything above that is gambling. You're not trading, you're hoping.
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <span class="step-title">Liquidation Price Calculation</span>
+                        <div class="step-content">
+                            At 50x leverage: 1% move = liquidation. At 10x leverage: 10% move = liquidation. At 5x leverage: 20% move = liquidation. At 3x leverage: 33% move = liquidation.
+                            <br><br>
+                            At 3x, you can survive normal crypto volatility. Above that, you're gambling against the market's natural swings.
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <span class="step-title">Position Size Adjustment</span>
+                        <div class="step-content">
+                            If you risk 0.5% on crypto (already reduced from equities), leverage doesn't change that. Your total account risk stays the same. Leverage just lets you control more with less capital — which means you're taking on more risk, not the same risk.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>DeFi & Smart Contract Risk</h2>
+                <p>Yield farming, staking, liquidity pools — all carry smart contract risk. Rug pulls, protocol exploits, impermanent loss. These are features of DeFi, not bugs.</p>
+                <p>Rule: only allocate money you can afford to lose entirely. Diversify across protocols. Check audits. And if you can't explain how a protocol makes money, you don't understand the risk. And if you don't understand the risk, you're the risk.</p>
+
+                <div class="three-step">
+                    <h3>DeFi Risk Assessment</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <span class="step-title">Understand the Yield Source</span>
+                        <div class="step-content">
+                            If a protocol offers 200% APY, where does it come from? Inflation? Liquidations? If the yield source is unclear or depends on unsustainable inflows, the protocol is eating itself.
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <span class="step-title">Check the Audit</span>
+                        <div class="step-content">
+                            Has it been audited by a reputable firm? What did they find? Even audited protocols can fail, but unaudited ones are a lottery ticket.
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <span class="step-title">Position Sizing Rule</span>
+                        <div class="step-content">
+                            Only allocate what you can afford to lose entirely. If you stake $10K in a new protocol offering 300% APY, you should be okay losing all $10K. If you're not, you don't belong in that protocol.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="key-takeaways">
+                    <h3>Key Takeaways</h3>
+                    <ul>
+                        <li>Crypto is 3-5x more volatile than equities — position sizing must be adjusted down (0.5% instead of 1%)</li>
+                        <li>Exchange collapse is a real risk (FTX, Celsius) — never keep all your crypto on one exchange</li>
+                        <li>Leverage above 3-5x is gambling, not trading — a 1% move at 100x leverage liquidates you</li>
+                        <li>DeFi yields can't be free — if you can't explain how a protocol makes money, you're the product</li>
+                        <li>Smart contract risk is permanent — only allocate capital you can afford to lose entirely</li>
+                        <li>Crypto doesn't sleep, and neither should your risk discipline</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="practice-box">
+                    <h3>Practice Exercise</h3>
+                    <p>Check your crypto portfolio right now. How much is sitting on exchanges vs. cold storage? Calculate what you'd lose if your primary exchange went down tomorrow. Then calculate your position sizes using the 0.5% rule instead of 1%. How does that change your approach?</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="quiz-section">
+                    <h3>Module Quiz</h3>
+                    <form id="quizForm">
+                        <div class="quiz-question">
+                            <div class="quiz-question-text">1. Why should crypto position sizes be smaller than equity position sizes?</div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q1')">
+                                <input type="radio" name="q1" value="a" onclick="event.stopPropagation()">
+                                <span>Crypto is 3-5x more volatile — the same percentage risk requires fewer units</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q1')">
+                                <input type="radio" name="q1" value="b" onclick="event.stopPropagation()">
+                                <span>Crypto exchanges don't offer insurance</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q1')">
+                                <input type="radio" name="q1" value="c" onclick="event.stopPropagation()">
+                                <span>Crypto is unregulated</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q1')">
+                                <input type="radio" name="q1" value="d" onclick="event.stopPropagation()">
+                                <span>You should use leverage instead</span>
+                            </div>
+                            <div class="quiz-explanation" id="q1-explanation" data-correct="a">
+                                <strong>Correct!</strong> Crypto's higher volatility means the same percentage risk would eat through your capital faster with full equity position sizes. You need to reduce size to match the increased volatility.
+                            </div>
+                        </div>
+
+                        <div class="quiz-question">
+                            <div class="quiz-question-text">2. At 50x leverage, what price move liquidates your position?</div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q2')">
+                                <input type="radio" name="q2" value="a" onclick="event.stopPropagation()">
+                                <span>5%</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q2')">
+                                <input type="radio" name="q2" value="b" onclick="event.stopPropagation()">
+                                <span>Approximately 2%</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q2')">
+                                <input type="radio" name="q2" value="c" onclick="event.stopPropagation()">
+                                <span>10%</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q2')">
+                                <input type="radio" name="q2" value="d" onclick="event.stopPropagation()">
+                                <span>50%</span>
+                            </div>
+                            <div class="quiz-explanation" id="q2-explanation" data-correct="b">
+                                <strong>Correct!</strong> At 50x leverage, a 2% move against you eliminates your entire position. This means normal crypto volatility is a liquidation event — making extreme leverage a gamble, not a trade.
+                            </div>
+                        </div>
+
+                        <div class="quiz-question">
+                            <div class="quiz-question-text">3. What happened with FTX and why does it matter for risk management?</div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q3')">
+                                <input type="radio" name="q3" value="a" onclick="event.stopPropagation()">
+                                <span>It was hacked and became more secure</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q3')">
+                                <input type="radio" name="q3" value="b" onclick="event.stopPropagation()">
+                                <span>A major exchange collapsed, and users lost billions in funds — never keep all your crypto on one exchange</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q3')">
+                                <input type="radio" name="q3" value="c" onclick="event.stopPropagation()">
+                                <span>The CEO retired</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q3')">
+                                <input type="radio" name="q3" value="d" onclick="event.stopPropagation()">
+                                <span>It merged with another exchange</span>
+                            </div>
+                            <div class="quiz-explanation" id="q3-explanation" data-correct="b">
+                                <strong>Correct!</strong> FTX collapsed in 2022, and billions in user funds were lost with no recovery. This illustrates custodial risk — exchanges can fail, and there's no SIPC insurance in crypto. Diversify across exchanges and use cold storage for long-term holds.
+                            </div>
+                        </div>
+
+                        <div class="quiz-question">
+                            <div class="quiz-question-text">4. What's the recommended maximum leverage for crypto trading?</div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q4')">
+                                <input type="radio" name="q4" value="a" onclick="event.stopPropagation()">
+                                <span>10x-20x for active traders</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q4')">
+                                <input type="radio" name="q4" value="b" onclick="event.stopPropagation()">
+                                <span>3x-5x maximum — anything higher is gambling</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q4')">
+                                <input type="radio" name="q4" value="c" onclick="event.stopPropagation()">
+                                <span>As much as the exchange allows</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q4')">
+                                <input type="radio" name="q4" value="d" onclick="event.stopPropagation()">
+                                <span>Leverage should never be used</span>
+                            </div>
+                            <div class="quiz-explanation" id="q4-explanation" data-correct="b">
+                                <strong>Correct!</strong> 3x-5x maximum lets you survive crypto's normal volatility and rebound from mistakes. Anything above that is betting against the market's natural swings — that's gambling, not trading.
+                            </div>
+                        </div>
+
+                        <div class="quiz-question">
+                            <div class="quiz-question-text">5. You want to yield farm a new DeFi protocol offering 200% APY. What should you check first?</div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q5')">
+                                <input type="radio" name="q5" value="a" onclick="event.stopPropagation()">
+                                <span>Whether the protocol has been audited and whether you can explain how it generates that yield</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q5')">
+                                <input type="radio" name="q5" value="b" onclick="event.stopPropagation()">
+                                <span>How long the protocol has been running</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q5')">
+                                <input type="radio" name="q5" value="c" onclick="event.stopPropagation()">
+                                <span>What's the minimum deposit</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q5')">
+                                <input type="radio" name="q5" value="d" onclick="event.stopPropagation()">
+                                <span>How many other people are using it</span>
+                            </div>
+                            <div class="quiz-explanation" id="q5-explanation" data-correct="a">
+                                <strong>Correct!</strong> A 200% APY doesn't grow on trees. If you can't explain where the yield comes from, the protocol is likely eating itself with unsustainable inflation or relying on new inflows (a Ponzi structure). Audits catch obvious bugs, but they don't fix bad tokenomics.
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 2rem;">
+                            <button type="button" class="nav-button" onclick="submitQuiz()">Submit Quiz</button>
+                        </div>
+                    </form>
+
+                    <div class="quiz-score" id="quizScore" style="display: none;">
+                        <h4>Your Score</h4>
+                        <div class="score" id="scoreValue">0/5</div>
+                        <p id="scoreMessage"></p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="navigation-buttons">
+                <a href="module-4.html" class="nav-button">← Previous Module</a>
+                <a href="module-6.html" class="nav-button">Next Module →</a>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 STACK Academy. All rights reserved. CreoleTrades Doctrine.</p>
+        </footer>
+    </div>
+
+    <script>
+        const PASSWORD_HASH = "b0f5040194da418dee6da0842006d9a22ea72928ec3c0177c4b6c9eb9007c7ea";
+        const STORAGE_KEY = "stack_risk_access";
+
+        function hashPassword(password) {
+            let hash = 0;
+            for (let i = 0; i < password.length; i++) {
+                const char = password.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return Math.abs(hash).toString(16);
+        }
+
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hashHex;
+        }
+
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const errorElement = document.getElementById('passwordError');
+
+            if (!password) {
+                errorElement.classList.add('show');
+                return;
+            }
+
+            sha256(password).then(hash => {
+                if (hash === PASSWORD_HASH) {
+                    sessionStorage.setItem(STORAGE_KEY, 'true');
+                    document.getElementById('passwordGate').classList.add('hidden');
+                    document.getElementById('mainContent').style.display = 'block';
+                    errorElement.classList.remove('show');
+                } else {
+                    errorElement.classList.add('show');
+                    document.getElementById('passwordInput').value = '';
+                    document.getElementById('passwordInput').focus();
+                }
+            });
+        }
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        function checkAccessOnLoad() {
+            if (sessionStorage.getItem(STORAGE_KEY) === 'true') {
+                document.getElementById('passwordGate').classList.add('hidden');
+                document.getElementById('mainContent').style.display = 'block';
+                document.getElementById('passwordInput').focus();
+            } else {
+                document.getElementById('passwordInput').focus();
+            }
+        }
+
+        window.addEventListener('load', checkAccessOnLoad);
+
+        function selectAnswer(element, questionId) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            const radio = element.querySelector('input');
+            radio.checked = true;
+        }
+
+        function submitQuiz() {
+            const form = document.getElementById('quizForm');
+            const scoreDisplay = document.getElementById('quizScore');
+            const scoreValue = document.getElementById('scoreValue');
+            const scoreMessage = document.getElementById('scoreMessage');
+
+            let score = 0;
+            let answered = 0;
+
+            for (let i = 1; i <= 5; i++) {
+                const questionId = 'q' + i;
+                const selected = document.querySelector(`input[name="${questionId}"]:checked`);
+                const explanation = document.getElementById(questionId + '-explanation');
+
+                if (selected) {
+                    answered++;
+                    const correct = explanation.getAttribute('data-correct');
+                    if (selected.value === correct) {
+                        score++;
+                        explanation.classList.add('show', 'correct');
+                    } else {
+                        explanation.classList.add('show', 'incorrect');
+                    }
+                } else {
+                    explanation.classList.remove('show');
+                }
+            }
+
+            if (answered === 0) {
+                alert('Please answer at least one question before submitting.');
+                return;
+            }
+
+            scoreValue.textContent = score + '/' + 5;
+
+            if (score === 5) {
+                scoreMessage.textContent = "Perfect! You've mastered crypto risk management.";
+            } else if (score >= 3) {
+                scoreMessage.textContent = "Good work! Review the explanations above to solidify your understanding.";
+            } else {
+                scoreMessage.textContent = "Review the content above and try again. Understanding crypto risk is critical.";
+            }
+
+            scoreDisplay.style.display = 'block';
+            window.scrollTo({ top: scoreDisplay.offsetTop - 100, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

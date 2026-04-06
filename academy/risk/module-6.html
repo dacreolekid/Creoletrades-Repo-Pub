@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 6: Portfolio Risk & Trading Psychology - STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #070C18;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .password-gate.hidden {
+            display: none;
+        }
+
+        .password-gate-content {
+            background-color: #0D1526;
+            padding: 3rem;
+            border-radius: 0px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .password-gate-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #EEF2FF;
+            margin-bottom: 1rem;
+        }
+
+        .password-gate-content p {
+            color: #C8D4E8;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .password-input-wrapper {
+            margin-bottom: 1.5rem;
+        }
+
+        .password-input-wrapper input {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #0F1A2E;
+            border: 1px solid #6B84AA;
+            color: #EEF2FF;
+            font-size: 1rem;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+        }
+
+        .password-input-wrapper input:focus {
+            outline: none;
+            border-color: #C9A84C;
+            box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.1);
+        }
+
+        .password-button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            transition: background-color 0.2s;
+        }
+
+        .password-button:hover {
+            background-color: #F0D080;
+        }
+
+        .password-error {
+            color: #EF4444;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
+        .password-helper {
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+        }
+
+        .password-helper a {
+            color: #C9A84C;
+            text-decoration: none;
+        }
+
+        .password-helper a:hover {
+            color: #F0D080;
+        }
+
+        header {
+            background-color: #0D1526;
+            padding: 2rem 0;
+            border-bottom: 1px solid #0F1A2E;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .module-badge {
+            color: #C9A84C;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #EEF2FF;
+            margin-bottom: 0.5rem;
+        }
+
+        nav {
+            background-color: #0D1526;
+            padding: 0;
+            border-bottom: 1px solid #0F1A2E;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        nav a {
+            display: inline-block;
+            padding: 1rem 1.5rem;
+            color: #C8D4E8;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover {
+            color: #C9A84C;
+            border-bottom-color: #C9A84C;
+        }
+
+        nav a.active {
+            color: #C9A84C;
+            border-bottom-color: #C9A84C;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #EEF2FF;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            color: #C8D4E8;
+        }
+
+        .creole-voice {
+            background-color: #0D1526;
+            border-left: 4px solid #C9A84C;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0px;
+            font-style: italic;
+            color: #F0D080;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .vocab-card {
+            background-color: #0D1526;
+            padding: 1.5rem;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+            transition: all 0.2s;
+        }
+
+        .vocab-card:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .vocab-card strong {
+            color: #C9A84C;
+            display: block;
+            margin-bottom: 0.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .vocab-card p {
+            font-size: 0.9rem;
+            color: #C8D4E8;
+        }
+
+        .three-step {
+            background-color: #0D1526;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+        }
+
+        .three-step h3 {
+            font-family: 'Playfair Display', serif;
+            color: #EEF2FF;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .step {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #0F1A2E;
+        }
+
+        .step:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 2rem;
+            height: 2rem;
+            background-color: #C9A84C;
+            color: #070C18;
+            border-radius: 0px;
+            text-align: center;
+            line-height: 2rem;
+            font-weight: 700;
+            margin-right: 0.75rem;
+        }
+
+        .step-title {
+            display: inline;
+            font-family: 'Playfair Display', serif;
+            color: #EEF2FF;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .step-content {
+            color: #C8D4E8;
+            margin-top: 0.5rem;
+            margin-left: 2.75rem;
+        }
+
+        .key-takeaways {
+            background-color: #0D1526;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 0px;
+            border: 2px solid #C9A84C;
+        }
+
+        .key-takeaways h3 {
+            font-family: 'Playfair Display', serif;
+            color: #C9A84C;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .key-takeaways li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #C8D4E8;
+        }
+
+        .key-takeaways li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+            font-weight: 700;
+        }
+
+        .practice-box {
+            background-color: #0F1A2E;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 0px;
+            border-left: 4px solid #22C55E;
+        }
+
+        .practice-box h3 {
+            font-family: 'Playfair Display', serif;
+            color: #22C55E;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .practice-box p {
+            color: #C8D4E8;
+            font-style: italic;
+        }
+
+        .quiz-section {
+            background-color: #0D1526;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+        }
+
+        .quiz-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: #EEF2FF;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .quiz-question {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #0F1A2E;
+        }
+
+        .quiz-question:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .quiz-question-text {
+            font-weight: 600;
+            color: #EEF2FF;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+        }
+
+        .quiz-option {
+            background-color: #0F1A2E;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-radius: 0px;
+            cursor: pointer;
+            border: 1px solid #0F1A2E;
+            transition: all 0.2s;
+            color: #C8D4E8;
+        }
+
+        .quiz-option:hover {
+            background-color: #172236;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option input {
+            margin-right: 0.75rem;
+            cursor: pointer;
+        }
+
+        .quiz-option.selected {
+            background-color: #172236;
+            border-color: #C9A84C;
+        }
+
+        .quiz-explanation {
+            background-color: #0F1A2E;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0px;
+            border-left: 4px solid #C9A84C;
+            display: none;
+            color: #C8D4E8;
+        }
+
+        .quiz-explanation.show {
+            display: block;
+        }
+
+        .quiz-explanation.correct {
+            border-left-color: #22C55E;
+        }
+
+        .quiz-explanation.incorrect {
+            border-left-color: #EF4444;
+        }
+
+        .quiz-score {
+            background-color: #0D1526;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-radius: 0px;
+            border: 2px solid #C9A84C;
+            text-align: center;
+        }
+
+        .quiz-score h4 {
+            color: #C9A84C;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-score .score {
+            font-size: 2.5rem;
+            color: #EEF2FF;
+            font-family: 'Playfair Display', serif;
+            margin: 1rem 0;
+        }
+
+        .quiz-score p {
+            color: #C8D4E8;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin: 3rem 0;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 1rem;
+            border: 1px solid #C9A84C;
+            background-color: transparent;
+            color: #C9A84C;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.2s;
+            font-family: 'Lora', serif;
+            border-radius: 0px;
+            cursor: pointer;
+        }
+
+        .nav-button:hover {
+            background-color: #C9A84C;
+            color: #070C18;
+        }
+
+        .nav-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-button.disabled:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        footer {
+            background-color: #0D1526;
+            padding: 2rem;
+            text-align: center;
+            color: #6B84AA;
+            font-size: 0.85rem;
+            border-top: 1px solid #0F1A2E;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .section h2 {
+                font-size: 1.3rem;
+            }
+
+            nav a {
+                padding: 0.75rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .password-gate-content {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate" id="passwordGate">
+        <div class="password-gate-content">
+            <h1>STACK Academy</h1>
+            <p>Enter password to access this module</p>
+            <div class="password-input-wrapper">
+                <input
+                    type="password"
+                    id="passwordInput"
+                    placeholder="Enter password"
+                    autocomplete="off"
+                >
+            </div>
+            <div class="password-error" id="passwordError">Invalid password. Try again.</div>
+            <button class="password-button" onclick="checkPassword()">Unlock Module</button>
+            <div class="password-helper">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="mainContent" style="display: none;">
+        <header>
+            <div class="header-content">
+                <div class="module-badge">Module 6 of 6</div>
+                <h1>Portfolio Risk & Trading Psychology</h1>
+            </div>
+        </header>
+
+        <nav>
+            <a href="../">← All Courses</a>
+            <a href="module-1.html">Module 1</a>
+            <a href="module-2.html">Module 2</a>
+            <a href="module-3.html">Module 3</a>
+            <a href="module-4.html">Module 4</a>
+            <a href="module-5.html">Module 5</a>
+            <a href="module-6.html" class="active">Module 6</a>
+            <a href="glossary.html">Glossary</a>
+            <a href="final-exam.html">Final Exam</a>
+        </nav>
+
+        <div class="container">
+            <section class="section">
+                <h2>The Invisible Risks</h2>
+                <p>Technical risk is only half the game. The other half is psychological: revenge trading, FOMO, overtrading, refusing to take a loss. This module ties everything together — your portfolio is a system, and you are the weakest link in that system until you learn to manage yourself.</p>
+                <p>You can have perfect position sizing, perfect entries, perfect exits — and blow up your account in a single day by breaking your own rules. The rules don't fail. You do. The question is: will you catch yourself before you do?</p>
+            </section>
+
+            <section class="section">
+                <h2>Drawdown Management</h2>
+                <p>Define maximum drawdown. The math of recovery is brutal and asymmetric: losing 10% requires 11% to break even. Losing 50% requires 100%. This is why small losses matter more than big wins. This is why preventing disasters matters more than chasing riches.</p>
+
+                <p>Think about it differently: if you make 10 trades and win 7 of them, you're still not profitable if the 3 losses are too big. One 50% loss wipes out five 10% wins. The math is merciless. This is where drawdown limits save your life.</p>
+
+                <div class="three-step">
+                    <h3>Daily, Weekly, Monthly Limits</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <span class="step-title">Daily Max Loss</span>
+                        <div class="step-content">
+                            Set a rule: "I stop trading when I've either (a) done 3 trades, or (b) lost 3% of my account — whichever comes first." Once you hit the limit, you stop. Period. No exceptions. No "one more trade to get it back." That's the path to 10% losses becoming 50% losses.
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <span class="step-title">Weekly Drawdown</span>
+                        <div class="step-content">
+                            Set a weekly limit. If you're down 5-7% for the week, you stop. Come back Monday with a fresh mind and fresh capital. A bad week is a learning week, not a capital destruction week.
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <span class="step-title">Monthly Limit</span>
+                        <div class="step-content">
+                            If you lose 10-15% in a month, you're done for the month. Close out positions, step back, and review. That drawdown tells you something is broken in your system. Find it before you lose another 10%.
+                        </div>
+                    </div>
+                </div>
+
+                <p style="margin-top: 1.5rem;"><strong>The Rule:</strong> When you hit your limit, you stop trading. Not tomorrow. Now. This isn't a suggestion. It's a circuit breaker. And it will save your account more than any perfect entry ever will.</p>
+            </section>
+
+            <section class="section">
+                <h2>Correlation Across Asset Classes</h2>
+                <p>You might be long SPY calls, long EUR/USD, and long BTC — and think you're diversified. In a risk-off event, all three drop simultaneously. You're not diversified. You're triple-leveraged to risk-on sentiment.</p>
+
+                <p>This is the invisible risk. When correlation breaks down, all your "hedges" move in the same direction. It happens every major market drawdown. March 2020. September 2022. Always the same pattern: when risk goes off, everything correlated to risk-on goes down.</p>
+
+                <div class="vocab-grid">
+                    <div class="vocab-card">
+                        <strong>Correlation</strong>
+                        <p>How two assets move together. Perfect correlation = 1.0 (move together). Zero correlation = 0 (move independently). Negative correlation = -1.0 (move opposite).</p>
+                    </div>
+                    <div class="vocab-card">
+                        <strong>Risk-On / Risk-Off</strong>
+                        <p>Risk-on: Investors buy risky assets. Risk-off: Investors flee to safety. In risk-off events, almost all risky assets drop together.</p>
+                    </div>
+                    <div class="vocab-card">
+                        <strong>Diversification</strong>
+                        <p>True diversification means holdings that move differently. Stocks + bonds. Equities + gold. Equities + USD. Not stocks + crypto + forex (all risk-on correlated).</p>
+                    </div>
+                    <div class="vocab-card">
+                        <strong>Hedging</strong>
+                        <p>Owning assets that gain when others lose. Gold, USD, or long VIX when you're long equities. Real hedges have negative correlation.</p>
+                    </div>
+                    <div class="vocab-card">
+                        <strong>Beta</strong>
+                        <p>How much an asset moves with the overall market. Beta of 1.0 = moves with market. Beta > 1.0 = more volatile than market. Beta < 1.0 = less volatile.</p>
+                    </div>
+                </div>
+
+                <div class="three-step">
+                    <h3>How to Check Real Diversification</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <span class="step-title">Identify Your Risk Exposures</span>
+                        <div class="step-content">
+                            Long SPY calls = risk-on / equities. Long EUR/USD = risk-on / carry trade. Long BTC = risk-on / alternative assets. All three are risk-on. You're not diversified.
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <span class="step-title">Test in Past Drawdowns</span>
+                        <div class="step-content">
+                            Look back at March 2020. What was your portfolio's correlation? Did SPY and BTC both drop 30%? If yes, they're correlated to risk-off. A real hedge would have gone up or stayed flat.
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <span class="step-title">Add Real Hedges</span>
+                        <div class="step-content">
+                            If you're long risk-on assets, add risk-off hedges: gold, long USD, long volatility (VIX), or bonds. These should go up when equities go down. That's real diversification.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>The Trading Journal</h2>
+                <p>The most important risk tool you own. Every trade logged: entry, exit, R:R planned vs actual, emotional state, what you saw vs what happened. Pattern recognition over 50+ trades reveals YOUR specific risk tendencies.</p>
+
+                <p>You can read every risk management book in the world. But until you log 50 trades and see the pattern of where you blow up, you're guessing. Your journal shows you the truth.</p>
+
+                <div class="three-step">
+                    <h3>What a Trade Journal Entry Should Include</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <span class="step-title">Trade Setup</span>
+                        <div class="step-content">
+                            Date, ticker, entry price, stop loss, target, planned R:R ratio, position size, and why you took the trade (structure, trigger, alignment, confirmation — STACK).
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <span class="step-title">Execution & Exit</span>
+                        <div class="step-content">
+                            Actual exit price, time in trade, actual R:R ratio (what you actually made/lost), exit reason (hit stop, hit target, discretionary exit, time stop, etc.).
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <span class="step-title">Emotional State & Review</span>
+                        <div class="step-content">
+                            Emotional state during trade (confident, worried, FOMO, revenge mentality, etc.), did you follow your plan?, what did you see that the chart didn't show you?, one sentence on what you'd do differently next time.
+                        </div>
+                    </div>
+                </div>
+
+                <p style="margin-top: 1.5rem;">After 50 trades, review. You'll see patterns: "I break my stops 40% of the time." "I overtrade after losses." "I hold winners too long." This is the data that fixes you.</p>
+            </section>
+
+            <section class="section">
+                <h2>Emotional Risk Management</h2>
+                <p>The five killers: Revenge Trading, FOMO, Overtrading, Moving Stops, and Refusing to Cut Losses. Each one looks different. Each one has the same outcome: account destruction.</p>
+
+                <div class="three-step">
+                    <h3>The Five Killers & How to Prevent Them</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <span class="step-title">Revenge Trading</span>
+                        <div class="step-content">
+                            <strong>What it looks like:</strong> You take a loss. You immediately take another trade to "make it back." You're not thinking clearly. You're angry.
+                            <br><strong>Why it happens:</strong> Loss aversion is real. Your brain wants to recover the loss immediately.
+                            <br><strong>The rule that prevents it:</strong> You hit your daily max loss. You stop trading. Period. Revenge trading happens when you keep trading after you should have stopped.
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <span class="step-title">FOMO (Fear of Missing Out)</span>
+                        <div class="step-content">
+                            <strong>What it looks like:</strong> Bitcoin just spiked 10%. Everyone is talking about it. You chase the move, ignoring your plan.
+                            <br><strong>Why it happens:</strong> Social pressure and the fear of being left behind are powerful.
+                            <br><strong>The rule that prevents it:</strong> Only trade setups on your watchlist. If it wasn't on your list before the spike, it's not a setup — it's a chase.
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <span class="step-title">Overtrading</span>
+                        <div class="step-content">
+                            <strong>What it looks like:</strong> You take 10 trades today instead of your usual 2. You're bored, restless, or feel pressure to "make money."
+                            <br><strong>Why it happens:</strong> Trading feels good (dopamine hit). More trades = more dopamine. You're not trading a setup, you're chasing a feeling.
+                            <br><strong>The rule that prevents it:</strong> Daily trade limit. Only X trades per day. When you hit it, you're done.
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <span class="step-title">Moving Stops</span>
+                        <div class="step-content">
+                            <strong>What it looks like:</strong> Your stop is at 95. Price drops to 96. You move your stop to 90. Price drops to 89. Now you're in a disaster.
+                            <br><strong>Why it happens:</strong> You don't want to take the loss. You rationalize that "it might come back."
+                            <br><strong>The rule that prevents it:</strong> Your stop is SET BEFORE YOU ENTER. Not after. Once you enter, the stop does not move up — only down (on winners).
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <span class="step-title">Refusing to Cut Losses</span>
+                        <div class="step-content">
+                            <strong>What it looks like:</strong> You're down 10% on a position. You refuse to sell. "It'll come back." Price drops 30%. Now you're in a nightmare.
+                            <br><strong>Why it happens:</strong> Admitting a loss feels like failure. Your ego fights the stop.
+                            <br><strong>The rule that prevents it:</strong> Your stop is automatic. You hit it, you exit. No thinking. No negotiating. The stop exists so you don't have to make the emotional decision.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>The K in STACK: Keep Discipline</h2>
+                <p>This ties it all together. Risk management IS the K in STACK. Without it, Structure, Trigger, Alignment, and Confirmation don't matter.</p>
+
+                <p>You can have a perfect setup. You can see the structure, hit the trigger, maintain alignment, and get confirmation. But if you take a 10% loss on a position that should have been capped at 1%, you've broken the system. One bad loss can wipe out 10 good trades.</p>
+
+                <p>This is why K — Keep Discipline — is the last letter. It's the foundation. It's what makes the other four letters matter.</p>
+
+                <div class="creole-voice">
+                    "You don't rush a roux. You don't rush a trade. And once you start building, you don't stop checking the temperature. Risk management is the thermometer." — CreoleTrades Doctrine
+                </div>
+
+                <p style="margin-top: 1.5rem;"><strong>The Roux Score isn't complete without risk management. Period.</strong></p>
+            </section>
+
+            <section class="section">
+                <div class="key-takeaways">
+                    <h3>Key Takeaways</h3>
+                    <ul>
+                        <li>Losing 50% requires 100% gain to break even — this asymmetry is why preventing big losses matters more than chasing big wins</li>
+                        <li>Set daily, weekly, and monthly drawdown limits — when you hit them, you stop trading, no exceptions</li>
+                        <li>Real diversification means holdings that move opposite to each other — not all risk-on assets correlated to the same risk-off event</li>
+                        <li>Your trading journal reveals your personal risk patterns over 50+ trades — this is your blueprint for fixing yourself</li>
+                        <li>The five killers (revenge trading, FOMO, overtrading, moving stops, refusing losses) all share one solution: rules that execute automatically, without emotion</li>
+                        <li>Risk management is the foundation of STACK — without the K (Keep Discipline), the other letters don't matter</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="practice-box">
+                    <h3>Practice Exercise</h3>
+                    <p>Start a trading journal today. It can be a spreadsheet, a notebook, or an app. Log your next 10 trades with: ticker, entry, stop, target, actual exit, R:R planned vs actual, and a 1-sentence note on your emotional state. After 10 trades, review: where did you break your own rules?</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="quiz-section">
+                    <h3>Module Quiz</h3>
+                    <form id="quizForm">
+                        <div class="quiz-question">
+                            <div class="quiz-question-text">1. You lose 20% of your account. What return do you need to break even?</div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q1')">
+                                <input type="radio" name="q1" value="a" onclick="event.stopPropagation()">
+                                <span>20%</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q1')">
+                                <input type="radio" name="q1" value="b" onclick="event.stopPropagation()">
+                                <span>25%</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q1')">
+                                <input type="radio" name="q1" value="c" onclick="event.stopPropagation()">
+                                <span>15%</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q1')">
+                                <input type="radio" name="q1" value="d" onclick="event.stopPropagation()">
+                                <span>30%</span>
+                            </div>
+                            <div class="quiz-explanation" id="q1-explanation" data-correct="b">
+                                <strong>Correct!</strong> The math of recovery is asymmetric. If you have $100 and lose 20% (down to $80), you need to gain $20 on an $80 base — that's 25%. This is why preventing losses matters more than chasing gains.
+                            </div>
+                        </div>
+
+                        <div class="quiz-question">
+                            <div class="quiz-question-text">2. You've hit your daily max loss of 3%. What should you do?</div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q2')">
+                                <input type="radio" name="q2" value="a" onclick="event.stopPropagation()">
+                                <span>Take one more trade to try to recover it</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q2')">
+                                <input type="radio" name="q2" value="b" onclick="event.stopPropagation()">
+                                <span>Stop trading for the day. No exceptions. Come back tomorrow with a clear head.</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q2')">
+                                <input type="radio" name="q2" value="c" onclick="event.stopPropagation()">
+                                <span>Continue trading but with smaller position sizes</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q2')">
+                                <input type="radio" name="q2" value="d" onclick="event.stopPropagation()">
+                                <span>Close half your positions</span>
+                            </div>
+                            <div class="quiz-explanation" id="q2-explanation" data-correct="b">
+                                <strong>Correct!</strong> When you hit your limit, you stop. This is a circuit breaker. The limit exists to prevent a bad day from turning into a catastrophe. Revenge trading after hitting your limit is the path to account destruction.
+                            </div>
+                        </div>
+
+                        <div class="quiz-question">
+                            <div class="quiz-question-text">3. You're long SPY calls, long BTC, and long EUR/USD. In a risk-off event, what happens?</div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q3')">
+                                <input type="radio" name="q3" value="a" onclick="event.stopPropagation()">
+                                <span>SPY drops but BTC and EUR/USD stay flat — you're protected</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q3')">
+                                <input type="radio" name="q3" value="b" onclick="event.stopPropagation()">
+                                <span>All three likely drop together — you're not diversified, you're triple-leveraged to risk-on sentiment</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q3')">
+                                <input type="radio" name="q3" value="c" onclick="event.stopPropagation()">
+                                <span>EUR/USD rises as investors flee to the dollar</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q3')">
+                                <input type="radio" name="q3" value="d" onclick="event.stopPropagation()">
+                                <span>Volatility spikes but prices stay correlated to their individual fundamentals</span>
+                            </div>
+                            <div class="quiz-explanation" id="q3-explanation" data-correct="b">
+                                <strong>Correct!</strong> In risk-off events, correlation breaks down and almost all risk-on assets drop together. This is why you need true hedges (gold, USD, bonds) that have negative correlation, not just different asset classes that all move with risk sentiment.
+                            </div>
+                        </div>
+
+                        <div class="quiz-question">
+                            <div class="quiz-question-text">4. What's the most important tool for identifying your personal risk patterns?</div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q4')">
+                                <input type="radio" name="q4" value="a" onclick="event.stopPropagation()">
+                                <span>A strict risk management formula applied to all trades</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q4')">
+                                <input type="radio" name="q4" value="b" onclick="event.stopPropagation()">
+                                <span>A trading journal — it reveals your specific tendencies over 50+ trades</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q4')">
+                                <input type="radio" name="q4" value="c" onclick="event.stopPropagation()">
+                                <span>Backtesting with hypothetical data</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q4')">
+                                <input type="radio" name="q4" value="d" onclick="event.stopPropagation()">
+                                <span>Following other traders' strategies</span>
+                            </div>
+                            <div class="quiz-explanation" id="q4-explanation" data-correct="b">
+                                <strong>Correct!</strong> Only a trading journal shows you YOUR personal patterns. You might break stops 40% of the time, or overtrade after losses, or refuse to take small losses early. These patterns are unique to you, and only your journal reveals them.
+                            </div>
+                        </div>
+
+                        <div class="quiz-question">
+                            <div class="quiz-question-text">5. What does the K in STACK stand for and why is it the most important letter?</div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q5')">
+                                <input type="radio" name="q5" value="a" onclick="event.stopPropagation()">
+                                <span>Knowledge — it's important because you can't trade what you don't know</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q5')">
+                                <input type="radio" name="q5" value="b" onclick="event.stopPropagation()">
+                                <span>Keep Discipline — without risk management, no amount of technical skill matters because one bad loss can wipe out 10 good trades</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q5')">
+                                <input type="radio" name="q5" value="c" onclick="event.stopPropagation()">
+                                <span>Keeness — it's important because traders need to stay sharp</span>
+                            </div>
+                            <div class="quiz-option" onclick="selectAnswer(this, 'q5')">
+                                <input type="radio" name="q5" value="d" onclick="event.stopPropagation()">
+                                <span>Keep Learning — it's important because markets are always changing</span>
+                            </div>
+                            <div class="quiz-explanation" id="q5-explanation" data-correct="b">
+                                <strong>Correct!</strong> Keep Discipline is what ties the entire STACK framework together. Structure, Trigger, Alignment, and Confirmation are all meaningless if you don't keep discipline with your risk limits. This is the foundation of everything.
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 2rem;">
+                            <button type="button" class="nav-button" onclick="submitQuiz()">Submit Quiz</button>
+                        </div>
+                    </form>
+
+                    <div class="quiz-score" id="quizScore" style="display: none;">
+                        <h4>Your Score</h4>
+                        <div class="score" id="scoreValue">0/5</div>
+                        <p id="scoreMessage"></p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="navigation-buttons">
+                <a href="module-5.html" class="nav-button">← Previous Module</a>
+                <a href="final-exam.html" class="nav-button">Final Exam →</a>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 STACK Academy. All rights reserved. CreoleTrades Doctrine.</p>
+        </footer>
+    </div>
+
+    <script>
+        const PASSWORD_HASH = "b0f5040194da418dee6da0842006d9a22ea72928ec3c0177c4b6c9eb9007c7ea";
+        const STORAGE_KEY = "stack_risk_access";
+
+        function hashPassword(password) {
+            let hash = 0;
+            for (let i = 0; i < password.length; i++) {
+                const char = password.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return Math.abs(hash).toString(16);
+        }
+
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hashHex;
+        }
+
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const errorElement = document.getElementById('passwordError');
+
+            if (!password) {
+                errorElement.classList.add('show');
+                return;
+            }
+
+            sha256(password).then(hash => {
+                if (hash === PASSWORD_HASH) {
+                    sessionStorage.setItem(STORAGE_KEY, 'true');
+                    document.getElementById('passwordGate').classList.add('hidden');
+                    document.getElementById('mainContent').style.display = 'block';
+                    errorElement.classList.remove('show');
+                } else {
+                    errorElement.classList.add('show');
+                    document.getElementById('passwordInput').value = '';
+                    document.getElementById('passwordInput').focus();
+                }
+            });
+        }
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        function checkAccessOnLoad() {
+            if (sessionStorage.getItem(STORAGE_KEY) === 'true') {
+                document.getElementById('passwordGate').classList.add('hidden');
+                document.getElementById('mainContent').style.display = 'block';
+                document.getElementById('passwordInput').focus();
+            } else {
+                document.getElementById('passwordInput').focus();
+            }
+        }
+
+        window.addEventListener('load', checkAccessOnLoad);
+
+        function selectAnswer(element, questionId) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            const radio = element.querySelector('input');
+            radio.checked = true;
+        }
+
+        function submitQuiz() {
+            const form = document.getElementById('quizForm');
+            const scoreDisplay = document.getElementById('quizScore');
+            const scoreValue = document.getElementById('scoreValue');
+            const scoreMessage = document.getElementById('scoreMessage');
+
+            let score = 0;
+            let answered = 0;
+
+            for (let i = 1; i <= 5; i++) {
+                const questionId = 'q' + i;
+                const selected = document.querySelector(`input[name="${questionId}"]:checked`);
+                const explanation = document.getElementById(questionId + '-explanation');
+
+                if (selected) {
+                    answered++;
+                    const correct = explanation.getAttribute('data-correct');
+                    if (selected.value === correct) {
+                        score++;
+                        explanation.classList.add('show', 'correct');
+                    } else {
+                        explanation.classList.add('show', 'incorrect');
+                    }
+                } else {
+                    explanation.classList.remove('show');
+                }
+            }
+
+            if (answered === 0) {
+                alert('Please answer at least one question before submitting.');
+                return;
+            }
+
+            scoreValue.textContent = score + '/' + 5;
+
+            if (score === 5) {
+                scoreMessage.textContent = "Perfect! You've mastered portfolio risk and trading psychology.";
+            } else if (score >= 3) {
+                scoreMessage.textContent = "Good work! Review the explanations above to solidify your understanding.";
+            } else {
+                scoreMessage.textContent = "Review the content above and try again. Understanding psychology is critical to lasting trading success.";
+            }
+
+            scoreDisplay.style.display = 'block';
+            window.scrollTo({ top: scoreDisplay.offsetTop - 100, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

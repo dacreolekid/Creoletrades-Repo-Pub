@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forex Risk Management - STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .password-gate {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #070C18;
+        }
+
+        .password-gate.hidden {
+            display: none;
+        }
+
+        .password-gate-content {
+            background-color: #0D1526;
+            padding: 40px;
+            border-radius: 0;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .password-gate-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+        }
+
+        .password-gate-content p {
+            color: #C8D4E8;
+            margin-bottom: 20px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background-color: #0F1A2E;
+            border: 1px solid #6B84AA;
+            border-radius: 0;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+        }
+
+        .password-input::placeholder {
+            color: #6B84AA;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #C9A84C;
+            background-color: #0F1A2E;
+        }
+
+        .password-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0;
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .password-button:hover {
+            background-color: #F0D080;
+        }
+
+        .password-error {
+            color: #EF4444;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .password-helper {
+            margin-top: 20px;
+            border-top: 1px solid #6B84AA;
+            padding-top: 20px;
+        }
+
+        .password-helper a {
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .password-helper a:hover {
+            color: #F0D080;
+            text-decoration: underline;
+        }
+
+        .content {
+            display: none;
+        }
+
+        .content.visible {
+            display: block;
+        }
+
+        header {
+            background-color: #0D1526;
+            padding: 30px;
+            border-bottom: 1px solid #0F1A2E;
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            color: #6B84AA;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background-color: #0F1A2E;
+            color: #C9A84C;
+            padding: 8px 16px;
+            border-radius: 0;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        nav {
+            background-color: #0D1526;
+            padding: 0 30px;
+            border-bottom: 1px solid #0F1A2E;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            padding: 15px 20px;
+            border-right: 1px solid #0F1A2E;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:first-child {
+            padding-left: 0;
+        }
+
+        nav a:last-child {
+            border-right: none;
+        }
+
+        nav a:hover {
+            background-color: #0F1A2E;
+        }
+
+        nav a.active {
+            background-color: #0F1A2E;
+            color: #C9A84C;
+            font-weight: 600;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 30px;
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            margin-top: 40px;
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #EEF2FF;
+            margin-bottom: 15px;
+            margin-top: 30px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #C8D4E8;
+        }
+
+        ol {
+            padding-left: 30px;
+            color: #C8D4E8;
+            margin-bottom: 15px;
+        }
+
+        ol li {
+            margin-bottom: 10px;
+        }
+
+        .quote {
+            background-color: #0D1526;
+            border-left: 4px solid #C9A84C;
+            padding: 20px;
+            margin: 25px 0;
+            font-style: italic;
+            color: #F0D080;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .vocab-card {
+            background-color: #0D1526;
+            padding: 20px;
+            border-radius: 0;
+            border: 1px solid #0F1A2E;
+            transition: background-color 0.3s;
+        }
+
+        .vocab-card:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .vocab-card h4 {
+            font-family: 'Playfair Display', serif;
+            color: #C9A84C;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .vocab-card p {
+            font-size: 14px;
+            color: #C8D4E8;
+        }
+
+        .three-step {
+            background-color: #0D1526;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .step {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #0F1A2E;
+        }
+
+        .step:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .step-number {
+            background-color: #C9A84C;
+            color: #070C18;
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            font-weight: 700;
+            border-radius: 0;
+            margin-right: 10px;
+        }
+
+        .step-title {
+            display: inline;
+            font-weight: 600;
+            color: #EEF2FF;
+        }
+
+        .step-content {
+            margin-top: 10px;
+            color: #C8D4E8;
+        }
+
+        .key-takeaways {
+            background-color: #0D1526;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 0;
+        }
+
+        .key-takeaways h3 {
+            margin-top: 0;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-takeaways li {
+            padding-left: 25px;
+            position: relative;
+            margin-bottom: 12px;
+            color: #C8D4E8;
+        }
+
+        .key-takeaways li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+        }
+
+        .practice-box {
+            background-color: #0F1A2E;
+            border: 1px solid #C9A84C;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 0;
+        }
+
+        .practice-box h3 {
+            color: #C9A84C;
+            margin-top: 0;
+        }
+
+        .practice-box p {
+            color: #C8D4E8;
+        }
+
+        .practice-box ol {
+            color: #C8D4E8;
+        }
+
+        .correlation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background-color: #0D1526;
+        }
+
+        .correlation-table th,
+        .correlation-table td {
+            border: 1px solid #0F1A2E;
+            padding: 15px;
+            text-align: left;
+            color: #C8D4E8;
+        }
+
+        .correlation-table th {
+            background-color: #0F1A2E;
+            color: #C9A84C;
+            font-weight: 600;
+        }
+
+        .correlation-table tr:hover {
+            background-color: #0F1A2E;
+        }
+
+        .quiz-section {
+            background-color: #0D1526;
+            padding: 30px;
+            margin-top: 40px;
+            border-radius: 0;
+        }
+
+        .quiz-section h2 {
+            margin-top: 0;
+        }
+
+        .quiz-question {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #0F1A2E;
+        }
+
+        .quiz-question:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .quiz-question p {
+            font-weight: 600;
+            color: #EEF2FF;
+            margin-bottom: 15px;
+        }
+
+        .quiz-option {
+            background-color: #0F1A2E;
+            border: 1px solid #0F1A2E;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border-radius: 0;
+            transition: all 0.3s;
+        }
+
+        .quiz-option:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .quiz-option label {
+            cursor: pointer;
+            color: #C8D4E8;
+        }
+
+        .quiz-option.selected {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-explanation {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #0F1A2E;
+            border-radius: 0;
+            font-size: 14px;
+        }
+
+        .quiz-explanation.show {
+            display: block;
+        }
+
+        .quiz-explanation.correct {
+            border-left: 4px solid #22C55E;
+            color: #22C55E;
+        }
+
+        .quiz-explanation.incorrect {
+            border-left: 4px solid #EF4444;
+            color: #EF4444;
+        }
+
+        .quiz-submit {
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 0;
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .quiz-submit:hover {
+            background-color: #F0D080;
+        }
+
+        .quiz-submit:disabled {
+            background-color: #6B84AA;
+            cursor: not-allowed;
+        }
+
+        .quiz-score {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            background-color: #0F1A2E;
+            border-radius: 0;
+            text-align: center;
+        }
+
+        .quiz-score.show {
+            display: block;
+        }
+
+        .quiz-score h3 {
+            margin-top: 0;
+        }
+
+        .score-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: #C9A84C;
+            margin: 15px 0;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            gap: 20px;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #C9A84C;
+            background-color: transparent;
+            color: #C9A84C;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 0;
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-button:hover {
+            background-color: #C9A84C;
+            color: #070C18;
+        }
+
+        .nav-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-button.disabled:hover {
+            background-color: transparent;
+            color: #C9A84C;
+        }
+
+        footer {
+            background-color: #0D1526;
+            padding: 30px;
+            border-top: 1px solid #0F1A2E;
+            text-align: center;
+            color: #6B84AA;
+            font-size: 14px;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            nav {
+                padding: 0;
+            }
+
+            nav a {
+                padding: 12px 15px;
+                border-right: 1px solid #0F1A2E;
+                font-size: 13px;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .nav-button {
+                width: 100%;
+            }
+
+            main {
+                padding: 20px 15px;
+            }
+
+            .correlation-table th,
+            .correlation-table td {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate" id="passwordGate">
+        <div class="password-gate-content">
+            <h2>Forex Risk Management</h2>
+            <p>Enter your password to access this module</p>
+            <div class="password-error" id="passwordError"></div>
+            <input type="password" id="passwordInput" class="password-input" placeholder="Enter password">
+            <button class="password-button" onclick="checkPassword()">Unlock Module</button>
+            <div class="password-helper">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content" id="content">
+        <header>
+            <div class="header-content">
+                <div class="breadcrumb">STACK Academy / Risk Management</div>
+                <h1>Forex Risk Management</h1>
+                <span class="module-badge">Module 4 of 6</span>
+            </div>
+        </header>
+
+        <nav>
+            <a href="../">← All Courses</a>
+            <a href="module-1.html">Module 1</a>
+            <a href="module-2.html">Module 2</a>
+            <a href="module-3.html">Module 3</a>
+            <a href="module-4.html" class="active">Module 4</a>
+            <a href="module-5.html">Module 5</a>
+            <a href="module-6.html">Module 6</a>
+            <a href="glossary.html">Glossary</a>
+            <a href="final-exam.html">Final Exam</a>
+        </nav>
+
+        <main>
+            <section>
+                <h2>Forex Is Leverage on Steroids</h2>
+                <p>Standard forex accounts offer 50:1 to 500:1 leverage. This means a 1% move can wipe 50-500% of your account. Let that sink in for a moment. A 1% move. That's nothing on a daily chart. And it can destroy you.</p>
+                <p>The #1 reason forex traders blow up is simple: overleveraging. They get excited by the big leverage, take positions that are too large, and one stop loss wipes them out. Leverage is a tool, not a superpower.</p>
+                <div class="quote">"Leverage is gasoline. Used right, it powers the engine. Used wrong, it burns the whole car down." — CreoleTrades</div>
+                <p>Your job is to respect the leverage and use it strategically. Not every trade deserves maximum leverage. In fact, most don't.</p>
+            </section>
+
+            <section>
+                <h2>Pip Values & Lot Sizing</h2>
+                <p>Before we talk about leverage, you need to understand pips and lot sizes. This is the foundation of forex position sizing.</p>
+
+                <h3>Understanding Lots</h3>
+                <p><strong>Standard Lot:</strong> 100,000 units. One pip move = $10 profit/loss (for most pairs).</p>
+                <p><strong>Mini Lot:</strong> 10,000 units. One pip move = $1 profit/loss.</p>
+                <p><strong>Micro Lot:</strong> 1,000 units. One pip move = $0.10 profit/loss.</p>
+
+                <h3>Pip Values by Pair</h3>
+                <p>Pip values vary by currency pair. Here's how to calculate them:</p>
+
+                <table class="correlation-table">
+                    <tr>
+                        <th>Pair</th>
+                        <th>Standard Lot (100k)</th>
+                        <th>Mini Lot (10k)</th>
+                        <th>Micro Lot (1k)</th>
+                    </tr>
+                    <tr>
+                        <td>EUR/USD</td>
+                        <td>$10 per pip</td>
+                        <td>$1 per pip</td>
+                        <td>$0.10 per pip</td>
+                    </tr>
+                    <tr>
+                        <td>GBP/USD</td>
+                        <td>$10 per pip</td>
+                        <td>$1 per pip</td>
+                        <td>$0.10 per pip</td>
+                    </tr>
+                    <tr>
+                        <td>USD/JPY</td>
+                        <td>$8-$10 per pip</td>
+                        <td>$0.80-$1 per pip</td>
+                        <td>$0.08-$0.10 per pip</td>
+                    </tr>
+                    <tr>
+                        <td>AUD/USD</td>
+                        <td>$10 per pip</td>
+                        <td>$1 per pip</td>
+                        <td>$0.10 per pip</td>
+                    </tr>
+                </table>
+
+                <h3>Lot Sizing Formula</h3>
+                <p><strong>Lot Size = (Account × Risk%) / (Stop Loss in Pips × Pip Value)</strong></p>
+                <p>Example: You have a $5,000 account, risk 1% ($50), stop is 50 pips, pip value is $1 (mini lots).</p>
+                <p>Lot Size = $50 / (50 pips × $1) = 1.0 mini lots (or 0.1 standard lots)</p>
+
+                <div class="vocab-grid">
+                    <div class="vocab-card">
+                        <h4>Pip</h4>
+                        <p>Percentage in point. Usually the 4th decimal place (0.0001) for most pairs, 2nd for JPY pairs.</p>
+                    </div>
+                    <div class="vocab-card">
+                        <h4>Standard Lot</h4>
+                        <p>100,000 units of the base currency. Standard position size in forex.</p>
+                    </div>
+                    <div class="vocab-card">
+                        <h4>Mini Lot</h4>
+                        <p>10,000 units of the base currency. Easier for managing risk on smaller accounts.</p>
+                    </div>
+                    <div class="vocab-card">
+                        <h4>Micro Lot</h4>
+                        <p>1,000 units of the base currency. Good for learning and testing strategies.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Leverage Management</h2>
+                <p>Just because you CAN use 100:1 leverage doesn't mean you should. Most retail traders shouldn't use more than 10:1 effective leverage. Here's why: high leverage = high volatility in your account equity. One bad week and you're done.</p>
+                <p><strong>Effective Leverage = Total Position Value / Account Equity</strong></p>
+                <p>Example: You have $5,000. You buy 1 standard lot of EUR/USD (100,000 units × $1.08 = $108,000 exposure). Effective leverage = $108,000 / $5,000 = 21.6:1. That's too high.</p>
+
+                <div class="three-step">
+                    <div class="step">
+                        <span class="step-number">1</span><span class="step-title">Check Your Effective Leverage</span>
+                        <div class="step-content">Calculate total position value by multiplying lot size × current exchange rate × units. Then divide by account equity. If it's above 10:1, you're over-leveraged. Period.</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span><span class="step-title">Adjust Lot Size to Stay Safe</span>
+                        <div class="step-content">Use the lot sizing formula above to ensure your position size keeps effective leverage under 10:1. This might mean trading mini or micro lots if you have a smaller account. That's fine. Better to be small and consistent than big and broke.</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span><span class="step-title">When Higher Leverage Is Acceptable</span>
+                        <div class="step-content">If you have a micro account ($100-$500) and use micro lots with tight 10-20 pip stops, higher leverage is acceptable because your absolute dollar risk is small. A $100 micro account with 100:1 leverage and a 20-pip stop risks $2. That's fine. But don't kid yourself—you're still at high risk of ruin.</div>
+                    </div>
+                </div>
+
+                <p><strong>The Rule:</strong> Keep effective leverage under 10:1 until you've consistently profited for 1+ years. Then you can consider higher leverage if you understand your risk.</p>
+            </section>
+
+            <section>
+                <h2>Currency Pair Correlation</h2>
+                <p>This is where most traders make a critical mistake. They think they're diversified when they're actually doubling down on the same bet.</p>
+                <p>EUR/USD and GBP/USD are positively correlated. They move together most of the time. If you go long both pairs, you're not diversifying—you're effectively doubling your USD short exposure.</p>
+                <p>EUR/USD and USD/CHF are negatively correlated. They move opposite. If you go long EUR/USD, you're effectively long EUR and short USD. If you go short USD/CHF, you're short USD and long CHF. These DON'T cancel out. You're taking on different risks.</p>
+
+                <h3>Common Forex Correlations</h3>
+                <table class="correlation-table">
+                    <tr>
+                        <th>Pair 1</th>
+                        <th>Pair 2</th>
+                        <th>Correlation</th>
+                        <th>What It Means</th>
+                    </tr>
+                    <tr>
+                        <td>EUR/USD</td>
+                        <td>GBP/USD</td>
+                        <td>Positive (+0.80)</td>
+                        <td>They move together. Long both = double USD short.</td>
+                    </tr>
+                    <tr>
+                        <td>EUR/USD</td>
+                        <td>USD/CHF</td>
+                        <td>Negative (-0.85)</td>
+                        <td>They move opposite. You're taking different bets.</td>
+                    </tr>
+                    <tr>
+                        <td>AUD/USD</td>
+                        <td>NZD/USD</td>
+                        <td>Positive (+0.75)</td>
+                        <td>Commodity-linked currencies move together.</td>
+                    </tr>
+                    <tr>
+                        <td>EUR/USD</td>
+                        <td>USD/JPY</td>
+                        <td>Negative (-0.65)</td>
+                        <td>Risk sentiment drives these opposite directions.</td>
+                    </tr>
+                </table>
+
+                <p><strong>Risk Implication:</strong> If you're trading multiple pairs, check their correlation. If they're positively correlated and you're on the same side, you're taking concentrated risk. If you're on opposite sides, make sure you're intentionally hedging, not just hedging accidentally.</p>
+            </section>
+
+            <section>
+                <h2>Session Volatility & News Risk</h2>
+                <p>Forex volatility isn't random. It clusters around trading sessions and economic news. Understanding this is critical for position sizing and timing.</p>
+
+                <h3>Trading Sessions</h3>
+                <p><strong>Sydney Session (22:00-06:00 UTC):</strong> Low volatility. Good for scalping tight ranges.</p>
+                <p><strong>Tokyo Session (00:00-09:00 UTC):</strong> Medium volatility. Asia trading. JPY pairs spike here.</p>
+                <p><strong>London Session (08:00-17:00 UTC):</strong> High volatility. The big money trades. Trends develop.</p>
+                <p><strong>New York Session (13:00-22:00 UTC):</strong> Very high volatility. Most volatile overlaps (London-NY) happen 13:00-17:00 UTC.</p>
+                <p><strong>Overlap Sessions (13:00-17:00 UTC):</strong> Peak volatility. Big moves happen here.</p>
+
+                <h3>Economic News Events</h3>
+                <p>Certain economic releases cause massive spikes. NFP (Non-Farm Payroll), FOMC decisions, ECB announcements, and central bank rate decisions can move pairs 50-100+ pips in seconds.</p>
+
+                <p><strong>Strategy:</strong> Reduce size or close positions before high-impact news. It's not worth the risk of a gap or spike. Some traders trade the news, but that's a different skill. For most swing traders, it's easier to just step aside.</p>
+
+                <p>Check the economic calendar on Forexfactory.com or your broker's calendar before trading. Identify high-impact events (red events) and plan your exits accordingly.</p>
+            </section>
+
+            <section>
+                <h2>Key Takeaways</h2>
+                <div class="key-takeaways">
+                    <ul>
+                        <li>Leverage is gasoline. It amplifies both profits and losses. Overleveraging is the #1 cause of account blowups.</li>
+                        <li>Master lot sizing using the formula: Lot Size = (Account × Risk%) / (Stop × Pip Value). Use mini or micro lots if needed.</li>
+                        <li>Keep effective leverage under 10:1. Calculate it regularly. If you're over-leveraged, reduce position size immediately.</li>
+                        <li>Understand currency pair correlation. Buying EUR/USD and GBP/USD isn't diversification—it's a doubled bet.</li>
+                        <li>Volatility clusters around London and New York sessions and major economic news. Reduce size or exit before high-impact events.</li>
+                        <li>Use the economic calendar. Check it before every trading session. Plan your exits around scheduled news.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <div class="practice-box">
+                    <h3>Practice Exercise</h3>
+                    <p>Open your forex platform right now and do this:</p>
+                    <ol>
+                        <li><strong>Check what leverage you're currently authorized for.</strong> Write it down. Is it 50:1? 100:1? 500:1?</li>
+                        <li><strong>Look at any open positions you have.</strong> For each one, calculate the effective leverage: (position value in USD / account equity).</li>
+                        <li><strong>Is effective leverage under 10:1?</strong> If not, you need to reduce position size.</li>
+                        <li><strong>Check if any of your pairs are correlated.</strong> Are EUR/USD and GBP/USD both long? That's double USD short exposure. Is that intentional?</li>
+                        <li><strong>Open the economic calendar.</strong> What high-impact events are scheduled this week? Plan your exits around them.</li>
+                    </ol>
+                    <p>This is how you stay alive in forex. Not by hoping to win, but by systematically managing risk.</p>
+                </div>
+            </section>
+
+            <section class="quiz-section">
+                <h2>Quiz: Forex Risk Management</h2>
+                <form id="quizForm">
+                    <div class="quiz-question">
+                        <p>1. What's the #1 reason forex traders blow accounts?</p>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1a" name="q1" value="a">
+                            <label for="q1a">A) Overleveraging — using too much leverage relative to account size</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1b" name="q1" value="b">
+                            <label for="q1b">B) Trading during the wrong session</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1c" name="q1" value="c">
+                            <label for="q1c">C) Not understanding pip values</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q1d" name="q1" value="d">
+                            <label for="q1d">D) Trading too many currency pairs</label>
+                        </div>
+                        <div class="quiz-explanation" id="q1-explanation"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p>2. A standard lot on EUR/USD is worth approximately $10 per pip. You have a $5,000 account risking 1%. Your stop is 25 pips. What lot size?</p>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2a" name="q2" value="a">
+                            <label for="q2a">A) 1.0 standard lot</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2b" name="q2" value="b">
+                            <label for="q2b">B) 0.20 lots (2 mini lots) — $50 risk / (25 pips × $10/pip) = 0.20</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2c" name="q2" value="c">
+                            <label for="q2c">C) 0.50 standard lots</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q2d" name="q2" value="d">
+                            <label for="q2d">D) Cannot be determined without knowing the entry price</label>
+                        </div>
+                        <div class="quiz-explanation" id="q2-explanation"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p>3. You're long EUR/USD and long GBP/USD. What's your real exposure?</p>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3a" name="q3" value="a">
+                            <label for="q3a">A) You're diversified across two pairs</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3b" name="q3" value="b">
+                            <label for="q3b">B) You're effectively double-short USD — these pairs are positively correlated</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3c" name="q3" value="c">
+                            <label for="q3c">C) You're hedged against currency risk</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q3d" name="q3" value="d">
+                            <label for="q3d">D) Your exposure is neutral</label>
+                        </div>
+                        <div class="quiz-explanation" id="q3-explanation"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p>4. What is a safe maximum effective leverage for most traders?</p>
+                        <div class="quiz-option">
+                            <input type="radio" id="q4a" name="q4" value="a">
+                            <label for="q4a">A) 50:1</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q4b" name="q4" value="b">
+                            <label for="q4b">B) 25:1</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q4c" name="q4" value="c">
+                            <label for="q4c">C) 10:1 or less</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q4d" name="q4" value="d">
+                            <label for="q4d">D) 100:1 is fine if you have a tight stop</label>
+                        </div>
+                        <div class="quiz-explanation" id="q4-explanation"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p>5. When should you reduce position size or close positions in forex?</p>
+                        <div class="quiz-option">
+                            <input type="radio" id="q5a" name="q5" value="a">
+                            <label for="q5a">A) Before high-impact news events like NFP, FOMC, or central bank decisions</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q5b" name="q5" value="b">
+                            <label for="q5b">B) During London trading session</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q5c" name="q5" value="c">
+                            <label for="q5c">C) Only if you're up 50%+ on the trade</label>
+                        </div>
+                        <div class="quiz-option">
+                            <input type="radio" id="q5d" name="q5" value="d">
+                            <label for="q5d">D) When correlation is negative</label>
+                        </div>
+                        <div class="quiz-explanation" id="q5-explanation"></div>
+                    </div>
+
+                    <button type="button" class="quiz-submit" onclick="submitQuiz()">Submit Quiz</button>
+                </form>
+
+                <div class="quiz-score" id="quizScore">
+                    <h3>Quiz Complete!</h3>
+                    <div class="score-value" id="scoreValue">0/5</div>
+                    <p id="scoreMessage"></p>
+                </div>
+            </section>
+
+            <div class="navigation-buttons">
+                <a href="module-3.html" class="nav-button">← Previous Module</a>
+                <a href="module-5.html" class="nav-button">Next Module →</a>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 STACK Academy - Risk Management Course. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        const PASSWORD_HASH = "b0f5040194da418dee6da0842006d9a22ea72928ec3c0177c4b6c9eb9007c7ea";
+        const STORAGE_KEY = "stack_risk_access";
+
+        function hashPassword(password) {
+            let hash = 0;
+            for (let i = 0; i < password.length; i++) {
+                const char = password.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return Math.abs(hash).toString(16).padStart(64, '0');
+        }
+
+        async function sha256(message) {
+            const msgUint8 = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hashHex;
+        }
+
+        async function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const password = passwordInput.value;
+            const errorDiv = document.getElementById('passwordError');
+
+            if (!password) {
+                errorDiv.textContent = 'Please enter a password';
+                return;
+            }
+
+            const hash = await sha256(password);
+
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                document.getElementById('passwordGate').classList.add('hidden');
+                document.getElementById('content').classList.add('visible');
+            } else {
+                errorDiv.textContent = 'Incorrect password. Please try again.';
+                passwordInput.value = '';
+            }
+        }
+
+        function initializeAccess() {
+            if (localStorage.getItem(STORAGE_KEY) === 'true') {
+                document.getElementById('passwordGate').classList.add('hidden');
+                document.getElementById('content').classList.add('visible');
+            }
+        }
+
+        function submitQuiz() {
+            const answers = {
+                q1: document.querySelector('input[name="q1"]:checked')?.value,
+                q2: document.querySelector('input[name="q2"]:checked')?.value,
+                q3: document.querySelector('input[name="q3"]:checked')?.value,
+                q4: document.querySelector('input[name="q4"]:checked')?.value,
+                q5: document.querySelector('input[name="q5"]:checked')?.value,
+            };
+
+            const correctAnswers = { q1: 'a', q2: 'b', q3: 'b', q4: 'c', q5: 'a' };
+            const explanations = {
+                q1: { correct: 'Correct! Overleveraging is the #1 killer. Traders take positions too large relative to their account, and one stop loss wipes them out.', incorrect: 'Incorrect. While all of these matter, overleveraging is THE #1 reason accounts blow up. A 1% move with 100:1 leverage = 100% loss.' },
+                q2: { correct: 'Correct! Use the formula: $50 risk / (25 pips × $10/pip) = 0.20 lots or 2 mini lots. This keeps risk at 1% of account.', incorrect: 'Incorrect. Calculate using the formula: Account Risk / (Stop in Pips × Pip Value). $5,000 × 1% = $50. $50 / (25 × $10) = 0.20 lots.' },
+                q3: { correct: 'Correct! EUR/USD and GBP/USD are positively correlated. Long both = doubled short USD exposure. That\'s concentration, not diversification.', incorrect: 'Incorrect. These pairs move together (positive correlation). You\'re not diversified—you\'re doubling down on a USD short bet.' },
+                q4: { correct: 'Correct! Keep effective leverage under 10:1. This protects you from account blowups from normal market moves.', incorrect: 'Incorrect. 10:1 or less is the safe level for most traders. Higher leverage sounds exciting but dramatically increases risk of ruin.' },
+                q5: { correct: 'Correct! NFP, FOMC, ECB, and rate decisions cause massive spikes. Step aside before these events or reduce position size drastically.', incorrect: 'Incorrect. High-impact news events are when you should reduce size or close. The risk/reward isn\'t worth the potential 50-100+ pip spike.' }
+            };
+
+            let score = 0;
+            for (const [question, answer] of Object.entries(answers)) {
+                const isCorrect = answer === correctAnswers[question];
+                if (isCorrect) score++;
+
+                const explanationDiv = document.getElementById(`${question}-explanation`);
+                explanationDiv.textContent = isCorrect ? explanations[question].correct : explanations[question].incorrect;
+                explanationDiv.classList.add('show');
+                explanationDiv.classList.add(isCorrect ? 'correct' : 'incorrect');
+            }
+
+            document.getElementById('scoreValue').textContent = `${score}/5`;
+            const percentage = (score / 5) * 100;
+            let message = '';
+            if (percentage === 100) {
+                message = 'Perfect score! You understand forex leverage and risk at an expert level.';
+            } else if (percentage >= 80) {
+                message = 'Great job! You have solid fundamentals. Review explanations for any you missed.';
+            } else if (percentage >= 60) {
+                message = 'Good effort. Review leverage and correlation concepts before Module 5.';
+            } else {
+                message = 'Review this module carefully. Forex leverage is critical to survival.';
+            }
+            document.getElementById('scoreMessage').textContent = message;
+            document.getElementById('quizScore').classList.add('show');
+            document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') checkPassword();
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeAccess);
+    </script>
+</body>
+</html>

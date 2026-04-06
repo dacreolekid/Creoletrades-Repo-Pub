@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Management Glossary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #070C18;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .password-gate.hidden {
+            display: none;
+        }
+
+        .password-container {
+            background-color: #0D1526;
+            padding: 60px 40px;
+            border-radius: 0px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .password-container h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .password-container p {
+            color: #C8D4E8;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 15px;
+            background-color: #070C18;
+            border: 1px solid #6B84AA;
+            border-radius: 0px;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #C9A84C;
+        }
+
+        .password-btn {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .password-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .password-error {
+            color: #EF4444;
+            margin-top: 15px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
+        .password-help {
+            margin-top: 20px;
+            border-top: 1px solid #6B84AA;
+            padding-top: 20px;
+        }
+
+        .password-help a {
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .password-help a:hover {
+            color: #F0D080;
+        }
+
+        #course-content {
+            display: none;
+        }
+
+        #course-content.visible {
+            display: block;
+        }
+
+        header {
+            background-color: #0D1526;
+            padding: 2rem;
+            border-bottom: 1px solid #C9A84C;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #EEF2FF;
+            margin-bottom: 0.5rem;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        nav {
+            background-color: #0D1526;
+            padding: 1rem 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #0F1A2E;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            background-color: #0F1A2E;
+            color: #F0D080;
+        }
+
+        nav a.active {
+            color: #C9A84C;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem 2rem;
+        }
+
+        .intro {
+            background-color: #0D1526;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .intro p {
+            color: #C8D4E8;
+            font-size: 1.05rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .vocab-card {
+            background-color: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 1.5rem;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+        }
+
+        .vocab-card:hover {
+            background-color: #0F1A2E;
+            border-color: #F0D080;
+        }
+
+        .vocab-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: #F0D080;
+            margin-bottom: 0.5rem;
+        }
+
+        .vocab-card .module-ref {
+            font-size: 0.75rem;
+            color: #6B84AA;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .vocab-card p {
+            color: #C8D4E8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #6B84AA;
+            font-size: 0.9rem;
+            border-top: 1px solid #0F1A2E;
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate" id="passwordGate">
+        <div class="password-container">
+            <h2>Access Glossary</h2>
+            <p>Enter your password to access the Risk Management Glossary</p>
+            <input type="password" id="passwordInput" class="password-input" placeholder="Password">
+            <button class="password-btn" onclick="checkPassword()">Access Course</button>
+            <div class="password-error" id="passwordError">Incorrect password. Try again.</div>
+            <div class="password-help">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="course-content">
+        <header>
+            <div class="module-badge">Glossary</div>
+            <h1>Risk Management Glossary</h1>
+        </header>
+
+        <nav>
+            <a href="../">← All Courses</a>
+            <a href="module-1.html">Module 1</a>
+            <a href="module-2.html">Module 2</a>
+            <a href="module-3.html">Module 3</a>
+            <a href="module-4.html">Module 4</a>
+            <a href="module-5.html">Module 5</a>
+            <a href="module-6.html">Module 6</a>
+            <a href="glossary.html" class="active">Glossary</a>
+            <a href="final-exam.html">Final Exam</a>
+        </nav>
+
+        <div class="container">
+        <div class="intro">
+            <p>A comprehensive reference of key terms used throughout the Risk Management course. Each term is defined in plain language and cross-referenced to the module where it's covered in depth.</p>
+        </div>
+
+        <div class="vocab-grid">
+            <!-- MODULE 1: FOUNDATIONS -->
+            <div class="vocab-card">
+                <h3>Risk-to-Reward Ratio</h3>
+                <div class="module-ref">Module 1: Foundations</div>
+                <p>The relationship between the amount of capital you risk and the potential profit on a trade. A 1:3 ratio means you risk $1 to make $3. Favorable R:R ratios are essential for long-term profitability.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Stop Loss</h3>
+                <div class="module-ref">Module 1: Foundations</div>
+                <p>A predetermined price level where you exit a losing trade to prevent further losses. Setting a stop loss is a cornerstone of disciplined risk management and defines your maximum loss per trade.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Take Profit</h3>
+                <div class="module-ref">Module 1: Foundations</div>
+                <p>A predetermined price level where you exit a winning trade to lock in profits. Take profit targets ensure you capture gains rather than holding winners until they become losers.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Position Size</h3>
+                <div class="module-ref">Module 1: Foundations</div>
+                <p>The number of shares, contracts, or units you trade per entry. Proper position sizing ensures your risk per trade matches your account size and trading plan, preventing catastrophic losses.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Portfolio Heat</h3>
+                <div class="module-ref">Module 1: Foundations</div>
+                <p>The total percentage of capital at risk across all open positions. Managing heat prevents over-leveraging and ensures you never risk too much of your account on a single market move.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Max Drawdown</h3>
+                <div class="module-ref">Module 1: Foundations</div>
+                <p>The largest peak-to-trough decline in your account balance over a specified period. Understanding your maximum drawdown helps you mentally prepare for downturns and size trades accordingly.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Risk Budget</h3>
+                <div class="module-ref">Module 1: Foundations</div>
+                <p>The total amount of capital allocated for losses during a trading session, day, week, or month. Once your risk budget is exhausted, you stop trading until the period resets.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Expected Value</h3>
+                <div class="module-ref">Module 1: Foundations</div>
+                <p>The average profit or loss per trade calculated from your win rate and risk-reward ratio. Positive expected value over time is the only way to achieve consistent profitability.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>1% Rule</h3>
+                <div class="module-ref">Module 1: Foundations</div>
+                <p>A foundational rule stating you should never risk more than 1% of your account on a single trade. This rule protects you from catastrophic losses and ensures survival across multiple losing trades.</p>
+            </div>
+
+            <!-- MODULE 2: EQUITIES -->
+            <div class="vocab-card">
+                <h3>Gap Risk</h3>
+                <div class="module-ref">Module 2: Equities</div>
+                <p>The risk that a stock opens far away from the previous close, potentially gapping through your stop loss. Gap risk is highest around earnings announcements, economic data, and corporate news.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Circuit Breaker</h3>
+                <div class="module-ref">Module 2: Equities</div>
+                <p>An automated trading halt triggered when an index drops sharply in a short time. Circuit breakers give the market time to cool during extreme moves and can trap you if you're caught wrong.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Trailing Stop</h3>
+                <div class="module-ref">Module 2: Equities</div>
+                <p>A dynamic stop loss that follows the price upward but stays fixed when price falls. Trailing stops lock in profits while allowing winners to run, adapting to market momentum.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Hard Stop</h3>
+                <div class="module-ref">Module 2: Equities</div>
+                <p>A stop loss order entered into your broker at market execution to guarantee exit. Hard stops execute automatically, preventing emotional hesitation during losing trades.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Mental Stop</h3>
+                <div class="module-ref">Module 2: Equities</div>
+                <p>A stop loss you track mentally but don't enter into your broker. Mental stops require high discipline and are prone to override. Always favor hard stops over mental discipline.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Sector Correlation</h3>
+                <div class="module-ref">Module 2: Equities</div>
+                <p>The degree to which stocks in the same sector move together. High correlation means your diversification is false; holding multiple correlated positions creates concentrated risk.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Earnings Risk</h3>
+                <div class="module-ref">Module 2: Equities</div>
+                <p>The risk of sharp price moves when a company reports quarterly earnings. Earnings risk can be managed by reducing position size ahead of reports or avoiding earnings-week trades entirely.</p>
+            </div>
+
+            <!-- MODULE 3: OPTIONS -->
+            <div class="vocab-card">
+                <h3>Delta</h3>
+                <div class="module-ref">Module 3: Options</div>
+                <p>The rate at which an option's price changes relative to the underlying stock price. A delta of 0.5 means the option moves $0.50 for every $1 move in the stock; delta ranges from 0 to 1 for calls.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Theta</h3>
+                <div class="module-ref">Module 3: Options</div>
+                <p>The rate at which an option loses value as time passes (time decay). Theta accelerates as expiration approaches; selling options benefits from theta while buying options suffers from it.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Gamma</h3>
+                <div class="module-ref">Module 3: Options</div>
+                <p>The rate of change of delta itself, measuring how delta accelerates. High gamma means your delta hedge needs constant rebalancing; gamma risk increases as options approach expiration.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Vega</h3>
+                <div class="module-ref">Module 3: Options</div>
+                <p>The rate at which an option's price changes relative to changes in implied volatility. Long options benefit from rising volatility; short options benefit from falling volatility. Vega risk is significant in high IV environments.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>ITM (In-The-Money)</h3>
+                <div class="module-ref">Module 3: Options</div>
+                <p>An option with intrinsic value: a call with strike below the stock price or a put with strike above the stock price. ITM options have higher delta, lower vega, and higher assignment risk.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>ATM (At-The-Money)</h3>
+                <div class="module-ref">Module 3: Options</div>
+                <p>An option with strike equal to or very close to the current stock price. ATM options have delta near 0.5, peak gamma, and peak vega, making them the most volatile per price move.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>OTM (Out-of-The-Money)</h3>
+                <div class="module-ref">Module 3: Options</div>
+                <p>An option with no intrinsic value: a call with strike above the stock price or a put with strike below the stock price. OTM options have lower delta, lower cost, and zero assignment risk.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Premium</h3>
+                <div class="module-ref">Module 3: Options</div>
+                <p>The price paid or received for an option contract, composed of intrinsic value plus time value. Premium decays over time due to theta; selling premium benefits from time decay.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Assignment Risk</h3>
+                <div class="module-ref">Module 3: Options</div>
+                <p>The risk that an option you sold gets exercised early, forcing you to buy or sell the underlying. Assignment risk is highest for ITM short options, especially before ex-dividend dates.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Credit Spread</h3>
+                <div class="module-ref">Module 3: Options</div>
+                <p>A spread where you sell a higher-premium option and buy a lower-premium option (same expiration, same underlying). Max profit is the credit received; max loss is limited but can exceed margin.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Max Loss</h3>
+                <div class="module-ref">Module 3: Options</div>
+                <p>The maximum dollar amount you can lose on an options trade. For spreads, max loss equals the spread width minus premium received. Knowing max loss is critical for position sizing.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>DTE (Days To Expiration)</h3>
+                <div class="module-ref">Module 3: Options</div>
+                <p>The number of calendar days remaining until an option contract expires. Theta accelerates with lower DTE; most time decay happens in the final 2 weeks before expiration.</p>
+            </div>
+
+            <!-- MODULE 4: FOREX -->
+            <div class="vocab-card">
+                <h3>Pip</h3>
+                <div class="module-ref">Module 4: Forex</div>
+                <p>The smallest unit of price movement in a currency pair, typically 0.0001 for major pairs. One pip move on 1 standard lot equals $10; pips are the building blocks of forex risk calculations.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Standard Lot</h3>
+                <div class="module-ref">Module 4: Forex</div>
+                <p>A forex position size of 100,000 units of the base currency. A standard lot carries the highest pip value ($10 per pip for major pairs) and requires significant capital and risk management.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Mini Lot</h3>
+                <div class="module-ref">Module 4: Forex</div>
+                <p>A forex position size of 10,000 units of the base currency, one-tenth of a standard lot. A mini lot equals $1 per pip for major pairs, making it ideal for learning and risk management.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Micro Lot</h3>
+                <div class="module-ref">Module 4: Forex</div>
+                <p>A forex position size of 1,000 units of the base currency, one-hundredth of a standard lot. A micro lot equals $0.10 per pip for major pairs and is perfect for precise 1% rule execution.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Pip Value</h3>
+                <div class="module-ref">Module 4: Forex</div>
+                <p>The dollar value of a one-pip move for a given lot size. Pip value scales with lot size; knowing pip value is essential for calculating risk per trade and proper position sizing.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Effective Leverage</h3>
+                <div class="module-ref">Module 4: Forex</div>
+                <p>Your actual leverage based on position size relative to account equity, not the broker's offered leverage. A $10k account trading 1 standard lot has 10:1 leverage; prudent traders use far less.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Currency Correlation</h3>
+                <div class="module-ref">Module 4: Forex</div>
+                <p>The degree to which two currency pairs move together. Highly correlated pairs (like EURUSD and GBPUSD) create false diversification; managing correlation prevents concentration risk.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Margin Call</h3>
+                <div class="module-ref">Module 4: Forex</div>
+                <p>A broker's demand to deposit additional funds when your account equity falls below required margin. Margin calls force liquidation of positions at bad prices; maintaining excess margin is critical.</p>
+            </div>
+
+            <!-- MODULE 5: CRYPTO -->
+            <div class="vocab-card">
+                <h3>Liquidation Price</h3>
+                <div class="module-ref">Module 5: Crypto</div>
+                <p>The price level where your leveraged position is automatically closed due to insufficient margin. Understanding your liquidation price is mandatory before entering any leveraged trade in crypto.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Funding Rate</h3>
+                <div class="module-ref">Module 5: Crypto</div>
+                <p>A periodic payment exchanged between long and short traders on perpetual futures contracts. High positive funding rates indicate a crowded long market and represent a cost to your position; they can turn profitable trades negative.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Cold Storage</h3>
+                <div class="module-ref">Module 5: Crypto</div>
+                <p>Storing cryptocurrency offline in hardware wallets or paper wallets to prevent exchange hacks. Cold storage eliminates custodial risk but requires careful key management and backup procedures.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Custodial Risk</h3>
+                <div class="module-ref">Module 5: Crypto</div>
+                <p>The risk that an exchange or custodian loses, mishandles, or steals your crypto assets. Major exchanges have been hacked (Mt. Gox, FTX); only keep active trading capital on exchanges.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Smart Contract Risk</h3>
+                <div class="module-ref">Module 5: Crypto</div>
+                <p>The risk that code flaws in DeFi protocols cause unintended behavior and loss of funds. New protocols are highest risk; audits reduce but don't eliminate smart contract risk.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Impermanent Loss</h3>
+                <div class="module-ref">Module 5: Crypto</div>
+                <p>The loss in dollar value when you provide liquidity to an AMM and one asset appreciates significantly more than the other. Impermanent loss is real and must be offset by trading fees to break even.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Rug Pull</h3>
+                <div class="module-ref">Module 5: Crypto</div>
+                <p>A scam where developers drain liquidity pools or lock holders' tokens and disappear with funds. Rug pulls are common in unverified DeFi projects; only participate in audited protocols with real teams.</p>
+            </div>
+
+            <!-- MODULE 6: PSYCHOLOGY -->
+            <div class="vocab-card">
+                <h3>Revenge Trading</h3>
+                <div class="module-ref">Module 6: Psychology</div>
+                <p>The dangerous impulse to immediately re-enter the market after a loss to "get even." Revenge trading ignores your trading plan and leads to larger losses; the cure is a mandatory pause after hitting your daily loss limit.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>FOMO</h3>
+                <div class="module-ref">Module 6: Psychology</div>
+                <p>Fear of Missing Out—the impulse to chase a trade late because you fear missing profits. FOMO kills risk management; every trade either fits your plan or doesn't, regardless of how much money others are making.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Overtrading</h3>
+                <div class="module-ref">Module 6: Psychology</div>
+                <p>Taking more trades than your system generates or your account size supports. Overtrading reduces win rate through poor execution and increases fees; quality over quantity always.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Drawdown Recovery</h3>
+                <div class="module-ref">Module 6: Psychology</div>
+                <p>The psychological and mathematical challenge of recovering from losses. A 20% drawdown requires a 25% gain to break even; understanding this ratio prevents over-aggressive recovery attempts.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Trading Journal</h3>
+                <div class="module-ref">Module 6: Psychology</div>
+                <p>A detailed record of every trade including entry, exit, reasoning, and result. Journaling enables objective analysis of your edge and prevents emotional decisions from repeating failures.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Risk-On/Risk-Off</h3>
+                <div class="module-ref">Module 6: Psychology</div>
+                <p>Market sentiment cycles where traders either buy risky assets (risk-on) or shift to safe havens (risk-off). Understanding the macro cycle helps you adjust position sizing and hedge ratios appropriately.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Hedging</h3>
+                <div class="module-ref">Module 6: Psychology</div>
+                <p>Taking an offsetting position to reduce risk in another position. A hedge reduces both downside risk and upside profit; hedging is insurance, not a free lunch.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Beta</h3>
+                <div class="module-ref">Module 6: Psychology</div>
+                <p>A measure of how much an asset moves relative to the overall market. High-beta assets (like growth stocks or leveraged crypto) amplify market moves and increase portfolio volatility.</p>
+            </div>
+
+            <div class="vocab-card">
+                <h3>Correlation</h3>
+                <div class="module-ref">Module 6: Psychology</div>
+                <p>The degree to which two assets move together, ranging from -1 (perfectly inverse) to +1 (perfectly together). True diversification requires low or negative correlation between holdings.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 STACK Academy. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        const PASSWORD_HASH = "b0f5040194da418dee6da0842006d9a22ea72928ec3c0177c4b6c9eb9007c7ea";
+        const STORAGE_KEY = "stack_risk_access";
+
+        function sha256(str) {
+            return new Promise(resolve => {
+                const buffer = new TextEncoder().encode(str);
+                crypto.subtle.digest('SHA-256', buffer).then(hashBuffer => {
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                    resolve(hashHex);
+                });
+            });
+        }
+
+        async function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const errorDiv = document.getElementById('passwordError');
+            const hash = await sha256(passwordInput.value);
+
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                document.getElementById('passwordGate').classList.add('hidden');
+                document.getElementById('course-content').classList.add('visible');
+            } else {
+                errorDiv.classList.add('show');
+                passwordInput.value = '';
+                setTimeout(() => errorDiv.classList.remove('show'), 3000);
+            }
+        }
+
+        function checkAccess() {
+            if (localStorage.getItem(STORAGE_KEY) !== 'true') {
+                document.getElementById('passwordGate').classList.remove('hidden');
+                document.getElementById('course-content').classList.remove('visible');
+            } else {
+                document.getElementById('passwordGate').classList.add('hidden');
+                document.getElementById('course-content').classList.add('visible');
+            }
+        }
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        window.addEventListener('load', checkAccess);
+
+        // Set active nav link
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector('nav a[href="glossary.html"]').classList.add('active');
+        });
+    </script>
+</body>
+</html>
