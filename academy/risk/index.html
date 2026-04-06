@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Management Course — STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: #070C18;
+            border-bottom: 1px solid #0D1526;
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #C9A84C;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            color: #C9A84C;
+            border-bottom-color: #C9A84C;
+        }
+
+        .back-link {
+            color: #C8D4E8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-left: auto;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #C9A84C;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: #070C18;
+            padding: 4rem 2rem;
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #EEF2FF;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #C8D4E8;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Lora', serif;
+        }
+
+        .cta-button:hover {
+            background-color: #F0D080;
+            transform: translateY(-2px);
+        }
+
+        /* Course Overview */
+        .overview {
+            background-color: #070C18;
+            padding: 4rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .overview h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #EEF2FF;
+            margin-bottom: 1.5rem;
+        }
+
+        .overview p {
+            color: #C8D4E8;
+            font-size: 1rem;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Module Cards Grid */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .module-card {
+            background-color: #0D1526;
+            padding: 2rem;
+            border: 1px solid #1a2847;
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            background-color: #141c2f;
+            border-color: #C9A84C;
+        }
+
+        .module-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #C9A84C;
+            margin-bottom: 0.5rem;
+        }
+
+        .module-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: #EEF2FF;
+            margin-bottom: 1rem;
+        }
+
+        .module-card p {
+            color: #C8D4E8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* What's Included Section */
+        .whats-included {
+            background-color: #070C18;
+            padding: 4rem 2rem;
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .whats-included h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #EEF2FF;
+            margin-bottom: 2rem;
+        }
+
+        .included-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .included-item {
+            color: #C8D4E8;
+            font-size: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .included-item::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #22C55E;
+            font-weight: bold;
+        }
+
+        /* Why Risk Management Section */
+        .why-section {
+            background-color: #070C18;
+            padding: 4rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .why-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #EEF2FF;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .callout-box {
+            background-color: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 2rem;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #EEF2FF;
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background-color: #070C18;
+            padding: 4rem 2rem;
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #C9A84C;
+            margin-bottom: 1rem;
+        }
+
+        .pricing p {
+            color: #C8D4E8;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0D1526;
+            border-top: 1px solid #1a2847;
+            padding: 2rem;
+            text-align: center;
+            color: #6B84AA;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #C9A84C;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            nav {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .back-link {
+                margin-left: 0;
+            }
+
+            .overview h2,
+            .whats-included h2,
+            .why-section h2,
+            .pricing h2 {
+                font-size: 1.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">STACK Academy</div>
+            <nav>
+                <a href="https://creoletrades.com">Home</a>
+                <a href="/blog">Blog</a>
+                <a href="https://discord.gg/gzxcV6HDTM">Discord</a>
+                <a href="https://www.youtube.com/@Creole_Trades">YouTube</a>
+            </nav>
+            <a href="../" class="back-link">← All Courses</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Master Risk Management Across All Markets</h1>
+        <p>Options. Equities. Forex. Crypto. One course that teaches you to protect your capital in any market — because the best traders aren't the ones who win the most, they're the ones who lose the least.</p>
+        <a href="#STRIPE_RISK_LINK" class="cta-button">Enroll Now — $97</a>
+    </section>
+
+    <!-- Course Overview -->
+    <section class="overview">
+        <h2>What This Course Covers</h2>
+        <p>Risk management is the cornerstone of sustainable trading success. Whether you're trading stocks, options, forex, or crypto, the principles remain the same: protect your capital first, then profit. This comprehensive course teaches you how to size positions correctly, calculate maximum losses, understand correlation, and maintain the emotional discipline that separates professional traders from the rest.</p>
+    </section>
+
+    <!-- Module Cards -->
+    <section class="modules-grid">
+        <div class="module-card">
+            <div class="module-number">01</div>
+            <h3>Risk Management Foundations</h3>
+            <p>Position sizing, R:R ratios, portfolio heat, and the 1% rule. Master the fundamentals that apply across all markets.</p>
+        </div>
+        <div class="module-card">
+            <div class="module-number">02</div>
+            <h3>Equities Risk Management</h3>
+            <p>Gap risk, stop losses, sector correlation, and earnings season volatility. Protect your stock positions.</p>
+        </div>
+        <div class="module-card">
+            <div class="module-number">03</div>
+            <h3>Options Risk Management</h3>
+            <p>The Greeks, theta decay, max loss calculations, and spread mechanics. Master options-specific risk.</p>
+        </div>
+        <div class="module-card">
+            <div class="module-number">04</div>
+            <h3>Forex Risk Management</h3>
+            <p>Leverage, pip values, lot sizing, and currency correlation. Trade forex with precision.</p>
+        </div>
+        <div class="module-card">
+            <div class="module-number">05</div>
+            <h3>Crypto Risk Management</h3>
+            <p>Volatility sizing, exchange risk, DeFi mechanics, and leverage limits. Navigate crypto markets safely.</p>
+        </div>
+        <div class="module-card">
+            <div class="module-number">06</div>
+            <h3>Portfolio Risk & Trading Psychology</h3>
+            <p>Drawdowns, correlation, journaling, and emotional discipline. Build the mental framework for consistency.</p>
+        </div>
+    </section>
+
+    <!-- What's Included -->
+    <section class="whats-included">
+        <h2>What's Included</h2>
+        <div class="included-list">
+            <div class="included-item">6 comprehensive modules</div>
+            <div class="included-item">30 quiz questions</div>
+            <div class="included-item">20-question final exam</div>
+            <div class="included-item">Complete glossary</div>
+            <div class="included-item">Discord community access</div>
+            <div class="included-item">Lifetime access to updates</div>
+        </div>
+    </section>
+
+    <!-- Why Risk Management -->
+    <section class="why-section">
+        <h2>Why Risk Management?</h2>
+        <div class="callout-box">
+            Most traders focus on entries. The pros focus on risk. A 75% win rate means nothing if one bad loss wipes out 10 good trades.
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing">
+        <h2>$97</h2>
+        <p>One-Time Payment, Lifetime Access</p>
+        <a href="#STRIPE_RISK_LINK" class="cta-button">Complete Your Enrollment</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 CreoleTrades. <a href="https://creoletrades.com">creoletrades.com</a> | <a href="../">Back to Catalog</a></p>
+        <p>Stay STACKED. ⚜️</p>
+    </footer>
+</body>
+</html>
