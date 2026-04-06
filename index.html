@@ -2309,7 +2309,7 @@
 </div>
 
 <!-- ══════════════ SCRIPTS ══════════════ -->
-<script>
+<script data-cfasync="false">
   /* ── CONFIG ── */
   const YT_CHANNEL_ID    = "UCli2uMiGU1r4A4kTamj6zlw";
   const YT_API_KEY       = "AIzaSyA8Bpj1j7etoAj647d9PyRVQ4Y8ui5OMf4";
@@ -2473,7 +2473,11 @@
   });
 
   /* ── Init ── */
-  document.addEventListener("DOMContentLoaded", loadLatestVideo);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", loadLatestVideo);
+  } else {
+    loadLatestVideo();
+  }
 </script>
 <!-- MailerLite -->
 
