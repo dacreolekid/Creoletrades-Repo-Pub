@@ -2312,6 +2312,7 @@
 <script>
   /* ── CONFIG ── */
   const YT_CHANNEL_ID    = "UCli2uMiGU1r4A4kTamj6zlw";
+  const YT_API_KEY       = "AIzaSyA8Bpj1j7etoAj647d9PyRVQ4Y8ui5OMf4";
   const FORMSPREE        = "https://formspree.io/f/xgolbebw";
 
   /* ── NAV scroll ── */
@@ -2352,19 +2353,28 @@
     if (!isOpen) item.classList.add("open");
   }
 
-  /* ── YouTube latest video ── */
+  /* ── YouTube latest video (YouTube Data API v3) ── */
   async function loadLatestVideo() {
-    const rssFeed = "https://www.youtube.com/feeds/videos.xml?channel_id=" + YT_CHANNEL_ID;
-    const apiUrl  = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(rssFeed);
+    const searchUrl = "https://www.googleapis.com/youtube/v3/search"
+      + "?key=" + YT_API_KEY
+      + "&channelId=" + YT_CHANNEL_ID
+      + "&part=snippet"
+      + "&order=date"
+      + "&maxResults=1"
+      + "&type=video";
     try {
-      const res  = await fetch(apiUrl);
+      const res  = await fetch(searchUrl);
+      if (!res.ok) throw new Error("YouTube API error: " + res.status);
       const data = await res.json();
-      if (data.status !== "ok" || !data.items || !data.items.length) throw new Error();
+      if (!data.items || !data.items.length) throw new Error("No videos found");
 
-      const v      = data.items[0];
-      const vidId  = (v.link.split("v=")[1] || "").split("&")[0];
-      const date   = new Date(v.pubDate).toLocaleDateString("en-US", { year:"numeric", month:"long", day:"numeric" });
-      const desc   = (v.description || "").replace(/<[^>]+>/g, "").slice(0, 280);
+      const item    = data.items[0];
+      const vidId   = item.id.videoId;
+      const snippet = item.snippet;
+      const title   = snippet.title;
+      const desc    = (snippet.description || "").slice(0, 280);
+      const date    = new Date(snippet.publishedAt).toLocaleDateString("en-US", { year:"numeric", month:"long", day:"numeric" });
+      const link    = "https://www.youtube.com/watch?v=" + vidId;
 
       document.getElementById("yt-loading").style.display = "none";
 
@@ -2378,13 +2388,14 @@
         </div>
         <div>
           <span class="yt-badge">Latest Upload</span>
-          <div class="yt-vtitle">${v.title}</div>
+          <div class="yt-vtitle">${title}</div>
           <div class="yt-date">Published ${date}</div>
           <div class="yt-vdesc">${desc}…</div>
-          <a href="${v.link}" target="_blank" rel="noopener noreferrer" class="btn btn-spice">Watch on YouTube</a>
+          <a href="${link}" target="_blank" rel="noopener noreferrer" class="btn btn-spice">Watch on YouTube</a>
         </div>
       `;
-    } catch {
+    } catch (err) {
+      console.warn("loadLatestVideo:", err);
       document.getElementById("yt-loading").innerHTML =
         '<em style="color:var(--muted)">Could not load latest video. <a href="https://www.youtube.com/@Creole_Trades" target="_blank" style="color:var(--firefly)">Visit the channel →</a></em>';
     }
