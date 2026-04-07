@@ -5,7 +5,7 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.youtube.com; connect-src 'self' https://www.googleapis.com https://formspree.io https://www.youtube.com; upgrade-insecure-requests;
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.youtube.com; connect-src 'self' https://www.googleapis.com https://formspree.io https://www.youtube.com https://cloudflareinsights.com; upgrade-insecure-requests;
   Cross-Origin-Opener-Policy: same-origin-allow-popups
 
   # ── Performance: cache everything by default for 1 hour ──
@@ -41,6 +41,10 @@
   Cache-Control: public, max-age=604800, must-revalidate
 /*.js
   Cache-Control: public, max-age=604800, must-revalidate
+
+# ── roux-bot.js — short cache so chatbot updates propagate fast ──
+/roux-bot.js
+  Cache-Control: public, max-age=300, must-revalidate
 
 # ── 404 page — never cache ──
 /404.html
