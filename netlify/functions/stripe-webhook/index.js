@@ -28,7 +28,7 @@ const PRODUCTS = {
         <div style="text-align:center;margin-bottom:30px;">
           <span style="font-size:2rem;">⚜</span>
           <h1 style="font-family:Georgia,serif;color:#F0D080;font-size:1.5rem;margin:10px 0 5px;">Welcome to STACKED: Mastery</h1>
-          <p style="color:#5A7099;font-size:0.85rem;margin:0;">CreoleTrades — Where Southern Grit Meets Clarity</p>
+          <p style="color:#5A7099;font-size:0.85rem;margin:0;">CreoleTrades — The Trading Roux</p>
         </div>
         <p style="line-height:1.8;">Hey ${name || 'STACKer'},</p>
         <p style="line-height:1.8;">Welcome to the inner circle. Your STACKED: Mastery subscription is confirmed and your 4 coaching sessions with Que are ready to book.</p>
@@ -73,7 +73,7 @@ const PRODUCTS = {
         <div style="text-align:center;margin-bottom:30px;">
           <span style="font-size:2rem;">⚜</span>
           <h1 style="font-family:Georgia,serif;color:#F0D080;font-size:1.5rem;margin:10px 0 5px;">STACKED: Mastery Silver Confirmed</h1>
-          <p style="color:#5A7099;font-size:0.85rem;margin:0;">CreoleTrades — Where Southern Grit Meets Clarity</p>
+          <p style="color:#5A7099;font-size:0.85rem;margin:0;">CreoleTrades — The Trading Roux</p>
         </div>
         <p style="line-height:1.8;">Hey ${name || 'STACKer'},</p>
         <p style="line-height:1.8;">Your STACKED: Mastery Silver session is locked in. You've got 60 minutes of direct coaching with Que — bring your charts, your questions, and your trade journal.</p>
@@ -154,18 +154,21 @@ function identifyProduct(event) {
   const amount = session.amount_total || session.amount || 0;
 
   // Match Mastery Silver first (more specific)
+  // Covers all 3 flavors: $99 Entry one-time, $99 Add-On one-time, $189/mo recurring
   if (
     PRODUCTS.masterySilver.keywords.some(k => productName.includes(k)) ||
-    amount === 9999 // $99.99 in cents
+    amount === 9900 ||  // $99.00 one-time (Entry or Add-On)
+    amount === 18900    // $189.00/mo recurring (2 sessions/month)
   ) {
     return 'masterySilver';
   }
 
-  // Match Mastery
+  // Match Mastery (STACKED: Mastery — billed via MEE6 monthly at $399,
+  // amount fallback here only triggers if a Mastery purchase ever flows through Stripe directly)
   if (
     (PRODUCTS.mastery.keywords.some(k => productName.includes(k)) &&
      !PRODUCTS.mastery.exclude.some(k => productName.includes(k))) ||
-    amount === 39999 // $399.99 in cents
+    amount === 39900 // $399.00 in cents
   ) {
     return 'mastery';
   }
