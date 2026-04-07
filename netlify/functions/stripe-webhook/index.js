@@ -6,9 +6,9 @@
    based on which product they purchased (Mastery or Mastery Silver).
 
    Env vars required in Netlify:
-     STRIPE_WEBHOOK_SECRET  — Stripe webhook signing secret (whsec_...)
-     GMAIL_USER             — Gmail address (qilion24@gmail.com)
-     GMAIL_APP_PASSWORD     — Google App Password (16-char, no spaces)
+     STRIPE_WEBHOOK_SECRET  — Stripe webhook signing secret
+     GMAIL_USER             — Sending Gmail address (set in Netlify dashboard)
+     GMAIL_APP_PASSWORD     — Google App Password (set in Netlify dashboard)
    ============================================================ */
 
 const crypto = require('crypto');
