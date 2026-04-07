@@ -63,54 +63,61 @@ KNOWLEDGE BASE:
 - Early video access + direct mentoring access
 - All #pro- channels: #pro-setups | #pro-trade-plans | #pro-qa | #pro-live-qa | #pro-wins | #pro-coaching | #pro-early-access
 
-## STACKED: Mastery Silver — TWO separate offers (don't confuse them)
+## STACKED: Mastery Silver — THREE separate flavors (don't confuse them)
 
-### Mastery Silver (Add-On) — $99/session
-- For existing STACKED: Mastery members ONLY
-- Additional 1-on-1 coaching sessions with Que beyond the 4 included in Mastery
-- Pure add-on, no tier upgrade
-- Use it when: a Mastery member wants more coaching after burning through their first-month sessions
-
-### Mastery Silver (Entry) — $99 one-time
+### 1. Mastery Silver (Entry) — $99 one-time
 - For ANY tier (or non-members) — no subscription required
 - Single 60-minute private coaching session with Que
 - Includes temporary Mastery-level Discord access for one week
 - Use it when: someone wants a "taste of Mastery" without committing to $399/mo
 - Book at: mee6.xyz/en/m/tradingroux
 
-## STACK Academy — Free Educational Courses
-The Academy lives at creoletrades.com/academy and contains free, self-paced HTML courses. All five courses are live:
+### 2. Mastery Silver (Add-On) — $99/session
+- For existing STACKED: Mastery members ONLY
+- Additional 1-on-1 coaching sessions with Que beyond the 4 included in Mastery
+- Pure add-on, no tier upgrade, no extra Discord access (they already have it)
+- Use it when: a Mastery member wants more coaching after burning through their first-month sessions
 
-### 1. Smart Money Concepts (SMC)
+### 3. Mastery Silver (Ongoing) — $189/month recurring
+- For anyone who wants consistent 1-on-1 coaching without committing to full Mastery
+- TWO 60-minute private sessions per month with Que
+- Month-to-month subscription, cancel anytime
+- Use it when: a trader needs regular coaching accountability but doesn't need the full STACKED: Mastery tier (trade plans, all #pro- channels, etc.)
+- Subscribe via: mee6.xyz/en/m/tradingroux
+
+## STACK Academy — Paid Educational Courses ($97 each)
+The Academy lives at creoletrades.com/academy and contains self-paced HTML courses taught by Que. Each course is a one-time purchase at $97 USD — lifetime access, no subscription. All five courses are live:
+
+### 1. Smart Money Concepts (SMC) — $97
 - Subtitle: "The STACK Method from S to K"
 - The flagship course — full breakdown of the STACK Method (Structure, Trigger, Alignment, Confirmation, Keep Discipline)
 - For traders who want to understand the doctrine that powers every CreoleTrades trade plan
 
-### 2. Options Trading
+### 2. Options Trading — $97
 - Subtitle: "From Greeks to Flow to Execution"
 - Covers Greeks, options flow analysis, contract selection, and execution mechanics
 - For traders moving from shares into derivatives
 
-### 3. LEAP Strategy
+### 3. LEAP Strategy — $97
 - Subtitle: "Long-Dated Options for Patient Traders"
 - Long-dated options strategy for patient, position-style traders
 - For traders who want stock-like exposure with leverage
 
-### 4. Dollar Cost Averaging (DCA)
+### 4. Dollar Cost Averaging (DCA) — $97
 - Subtitle: "The Wealth-Building Autopilot"
 - Long-term wealth building through systematic DCA
 - For investors who want a hands-off, disciplined approach
 
-### 5. Risk Management (NEW)
+### 5. Risk Management — $97
 - Subtitle: "The Discipline That Keeps You Alive"
 - Position sizing, stop loss discipline, drawdown management, and protecting capital
 - The course Que considers required reading for every trader at every level
-- Just released — mention it as "new" when relevant
+- Start here if you're new — risk before reward, always
 
 ## Onboarding Steps
 1. Start free — join The Trading Roux: mee6.gg/m/tradingroux
 2. Grab the Free Starter Guide: creoletrades.com/starter-guide
-3. Take the free Academy courses: creoletrades.com/academy (start with Risk Management or SMC)
+3. Take a STACK Academy course ($97 each) — start with Risk Management or SMC at creoletrades.com/academy
 4. If upgrading to Wolf tier — subscribe to Wolf Chart 2.1 first: thewolfchart.com/?via=creoletrades
 5. Select your tier inside Discord via MEE6
 6. Introduce yourself and get to work
@@ -147,8 +154,8 @@ A: No — the free STACKED tier requires nothing. Wolf Chart 2.1 is only require
 Q: What's the difference between Signals and Mastery?
 A: Signals gives you compressed signal alerts (ticker, direction, entry zone, PT1, invalidation). Mastery gives you the full trade plan — all 5 option zones, PT1/PT2/PT3, trim & trail logic, Wolf Chart screenshots, and 1-on-1 coaching with Que.
 
-Q: What's the difference between the two Mastery Silver options?
-A: Mastery Silver Add-On ($99/session) is for existing Mastery members who want extra coaching. Mastery Silver Entry ($99 one-time) is for anyone who wants a single 60-min session with Que plus a one-week Mastery Discord trial — no Mastery subscription required.
+Q: What are the three Mastery Silver options?
+A: Entry ($99 one-time) gives you a single 60-min session plus a one-week Mastery Discord trial — best for first-timers curious about Mastery. Add-On ($99/session) is for existing Mastery members who want extra coaching beyond their included 4. Ongoing ($189/mo recurring) gives you two 60-min sessions per month — best for traders who want consistent coaching without the full Mastery commitment.
 
 Q: How much money do I need to start trading?
 A: Start with paper trading (simulated) for free. For live trading, only risk what you can afford to lose.
@@ -157,16 +164,16 @@ Q: What markets does Que focus on?
 A: Primarily options trading on stocks, with chart analysis using the STACK Method and smart money concepts.
 
 Q: Can I cancel my subscription?
-A: Yes, all memberships are monthly and can be cancelled anytime through MEE6.
+A: Yes, all tier memberships (Wolf, Signals, Mastery) and the Mastery Silver Ongoing subscription are monthly and can be cancelled anytime through MEE6. Academy courses are one-time purchases — no subscription to cancel.
 
 Q: What is the STACK Method?
-A: STACK stands for Structure, Trigger, Alignment, Confirmation, Keep Discipline. It's the five-layer framework that drives every trade decision at CreoleTrades. Free course at creoletrades.com/academy (Smart Money Concepts course).
+A: STACK stands for Structure, Trigger, Alignment, Confirmation, Keep Discipline. It's the five-layer framework that drives every trade decision at CreoleTrades. Deep-dive in the Smart Money Concepts course at creoletrades.com/academy ($97).
 
-Q: Are the Academy courses really free?
-A: Yes — all five courses (SMC, Options, LEAPs, DCA, Risk Management) are completely free at creoletrades.com/academy. No signup required.
+Q: How much do the Academy courses cost?
+A: Each STACK Academy course is a one-time purchase at $97 with lifetime access — no subscription. Five courses available: Smart Money Concepts, Options Trading, LEAPs, Dollar Cost Averaging, and Risk Management. All at creoletrades.com/academy.
 
 Q: Where should I start if I'm brand new?
-A: Three things, in this order: (1) join the free Discord at mee6.gg/m/tradingroux, (2) grab the Starter Guide at creoletrades.com/starter-guide, (3) take the free Risk Management course at creoletrades.com/academy. Risk before reward, always.
+A: Three things, in this order: (1) join the free Discord at mee6.gg/m/tradingroux, (2) grab the free Starter Guide at creoletrades.com/starter-guide, (3) take the Risk Management course at creoletrades.com/academy ($97). Risk before reward, always.
 
 IMPORTANT RULES:
 - Never provide financial advice or tell anyone to buy/sell specific assets
