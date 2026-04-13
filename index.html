@@ -64,10 +64,17 @@
       },
       {
         "@type": "Offer",
+        "name": "STACKED: Mastery Silver",
+        "price": "99.00",
+        "priceCurrency": "USD",
+        "description": "Full STACK trade plans, options guidance across all 5 zones, and PT1/PT2/PT3 with trim and trail instructions."
+      },
+      {
+        "@type": "Offer",
         "name": "STACKED: Mastery",
         "price": "399.00",
         "priceCurrency": "USD",
-        "description": "Full STACK trade plans, options guidance across all 5 zones, Wolf Chart screenshots, and 4 coaching sessions per month with Coach Que."
+        "description": "Everything in Silver plus Wolf Chart screenshots, 4 coaching sessions per month, monthly live Q&A, early video access, and all pro channels."
       }
     ]
   }
@@ -1501,9 +1508,12 @@
       .about-stats { grid-template-columns: repeat(3, 1fr); }
       .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
       .affiliate-callout-inner { flex-direction: column; align-items: flex-start; }
-      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .products-grid { grid-template-columns: repeat(3, 1fr) !important; }
       .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .email-capture-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    @media (max-width: 700px) {
+      .products-grid { grid-template-columns: repeat(2, 1fr) !important; }
     }
     @media (max-width: 600px) {
       .hero-title { font-size: clamp(3rem, 16vw, 5rem); }
@@ -1712,7 +1722,7 @@
     <div class="section-header reveal">
       <span class="eyebrow">⚜ The Trading Roux</span>
       <h2 class="section-title">Choose Your <em>Level</em></h2>
-      <p class="section-sub">Start STACKED. Confirm with Wolf. Execute on Signals. Master it all.</p>
+      <p class="section-sub">Start STACKED. Confirm with Wolf. Execute on Signals. Silver gets you the plans. Mastery gets you the coach.</p>
       <span class="iron-border"></span>
     </div>
 
@@ -1733,7 +1743,7 @@
     </p>
 
     <!-- TIER GRID -->
-    <div class="products-grid" style="grid-template-columns:repeat(4,1fr);gap:1rem;">
+    <div class="products-grid" style="grid-template-columns:repeat(5,1fr);gap:1rem;">
 
       <!-- TIER 1 — STACKED FREE -->
       <div class="product-card reveal" style="display:flex;flex-direction:column;">
@@ -1778,21 +1788,33 @@
           <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--spice);">⚜</span> #signals private channel</li>
           <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;display:flex;gap:0.5rem;"><span style="color:var(--spice);">⚜</span> #signals-chat access</li>
         </ul>
-        <p style="font-size:0.68rem;color:var(--muted);font-style:italic;margin-bottom:1rem;padding:0.5rem;background:rgba(201,168,76,0.05);border:1px solid var(--border-dim);">Full trade plans & Wolf Chart confirmation screenshots available in Mastery only.</p>
+        <p style="font-size:0.68rem;color:var(--muted);font-style:italic;margin-bottom:1rem;padding:0.5rem;background:rgba(201,168,76,0.05);border:1px solid var(--border-dim);">Full trade plans available in Mastery Silver+. Wolf Chart screenshots & coaching in Mastery only.</p>
         <a href="https://mee6.xyz/en/m/tradingroux?subscribe=1424117433878454272" target="_blank" rel="noopener noreferrer" class="btn btn-spice" style="text-align:center;padding:0.7rem;font-size:0.82rem;">Get Access →</a>
       </div>
 
-      <!-- TIER 4 — STACKED: MASTERY (FEATURED) -->
-      <div class="product-card reveal reveal-delay-3" style="display:flex;flex-direction:column;border-color:var(--spice);position:relative;overflow:hidden;">
+      <!-- TIER 4 — STACKED: MASTERY SILVER -->
+      <div class="product-card reveal reveal-delay-3" style="display:flex;flex-direction:column;">
+        <div style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);font-style:italic;margin-bottom:0.5rem;">Tier 04</div>
+        <div class="product-name" style="font-size:1.05rem;">STACKED: Mastery <span style="color:var(--moss-lite);font-weight:400;">Silver</span></div>
+        <div class="product-price" style="font-size:1rem;margin:0.5rem 0 0.25rem;">$99<span style="font-size:0.72rem;color:var(--muted);">/one-time</span></div>
+        <div style="font-size:0.72rem;color:var(--muted);font-style:italic;margin-bottom:1rem;">or $189<span style="font-size:0.68rem;">/mo</span> — includes 2 coaching sessions</div>
+        <ul style="list-style:none;padding:0;margin:0 0 1rem;flex:1;">
+          <li style="font-size:0.78rem;color:var(--spice);font-style:italic;padding:0.35rem 0;border-bottom:1px solid var(--border-dim);">Everything in Signals +</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--spice);">⚜</span> Full STACK trade plans — nothing compressed</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--spice);">⚜</span> Options guidance across all 5 zones</li>
+          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;display:flex;gap:0.5rem;"><span style="color:var(--spice);">⚜</span> PT1, PT2, PT3 with trim & trail instructions</li>
+        </ul>
+        <a href="https://mee6.xyz/en/m/tradingroux?subscribe=1486852171617148928" target="_blank" rel="noopener noreferrer" class="btn btn-spice" style="text-align:center;padding:0.7rem;font-size:0.82rem;">Get Access →</a>
+      </div>
+
+      <!-- TIER 5 — STACKED: MASTERY (FEATURED) -->
+      <div class="product-card reveal reveal-delay-4" style="display:flex;flex-direction:column;border-color:var(--spice);position:relative;overflow:hidden;">
         <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--spice),var(--firefly));"></div>
-        <div style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--spice);font-style:italic;margin-bottom:0.5rem;">Tier 04 · Featured</div>
+        <div style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--spice);font-style:italic;margin-bottom:0.5rem;">Tier 05 · Featured</div>
         <div class="product-name" style="font-size:1.05rem;color:var(--firefly);">STACKED: Mastery</div>
         <div class="product-price" style="font-size:1rem;margin:0.5rem 0 1rem;">$399<span style="font-size:0.72rem;color:var(--muted);">/month</span></div>
         <ul style="list-style:none;padding:0;margin:0 0 1rem;flex:1;">
-          <li style="font-size:0.78rem;color:var(--spice);font-style:italic;padding:0.35rem 0;border-bottom:1px solid var(--border-dim);">Everything in Signals +</li>
-          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--firefly);">⚜</span> Full STACK trade plans — nothing compressed</li>
-          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--firefly);">⚜</span> Options guidance across all 5 zones</li>
-          <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--firefly);">⚜</span> PT1, PT2, PT3 with trim & trail instructions</li>
+          <li style="font-size:0.78rem;color:var(--spice);font-style:italic;padding:0.35rem 0;border-bottom:1px solid var(--border-dim);">Everything in Silver +</li>
           <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--firefly);">⚜</span> Wolf Chart 2.1 confirmation screenshot on every plan</li>
           <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--firefly);">⚜</span> 4 × 1-on-1 coaching sessions with Que (1/week, first month)</li>
           <li style="font-size:0.78rem;color:var(--text);padding:0.35rem 0;border-bottom:1px solid var(--border-dim);display:flex;gap:0.5rem;"><span style="color:var(--firefly);">⚜</span> Monthly Live Q&A with Que</li>
