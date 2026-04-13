@@ -216,6 +216,17 @@
             color: var(--bg-main);
         }
 
+        .badge-start {
+            background: #3B82F6;
+            color: #ffffff;
+            animation: pulse-badge 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+            50% { box-shadow: 0 0 12px 4px rgba(59, 130, 246, 0.2); }
+        }
+
         .badge-coming {
             background: rgba(200, 212, 232, 0.15);
             color: var(--text-muted);
@@ -488,15 +499,15 @@
         <p class="hero-sub">Self-paced trading courses built for real traders. No fluff, no filler. Learn the methods, prove you understand them, and trade with confidence.</p>
         <div class="hero-stats">
             <div class="stat">
-                <span class="stat-number">5</span>
+                <span class="stat-number">6</span>
                 <span class="stat-label">Courses</span>
             </div>
             <div class="stat">
-                <span class="stat-number">21+</span>
+                <span class="stat-number">29+</span>
                 <span class="stat-label">Modules</span>
             </div>
             <div class="stat">
-                <span class="stat-number">90+</span>
+                <span class="stat-number">130+</span>
                 <span class="stat-label">Quiz Questions</span>
             </div>
         </div>
@@ -509,6 +520,39 @@
         <p class="section-desc">Each course is self-contained with interactive quizzes, a final exam, and a full glossary. Pick one or take them all.</p>
 
         <div class="courses-grid">
+
+            <!-- COURSE 0: Trading Foundations (Start Here) -->
+            <div class="course-card">
+                <div class="card-accent"></div>
+                <div class="card-body">
+                    <span class="card-badge badge-start">⚡ Start Here</span>
+                    <h3 class="card-title">Trading Foundations</h3>
+                    <p class="card-subtitle">Everything You Need Before SMC</p>
+                    <p class="card-desc">Candlesticks, chart patterns, ETFs, moving averages, trendlines, support &amp; resistance, and beginner strategies. The prerequisite to everything else in STACK Academy.</p>
+                    <div class="card-meta">
+                        <span class="meta-item"><span>8</span> Modules</span>
+                        <span class="meta-item"><span>40</span> Quiz Q's</span>
+                        <span class="meta-item"><span>20</span> Exam Q's</span>
+                    </div>
+                    <ul class="card-modules">
+                        <li>Candlestick Basics</li>
+                        <li>Chart Patterns</li>
+                        <li>ETFs Every Trader Should Know</li>
+                        <li>Beginner Trading Strategies</li>
+                        <li>Moving Averages</li>
+                        <li>Trendlines &amp; Channels</li>
+                        <li>Support &amp; Resistance</li>
+                        <li>Putting It All Together</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <div>
+                        <span class="card-price">$47</span>
+                        <span class="card-price-sub">One-time</span>
+                    </div>
+                    <a href="foundations/" class="card-cta">Start Here</a>
+                </div>
+            </div>
 
             <!-- COURSE 1: SMC Foundations -->
             <div class="course-card">
