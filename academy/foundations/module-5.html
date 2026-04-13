@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 5: Moving Averages - STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .password-gate {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #070C18 0%, #0D1526 100%);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .password-gate.active {
+            display: flex;
+        }
+        .gate-content {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 40px;
+            border-radius: 0px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .gate-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #F0D080;
+            margin-bottom: 20px;
+        }
+        .gate-content p {
+            color: #C8D4E8;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+        .gate-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: #0F1A2E;
+            border: 1px solid #C9A84C;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            border-radius: 0px;
+            font-size: 14px;
+        }
+        .gate-input::placeholder {
+            color: #6B84AA;
+        }
+        .gate-input:focus {
+            outline: none;
+            border-color: #F0D080;
+            box-shadow: 0 0 10px rgba(201, 168, 76, 0.3);
+        }
+        .gate-button {
+            width: 100%;
+            padding: 12px;
+            background: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Playfair Display', serif;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+        .gate-button:hover {
+            background: #F0D080;
+            transform: scale(1.02);
+        }
+        .gate-error {
+            color: #EF4444;
+            font-size: 12px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        .gate-help {
+            font-size: 12px;
+            color: #6B84AA;
+            margin-top: 20px;
+        }
+        .gate-help a {
+            color: #C9A84C;
+            text-decoration: none;
+        }
+        .gate-help a:hover {
+            color: #F0D080;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #0D1526;
+        }
+
+        .nav-top {
+            margin-bottom: 20px;
+        }
+
+        .nav-top a {
+            color: #F0D080;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .nav-top a:hover {
+            color: #C9A84C;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background-color: #0D1526;
+            color: #F0D080;
+            padding: 8px 16px;
+            border-radius: 0px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            margin-top: 40px;
+            font-weight: 600;
+        }
+
+        .section-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #C9A84C;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .section-content {
+            color: #C8D4E8;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .section-content p {
+            margin-bottom: 15px;
+        }
+
+        .section-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .section-content li {
+            margin-bottom: 10px;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #0D1526;
+            border-radius: 0px;
+        }
+
+        .vocab-item {
+            padding: 15px;
+            background-color: #070C18;
+            border-left: 3px solid #C9A84C;
+            border-radius: 0px;
+        }
+
+        .vocab-item strong {
+            color: #F0D080;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .vocab-item em {
+            font-size: 14px;
+            color: #A8BACE;
+        }
+
+        .step-breakdown {
+            background-color: #0D1526;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #C9A84C;
+            border-radius: 0px;
+        }
+
+        .step-breakdown ol {
+            margin-left: 20px;
+        }
+
+        .step-breakdown li {
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            color: #F0D080;
+            font-weight: 600;
+        }
+
+        .green-text {
+            color: #22C55E;
+        }
+
+        .red-text {
+            color: #EF4444;
+        }
+
+        .exercise-box {
+            background-color: #0D1526;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 0px;
+            border-left: 4px solid #22C55E;
+        }
+
+        .exercise-box h4 {
+            color: #22C55E;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .exercise-box p {
+            color: #C8D4E8;
+            line-height: 1.8;
+        }
+
+        .quiz-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #0D1526;
+        }
+
+        .quiz-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #EEF2FF;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .quiz-question {
+            background-color: #0D1526;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 0px;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .quiz-question h4 {
+            color: #F0D080;
+            margin-bottom: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .quiz-toggle {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            text-align: center;
+            line-height: 24px;
+            color: #C9A84C;
+            font-weight: bold;
+        }
+
+        .quiz-answer {
+            display: none;
+            color: #C8D4E8;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #070C18;
+            background-color: #070C18;
+            padding: 15px;
+            border-radius: 0px;
+        }
+
+        .quiz-answer.visible {
+            display: block;
+        }
+
+        .quiz-answer strong {
+            color: #22C55E;
+        }
+
+        .nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #0D1526;
+        }
+
+        .nav-footer a {
+            color: #F0D080;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-footer a:hover {
+            color: #C9A84C;
+        }
+
+        .nav-button {
+            padding: 12px 24px;
+            background-color: #0D1526;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            color: #F0D080;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .nav-button:hover {
+            background-color: #C9A84C;
+            color: #070C18;
+        }
+
+        .nav-disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .sidebar-nav {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 200px;
+            height: 100vh;
+            background-color: #0D1526;
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-nav.active {
+            display: block;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            color: #C8D4E8;
+            text-decoration: none;
+            padding: 10px 0;
+            border-bottom: 1px solid #070C18;
+            transition: color 0.3s;
+        }
+
+        .sidebar-nav a:hover {
+            color: #F0D080;
+        }
+
+        .sidebar-nav a.current {
+            color: #C9A84C;
+            font-weight: 600;
+        }
+
+        .hamburger {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: none;
+            border: none;
+            color: #F0D080;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .hamburger.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .sidebar-nav {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate active" id="passwordGate">
+        <div class="gate-content">
+            <h1>Trading Foundations</h1>
+            <p>Enter your password to access this course</p>
+            <input type="password" id="passwordInput" class="gate-input" placeholder="Enter password">
+            <div class="gate-error" id="gateError">Incorrect password. Please try again.</div>
+            <button class="gate-button" onclick="checkPassword()">Access Course</button>
+            <div class="gate-help">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+    <button class="hamburger" id="hamburger">☰</button>
+    <nav class="sidebar-nav" id="sidebar">
+        <a href="../">← All Courses</a>
+        <a href="module-1.html">Module 1: Chart Basics</a>
+        <a href="module-2.html">Module 2: Candlestick Patterns</a>
+        <a href="module-3.html">Module 3: Support & Resistance</a>
+        <a href="module-4.html">Module 4: Volume & Momentum</a>
+        <a href="module-5.html" class="current">Module 5: Moving Averages</a>
+        <a href="module-6.html">Module 6: Trendlines & Channels</a>
+        <a href="module-7.html">Module 7: Oscillators</a>
+        <a href="module-8.html">Module 8: Setups & Confluence</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="final-exam.html">Final Exam</a>
+    </nav>
+
+    <div class="container">
+        <header>
+            <div class="nav-top">
+                <a href="../">← All Courses</a>
+            </div>
+            <div class="module-badge">Module 5 of 8</div>
+            <h1>Moving Averages</h1>
+        </header>
+
+        <main>
+            <!-- Section 1: What Moving Averages Do -->
+            <section class="section">
+                <div class="section-number">1</div>
+                <div class="section-title">What Moving Averages Do</div>
+                <div class="section-content">
+                    <p>MAs smooth out price noise and show you the trend. They're the first indicator most traders learn — and for good reason. A moving average tells you <span class="highlight">ONE thing: where the average price has been over X periods.</span></p>
+                    <p>If price is <span class="highlight">above the MA, trend is bullish.</span> Below = bearish. Simple.</p>
+                    <p>That's it. No complexity. No overconfidence. Moving averages are the foundation of trend-following trading because they do exactly what they claim: show you the direction of price movement by smoothing out the noise.</p>
+                </div>
+            </section>
+
+            <!-- Section 2: Types of Moving Averages -->
+            <section class="section">
+                <div class="section-number">2</div>
+                <div class="section-title">Types of Moving Averages</div>
+                <div class="section-content">
+                    <p><span class="highlight">SMA (Simple Moving Average)</span> — Equal weight to all periods. You add up the last 50 closing prices and divide by 50. Every price point counts the same. Smooth, but slower to react.</p>
+                    <p><span class="highlight">EMA (Exponential Moving Average)</span> — More weight to recent price, reacts faster. Recent prices are weighted more heavily, so the EMA hugs current price action more closely than the SMA. This makes it more responsive to momentum shifts.</p>
+                </div>
+                <div class="vocab-grid">
+                    <div class="vocab-item">
+                        <strong>SMA</strong>
+                        <em>Simple Moving Average</em>
+                    </div>
+                    <div class="vocab-item">
+                        <strong>EMA</strong>
+                        <em>Exponential Moving Average</em>
+                    </div>
+                    <div class="vocab-item">
+                        <strong>Period</strong>
+                        <em>Number of bars/candles</em>
+                    </div>
+                    <div class="vocab-item">
+                        <strong>Lag</strong>
+                        <em>Delay in response to price</em>
+                    </div>
+                    <div class="vocab-item">
+                        <strong>Crossover</strong>
+                        <em>One MA crosses another</em>
+                    </div>
+                    <div class="vocab-item">
+                        <strong>Dynamic Support/Resistance</strong>
+                        <em>MA acts as moving level</em>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: The 12 EMA -->
+            <section class="section">
+                <div class="section-number">3</div>
+                <div class="section-title">The 12 EMA</div>
+                <div class="section-content">
+                    <p>This is the <span class="highlight">fast MA.</span> It hugs price closely. On the 5min or 15min chart, the 12 EMA acts as a short-term trend guide.</p>
+                    <p>When price is <span class="green-text">above the 12 EMA, bulls are in control on that timeframe.</span> When price pulls back to the 12 EMA and bounces — that's a <span class="highlight">pullback entry.</span> When it breaks below, short-term momentum has shifted.</p>
+                    <p>The 12 EMA is your most responsive tool for intraday trading. It's the first thing you should check if you're looking for quick momentum moves.</p>
+                </div>
+            </section>
+
+            <!-- Section 4: The 200 SMA / 200 Cloud -->
+            <section class="section">
+                <div class="section-number">4</div>
+                <div class="section-title">The 200 SMA / 200 Cloud</div>
+                <div class="section-content">
+                    <p>The <span class="highlight">institutional line in the sand.</span> The 200 SMA is the most-watched moving average in the world. <span class="green-text">Above it = bullish market.</span> <span class="red-text">Below it = bearish.</span> Hedge funds, algorithms, and retail all use it.</p>
+                    <p>The <span class="highlight">"200 Cloud"</span> refers to a zone between the 200 SMA and 200 EMA — when price enters this cloud, it's in no-man's land. It's where smart money often accumulates or distributes, so volatility increases.</p>
+                </div>
+                <div class="step-breakdown">
+                    <p><strong>Three-step breakdown:</strong></p>
+                    <ol>
+                        <li>How to read price vs 200: Is price above or below the institutional line?</li>
+                        <li>What the cloud means: Is price in the zone of indecision between the 200 SMA and EMA?</li>
+                        <li>How institutions use it: The 200 is your confirmation that the broader trend is intact.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Section 5: The WTMA Cloud -->
+            <section class="section">
+                <div class="section-number">5</div>
+                <div class="section-title">The WTMA Cloud (Wolf Trend Moving Average)</div>
+                <div class="section-content">
+                    <p>This is <span class="highlight">Que's proprietary indicator used in CreoleTrades.</span> The WTMA Cloud combines multiple weighted/exponential MAs into a dynamic cloud that shows <span class="highlight">trend direction AND momentum.</span></p>
+                    <p>When the cloud is <span class="green-text">green and expanding = strong bullish.</span> <span class="red-text">Red and expanding = strong bearish.</span> When cloud is thin or flipping = transition/indecision.</p>
+                    <p><span class="highlight">This is what you'll see on every CreoleTrades chart.</span> The WTMA replaces the need to manually manage multiple moving averages. One glance tells you everything: direction, strength, and momentum.</p>
+                </div>
+            </section>
+
+            <!-- Section 6: Crossovers & Signals -->
+            <section class="section">
+                <div class="section-number">6</div>
+                <div class="section-title">Crossovers & Signals</div>
+                <div class="section-content">
+                    <p><span class="highlight">Golden Cross</span> (50 SMA crosses above 200 SMA — bullish long-term signal)</p>
+                    <p><span class="highlight">Death Cross</span> (50 crosses below 200 — bearish)</p>
+                    <p><span class="highlight">12 EMA crossing above/below the WTMA cloud</span> = short-term trend change.</p>
+                    <p><strong style="color: #EF4444;">Warning: crossovers LAG.</strong> By the time the cross happens, the move has already started. Use crossovers for <span class="highlight">confirmation, not entries.</span></p>
+                    <p>This is the most common mistake new traders make: they buy the golden cross thinking it's the start of a new trend. In reality, the move has already happened. The cross confirms what price has already told you.</p>
+                </div>
+            </section>
+
+            <!-- Section 7: Key Takeaways -->
+            <section class="section">
+                <div class="section-number">7</div>
+                <div class="section-title">Key Takeaways</div>
+                <div class="section-content">
+                    <ul>
+                        <li>Moving averages smooth price action and show trend direction</li>
+                        <li>EMA reacts faster than SMA; SMA is smoother</li>
+                        <li>The 12 EMA is your short-term trend tool</li>
+                        <li>The 200 SMA is the institutional benchmark for bullish/bearish</li>
+                        <li>The WTMA Cloud combines multiple MAs into one trend indicator</li>
+                        <li>Crossovers confirm trends but lag price — don't use them as entries</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 8: Practice Exercise -->
+            <section class="section">
+                <div class="exercise-box">
+                    <h4>Practice Exercise</h4>
+                    <p>Open TradingView and add three indicators to SPY daily: 12 EMA, 200 SMA, and the WTMA Cloud (if you have access). Look at the last 3 months.</p>
+                    <ul style="margin-top: 15px;">
+                        <li>Find a moment where price bounced off the 12 EMA</li>
+                        <li>Find a moment where price tested the 200 SMA</li>
+                        <li>Notice how the WTMA Cloud color matched the trend direction</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><em>Write down 2-3 observations about what you see. This hands-on experience is where the learning sticks.</em></p>
+                </div>
+            </section>
+
+            <!-- Quiz Section -->
+            <section class="quiz-section">
+                <h2 class="quiz-title">Module Quiz</h2>
+                <p style="margin-bottom: 30px; color: #A8BACE;">Test your understanding. Click each question to reveal the answer.</p>
+
+                <div class="quiz-question">
+                    <h4 onclick="toggleAnswer(this)">
+                        1. What is the primary difference between an SMA and EMA?
+                        <span class="quiz-toggle">+</span>
+                    </h4>
+                    <div class="quiz-answer">
+                        <strong>Answer:</strong> EMA gives more weight to recent prices, making it more responsive to current price action. SMA weights all periods equally, making it smoother but slower to react.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4 onclick="toggleAnswer(this)">
+                        2. Price is above the 200 SMA. What does this generally indicate?
+                        <span class="quiz-toggle">+</span>
+                    </h4>
+                    <div class="quiz-answer">
+                        <strong>Answer:</strong> The broader trend is bullish. This is the most-watched moving average by institutions and algorithms, so when price trades above it, the institutional consensus is that the trend is up.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4 onclick="toggleAnswer(this)">
+                        3. The 12 EMA is best used for what?
+                        <span class="quiz-toggle">+</span>
+                    </h4>
+                    <div class="quiz-answer">
+                        <strong>Answer:</strong> Short-term trend direction and pullback entries. It hugs price closely and acts as dynamic support in uptrends, making it ideal for intraday and short-term trading.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4 onclick="toggleAnswer(this)">
+                        4. What does a "Golden Cross" signal?
+                        <span class="quiz-toggle">+</span>
+                    </h4>
+                    <div class="quiz-answer">
+                        <strong>Answer:</strong> A long-term bullish signal. The 50 SMA crosses above the 200 SMA, suggesting the trend has shifted bullish. However, remember that this cross lags price action.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4 onclick="toggleAnswer(this)">
+                        5. Why should you NOT use moving average crossovers as entry signals?
+                        <span class="quiz-toggle">+</span>
+                    </h4>
+                    <div class="quiz-answer">
+                        <strong>Answer:</strong> They lag. By the time the cross happens, a significant portion of the move has already occurred. Use them for confirmation, not entries. This is one of the biggest mistakes new traders make.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Footer -->
+            <div class="nav-footer">
+                <a href="module-4.html" class="nav-button">← Previous: Module 4</a>
+                <a href="module-6.html" class="nav-button">Next: Module 6 →</a>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const PASSWORD_HASH = "9004dd85ce0b8bf505d662c98afbc00c07dece9544d804442e1e6d97f6996d41";
+        const STORAGE_KEY = "stack_foundations_access";
+
+        async function sha256(str) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(str);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const hash = await sha256(password);
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                document.getElementById('passwordGate').classList.remove('active');
+            } else {
+                document.getElementById('gateError').style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') { checkPassword(); }
+        });
+
+        function checkAccess() {
+            if (localStorage.getItem(STORAGE_KEY) === 'true') {
+                document.getElementById('passwordGate').classList.remove('active');
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem(STORAGE_KEY);
+            document.getElementById('passwordGate').classList.add('active');
+            document.getElementById('passwordInput').value = '';
+        }
+
+        checkAccess();
+
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+
+        hamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.sidebar-nav') && !e.target.closest('.hamburger')) {
+                sidebar.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        function toggleAnswer(element) {
+            const answer = element.nextElementSibling;
+            answer.classList.toggle('visible');
+            const toggle = element.querySelector('.quiz-toggle');
+            toggle.textContent = answer.classList.contains('visible') ? '−' : '+';
+        }
+    </script>
+</body>
+</html>

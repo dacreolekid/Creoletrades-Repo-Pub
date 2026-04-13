@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 4: Beginner Trading Strategies - STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #070C18 0%, #0D1526 100%);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .password-gate.active {
+            display: flex;
+        }
+
+        .password-form {
+            background: #0D1526;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            padding: 40px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .password-form h2 {
+            font-family: 'Playfair Display', serif;
+            color: #F0D080;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .password-form p {
+            color: #C8D4E8;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .password-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            background: #070C18;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            color: #F0D080;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+        }
+
+        .password-form input::placeholder {
+            color: #8899BB;
+        }
+
+        .password-form button {
+            width: 100%;
+            padding: 12px;
+            background: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .password-form button:hover {
+            background: #F0D080;
+        }
+
+        .password-form .error {
+            color: #EF4444;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+
+        .password-form a {
+            display: block;
+            margin-top: 20px;
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .password-form a:hover {
+            color: #F0D080;
+        }
+
+        .container {
+            flex: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            width: 100%;
+        }
+
+        header {
+            background: #0D1526;
+            border-bottom: 1px solid #C9A84C;
+            padding: 30px 0;
+            margin-bottom: 40px;
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .module-badge {
+            font-family: 'Playfair Display', serif;
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: #C9A84C;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #C8D4E8;
+            font-size: 16px;
+        }
+
+        nav {
+            background: #070C18;
+            border-bottom: 1px solid #C9A84C;
+            padding: 20px 0;
+            margin-bottom: 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #F0D080;
+        }
+
+        .content-section {
+            margin-bottom: 50px;
+        }
+
+        .content-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            margin-top: 40px;
+        }
+
+        .content-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: #F0D080;
+            margin-bottom: 15px;
+            margin-top: 25px;
+        }
+
+        .content-section p {
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #C8D4E8;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+            background: #0D1526;
+            padding: 25px;
+            border: 1px solid #C9A84C;
+        }
+
+        .vocab-item {
+            text-align: center;
+        }
+
+        .vocab-item strong {
+            color: #F0D080;
+            font-family: 'Playfair Display', serif;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .vocab-item small {
+            color: #8899BB;
+            font-size: 12px;
+        }
+
+        .three-step {
+            background: #0D1526;
+            border-left: 4px solid #C9A84C;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .three-step h4 {
+            color: #F0D080;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .step {
+            margin-bottom: 20px;
+        }
+
+        .step strong {
+            color: #22C55E;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .step p {
+            color: #C8D4E8;
+            margin: 0;
+        }
+
+        .key-takeaways {
+            background: linear-gradient(135deg, rgba(201, 168, 76, 0.1), rgba(240, 208, 128, 0.05));
+            border: 1px solid #C9A84C;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .key-takeaways h4 {
+            color: #F0D080;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .key-takeaways li {
+            padding: 10px 0 10px 25px;
+            position: relative;
+            color: #C8D4E8;
+        }
+
+        .key-takeaways li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+        }
+
+        .practice-box {
+            background: #0D1526;
+            border: 2px solid #22C55E;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .practice-box h4 {
+            color: #22C55E;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .practice-box p {
+            color: #C8D4E8;
+        }
+
+        .practice-box .note {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 3px solid #22C55E;
+            padding: 12px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .strategy-box {
+            background: #0D1526;
+            border: 1px solid #C9A84C;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .strategy-box h4 {
+            color: #F0D080;
+            margin-bottom: 12px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .strategy-box p {
+            color: #C8D4E8;
+            font-size: 15px;
+        }
+
+        .quiz-section {
+            background: #0D1526;
+            border: 1px solid #C9A84C;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .quiz-section h2 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .quiz-question {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #C9A84C;
+        }
+
+        .quiz-question:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .quiz-question h4 {
+            color: #F0D080;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+        }
+
+        .quiz-options {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .quiz-options li {
+            margin-bottom: 10px;
+        }
+
+        .quiz-options label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: #C8D4E8;
+        }
+
+        .quiz-options input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .quiz-answer {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 3px solid #22C55E;
+            padding: 15px;
+            margin-top: 15px;
+            display: none;
+            color: #C8D4E8;
+        }
+
+        .quiz-answer.show {
+            display: block;
+        }
+
+        .quiz-answer strong {
+            color: #22C55E;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 50px 0 40px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .nav-button {
+            background: #C9A84C;
+            color: #070C18;
+            padding: 12px 30px;
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            border-radius: 0px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .nav-button:hover {
+            background: #F0D080;
+        }
+
+        .nav-button.disabled {
+            background: #444;
+            color: #888;
+            cursor: not-allowed;
+        }
+
+        .progress-indicator {
+            color: #C9A84C;
+            font-size: 14px;
+        }
+
+        footer {
+            background: #0D1526;
+            border-top: 1px solid #C9A84C;
+            padding: 30px 0;
+            text-align: center;
+            color: #8899BB;
+            font-size: 13px;
+            margin-top: auto;
+        }
+
+        .comparison-table {
+            background: #0D1526;
+            border: 1px solid #C9A84C;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #C9A84C;
+        }
+
+        .comparison-table th {
+            background: rgba(201, 168, 76, 0.1);
+            color: #F0D080;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            color: #C8D4E8;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            .content-section h2 {
+                font-size: 24px;
+            }
+
+            nav ul {
+                gap: 10px;
+            }
+
+            nav a {
+                font-size: 12px;
+            }
+
+            .vocab-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .navigation {
+                flex-direction: column;
+            }
+
+            .nav-button {
+                width: 100%;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 10px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate active" id="passwordGate">
+        <div class="password-form">
+            <h2>Trading Foundations</h2>
+            <p>Enter the course password to continue</p>
+            <div class="error" id="errorMsg" style="display: none;"></div>
+            <input type="password" id="passwordInput" placeholder="Password" />
+            <button onclick="checkPassword()">Unlock Course</button>
+            <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <div class="module-badge">Module 4 of 8</div>
+            <h1>Beginner Trading Strategies</h1>
+            <p class="subtitle">Transform chaos into repeatable winning setups</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="../">← All Courses</a></li>
+            <li><a href="module-1.html">Module 1</a></li>
+            <li><a href="module-2.html">Module 2</a></li>
+            <li><a href="module-3.html">Module 3</a></li>
+            <li><a href="module-4.html" class="active">Module 4</a></li>
+            <li><a href="module-5.html">Module 5</a></li>
+            <li><a href="module-6.html">Module 6</a></li>
+            <li><a href="module-7.html">Module 7</a></li>
+            <li><a href="module-8.html">Module 8</a></li>
+            <li><a href="glossary.html">Glossary</a></li>
+            <li><a href="final-exam.html">Final Exam</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="content-section">
+            <h2>You Need a Strategy, Not a Hunch</h2>
+            <p>Most beginners trade on emotion or tips they heard from a friend or a YouTube comment. They see a stock moving and chase it. They read a headline and panic-sell. This is not trading—this is gambling.</p>
+            <p>A real strategy is a repeatable set of rules:</p>
+            <p><strong>When to enter.</strong> A specific setup or condition must be met before you buy or sell. Not "when it feels right"—when your rules say so.</p>
+            <p><strong>When to exit.</strong> You must know before you enter where you'll take profit and where you'll cut losses. A target. A stop.</p>
+            <p><strong>How much to risk.</strong> Position sizing. If you risk too much on one trade, one bad trade wipes you out. If you risk too little, you're wasting your edge.</p>
+            <p>Without a strategy, you're a leaf in the wind. With a strategy, you turn chaos into a checklist. "A strategy turns chaos into a checklist" is the foundation of professional trading.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Breakout Trading</h2>
+            <p>Price builds up pressure in a range, then breaks through resistance (or support) on high volume. That's a breakout.</p>
+
+            <h3>How Breakout Trading Works</h3>
+            <p>Traders watch for price to sit in a tight range. The range is resistance at the top, support at the bottom. As buyers and sellers test these levels repeatedly, energy builds. Then, on a strong catalyst or accumulation, price rips through one side.</p>
+            <p>When price breaks above resistance, the traders who were waiting for exactly this moment buy. Volume spikes. Momentum accelerates. This is the breakout trade.</p>
+
+            <div class="three-step">
+                <h4>Breakout Trading Setup: Entry, Stop, Target</h4>
+                <div class="step">
+                    <strong>Entry</strong>
+                    <p>Wait for price to break above/below the resistance/support level. Don't buy while testing the level—buy AFTER the candle closes above (or below) it on higher volume than average.</p>
+                </div>
+                <div class="step">
+                    <strong>Stop Loss</strong>
+                    <p>Place your stop just below (or above) the breakout level. If the level fails and price reverses back through it, you're out. This protects you from false breakouts.</p>
+                </div>
+                <div class="step">
+                    <strong>Profit Target</strong>
+                    <p>Use the "measured move" method. Take the distance of the original range and add it to the breakout point. Example: If SPY ranged from $450 to $460 (a $10 range) and breaks above $460, your target is $470 ($460 + $10).</p>
+                </div>
+            </div>
+
+            <div class="strategy-box">
+                <h4>Best For: Trending Markets with Clear Ranges</h4>
+                <p>Breakout trading works best when the market has been consolidating (building a range). The longer and tighter the range, the stronger the breakout tends to be. This strategy captures momentum off important levels.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Pullback Trading</h2>
+            <p>Price is in an uptrend. You wait for it to pull back to support. The dip. Then, when support holds and price bounces, you enter. This is pullback trading.</p>
+
+            <h3>The Key Difference from Chasing</h3>
+            <p>Beginners chase—they buy when price is running up. Professionals buy the dip in an uptrend. The difference: pullback traders wait for a retracement to a level where demand has historically shown up. You're not catching a falling knife—you're entering at a zone where buyers historically step in.</p>
+
+            <h3>Uptrend Pullback</h3>
+            <p>Price rallies hard. Then it pulls back to a key moving average (like the 20-day MA) or a previous support level. When price touches that level and bounces, you're in. Stop: below the support level. Target: the previous high or higher.</p>
+
+            <h3>Downtrend Pullback (Shorting the Rip)</h3>
+            <p>Price is in a downtrend. It rallies back up to resistance (or a key moving average). When it hits that level and shows reversal signals, you short. This is "selling the rip" in a downtrend.</p>
+
+            <div class="strategy-box">
+                <h4>Best For: Trending Markets</h4>
+                <p>Pullback trading requires a clear trend. If the market is choppy and ranging, pullbacks fail. But in a strong uptrend or downtrend, pullback trading is one of the most reliable strategies. You're trading WITH the trend, not against it.</p>
+            </div>
+
+            <div class="strategy-box">
+                <h4>Worst For: Choppy / Ranging Markets</h4>
+                <p>When the market is consolidating and there's no clear direction, pullback trades get stopped out repeatedly. This is when you should pause and wait for a clearer trend to emerge.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Momentum Trading</h2>
+            <p>Don't wait for a pullback. Don't wait for anything. Enter into the strength. Price is moving hard in one direction with volume backing it up. You ride the wave.</p>
+
+            <h3>The Momentum Setup</h3>
+            <p>A stock or ETF breaks out or rallies on heavy volume. It's moving FAST. Momentum traders enter into that move immediately—they don't care about waiting for a "better entry." They want in while the wave is moving.</p>
+            <p>The advantage: You capture the full move. The disadvantage: You need tight stops, quick decisions, and discipline. If momentum fades, you're out instantly.</p>
+
+            <h3>When Momentum Fades</h3>
+            <p>Momentum doesn't last forever. It lasts minutes, hours, maybe a few days at most. The key is knowing when it's over. Signs: volume drops, price starts to consolidate, the move loses steam. That's your signal to exit.</p>
+
+            <div class="strategy-box">
+                <h4>Best For: News Events, Earnings Gaps, Opening Drives</h4>
+                <p>Momentum trading shines on catalysts. A company reports earnings and gaps up 10%. Momentum traders enter immediately. A Fed announcement causes a sudden rally. That's momentum. You want to be in before everyone else realizes what's happening.</p>
+            </div>
+
+            <div class="strategy-box">
+                <h4>Requires: Tight Stops, Quick Decisions, Understanding Fade</h4>
+                <p>Momentum trading is not for the faint of heart. You need to be watching, you need to act fast, and you need to exit when the signal breaks. This is where most beginners fail—they hold too long waiting for "more."</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Mean Reversion</h2>
+            <p>Price tends to return to its average. When price stretches far from its moving average, it tends to snap back. This is the opposite of momentum trading.</p>
+
+            <h3>How Mean Reversion Works</h3>
+            <p>You draw a moving average on a chart (20-day, 50-day, 200-day). Price trades normally around this line. But sometimes, price extends far above or far below it. When price is extended too far, mean reversion traders expect it to come back to the average.</p>
+
+            <p>Example: SPY is at a 20-day moving average of $450. It rallies to $460 (a 2.2% move in one day). That's extended. Mean reversion traders expect it to pull back toward $450.</p>
+
+            <div class="three-step">
+                <h4>Mean Reversion Trade Setup</h4>
+                <div class="step">
+                    <strong>Identify the Stretch</strong>
+                    <p>Price is extended far above or below its moving average. Use standard deviation or Bollinger Bands to identify extremes. When price hits the upper or lower band, it's stretched.</p>
+                </div>
+                <div class="step">
+                    <strong>Wait for a Reversal Signal</strong>
+                    <p>Don't enter just because price is extended. Wait for a candlestick pattern that shows the move is reversing—a reversal candle, a hammer, a pin bar. This improves your win rate.</p>
+                </div>
+                <div class="step">
+                    <strong>Trade Back to the Average</strong>
+                    <p>Your target is the moving average. Your stop is beyond the extreme (e.g., beyond the upper Bollinger Band). The trade: price reverses and comes back to the MA.</p>
+                </div>
+            </div>
+
+            <div class="vocab-grid">
+                <div class="vocab-item">
+                    <strong>Mean Reversion</strong>
+                    <small>Price returning to its average after a move</small>
+                </div>
+                <div class="vocab-item">
+                    <strong>Overextended</strong>
+                    <small>Price has moved too far from the average too fast</small>
+                </div>
+                <div class="vocab-item">
+                    <strong>Moving Average</strong>
+                    <small>The average price over a period (20-day, 50-day, etc.)</small>
+                </div>
+                <div class="vocab-item">
+                    <strong>Rubber Band Effect</strong>
+                    <small>Price stretched like a rubber band always snaps back</small>
+                </div>
+            </div>
+
+            <p style="margin-top: 20px;"><strong>Mean Reversion is the opposite of momentum trading.</strong> Momentum says: "Price is strong, it will keep going." Mean reversion says: "Price is too extreme, it will snap back." Both are valid—the question is which market condition are you in?</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Choosing Your Strategy</h2>
+            <p>You don't need all four. Most successful traders master ONE strategy and execute it exceptionally. They know when to apply it, when to pause, and how to manage risk within it.</p>
+
+            <p>If you try to learn all four at once, you'll be confused. Pick one. Get good at it. Then expand.</p>
+
+            <div class="strategy-box">
+                <h4>Our Recommendation for Beginners: Start with Pullback Trading</h4>
+                <p><strong>Why pullback trading?</strong> Because it's the most forgiving. You have clear support and resistance levels to work with. You're trading with the trend (less risky than trading against it). You don't need split-second timing like momentum traders do. And you have a clear stop loss location—just below support.</p>
+                <p><strong>Next step:</strong> Master pullback trading. Execute 50+ trades with this strategy. Log every single one. Once you have a 60%+ win rate, you're ready to learn the others.</p>
+            </div>
+
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Strategy</th>
+                            <th>Best Market</th>
+                            <th>Difficulty</th>
+                            <th>Win Rate Expectation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Breakout</strong></td>
+                            <td>Trending with clear ranges</td>
+                            <td>Intermediate</td>
+                            <td>55-65%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pullback</strong></td>
+                            <td>Strong trends</td>
+                            <td>Beginner-Friendly</td>
+                            <td>60-70%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Momentum</strong></td>
+                            <td>Catalysts, gaps, fast moves</td>
+                            <td>Advanced</td>
+                            <td>50-60%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mean Reversion</strong></td>
+                            <td>Ranging, choppy markets</td>
+                            <td>Intermediate</td>
+                            <td>55-65%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Key Takeaways</h2>
+            <div class="key-takeaways">
+                <ul>
+                    <li>A trading strategy is a repeatable set of rules: when to enter, when to exit, how much to risk</li>
+                    <li>Breakout trading captures momentum off resistance/support breaks on high volume</li>
+                    <li>Pullback trading enters strong trends after a retracement—trade with the trend, not against it</li>
+                    <li>Momentum trading rides strong moves with volume—requires quick decisions and tight stops</li>
+                    <li>Mean reversion expects extended moves to snap back to average—works in ranging markets</li>
+                    <li>Most successful traders master ONE strategy deeply before learning others</li>
+                    <li>Beginners should start with pullback trading—it's the most forgiving and has high win rates</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Practice Exercise</h2>
+            <div class="practice-box">
+                <h4>Paper Trade Five Trades with ONE Strategy</h4>
+                <p>Pick ONE strategy from this module—we recommend pullback trading for beginners. Paper trade it (use TradingView's replay feature or a simulator) for exactly 5 trades on SPY.</p>
+                <p><strong>Log each trade:</strong></p>
+                <ul style="margin: 15px 0 15px 20px; color: #C8D4E8;">
+                    <li>Entry price and reason</li>
+                    <li>Stop loss price</li>
+                    <li>Target price</li>
+                    <li>Exit price and why you exited</li>
+                    <li>Win or loss</li>
+                </ul>
+                <div class="note">
+                    <strong>After 5 trades, ask yourself:</strong> Did the strategy work? Did YOU follow the rules? If you exited early or moved your stop, that's a rules violation. The goal isn't to be perfect—it's to understand how disciplined you can be.
+                </div>
+            </div>
+        </div>
+
+        <div class="quiz-section">
+            <h2>Module Quiz</h2>
+
+            <div class="quiz-question">
+                <h4>Question 1: What is the most important thing a trading strategy gives you?</h4>
+                <ul class="quiz-options">
+                    <li><label><input type="radio" name="q1" value="a"> A guarantee of profit</label></li>
+                    <li><label><input type="radio" name="q1" value="b"> A repeatable set of rules—entry, exit, and risk management defined before you trade</label></li>
+                    <li><label><input type="radio" name="q1" value="c"> A way to avoid losses</label></li>
+                    <li><label><input type="radio" name="q1" value="d"> Emotional clarity</label></li>
+                </ul>
+                <button class="nav-button" onclick="revealAnswer(1)">Show Answer</button>
+                <div class="quiz-answer" id="answer1">
+                    <strong>Correct Answer:</strong> A repeatable set of rules—entry, exit, and risk management defined before you trade. A strategy removes emotion and guesswork. You know exactly when you'll buy, when you'll sell, and how much you're risking on each trade.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>Question 2: When is breakout trading most effective?</h4>
+                <ul class="quiz-options">
+                    <li><label><input type="radio" name="q2" value="a"> In choppy, ranging markets</label></li>
+                    <li><label><input type="radio" name="q2" value="b"> In trending markets with clear ranges—price breaks out of a defined level on high volume</label></li>
+                    <li><label><input type="radio" name="q2" value="c"> When trading against the trend</label></li>
+                    <li><label><input type="radio" name="q2" value="d"> During the market open only</label></li>
+                </ul>
+                <button class="nav-button" onclick="revealAnswer(2)">Show Answer</button>
+                <div class="quiz-answer" id="answer2">
+                    <strong>Correct Answer:</strong> In trending markets with clear ranges—price breaks out of a defined level on high volume. Breakout trading works best when price has been building pressure in a tight range. When that range breaks, momentum accelerates.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>Question 3: What's the key difference between pullback and momentum trading?</h4>
+                <ul class="quiz-options">
+                    <li><label><input type="radio" name="q3" value="a"> Pullback is safer, momentum is riskier</label></li>
+                    <li><label><input type="radio" name="q3" value="b"> Pullback waits for a retracement to enter at a better price; momentum enters into the move immediately without waiting</label></li>
+                    <li><label><input type="radio" name="q3" value="c"> They're the same strategy with different names</label></li>
+                    <li><label><input type="radio" name="q3" value="d"> Pullback requires more volume, momentum requires less</label></li>
+                </ul>
+                <button class="nav-button" onclick="revealAnswer(3)">Show Answer</button>
+                <div class="quiz-answer" id="answer3">
+                    <strong>Correct Answer:</strong> Pullback waits for a retracement to enter at a better price; momentum enters into the move immediately without waiting. Pullback traders are patient. Momentum traders are aggressive. Both can work—it depends on market conditions.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>Question 4: Mean reversion assumes what about price?</h4>
+                <ul class="quiz-options">
+                    <li><label><input type="radio" name="q4" value="a"> Price only goes up</label></li>
+                    <li><label><input type="radio" name="q4" value="b"> Price tends to return to its average—extended moves away from the moving average are unsustainable</label></li>
+                    <li><label><input type="radio" name="q4" value="c"> Price never comes back down</label></li>
+                    <li><label><input type="radio" name="q4" value="d"> Price moves randomly with no pattern</label></li>
+                </ul>
+                <button class="nav-button" onclick="revealAnswer(4)">Show Answer</button>
+                <div class="quiz-answer" id="answer4">
+                    <strong>Correct Answer:</strong> Price tends to return to its average—extended moves away from the moving average are unsustainable. This is the rubber band effect. When price stretches too far, it snaps back.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>Question 5: Which strategy is recommended for beginners and why?</h4>
+                <ul class="quiz-options">
+                    <li><label><input type="radio" name="q5" value="a"> Momentum trading—it's the fastest and most exciting</label></li>
+                    <li><label><input type="radio" name="q5" value="b"> Mean reversion—it works in all market conditions</label></li>
+                    <li><label><input type="radio" name="q5" value="c"> Pullback trading—it's the most forgiving because you have clear levels, trade with the trend, and don't need split-second timing</label></li>
+                    <li><label><input type="radio" name="q5" value="d"> Breakout trading—it's the most profitable</label></li>
+                </ul>
+                <button class="nav-button" onclick="revealAnswer(5)">Show Answer</button>
+                <div class="quiz-answer" id="answer5">
+                    <strong>Correct Answer:</strong> Pullback trading—it's the most forgiving because you have clear levels, trade with the trend, and don't need split-second timing. Once you master pullback trading with a 60%+ win rate, you can graduate to the other strategies.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="module-3.html" class="nav-button">← Previous: Module 3</a>
+            <span class="progress-indicator">Module 4 of 8</span>
+            <a href="module-5.html" class="nav-button">Next: Module 5 →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>STACK Academy — Trading Foundations | Module 4 of 8</p>
+        <p>© 2026 Creole Trades. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Password verification using SHA-256
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const errorMsg = document.getElementById('errorMsg');
+            const password = passwordInput.value;
+
+            if (!password) {
+                errorMsg.textContent = 'Please enter a password';
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            const hash = await hashPassword(password);
+            const correctHash = '9004dd85ce0b8bf505d662c98afbc00c07dece9544d804442e1e6d97f6996d41';
+
+            if (hash === correctHash) {
+                localStorage.setItem('stack_foundations_access', 'true');
+                document.getElementById('passwordGate').classList.remove('active');
+            } else {
+                errorMsg.textContent = 'Incorrect password. Try again.';
+                errorMsg.style.display = 'block';
+                passwordInput.value = '';
+            }
+        }
+
+        function revealAnswer(questionNum) {
+            document.getElementById('answer' + questionNum).classList.toggle('show');
+        }
+
+        // Check if user already has access
+        window.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('stack_foundations_access') === 'true') {
+                document.getElementById('passwordGate').classList.remove('active');
+            }
+
+            // Allow Enter key to submit password
+            document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkPassword();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

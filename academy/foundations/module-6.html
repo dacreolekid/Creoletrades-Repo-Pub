@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 6: Trendlines & Channels - STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .password-gate {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #070C18 0%, #0D1526 100%);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .password-gate.active {
+            display: flex;
+        }
+        .gate-content {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 40px;
+            border-radius: 0px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .gate-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #F0D080;
+            margin-bottom: 20px;
+        }
+        .gate-content p {
+            color: #C8D4E8;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+        .gate-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: #0F1A2E;
+            border: 1px solid #C9A84C;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            border-radius: 0px;
+            font-size: 14px;
+        }
+        .gate-input::placeholder {
+            color: #6B84AA;
+        }
+        .gate-input:focus {
+            outline: none;
+            border-color: #F0D080;
+            box-shadow: 0 0 10px rgba(201, 168, 76, 0.3);
+        }
+        .gate-button {
+            width: 100%;
+            padding: 12px;
+            background: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Playfair Display', serif;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+        .gate-button:hover {
+            background: #F0D080;
+            transform: scale(1.02);
+        }
+        .gate-error {
+            color: #EF4444;
+            font-size: 12px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        .gate-help {
+            font-size: 12px;
+            color: #6B84AA;
+            margin-top: 20px;
+        }
+        .gate-help a {
+            color: #C9A84C;
+            text-decoration: none;
+        }
+        .gate-help a:hover {
+            color: #F0D080;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #0D1526;
+        }
+
+        .nav-top {
+            margin-bottom: 20px;
+        }
+
+        .nav-top a {
+            color: #F0D080;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .nav-top a:hover {
+            color: #C9A84C;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background-color: #0D1526;
+            color: #F0D080;
+            padding: 8px 16px;
+            border-radius: 0px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            margin-top: 40px;
+            font-weight: 600;
+        }
+
+        .section-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #C9A84C;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .section-content {
+            color: #C8D4E8;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .section-content p {
+            margin-bottom: 15px;
+        }
+
+        .section-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .section-content li {
+            margin-bottom: 10px;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #0D1526;
+            border-radius: 0px;
+        }
+
+        .vocab-item {
+            padding: 15px;
+            background-color: #070C18;
+            border-left: 3px solid #C9A84C;
+            border-radius: 0px;
+        }
+
+        .vocab-item strong {
+            color: #F0D080;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .vocab-item em {
+            font-size: 14px;
+            color: #A8BACE;
+        }
+
+        .step-breakdown {
+            background-color: #0D1526;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #C9A84C;
+            border-radius: 0px;
+        }
+
+        .step-breakdown ol {
+            margin-left: 20px;
+        }
+
+        .step-breakdown li {
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            color: #F0D080;
+            font-weight: 600;
+        }
+
+        .green-text {
+            color: #22C55E;
+        }
+
+        .red-text {
+            color: #EF4444;
+        }
+
+        .exercise-box {
+            background-color: #0D1526;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 0px;
+            border-left: 4px solid #22C55E;
+        }
+
+        .exercise-box h4 {
+            color: #22C55E;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .exercise-box p {
+            color: #C8D4E8;
+            line-height: 1.8;
+        }
+
+        .exercise-box ul {
+            margin-left: 20px;
+        }
+
+        .exercise-box li {
+            margin-bottom: 10px;
+        }
+
+        .quiz-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #0D1526;
+        }
+
+        .quiz-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #EEF2FF;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .quiz-question {
+            background-color: #0D1526;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 0px;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .quiz-question h4 {
+            color: #F0D080;
+            margin-bottom: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .quiz-toggle {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            text-align: center;
+            line-height: 24px;
+            color: #C9A84C;
+            font-weight: bold;
+        }
+
+        .quiz-answer {
+            display: none;
+            color: #C8D4E8;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #070C18;
+            background-color: #070C18;
+            padding: 15px;
+            border-radius: 0px;
+        }
+
+        .quiz-answer.visible {
+            display: block;
+        }
+
+        .quiz-answer strong {
+            color: #22C55E;
+        }
+
+        .nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #0D1526;
+        }
+
+        .nav-footer a {
+            color: #F0D080;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-footer a:hover {
+            color: #C9A84C;
+        }
+
+        .nav-button {
+            padding: 12px 24px;
+            background-color: #0D1526;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            color: #F0D080;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .nav-button:hover {
+            background-color: #C9A84C;
+            color: #070C18;
+        }
+
+        .nav-disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .sidebar-nav {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 200px;
+            height: 100vh;
+            background-color: #0D1526;
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-nav.active {
+            display: block;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            color: #C8D4E8;
+            text-decoration: none;
+            padding: 10px 0;
+            border-bottom: 1px solid #070C18;
+            transition: color 0.3s;
+        }
+
+        .sidebar-nav a:hover {
+            color: #F0D080;
+        }
+
+        .sidebar-nav a.current {
+            color: #C9A84C;
+            font-weight: 600;
+        }
+
+        .hamburger {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: none;
+            border: none;
+            color: #F0D080;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .hamburger.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .sidebar-nav {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate active" id="passwordGate">
+        <div class="gate-content">
+            <h1>Trading Foundations</h1>
+            <p>Enter your password to access this course</p>
+            <input type="password" id="passwordInput" class="gate-input" placeholder="Enter password">
+            <div class="gate-error" id="gateError">Incorrect password. Please try again.</div>
+            <button class="gate-button" onclick="checkPassword()">Access Course</button>
+            <div class="gate-help">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+    <button class="hamburger" id="hamburger">☰</button>
+    <nav class="sidebar-nav" id="sidebar">
+        <a href="../">← All Courses</a>
+        <a href="module-1.html">Module 1: Chart Basics</a>
+        <a href="module-2.html">Module 2: Candlestick Patterns</a>
+        <a href="module-3.html">Module 3: Support & Resistance</a>
+        <a href="module-4.html">Module 4: Volume & Momentum</a>
+        <a href="module-5.html">Module 5: Moving Averages</a>
+        <a href="module-6.html" class="current">Module 6: Trendlines & Channels</a>
+        <a href="module-7.html">Module 7: Oscillators</a>
+        <a href="module-8.html">Module 8: Setups & Confluence</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="final-exam.html">Final Exam</a>
+    </nav>
+
+    <div class="container">
+        <header>
+            <div class="nav-top">
+                <a href="../">← All Courses</a>
+            </div>
+            <div class="module-badge">Module 6 of 8</div>
+            <h1>Trendlines & Channels</h1>
+        </header>
+
+        <main>
+            <!-- Section 1: The Simplest Tool in Trading -->
+            <section class="section">
+                <div class="section-number">1</div>
+                <div class="section-title">The Simplest Tool in Trading</div>
+                <div class="section-content">
+                    <p>A trendline is just a <span class="highlight">straight line connecting two or more points.</span> It's the most basic form of technical analysis — and one of the most powerful when drawn correctly.</p>
+                    <p style="font-style: italic; color: #F0D080;">"Two points make a line. Three points make it valid."</p>
+                    <p>That's it. No indicators needed. No algorithms. Just price, wicks, and a line. Professional traders obsess over trendlines because they work. They show you exactly where buyers and sellers are committed, and they identify the exact moment that changes.</p>
+                </div>
+            </section>
+
+            <!-- Section 2: Drawing Trendlines -->
+            <section class="section">
+                <div class="section-number">2</div>
+                <div class="section-title">Drawing Trendlines</div>
+                <div class="section-content">
+                    <p><span class="highlight">Uptrend line:</span> Connect two or more higher lows. You're tracing the floor where buyers keep defending.</p>
+                    <p><span class="highlight">Downtrend line:</span> Connect two or more lower highs. You're tracing the ceiling where sellers keep controlling.</p>
+                    <p><strong>Rules:</strong></p>
+                    <ul>
+                        <li>Use the <span class="highlight">WICK (shadow), not the body.</span> The wick represents the full range of price action, including rejection points.</li>
+                        <li>Need at least <span class="highlight">2 touches to draw, 3+ to validate.</span> Two points make a line, but it's not tested. Three touches mean you have confirmation.</li>
+                        <li>The more touches, the stronger the trendline. A trendline that price has tested 5+ times is a significant level.</li>
+                    </ul>
+                </div>
+                <div class="step-breakdown">
+                    <p><strong>Three-step breakdown:</strong></p>
+                    <ol>
+                        <li>How to draw on TradingView: Use the trendline tool (usually icon of a diagonal line), click two swing lows for uptrend or two swing highs for downtrend</li>
+                        <li>Wicks vs bodies: Always touch the wick (the thin shadow), not the thick body of the candle</li>
+                        <li>When to redraw: If price violates a trendline with a close below/above it, you may need to redraw using newer swing points</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Section 3: Trendline Breaks -->
+            <section class="section">
+                <div class="section-number">3</div>
+                <div class="section-title">Trendline Breaks</div>
+                <div class="section-content">
+                    <p>When price breaks through a valid trendline, it signals a potential shift. But <span class="red-text">NOT every break is a reversal</span> — sometimes it's a <span class="highlight">false break</span> (wick pokes through, then reclaims).</p>
+                    <p><span class="green-text">Confirmation:</span> Wait for a candle to <span class="highlight">CLOSE beyond the trendline.</span> A wick poking through doesn't count. A full candle close below (on a downtrend) or above (on an uptrend) confirms the break.</p>
+                    <p>Volume spike on the break adds confidence. If price closes beyond the trendline on high volume, the move is legitimate. If it's low volume, traders are not committed yet.</p>
+                </div>
+            </section>
+
+            <!-- Section 4: Ascending & Descending Channels -->
+            <section class="section">
+                <div class="section-number">4</div>
+                <div class="section-title">Ascending & Descending Channels</div>
+                <div class="section-content">
+                    <p>A <span class="highlight">channel is two parallel trendlines containing price.</span></p>
+                    <p><span class="green-text">Ascending channel:</span> Higher highs + higher lows, price bounces between the lines. This is a bullish structure.</p>
+                    <p><span class="red-text">Descending channel:</span> Lower highs + lower lows. This is a bearish structure.</p>
+                    <p><strong>Trading channels:</strong></p>
+                    <ul>
+                        <li>Buy at the support (lower line), sell at the resistance (upper line) — ride the channel</li>
+                        <li>Breakout above = acceleration — trend is strengthening</li>
+                        <li>Breakdown below = reversal — structure has broken</li>
+                    </ul>
+                </div>
+                <div class="vocab-grid">
+                    <div class="vocab-item">
+                        <strong>Channel</strong>
+                        <em>Two parallel trendlines</em>
+                    </div>
+                    <div class="vocab-item">
+                        <strong>Support Trendline</strong>
+                        <em>Lower parallel line</em>
+                    </div>
+                    <div class="vocab-item">
+                        <strong>Resistance Trendline</strong>
+                        <em>Upper parallel line</em>
+                    </div>
+                    <div class="vocab-item">
+                        <strong>Channel Width</strong>
+                        <em>Distance between lines</em>
+                    </div>
+                    <div class="vocab-item">
+                        <strong>Breakout</strong>
+                        <em>Price exits above channel</em>
+                    </div>
+                    <div class="vocab-item">
+                        <strong>Breakdown</strong>
+                        <em>Price exits below channel</em>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Horizontal vs Diagonal Levels -->
+            <section class="section">
+                <div class="section-number">5</div>
+                <div class="section-title">Horizontal vs Diagonal Levels</div>
+                <div class="section-content">
+                    <p><span class="highlight">Trendlines are diagonal.</span> They move with the trend.</p>
+                    <p><span class="highlight">Support/Resistance (next module) is horizontal.</span> It stays flat.</p>
+                    <p>The best setups happen when they <span class="highlight">CONVERGE</span> — a horizontal support level meets a rising trendline. That's <span class="green-text">confluence,</span> and it's where you want to be paying attention. When two or more levels overlap, that's where institutional money is sitting.</p>
+                </div>
+            </section>
+
+            <!-- Section 6: Key Takeaways -->
+            <section class="section">
+                <div class="section-number">6</div>
+                <div class="section-title">Key Takeaways</div>
+                <div class="section-content">
+                    <ul>
+                        <li>A trendline connects two or more swing points (highs or lows)</li>
+                        <li>Two points make a line, three points validate it</li>
+                        <li>Always use wicks, not candle bodies</li>
+                        <li>A break is only confirmed when price closes beyond the trendline</li>
+                        <li>Channels are two parallel trendlines that contain price action</li>
+                        <li>Breakouts and breakdowns signal trend acceleration or reversal</li>
+                        <li>Confluence happens when trendlines and support/resistance overlap — that's your highest probability setup</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 7: Practice Exercise -->
+            <section class="section">
+                <div class="exercise-box">
+                    <h4>Practice Exercise</h4>
+                    <p>Open QQQ on the 1-hour chart. Draw one uptrend line and one downtrend line from the last 2 weeks.</p>
+                    <ul>
+                        <li>Did price respect them?</li>
+                        <li>Did any trendlines get broken?</li>
+                        <li>When they broke, what happened next?</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><em>Write down your observations. Notice which trendline price respected most, and which one failed. This builds your intuition for trendline strength.</em></p>
+                </div>
+            </section>
+
+            <!-- Quiz Section -->
+            <section class="quiz-section">
+                <h2 class="quiz-title">Module Quiz</h2>
+                <p style="margin-bottom: 30px; color: #A8BACE;">Test your understanding. Click each question to reveal the answer.</p>
+
+                <div class="quiz-question">
+                    <h4 onclick="toggleAnswer(this)">
+                        1. How many touches does a trendline need to be considered valid?
+                        <span class="quiz-toggle">+</span>
+                    </h4>
+                    <div class="quiz-answer">
+                        <strong>Answer:</strong> At least 3 touches. Two points create a line, but the third touch validates it. The more touches, the stronger the trendline.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4 onclick="toggleAnswer(this)">
+                        2. When drawing an uptrend line, what do you connect?
+                        <span class="quiz-toggle">+</span>
+                    </h4>
+                    <div class="quiz-answer">
+                        <strong>Answer:</strong> Higher lows — the swing lows that are progressively higher. You're tracing the floor where buyers keep defending price.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4 onclick="toggleAnswer(this)">
+                        3. Should you use candle bodies or wicks when drawing trendlines?
+                        <span class="quiz-toggle">+</span>
+                    </h4>
+                    <div class="quiz-answer">
+                        <strong>Answer:</strong> Wicks. They represent the full range of price action including rejection points. Candle bodies miss the true price extremes.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4 onclick="toggleAnswer(this)">
+                        4. A price break through a trendline is confirmed when?
+                        <span class="quiz-toggle">+</span>
+                    </h4>
+                    <div class="quiz-answer">
+                        <strong>Answer:</strong> A candle CLOSES beyond the trendline. A wick poking through doesn't count — price must fully close on the other side of the line to confirm the break.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4 onclick="toggleAnswer(this)">
+                        5. What is a channel in technical analysis?
+                        <span class="quiz-toggle">+</span>
+                    </h4>
+                    <div class="quiz-answer">
+                        <strong>Answer:</strong> Two parallel trendlines containing price — one connecting highs (resistance), one connecting lows (support) — creating a range for price to trade within.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Footer -->
+            <div class="nav-footer">
+                <a href="module-5.html" class="nav-button">← Previous: Module 5</a>
+                <a href="module-7.html" class="nav-button">Next: Module 7 →</a>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const PASSWORD_HASH = "9004dd85ce0b8bf505d662c98afbc00c07dece9544d804442e1e6d97f6996d41";
+        const STORAGE_KEY = "stack_foundations_access";
+
+        async function sha256(str) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(str);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const hash = await sha256(password);
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                document.getElementById('passwordGate').classList.remove('active');
+            } else {
+                document.getElementById('gateError').style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') { checkPassword(); }
+        });
+
+        function checkAccess() {
+            if (localStorage.getItem(STORAGE_KEY) === 'true') {
+                document.getElementById('passwordGate').classList.remove('active');
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem(STORAGE_KEY);
+            document.getElementById('passwordGate').classList.add('active');
+            document.getElementById('passwordInput').value = '';
+        }
+
+        checkAccess();
+
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+
+        hamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.sidebar-nav') && !e.target.closest('.hamburger')) {
+                sidebar.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        function toggleAnswer(element) {
+            const answer = element.nextElementSibling;
+            answer.classList.toggle('visible');
+            const toggle = element.querySelector('.quiz-toggle');
+            toggle.textContent = answer.classList.contains('visible') ? '−' : '+';
+        }
+    </script>
+</body>
+</html>

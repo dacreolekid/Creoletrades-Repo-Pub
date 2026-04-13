@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 8: Putting It All Together - STACK Academy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .password-gate {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #070C18 0%, #0D1526 100%);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .password-gate.active {
+            display: flex;
+        }
+        .gate-content {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 40px;
+            border-radius: 0px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .gate-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #F0D080;
+            margin-bottom: 20px;
+        }
+        .gate-content p {
+            color: #C8D4E8;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+        .gate-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: #0F1A2E;
+            border: 1px solid #C9A84C;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            border-radius: 0px;
+            font-size: 14px;
+        }
+        .gate-input::placeholder {
+            color: #6B84AA;
+        }
+        .gate-input:focus {
+            outline: none;
+            border-color: #F0D080;
+            box-shadow: 0 0 10px rgba(201, 168, 76, 0.3);
+        }
+        .gate-button {
+            width: 100%;
+            padding: 12px;
+            background: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Playfair Display', serif;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+        .gate-button:hover {
+            background: #F0D080;
+            transform: scale(1.02);
+        }
+        .gate-error {
+            color: #EF4444;
+            font-size: 12px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        .gate-help {
+            font-size: 12px;
+            color: #6B84AA;
+            margin-top: 20px;
+        }
+        .gate-help a {
+            color: #C9A84C;
+            text-decoration: none;
+        }
+        .gate-help a:hover {
+            color: #F0D080;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #0D1526;
+            border-bottom: 1px solid #C9A84C;
+            padding: 1.5rem 2rem;
+            overflow-x: auto;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            min-width: min-content;
+        }
+
+        nav a {
+            color: #F0D080;
+            text-decoration: none;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            color: #070C18;
+            background-color: #F0D080;
+        }
+
+        nav a.active {
+            color: #070C18;
+            background-color: #C9A84C;
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            width: 100%;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 0.5rem 1rem;
+            border-radius: 0px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #EEF2FF;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .module-subtitle {
+            font-size: 1.1rem;
+            color: #F0D080;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            background-color: #0D1526;
+            padding: 2rem;
+            border-radius: 0px;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #EEF2FF;
+            margin-bottom: 1rem;
+        }
+
+        .section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: #F0D080;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            color: #C8D4E8;
+            line-height: 1.8;
+        }
+
+        .checklist {
+            background-color: #070C18;
+            padding: 1.5rem;
+            border-left: 4px solid #22C55E;
+            margin: 1.5rem 0;
+            border-radius: 0px;
+        }
+
+        .checklist h4 {
+            color: #22C55E;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+        }
+
+        .checklist ol {
+            list-style: decimal;
+            margin-left: 1.5rem;
+        }
+
+        .checklist li {
+            margin-bottom: 0.75rem;
+            color: #C8D4E8;
+        }
+
+        .checklist li strong {
+            color: #F0D080;
+        }
+
+        .confluence-box {
+            background-color: #070C18;
+            padding: 1.5rem;
+            border-left: 4px solid #F0D080;
+            margin: 1.5rem 0;
+            border-radius: 0px;
+        }
+
+        .confluence-box h4 {
+            color: #F0D080;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .confluence-example {
+            background-color: #0D1526;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+        }
+
+        .confluence-example strong {
+            color: #22C55E;
+        }
+
+        .callout-box {
+            background-color: #0D1526;
+            padding: 2rem;
+            border-radius: 0px;
+            border: 2px solid #C9A84C;
+            margin: 2rem 0;
+            background-image: linear-gradient(135deg, rgba(201, 168, 76, 0.1) 0%, transparent 100%);
+        }
+
+        .callout-box h3 {
+            color: #C9A84C;
+            margin-top: 0;
+            font-size: 1.3rem;
+        }
+
+        .callout-box p {
+            color: #C8D4E8;
+            margin-bottom: 1rem;
+        }
+
+        .callout-link {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 0px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        .callout-link:hover {
+            background-color: #F0D080;
+        }
+
+        .key-takeaways {
+            background-color: #070C18;
+            padding: 1.5rem;
+            border-left: 4px solid #F0D080;
+            margin: 2rem 0;
+            border-radius: 0px;
+        }
+
+        .key-takeaways h3 {
+            color: #F0D080;
+            margin-bottom: 1rem;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-takeaways li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #C8D4E8;
+        }
+
+        .key-takeaways li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #22C55E;
+            font-weight: bold;
+        }
+
+        .practice-exercise {
+            background-color: #0D1526;
+            padding: 2rem;
+            border-radius: 0px;
+            border: 2px solid #22C55E;
+            margin: 2rem 0;
+        }
+
+        .practice-exercise h3 {
+            color: #22C55E;
+            margin-bottom: 1rem;
+        }
+
+        .practice-exercise p {
+            color: #C8D4E8;
+            line-height: 1.8;
+        }
+
+        /* Quiz Section */
+        .quiz-section {
+            margin-top: 3rem;
+        }
+
+        .quiz-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #EEF2FF;
+            margin-bottom: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .quiz-question {
+            background-color: #0D1526;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0px;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .question-number {
+            color: #F0D080;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .question-text {
+            color: #EEF2FF;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .question-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option {
+            padding: 0.75rem;
+            background-color: #070C18;
+            border: 1px solid #C8D4E8;
+            border-radius: 0px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #C8D4E8;
+        }
+
+        .option:hover {
+            background-color: #1a2341;
+            border-color: #F0D080;
+        }
+
+        .option input[type="radio"] {
+            margin-right: 0.75rem;
+            cursor: pointer;
+        }
+
+        .option.selected {
+            background-color: #C9A84C;
+            color: #070C18;
+            border-color: #C9A84C;
+        }
+
+        .answer {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #1a3a1a;
+            border-left: 4px solid #22C55E;
+            border-radius: 0px;
+            display: none;
+        }
+
+        .answer.show {
+            display: block;
+        }
+
+        .answer-label {
+            color: #22C55E;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .answer-text {
+            color: #C8D4E8;
+        }
+
+        /* Footer Navigation */
+        .footer-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #C9A84C;
+            margin-bottom: 2rem;
+        }
+
+        .nav-button {
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 0px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 1px solid #C9A84C;
+        }
+
+        .nav-button:hover {
+            background-color: #F0D080;
+            border-color: #F0D080;
+        }
+
+        .nav-button.secondary {
+            background-color: transparent;
+            color: #C9A84C;
+            border: 1px solid #C9A84C;
+        }
+
+        .nav-button.secondary:hover {
+            background-color: #C9A84C;
+            color: #070C18;
+        }
+
+        .submit-button {
+            background-color: #22C55E;
+            color: #070C18;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 0px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        .submit-button:hover {
+            background-color: #1aa345;
+        }
+
+        .result-message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 0px;
+            display: none;
+            font-weight: bold;
+        }
+
+        .result-message.show {
+            display: block;
+        }
+
+        .result-message.success {
+            background-color: #1a3a1a;
+            color: #22C55E;
+            border-left: 4px solid #22C55E;
+        }
+
+        .result-message.error {
+            background-color: #3a1a1a;
+            color: #EF4444;
+            border-left: 4px solid #EF4444;
+        }
+
+        .watchlist-list {
+            background-color: #070C18;
+            padding: 1.5rem;
+            border-radius: 0px;
+            border: 1px solid #C9A84C;
+            margin: 1rem 0;
+        }
+
+        .watchlist-list ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .watchlist-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #C8D4E8;
+        }
+
+        .watchlist-list li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 0.5rem;
+            }
+
+            nav a {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.6rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .section h2 {
+                font-size: 1.4rem;
+            }
+
+            main {
+                margin: 1.5rem auto;
+                padding: 0 1rem;
+            }
+
+            .footer-nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate active" id="passwordGate">
+        <div class="gate-content">
+            <h1>Trading Foundations</h1>
+            <p>Enter your password to access this course</p>
+            <input type="password" id="passwordInput" class="gate-input" placeholder="Enter password">
+            <div class="gate-error" id="gateError">Incorrect password. Please try again.</div>
+            <button class="gate-button" onclick="checkPassword()">Access Course</button>
+            <div class="gate-help">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="../">← All Courses</a></li>
+            <li><a href="module-1.html">Module 1</a></li>
+            <li><a href="module-2.html">Module 2</a></li>
+            <li><a href="module-3.html">Module 3</a></li>
+            <li><a href="module-4.html">Module 4</a></li>
+            <li><a href="module-5.html">Module 5</a></li>
+            <li><a href="module-6.html">Module 6</a></li>
+            <li><a href="module-7.html">Module 7</a></li>
+            <li><a href="module-8.html" class="active">Module 8</a></li>
+            <li><a href="glossary.html">Glossary</a></li>
+            <li><a href="final-exam.html">Final Exam</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <span class="module-badge">Module 8 of 8</span>
+        <h1>Putting It All Together</h1>
+        <p class="module-subtitle">Build your complete trading framework</p>
+
+        <div class="section">
+            <h2>You Have the Tools — Now Build the Framework</h2>
+            <p>Over 7 modules you've learned candles, patterns, ETFs, strategies, moving averages, trendlines, and support/resistance. Individually, each one gives you an edge. Combined, they give you a complete trading framework that works.</p>
+            <p>This final module ties it all together into a pre-trade checklist that professional traders use before EVERY single trade. Follow this checklist, and you won't make impulsive decisions. You'll have a system.</p>
+        </div>
+
+        <div class="section">
+            <h2>The Pre-Trade Checklist</h2>
+            <p>Before EVERY trade, answer these 6 questions. No exceptions. This is how discipline is built.</p>
+
+            <div class="checklist">
+                <h4>Your 6-Step Pre-Trade Checklist</h4>
+                <ol>
+                    <li><strong>What's the trend?</strong> Use the 200 SMA and WTMA Cloud to determine bullish/bearish/neutral. Don't trade against the trend.</li>
+                    <li><strong>Where are the key levels?</strong> Mark support and resistance on your chart. These are your decision points.</li>
+                    <li><strong>Is there a pattern?</strong> Chart pattern or candlestick pattern forming at a key level? Pattern + key level = higher probability.</li>
+                    <li><strong>What's the strategy?</strong> Breakout, pullback, momentum, or mean reversion? Know which type of trade you're taking.</li>
+                    <li><strong>What's the risk?</strong> Position size, stop loss, R:R ratio — must be at least 1:2. Bad risk = bad trade.</li>
+                    <li><strong>Is there confluence?</strong> Multiple things lining up (trendline + S/R + MA + pattern)? Confluence = high probability.</li>
+                </ol>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Real talk:</strong> 80% of beginner traders skip steps 2-6 and wonder why they lose money. The pros? They skip nothing. That's the difference.</p>
+        </div>
+
+        <div class="section">
+            <h2>Confluence: Where the Magic Happens</h2>
+            <p>One signal is a suggestion. Two signals is interesting. Three or more = confluence = HIGH PROBABILITY.</p>
+
+            <div class="confluence-box">
+                <h4>Real-World Confluence Example</h4>
+                <div class="confluence-example">
+                    <p><strong>Setup:</strong> Price pulls back to the 12 EMA, which aligns with a horizontal support level, AND there's a bullish engulfing candle there.</p>
+                    <p style="margin-top: 0.75rem;">That's <strong>3 signals</strong> pointing the same direction:</p>
+                    <ul style="list-style: disc; margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Signal 1: 12 EMA acting as dynamic support</li>
+                        <li>Signal 2: Horizontal support level (prior S/R bounce)</li>
+                        <li>Signal 3: Bullish engulfing candle (reversal pattern)</li>
+                    </ul>
+                    <p style="margin-top: 0.75rem;"><strong>Result:</strong> This is a premium entry zone. The more confluence, the higher the probability of the trade working.</p>
+                </div>
+
+                <p style="margin-top: 1rem;"><strong>Your goal:</strong> Never take a trade with just one signal. Always wait for 2-3 to line up. Patience is profitability.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Building a Watchlist</h2>
+            <p>You can't watch everything. FOMO trades are dead-money trades. Pick 3-5 ETFs you understand (from Module 3). Check them daily for setups. Quality over quantity.</p>
+
+            <div class="watchlist-list">
+                <p style="margin-bottom: 1rem; font-weight: bold; color: #F0D080;">A Strong Watchlist Might Look Like:</p>
+                <ul>
+                    <li><strong>SPY</strong> — Broad market health, most liquid, most patterns</li>
+                    <li><strong>QQQ</strong> — Tech-heavy, higher volatility, more explosive patterns</li>
+                    <li><strong>IWM</strong> — Small caps, different correlations, unique setups</li>
+                    <li><strong>TLT</strong> — Bonds, contrary indicator to stocks</li>
+                    <li><strong>GLD</strong> — Gold/commodities, hedge and diversification</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 1.5rem;">You check each one daily. You mark S/R levels. You wait for confluence. You take the best 1-2 setups that appear each week. This is how scalable trading works — you trade quality setups, not quantity.</p>
+        </div>
+
+        <div class="section">
+            <h2>What Comes Next: Smart Money Concepts</h2>
+            <p>You've learned the retail trader's toolkit. Everything in this course is what most traders use. But there's a level above this — understanding how INSTITUTIONS move the market.</p>
+
+            <p style="margin-top: 1rem;">That's <strong>Smart Money Concepts (SMC):</strong> order blocks, liquidity sweeps, fair value gaps, and the STACK Method. These tools show you where the big money is buying and selling — which means you can anticipate price before it moves.</p>
+
+            <p style="margin-top: 1rem;">The SMC course picks up exactly where this one leaves off. You've got the foundation. You understand candles, patterns, strategies, and levels. Now learn to SEE what institutional traders see.</p>
+
+            <div class="callout-box">
+                <h3>Ready for the Next Level?</h3>
+                <p>The SMC course picks up right where this one ends. You now have the retail trader's toolkit. SMC teaches you how institutions move the market — and how to trade their footprints.</p>
+                <a href="../smc/" class="callout-link">Explore Smart Money Concepts →</a>
+            </div>
+        </div>
+
+        <div class="key-takeaways">
+            <h3>Key Takeaways</h3>
+            <ul>
+                <li>Every trade starts with the 6-step pre-trade checklist. Skip no step.</li>
+                <li>Confluence = multiple signals pointing the same direction. Wait for 2-3+ signals, not just one.</li>
+                <li>Your watchlist should be small (3-5 ETFs) and focused. You can't trade every chart.</li>
+                <li>Trend comes first. Don't trade counter-trend breakouts — find the path of least resistance.</li>
+                <li>Risk management (position size, R:R ratio minimum 1:2) determines your long-term profitability.</li>
+                <li>Smart Money Concepts take this foundation and show you how institutions actually move markets.</li>
+            </ul>
+        </div>
+
+        <div class="practice-exercise">
+            <h3>Final Practice Exercise</h3>
+            <p><strong>Run the full pre-trade checklist on a live chart right now:</strong></p>
+            <ol style="margin-left: 1.5rem; margin-top: 0.75rem;">
+                <li>Pick any ETF from your watchlist (SPY, QQQ, or another you're tracking).</li>
+                <li>Answer all 6 questions in the checklist above.</li>
+                <li>If you find confluence (2-3+ signals at the same level), paper trade the setup. Record the entry, stop, and target.</li>
+                <li>If you DON'T find confluence, that's discipline. Not every chart deserves your money.</li>
+                <li>Track 5-10 setups this way. You'll see which ones work and which don't. That data is gold.</li>
+            </ol>
+            <p style="margin-top: 1rem; font-style: italic;">This is the difference between traders and gamblers. Traders follow a system. You now have one.</p>
+        </div>
+
+        <div class="quiz-section">
+            <h2>Test Your Knowledge</h2>
+            <form id="quizForm">
+                <div class="quiz-question">
+                    <span class="question-number">Question 1</span>
+                    <span class="question-text">What is "confluence" in trading?</span>
+                    <div class="question-options">
+                        <label class="option">
+                            <input type="radio" name="q1" value="a"> A technical indicator
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="b"> Multiple signals or tools pointing to the same conclusion — e.g., support level + trendline + bullish candle pattern all at the same price
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="c"> A chart pattern name
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="d"> Price moving fast
+                        </label>
+                    </div>
+                    <div class="answer" data-question="q1" data-correct="b">
+                        <div class="answer-label">Correct Answer:</div>
+                        <div class="answer-text">Multiple signals or tools pointing to the same conclusion — e.g., support level + trendline + bullish candle pattern all at the same price. Confluence is where probability concentrates.</div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <span class="question-number">Question 2</span>
+                    <span class="question-text">What should you check FIRST in the pre-trade checklist?</span>
+                    <div class="question-options">
+                        <label class="option">
+                            <input type="radio" name="q2" value="a"> The trend — using the 200 SMA and WTMA Cloud to determine if the market is bullish, bearish, or neutral
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="b"> Support and resistance levels
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="c"> Your position size
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="d"> Your stop loss
+                        </label>
+                    </div>
+                    <div class="answer" data-question="q2" data-correct="a">
+                        <div class="answer-label">Correct Answer:</div>
+                        <div class="answer-text">The trend — using the 200 SMA and WTMA Cloud to determine if the market is bullish, bearish, or neutral. Never trade against the trend. Trend is the first filter for every trade.</div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <span class="question-number">Question 3</span>
+                    <span class="question-text">How many ETFs should a beginner have on their watchlist?</span>
+                    <div class="question-options">
+                        <label class="option">
+                            <input type="radio" name="q3" value="a"> As many as possible (20+)
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="b"> Just 1
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="c"> 3-5 — focused attention on instruments you understand beats scanning hundreds of tickers
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="d"> 50 or more
+                        </label>
+                    </div>
+                    <div class="answer" data-question="q3" data-correct="c">
+                        <div class="answer-label">Correct Answer:</div>
+                        <div class="answer-text">3-5 — focused attention on instruments you understand beats scanning hundreds of tickers. A small, quality watchlist eliminates FOMO and keeps you disciplined.</div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <span class="question-number">Question 4</span>
+                    <span class="question-text">Why is a minimum 1:2 risk-to-reward ratio important?</span>
+                    <div class="question-options">
+                        <label class="option">
+                            <input type="radio" name="q4" value="a"> It's just a rule with no math behind it
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="b"> It means you can be wrong 50% of the time and still be profitable — the math works in your favor over time
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="c"> It makes trades more exciting
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="d"> It doesn't matter
+                        </label>
+                    </div>
+                    <div class="answer" data-question="q4" data-correct="b">
+                        <div class="answer-label">Correct Answer:</div>
+                        <div class="answer-text">It means you can be wrong 50% of the time and still be profitable — the math works in your favor over time. Risk management is the difference between ruin and compounding wealth.</div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <span class="question-number">Question 5</span>
+                    <span class="question-text">What do Smart Money Concepts (SMC) teach you that retail tools don't?</span>
+                    <div class="question-options">
+                        <label class="option">
+                            <input type="radio" name="q5" value="a"> How to trade faster
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="b"> How institutions move the market — order blocks, liquidity sweeps, and fair value gaps reveal the footprint of smart money rather than just following price
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="c"> Better indicators
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="d"> How to trade without risk
+                        </label>
+                    </div>
+                    <div class="answer" data-question="q5" data-correct="b">
+                        <div class="answer-label">Correct Answer:</div>
+                        <div class="answer-text">How institutions move the market — order blocks, liquidity sweeps, and fair value gaps reveal the footprint of smart money rather than just following price. SMC is seeing price action through the institution's eyes, not the retail crowd's.</div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-button">Check Answers</button>
+                <div class="result-message" id="resultMessage"></div>
+            </form>
+        </div>
+
+        <div class="footer-nav">
+            <a href="module-7.html" class="nav-button secondary">← Previous: Module 7</a>
+            <a href="final-exam.html" class="nav-button">Next: Final Exam →</a>
+        </div>
+    </main>
+
+    <script>
+        const PASSWORD_HASH = "9004dd85ce0b8bf505d662c98afbc00c07dece9544d804442e1e6d97f6996d41";
+        const STORAGE_KEY = "stack_foundations_access";
+
+        async function sha256(str) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(str);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const hash = await sha256(password);
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                document.getElementById('passwordGate').classList.remove('active');
+            } else {
+                document.getElementById('gateError').style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') { checkPassword(); }
+        });
+
+        function checkAccess() {
+            if (localStorage.getItem(STORAGE_KEY) === 'true') {
+                document.getElementById('passwordGate').classList.remove('active');
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem(STORAGE_KEY);
+            document.getElementById('passwordGate').classList.add('active');
+            document.getElementById('passwordInput').value = '';
+        }
+
+        checkAccess();
+
+        // Quiz functionality
+        const form = document.getElementById('quizForm');
+        const resultMessage = document.getElementById('resultMessage');
+
+        // Add click handlers to options
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                const parent = this.closest('.quiz-question');
+                parent.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                const input = this.querySelector('input');
+                input.checked = true;
+            });
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const answers = {
+                q1: 'b',
+                q2: 'a',
+                q3: 'c',
+                q4: 'b',
+                q5: 'b'
+            };
+
+            let correctCount = 0;
+            let totalQuestions = 5;
+
+            // Check each answer and show results
+            document.querySelectorAll('.quiz-question').forEach(question => {
+                const radioName = question.querySelector('input[type="radio"]').name;
+                const selectedOption = document.querySelector(`input[name="${radioName}"]:checked`);
+                const answerDiv = question.querySelector('.answer');
+
+                if (selectedOption) {
+                    const userAnswer = selectedOption.value;
+                    const correctAnswer = answers[radioName];
+
+                    if (userAnswer === correctAnswer) {
+                        correctCount++;
+                        answerDiv.classList.add('show');
+                    } else {
+                        answerDiv.classList.add('show');
+                        question.style.opacity = '0.7';
+                    }
+                } else {
+                    question.style.opacity = '0.7';
+                }
+            });
+
+            // Show result message
+            const percentage = (correctCount / totalQuestions) * 100;
+            const isPass = percentage >= 80;
+
+            resultMessage.classList.add('show');
+            resultMessage.classList.add(isPass ? 'success' : 'error');
+            resultMessage.textContent = `You got ${correctCount} out of ${totalQuestions} correct (${Math.round(percentage)}%). ${isPass ? 'Congratulations! You\'re ready for the SMC course.' : 'Review the material and try again.'}`;
+
+            // Scroll to result
+            resultMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    </script>
+</body>
+</html>

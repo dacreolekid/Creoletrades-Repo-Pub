@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 7: Support & Resistance - STACK Academy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .password-gate {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #070C18 0%, #0D1526 100%);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .password-gate.active {
+            display: flex;
+        }
+        .gate-content {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 40px;
+            border-radius: 0px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .gate-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #F0D080;
+            margin-bottom: 20px;
+        }
+        .gate-content p {
+            color: #C8D4E8;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+        .gate-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: #0F1A2E;
+            border: 1px solid #C9A84C;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            border-radius: 0px;
+            font-size: 14px;
+        }
+        .gate-input::placeholder {
+            color: #6B84AA;
+        }
+        .gate-input:focus {
+            outline: none;
+            border-color: #F0D080;
+            box-shadow: 0 0 10px rgba(201, 168, 76, 0.3);
+        }
+        .gate-button {
+            width: 100%;
+            padding: 12px;
+            background: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Playfair Display', serif;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+        .gate-button:hover {
+            background: #F0D080;
+            transform: scale(1.02);
+        }
+        .gate-error {
+            color: #EF4444;
+            font-size: 12px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        .gate-help {
+            font-size: 12px;
+            color: #6B84AA;
+            margin-top: 20px;
+        }
+        .gate-help a {
+            color: #C9A84C;
+            text-decoration: none;
+        }
+        .gate-help a:hover {
+            color: #F0D080;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #0D1526;
+            border-bottom: 1px solid #C9A84C;
+            padding: 1.5rem 2rem;
+            overflow-x: auto;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            min-width: min-content;
+        }
+
+        nav a {
+            color: #F0D080;
+            text-decoration: none;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            color: #070C18;
+            background-color: #F0D080;
+        }
+
+        nav a.active {
+            color: #070C18;
+            background-color: #C9A84C;
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            width: 100%;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 0.5rem 1rem;
+            border-radius: 0px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #EEF2FF;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .module-subtitle {
+            font-size: 1.1rem;
+            color: #F0D080;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            background-color: #0D1526;
+            padding: 2rem;
+            border-radius: 0px;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #EEF2FF;
+            margin-bottom: 1rem;
+        }
+
+        .section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: #F0D080;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            color: #C8D4E8;
+            line-height: 1.8;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .vocab-item {
+            background-color: #070C18;
+            padding: 1rem;
+            border-radius: 0px;
+            border: 1px solid #C9A84C;
+            font-weight: bold;
+            color: #F0D080;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .step-breakdown {
+            background-color: #070C18;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #22C55E;
+            border-radius: 0px;
+        }
+
+        .step-breakdown h4 {
+            color: #22C55E;
+            margin-bottom: 0.75rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .step-breakdown p {
+            margin-bottom: 0.75rem;
+        }
+
+        .key-takeaways {
+            background-color: #070C18;
+            padding: 1.5rem;
+            border-left: 4px solid #F0D080;
+            margin: 2rem 0;
+            border-radius: 0px;
+        }
+
+        .key-takeaways h3 {
+            color: #F0D080;
+            margin-bottom: 1rem;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-takeaways li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #C8D4E8;
+        }
+
+        .key-takeaways li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #22C55E;
+            font-weight: bold;
+        }
+
+        .practice-exercise {
+            background-color: #0D1526;
+            padding: 2rem;
+            border-radius: 0px;
+            border: 2px solid #22C55E;
+            margin: 2rem 0;
+        }
+
+        .practice-exercise h3 {
+            color: #22C55E;
+            margin-bottom: 1rem;
+        }
+
+        .practice-exercise p {
+            color: #C8D4E8;
+            line-height: 1.8;
+        }
+
+        /* Quiz Section */
+        .quiz-section {
+            margin-top: 3rem;
+        }
+
+        .quiz-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #EEF2FF;
+            margin-bottom: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .quiz-question {
+            background-color: #0D1526;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0px;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .question-number {
+            color: #F0D080;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .question-text {
+            color: #EEF2FF;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .question-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option {
+            padding: 0.75rem;
+            background-color: #070C18;
+            border: 1px solid #C8D4E8;
+            border-radius: 0px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #C8D4E8;
+        }
+
+        .option:hover {
+            background-color: #1a2341;
+            border-color: #F0D080;
+        }
+
+        .option input[type="radio"] {
+            margin-right: 0.75rem;
+            cursor: pointer;
+        }
+
+        .option.selected {
+            background-color: #C9A84C;
+            color: #070C18;
+            border-color: #C9A84C;
+        }
+
+        .answer {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #1a3a1a;
+            border-left: 4px solid #22C55E;
+            border-radius: 0px;
+            display: none;
+        }
+
+        .answer.show {
+            display: block;
+        }
+
+        .answer-label {
+            color: #22C55E;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .answer-text {
+            color: #C8D4E8;
+        }
+
+        /* Footer Navigation */
+        .footer-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #C9A84C;
+            margin-bottom: 2rem;
+        }
+
+        .nav-button {
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 0px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 1px solid #C9A84C;
+        }
+
+        .nav-button:hover {
+            background-color: #F0D080;
+            border-color: #F0D080;
+        }
+
+        .nav-button.secondary {
+            background-color: transparent;
+            color: #C9A84C;
+            border: 1px solid #C9A84C;
+        }
+
+        .nav-button.secondary:hover {
+            background-color: #C9A84C;
+            color: #070C18;
+        }
+
+        .submit-button {
+            background-color: #22C55E;
+            color: #070C18;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 0px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        .submit-button:hover {
+            background-color: #1aa345;
+        }
+
+        .result-message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 0px;
+            display: none;
+            font-weight: bold;
+        }
+
+        .result-message.show {
+            display: block;
+        }
+
+        .result-message.success {
+            background-color: #1a3a1a;
+            color: #22C55E;
+            border-left: 4px solid #22C55E;
+        }
+
+        .result-message.error {
+            background-color: #3a1a1a;
+            color: #EF4444;
+            border-left: 4px solid #EF4444;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 0.5rem;
+            }
+
+            nav a {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.6rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .section h2 {
+                font-size: 1.4rem;
+            }
+
+            main {
+                margin: 1.5rem auto;
+                padding: 0 1rem;
+            }
+
+            .footer-nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate active" id="passwordGate">
+        <div class="gate-content">
+            <h1>Trading Foundations</h1>
+            <p>Enter your password to access this course</p>
+            <input type="password" id="passwordInput" class="gate-input" placeholder="Enter password">
+            <div class="gate-error" id="gateError">Incorrect password. Please try again.</div>
+            <button class="gate-button" onclick="checkPassword()">Access Course</button>
+            <div class="gate-help">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="../">← All Courses</a></li>
+            <li><a href="module-1.html">Module 1</a></li>
+            <li><a href="module-2.html">Module 2</a></li>
+            <li><a href="module-3.html">Module 3</a></li>
+            <li><a href="module-4.html">Module 4</a></li>
+            <li><a href="module-5.html">Module 5</a></li>
+            <li><a href="module-6.html">Module 6</a></li>
+            <li><a href="module-7.html" class="active">Module 7</a></li>
+            <li><a href="module-8.html">Module 8</a></li>
+            <li><a href="glossary.html">Glossary</a></li>
+            <li><a href="final-exam.html">Final Exam</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <span class="module-badge">Module 7 of 8</span>
+        <h1>Support & Resistance</h1>
+        <p class="module-subtitle">The foundation of every technical setup</p>
+
+        <div class="section">
+            <h2>The Foundation of Every Setup</h2>
+            <p>Support and resistance are the most important concepts in all of technical analysis. Every strategy, every pattern, every indicator — they all reference levels where price has reacted before. If you only learn ONE thing from this course, learn to read S/R levels.</p>
+            <p>This module gives you the tools to identify, draw, and use support and resistance levels that will transform how you read charts. These are the invisible guardrails that professional traders watch constantly.</p>
+        </div>
+
+        <div class="section">
+            <h2>What Is Support?</h2>
+            <p>A price level where buying pressure has historically overcome selling pressure. Price bounces here. Think of it as a floor — price falls to it and gets pushed back up.</p>
+            <p><strong>Key insight:</strong> The more times price bounces off support, the stronger it is. BUT: every support level eventually breaks. When it does, be ready.</p>
+
+            <h3>Support Vocabulary</h3>
+            <div class="vocab-grid">
+                <div class="vocab-item">Support</div>
+                <div class="vocab-item">Demand Zone</div>
+                <div class="vocab-item">Bounce</div>
+                <div class="vocab-item">Test</div>
+                <div class="vocab-item">Break</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>What Is Resistance?</h2>
+            <p>A price level where selling pressure has historically overcome buying pressure. Price rejects here. Think of it as a ceiling — price rises to it and gets pushed back down.</p>
+            <p><strong>Critical concept:</strong> When resistance breaks, it often becomes support (flip). This is one of the most reliable patterns in trading.</p>
+
+            <h3>Resistance Vocabulary</h3>
+            <div class="vocab-grid">
+                <div class="vocab-item">Resistance</div>
+                <div class="vocab-item">Supply Zone</div>
+                <div class="vocab-item">Rejection</div>
+                <div class="vocab-item">Ceiling</div>
+                <div class="vocab-item">Flip</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Support/Resistance Flips</h2>
+            <p>This is huge for beginners. When price breaks above resistance, that level becomes support. When price breaks below support, that level becomes resistance.</p>
+
+            <h3>Why does this happen?</h3>
+            <p>The traders who sold at resistance are now underwater and want to get out at breakeven — their selling becomes new resistance (or their buying becomes new support when the flip reverses).</p>
+
+            <div class="step-breakdown">
+                <h4>The S/R Flip Breakdown</h4>
+                <p><strong>Step 1: Resistance forms</strong> — Price rallies to $100 and gets rejected (sellers take profit). This becomes resistance.</p>
+                <p><strong>Step 2: Breakout happens</strong> — Price breaks above $100 on heavy volume. Those sellers are now trapped short.</p>
+                <p><strong>Step 3: The flip</strong> — Price pulls back to $100. Those trapped sellers rush to cover (buy) at breakeven. $100 is now support instead of resistance.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Psychological Levels</h2>
+            <p>Round numbers matter: $100, $200, $400, $500. SPY at $500 is a bigger deal than SPY at $503.</p>
+
+            <h3>Why round numbers are invisible S/R levels:</h3>
+            <ul style="list-style: disc; margin-left: 1.5rem;">
+                <li><strong>Options strikes cluster</strong> at round numbers. Huge options activity = price reaction.</li>
+                <li><strong>Algorithms are programmed</strong> around them. Major institutions execute orders at round numbers.</li>
+                <li><strong>Retail traders watch them</strong>. When everyone expects a reaction, it becomes self-fulfilling.</li>
+                <li><strong>News and media</strong> highlight round-number milestones. "SPY hits $500!" drives attention and liquidity.</li>
+            </ul>
+
+            <p style="margin-top: 1.5rem;"><strong>Action item:</strong> Always mark round numbers on your chart as potential S/R levels, even if price hasn't bounced there yet.</p>
+        </div>
+
+        <div class="section">
+            <h2>Volume at Price (VRVP)</h2>
+            <p>Volume doesn't just happen over time — it happens at specific prices. The Volume at Range Visible Profile (VRVP) shows you WHERE the most trading happened.</p>
+
+            <h3>How to read VRVP:</h3>
+            <ul style="list-style: disc; margin-left: 1.5rem;">
+                <li><strong>High-volume nodes</strong> = strong S/R. Many traders bought/sold there. Price will interact with it again.</li>
+                <li><strong>Low-volume nodes</strong> = price moves through quickly. Nobody fought for that price level — it's likely just a runner-through.</li>
+                <li><strong>Volume clusters</strong> at S/R levels confirm that those levels matter. If high volume happens at resistance, that resistance is likely to hold (or break with authority).</li>
+            </ul>
+
+            <p style="margin-top: 1.5rem;"><strong>This is an advanced concept but critical:</strong> Understanding WHY certain levels hold is the difference between drawing random lines and identifying real S/R that institutions respect.</p>
+        </div>
+
+        <div class="key-takeaways">
+            <h3>Key Takeaways</h3>
+            <ul>
+                <li>Support = floor where price bounces. Resistance = ceiling where price rejects.</li>
+                <li>The more times price tests a level and holds, the stronger that level is.</li>
+                <li>When resistance breaks, it becomes support (the S/R flip). This creates high-probability setup zones.</li>
+                <li>Round numbers like $100, $500, $200 act as psychological S/R levels even without prior price history.</li>
+                <li>Volume at Price reveals WHERE traders actually fought for price — high-volume nodes are strong S/R.</li>
+                <li>Every support level eventually breaks. Be ready to treat it as new resistance when it does.</li>
+            </ul>
+        </div>
+
+        <div class="practice-exercise">
+            <h3>Practice Exercise</h3>
+            <p><strong>On SPY daily chart, do this now:</strong></p>
+            <ol style="margin-left: 1.5rem; margin-top: 0.75rem;">
+                <li>Mark the 3 most obvious support levels from the last 6 months.</li>
+                <li>Mark the 3 most obvious resistance levels from the last 6 months.</li>
+                <li>Check: did any of them flip (support became resistance or vice versa)?</li>
+                <li>Are any of them near psychological round numbers?</li>
+                <li>Add VRVP to your chart — do the high-volume nodes line up with your manually drawn levels?</li>
+            </ol>
+            <p style="margin-top: 1rem; font-style: italic;">This exercise locks the concepts into your brain. Don't skip it.</p>
+        </div>
+
+        <div class="quiz-section">
+            <h2>Test Your Knowledge</h2>
+            <form id="quizForm">
+                <div class="quiz-question">
+                    <span class="question-number">Question 1</span>
+                    <span class="question-text">What makes a support level "strong"?</span>
+                    <div class="question-options">
+                        <label class="option">
+                            <input type="radio" name="q1" value="a"> Price only touched it once
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="b"> Multiple bounces off the same level — the more times price tests support and holds, the stronger it is
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="c"> It's always at a round number
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="d"> The chart looks good
+                        </label>
+                    </div>
+                    <div class="answer" data-question="q1" data-correct="b">
+                        <div class="answer-label">Correct Answer:</div>
+                        <div class="answer-text">Multiple bounces off the same level — the more times price tests support and holds, the stronger it is. A level tested once is weak. A level tested 5+ times is a fortress.</div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <span class="question-number">Question 2</span>
+                    <span class="question-text">When resistance breaks, what does it typically become?</span>
+                    <div class="question-options">
+                        <label class="option">
+                            <input type="radio" name="q2" value="a"> Nothing — the level disappears
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="b"> Support — this is called an S/R flip, and it's one of the most reliable patterns in trading
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="c"> A psychological level
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="d"> An indicator signal
+                        </label>
+                    </div>
+                    <div class="answer" data-question="q2" data-correct="b">
+                        <div class="answer-label">Correct Answer:</div>
+                        <div class="answer-text">Support — this is called an S/R flip, and it's one of the most reliable patterns in trading. Trapped sellers at the breakout level will rush to cover (buy) when price pulls back, creating new support.</div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <span class="question-number">Question 3</span>
+                    <span class="question-text">Why do round numbers like $100 or $500 act as support/resistance?</span>
+                    <div class="question-options">
+                        <label class="option">
+                            <input type="radio" name="q3" value="a"> They're randomly important
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="b"> Only for SPY, not other stocks
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="c"> Psychological levels attract attention from traders, options activity clusters there, and algorithms are programmed to execute at round numbers
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="d"> They don't — this is a myth
+                        </label>
+                    </div>
+                    <div class="answer" data-question="q3" data-correct="c">
+                        <div class="answer-label">Correct Answer:</div>
+                        <div class="answer-text">Psychological levels attract attention from traders, options activity clusters there, and algorithms are programmed to execute at round numbers. This creates a self-fulfilling prophecy where round numbers become real S/R levels.</div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <span class="question-number">Question 4</span>
+                    <span class="question-text">What does a high-volume node on VRVP indicate?</span>
+                    <div class="question-options">
+                        <label class="option">
+                            <input type="radio" name="q4" value="a"> Price moved fast through that level
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="b"> A price level where heavy trading occurred — these tend to act as strong support or resistance because many traders have positions there
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="c"> Nobody cares about that price
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="d"> It's a fake level
+                        </label>
+                    </div>
+                    <div class="answer" data-question="q4" data-correct="b">
+                        <div class="answer-label">Correct Answer:</div>
+                        <div class="answer-text">A price level where heavy trading occurred — these tend to act as strong support or resistance because many traders have positions there. High-volume nodes = places where price historically fights.</div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <span class="question-number">Question 5</span>
+                    <span class="question-text">Price breaks below a support level. What should you expect that level to become?</span>
+                    <div class="question-options">
+                        <label class="option">
+                            <input type="radio" name="q5" value="a"> Irrelevant
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="b"> Resistance — trapped buyers who held through the break will sell when price returns to that level to minimize losses
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="c"> Support again (it will hold twice)
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="d"> A moving average
+                        </label>
+                    </div>
+                    <div class="answer" data-question="q5" data-correct="b">
+                        <div class="answer-label">Correct Answer:</div>
+                        <div class="answer-text">Resistance — trapped buyers who held through the break will sell when price returns to that level to minimize losses. This is the inverse of the S/R flip pattern.</div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-button">Check Answers</button>
+                <div class="result-message" id="resultMessage"></div>
+            </form>
+        </div>
+
+        <div class="footer-nav">
+            <a href="module-6.html" class="nav-button secondary">← Previous: Module 6</a>
+            <a href="module-8.html" class="nav-button">Next: Module 8 →</a>
+        </div>
+    </main>
+
+    <script>
+        const PASSWORD_HASH = "9004dd85ce0b8bf505d662c98afbc00c07dece9544d804442e1e6d97f6996d41";
+        const STORAGE_KEY = "stack_foundations_access";
+
+        async function sha256(str) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(str);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const hash = await sha256(password);
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                document.getElementById('passwordGate').classList.remove('active');
+            } else {
+                document.getElementById('gateError').style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') { checkPassword(); }
+        });
+
+        function checkAccess() {
+            if (localStorage.getItem(STORAGE_KEY) === 'true') {
+                document.getElementById('passwordGate').classList.remove('active');
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem(STORAGE_KEY);
+            document.getElementById('passwordGate').classList.add('active');
+            document.getElementById('passwordInput').value = '';
+        }
+
+        checkAccess();
+
+        // Quiz functionality
+        const form = document.getElementById('quizForm');
+        const resultMessage = document.getElementById('resultMessage');
+
+        // Add click handlers to options
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                const parent = this.closest('.quiz-question');
+                parent.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                const input = this.querySelector('input');
+                input.checked = true;
+            });
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const answers = {
+                q1: 'b',
+                q2: 'b',
+                q3: 'c',
+                q4: 'b',
+                q5: 'b'
+            };
+
+            let correctCount = 0;
+            let totalQuestions = 5;
+
+            // Check each answer and show results
+            document.querySelectorAll('.quiz-question').forEach(question => {
+                const radioName = question.querySelector('input[type="radio"]').name;
+                const selectedOption = document.querySelector(`input[name="${radioName}"]:checked`);
+                const answerDiv = question.querySelector('.answer');
+
+                if (selectedOption) {
+                    const userAnswer = selectedOption.value;
+                    const correctAnswer = answers[radioName];
+
+                    if (userAnswer === correctAnswer) {
+                        correctCount++;
+                        answerDiv.classList.add('show');
+                    } else {
+                        answerDiv.classList.add('show');
+                        question.style.opacity = '0.7';
+                    }
+                } else {
+                    question.style.opacity = '0.7';
+                }
+            });
+
+            // Show result message
+            const percentage = (correctCount / totalQuestions) * 100;
+            const isPass = percentage >= 80;
+
+            resultMessage.classList.add('show');
+            resultMessage.classList.add(isPass ? 'success' : 'error');
+            resultMessage.textContent = `You got ${correctCount} out of ${totalQuestions} correct (${Math.round(percentage)}%). ${isPass ? 'Great work!' : 'Review the material and try again.'}`;
+
+            // Scroll to result
+            resultMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    </script>
+</body>
+</html>

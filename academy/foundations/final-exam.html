@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Foundations Final Exam</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #070C18 0%, #0A0F1B 100%);
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-box {
+            background: #0D1526;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-box h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .login-box p {
+            color: #C8D4E8;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: #070C18;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .password-input::placeholder {
+            color: #7B8FA8;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #F0D080;
+        }
+
+        .error-message {
+            color: #EF4444;
+            font-size: 13px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .help-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .help-link a {
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .help-link a:hover {
+            color: #F0D080;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid #C9A84C;
+            padding-bottom: 20px;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 12px;
+            border: 1px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            color: #F0D080;
+            border-color: #C9A84C;
+        }
+
+        nav a.active {
+            color: #F0D080;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background: #C9A84C;
+            color: #070C18;
+            padding: 6px 12px;
+            font-family: 'Playfair Display', serif;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border-radius: 0px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            color: #C8D4E8;
+            font-size: 16px;
+            font-style: italic;
+        }
+
+        .quiz-container {
+            margin-top: 40px;
+        }
+
+        .quiz-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #C9A84C;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background: #0D1526;
+            margin: 0 20px;
+            border-radius: 0px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #C9A84C;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .progress-text {
+            color: #C8D4E8;
+            font-size: 14px;
+        }
+
+        .question-block {
+            background: #0D1526;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            padding: 30px;
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .question-block.active {
+            display: block;
+        }
+
+        .question-number {
+            color: #C9A84C;
+            font-family: 'Playfair Display', serif;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #EEF2FF;
+            margin-bottom: 25px;
+        }
+
+        .answer-option {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #070C18;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .answer-option:hover {
+            background: #0A0F1B;
+            border-color: #F0D080;
+        }
+
+        .answer-option input[type="radio"] {
+            margin-right: 15px;
+            margin-top: 3px;
+            cursor: pointer;
+            accent-color: #C9A84C;
+        }
+
+        .answer-option label {
+            cursor: pointer;
+            flex: 1;
+            color: #C8D4E8;
+        }
+
+        .answer-option.selected {
+            background: #0A0F1B;
+            border-color: #C9A84C;
+        }
+
+        .answer-option.correct {
+            border-color: #22C55E;
+            background: rgba(34, 197, 94, 0.05);
+        }
+
+        .answer-option.incorrect {
+            border-color: #EF4444;
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #C9A84C;
+            border: 1px solid #C9A84C;
+        }
+
+        .btn-secondary:hover {
+            background: #C9A84C;
+            color: #070C18;
+        }
+
+        .btn-primary {
+            background: #C9A84C;
+            color: #070C18;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: #F0D080;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Graduation Screen */
+        .graduation-screen {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .graduation-screen.show {
+            display: block;
+        }
+
+        .graduation-badge {
+            font-family: 'Playfair Display', serif;
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .graduation-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+        }
+
+        .graduation-message {
+            color: #C8D4E8;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .score-display {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: #C9A84C;
+            margin: 30px 0;
+        }
+
+        .score-tier {
+            color: #F0D080;
+            font-size: 16px;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .graduation-quote {
+            background: #0D1526;
+            border-left: 4px solid #C9A84C;
+            padding: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #C8D4E8;
+            text-align: left;
+        }
+
+        .graduation-quote-author {
+            margin-top: 10px;
+            color: #C9A84C;
+            font-style: normal;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 40px;
+            justify-content: center;
+        }
+
+        .cta-buttons a {
+            padding: 14px 28px;
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 0px;
+            transition: all 0.3s;
+        }
+
+        .cta-discord {
+            background: #5865F2;
+            color: white;
+            border: 1px solid #5865F2;
+        }
+
+        .cta-discord:hover {
+            background: #4752C4;
+            border-color: #4752C4;
+        }
+
+        .cta-smc {
+            background: #C9A84C;
+            color: #070C18;
+            border: 1px solid #C9A84C;
+        }
+
+        .cta-smc:hover {
+            background: #F0D080;
+            border-color: #F0D080;
+        }
+
+        .reset-btn {
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-progress {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .progress-bar {
+                margin: 10px 0;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .question-text {
+                font-size: 18px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Password Gate -->
+    <div id="login-screen" class="login-container">
+        <div class="login-box">
+            <h1>Trading Foundations</h1>
+            <p>Access the Final Exam</p>
+            <input
+                type="password"
+                id="password-input"
+                class="password-input"
+                placeholder="Enter password"
+                autocomplete="off"
+            >
+            <button class="login-btn" onclick="verifyPassword()">Unlock</button>
+            <div class="error-message" id="error-msg">Incorrect password. Try again.</div>
+            <div class="help-link">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content (Hidden until authenticated) -->
+    <div id="course-content" class="hidden">
+        <div class="container">
+            <nav>
+                <a href="../">← All Courses</a>
+                <a href="module-1.html">Module 1</a>
+                <a href="module-2.html">Module 2</a>
+                <a href="module-3.html">Module 3</a>
+                <a href="module-4.html">Module 4</a>
+                <a href="module-5.html">Module 5</a>
+                <a href="module-6.html">Module 6</a>
+                <a href="module-7.html">Module 7</a>
+                <a href="module-8.html">Module 8</a>
+                <a href="glossary.html">Glossary</a>
+                <a href="final-exam.html" class="active">Final Exam</a>
+            </nav>
+
+            <header>
+                <div class="module-badge">Final Exam</div>
+                <h1>Trading Foundations Final Exam</h1>
+                <p class="page-subtitle">20 questions covering all 8 modules. Master the basics before advancing to SMC.</p>
+            </header>
+
+            <!-- Quiz Interface -->
+            <div id="quiz-interface">
+                <div class="quiz-progress">
+                    <span class="progress-text"><span id="current-question">1</span> / 20</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+
+                <div class="quiz-container" id="quiz-container">
+                    <!-- Questions will be generated here -->
+                </div>
+
+                <div class="quiz-nav">
+                    <button class="btn btn-secondary" onclick="previousQuestion()">← Previous</button>
+                    <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()">Next →</button>
+                </div>
+            </div>
+
+            <!-- Graduation Screen -->
+            <div id="graduation-screen" class="graduation-screen">
+                <div class="graduation-badge">⚜️</div>
+                <div class="graduation-title">You've Completed Trading Foundations</div>
+                <div class="score-display" id="score-display">0/20</div>
+                <div class="score-tier" id="score-tier"></div>
+                <div class="graduation-message">The basics are locked in. You're ready to learn how the institutions move. The SMC course picks up right here.</div>
+                <div class="graduation-quote">
+                    <div>"You don't rush a roux. You don't rush a trade."</div>
+                    <div class="graduation-quote-author">— Que, CreoleTrades</div>
+                </div>
+                <div class="cta-buttons">
+                    <a href="https://discord.gg/gzxcV6HDTM" class="cta-discord" target="_blank">Join Discord</a>
+                    <a href="../smc/" class="cta-smc">Start the SMC Course →</a>
+                </div>
+                <button class="btn btn-secondary reset-btn" onclick="resetQuiz()">Retake Exam</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const PASSWORD_HASH = "9004dd85ce0b8bf505d662c98afbc00c07dece9544d804442e1e6d97f6996d41";
+        const STORAGE_KEY = "stack_foundations_access";
+
+        const QUESTIONS = [
+            // Module 1: Candlesticks (3 questions)
+            {
+                module: 1,
+                question: "What does the body of a candlestick represent?",
+                options: [
+                    "The difference between open and close prices",
+                    "The highest price of the period",
+                    "The lowest price of the period",
+                    "The total volume traded"
+                ],
+                correct: 0
+            },
+            {
+                module: 1,
+                question: "Which candlestick pattern consists of three candles: bearish, small body (gap down), then bullish?",
+                options: [
+                    "Engulfing pattern",
+                    "Morning Star",
+                    "Evening Star",
+                    "Doji"
+                ],
+                correct: 1
+            },
+            {
+                module: 1,
+                question: "A hammer pattern typically forms at which location in a trend?",
+                options: [
+                    "Top of an uptrend",
+                    "Bottom of a downtrend",
+                    "Middle of consolidation",
+                    "During gap up moves"
+                ],
+                correct: 1
+            },
+
+            // Module 2: Chart Patterns (3 questions)
+            {
+                module: 2,
+                question: "What is a Double Bottom pattern?",
+                options: [
+                    "Two consecutive bearish candles at the same level",
+                    "A bullish reversal with two lows at similar levels and a peak between them",
+                    "Two wicks extending downward from one candle",
+                    "A pattern where price never reaches previous highs"
+                ],
+                correct: 1
+            },
+            {
+                module: 2,
+                question: "In a Head & Shoulders pattern, what role does the neckline play?",
+                options: [
+                    "It's the highest point of the pattern",
+                    "It connects the tops of both shoulders",
+                    "It's the line connecting the valley lows and signals confirmation when broken",
+                    "It marks support zones"
+                ],
+                correct: 2
+            },
+            {
+                module: 2,
+                question: "A Bull Flag is what type of pattern?",
+                options: [
+                    "Reversal pattern",
+                    "Consolidation pattern",
+                    "Continuation pattern",
+                    "Gap pattern"
+                ],
+                correct: 2
+            },
+
+            // Module 3: ETFs (2 questions)
+            {
+                module: 3,
+                question: "What does AUM stand for in the context of ETFs?",
+                options: [
+                    "Average Unit Movement",
+                    "Assets Under Management",
+                    "Automated Unit Margin",
+                    "Annual User Management"
+                ],
+                correct: 1
+            },
+            {
+                module: 3,
+                question: "What is a characteristic of leveraged ETFs that traders should be aware of?",
+                options: [
+                    "They are designed for long-term buy-and-hold investing",
+                    "They lose value over time in sideways markets",
+                    "They have no expense ratios",
+                    "They always move 1:1 with their underlying index"
+                ],
+                correct: 1
+            },
+
+            // Module 4: Strategies (2 questions)
+            {
+                module: 4,
+                question: "What is paper trading?",
+                options: [
+                    "Trading only on paper documents",
+                    "Practicing trades with simulated money without real capital at risk",
+                    "A type of financial analysis",
+                    "Trading during market opening hours only"
+                ],
+                correct: 1
+            },
+            {
+                module: 4,
+                question: "In a pullback trading strategy, what is the trader's main objective?",
+                options: [
+                    "To bet against the prevailing trend",
+                    "To enter in the direction of the main trend during minor retracements",
+                    "To trade only at support levels",
+                    "To avoid all momentum-based trades"
+                ],
+                correct: 1
+            },
+
+            // Module 5: Moving Averages (3 questions)
+            {
+                module: 5,
+                question: "What is the key difference between SMA and EMA?",
+                options: [
+                    "SMA only works on daily charts",
+                    "EMA gives more weight to recent prices and responds faster to changes",
+                    "They are identical and produce the same signals",
+                    "SMA is only used for long-term trends"
+                ],
+                correct: 1
+            },
+            {
+                module: 5,
+                question: "What does a Golden Cross signal?",
+                options: [
+                    "A bearish reversal when the 12 EMA crosses above 200 SMA",
+                    "A bullish signal when the 12 EMA crosses above the 200 SMA",
+                    "The end of all trends",
+                    "Extreme overbought conditions"
+                ],
+                correct: 1
+            },
+            {
+                module: 5,
+                question: "What does 'lag' refer to in the context of moving averages?",
+                options: [
+                    "The volume behind a move",
+                    "The delay in moving averages responding to new price information",
+                    "A period of no trading activity",
+                    "The distance between open and close"
+                ],
+                correct: 1
+            },
+
+            // Module 6: Trendlines (2 questions)
+            {
+                module: 6,
+                question: "How is an uptrend trendline typically drawn?",
+                options: [
+                    "Connecting falling highs",
+                    "Connecting rising lows",
+                    "Connecting the open and close of each candle",
+                    "Horizontally across multiple highs"
+                ],
+                correct: 1
+            },
+            {
+                module: 6,
+                question: "What is a false break in the context of trendlines?",
+                options: [
+                    "When a trendline is drawn incorrectly",
+                    "When price briefly breaks a trendline but quickly returns",
+                    "When a trendline holds indefinitely",
+                    "When volume decreases during a break"
+                ],
+                correct: 1
+            },
+
+            // Module 7: Support & Resistance (3 questions)
+            {
+                module: 7,
+                question: "What is a Support/Resistance Flip?",
+                options: [
+                    "When traders change their bias randomly",
+                    "When a broken resistance level becomes new support",
+                    "When support becomes resistance and vice versa after being broken",
+                    "Both B and C are correct"
+                ],
+                correct: 3
+            },
+            {
+                module: 7,
+                question: "What makes psychological levels like 100 or 1000 significant in trading?",
+                options: [
+                    "They have no special significance",
+                    "They psychologically attract buyers and sellers, creating support/resistance",
+                    "They are only used by retail traders",
+                    "They change value based on market conditions"
+                ],
+                correct: 1
+            },
+            {
+                module: 7,
+                question: "What is Volume at Price (VRVP)?",
+                options: [
+                    "The price divided by trading volume",
+                    "A visualization of trading volume at different price levels",
+                    "The average volume per price movement",
+                    "A type of candlestick pattern"
+                ],
+                correct: 1
+            },
+
+            // Module 8: Framework (2 questions)
+            {
+                module: 8,
+                question: "What is the primary purpose of a pre-trade checklist?",
+                options: [
+                    "To slow down trading and reduce profits",
+                    "To verify criteria before entering trades and prevent emotional trading",
+                    "To track historical trades only",
+                    "To determine market sentiment"
+                ],
+                correct: 1
+            },
+            {
+                module: 8,
+                question: "What is an appropriate Risk-to-Reward ratio for professional traders?",
+                options: [
+                    "1:1 at minimum",
+                    "Any ratio as long as you win more than you lose",
+                    "At least 1:2 or 1:3",
+                    "There is no standard ratio"
+                ],
+                correct: 2
+            }
+        ];
+
+        let currentQuestion = 0;
+        let answers = new Array(QUESTIONS.length).fill(null);
+        let quizStarted = false;
+
+        function hashPassword(password) {
+            return new Promise(resolve => {
+                const encoder = new TextEncoder();
+                const data = encoder.encode(password);
+                crypto.subtle.digest('SHA-256', data).then(hashBuffer => {
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                    resolve(hashHex);
+                });
+            });
+        }
+
+        async function verifyPassword() {
+            const passwordInput = document.getElementById('password-input');
+            const errorMsg = document.getElementById('error-msg');
+            const password = passwordInput.value.trim();
+
+            if (!password) {
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            const hash = await hashPassword(password);
+
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('course-content').classList.remove('hidden');
+                errorMsg.style.display = 'none';
+                initQuiz();
+            } else {
+                errorMsg.style.display = 'block';
+                passwordInput.value = '';
+            }
+        }
+
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                verifyPassword();
+            }
+        });
+
+        function initQuiz() {
+            if (quizStarted) return;
+            quizStarted = true;
+
+            const quizContainer = document.getElementById('quiz-container');
+            quizContainer.innerHTML = '';
+
+            QUESTIONS.forEach((q, index) => {
+                const questionBlock = document.createElement('div');
+                questionBlock.className = 'question-block' + (index === 0 ? ' active' : '');
+
+                const questionNumber = document.createElement('div');
+                questionNumber.className = 'question-number';
+                questionNumber.textContent = `Module ${q.module} • Question ${index + 1}`;
+
+                const questionText = document.createElement('div');
+                questionText.className = 'question-text';
+                questionText.textContent = q.question;
+
+                questionBlock.appendChild(questionNumber);
+                questionBlock.appendChild(questionText);
+
+                q.options.forEach((option, optIndex) => {
+                    const optionLabel = document.createElement('div');
+                    optionLabel.className = 'answer-option';
+
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = `question-${index}`;
+                    radio.value = optIndex;
+                    radio.onchange = function() {
+                        answers[index] = optIndex;
+                        updateAnswerUI(index);
+                        updateProgress();
+                    };
+
+                    const label = document.createElement('label');
+                    label.textContent = option;
+
+                    optionLabel.appendChild(radio);
+                    optionLabel.appendChild(label);
+                    optionLabel.onclick = function(e) {
+                        if (e.target !== radio) radio.click();
+                    };
+
+                    questionBlock.appendChild(optionLabel);
+                });
+
+                quizContainer.appendChild(questionBlock);
+            });
+
+            updateProgress();
+        }
+
+        function updateAnswerUI(questionIndex) {
+            const questionBlock = document.querySelectorAll('.question-block')[questionIndex];
+            const options = questionBlock.querySelectorAll('.answer-option');
+            options.forEach((option, index) => {
+                if (index === answers[questionIndex]) {
+                    option.classList.add('selected');
+                } else {
+                    option.classList.remove('selected');
+                }
+            });
+        }
+
+        function updateProgress() {
+            const progressPercentage = ((currentQuestion + 1) / QUESTIONS.length) * 100;
+            document.getElementById('progress-fill').style.width = progressPercentage + '%';
+            document.getElementById('current-question').textContent = currentQuestion + 1;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < QUESTIONS.length - 1) {
+                document.querySelectorAll('.question-block')[currentQuestion].classList.remove('active');
+                currentQuestion++;
+                document.querySelectorAll('.question-block')[currentQuestion].classList.add('active');
+                updateProgress();
+                window.scrollTo(0, 0);
+            } else if (currentQuestion === QUESTIONS.length - 1) {
+                // Submit quiz
+                submitQuiz();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                document.querySelectorAll('.question-block')[currentQuestion].classList.remove('active');
+                currentQuestion--;
+                document.querySelectorAll('.question-block')[currentQuestion].classList.add('active');
+                updateProgress();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function submitQuiz() {
+            let correctCount = 0;
+            answers.forEach((answer, index) => {
+                if (answer === QUESTIONS[index].correct) {
+                    correctCount++;
+                }
+            });
+
+            showGraduation(correctCount);
+        }
+
+        function showGraduation(score) {
+            document.getElementById('quiz-interface').classList.add('hidden');
+            document.getElementById('graduation-screen').classList.add('show');
+            document.getElementById('score-display').textContent = score + '/20';
+
+            let tier = '';
+            if (score === 20) {
+                tier = "Perfect. You've mastered the foundations. You're ready for Smart Money Concepts. Stay STACKED. ⚜️";
+            } else if (score >= 16) {
+                tier = "Strong result. You understand the foundations. Review what you missed, then move to SMC.";
+            } else if (score >= 12) {
+                tier = "Passing grade. Revisit the modules where you struggled before advancing.";
+            } else {
+                tier = "Not ready yet. Review and retake. Master the basics first — the roux has to simmer.";
+            }
+
+            document.getElementById('score-tier').textContent = tier;
+            window.scrollTo(0, 0);
+        }
+
+        function resetQuiz() {
+            currentQuestion = 0;
+            answers = new Array(QUESTIONS.length).fill(null);
+            document.querySelectorAll('.question-block').forEach((block, index) => {
+                block.classList.remove('active');
+                if (index === 0) block.classList.add('active');
+                block.querySelectorAll('input[type="radio"]').forEach(input => input.checked = false);
+            });
+            document.getElementById('graduation-screen').classList.remove('show');
+            document.getElementById('quiz-interface').classList.remove('hidden');
+            updateProgress();
+            window.scrollTo(0, 0);
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem(STORAGE_KEY) === 'true') {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('course-content').classList.remove('hidden');
+                // Use MutationObserver pattern for quiz init
+                const observer = new MutationObserver(function(mutations) {
+                    if (document.getElementById('course-content') && !document.getElementById('course-content').classList.contains('hidden')) {
+                        initQuiz();
+                        observer.disconnect();
+                    }
+                });
+                observer.observe(document.getElementById('course-content'), { attributes: true });
+                initQuiz();
+            }
+        });
+    </script>
+</body>
+</html>

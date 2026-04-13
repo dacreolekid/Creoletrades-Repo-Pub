@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1: Candlestick Basics - Trading Foundations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .password-gate {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #070C18 0%, #0D1526 100%);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .password-gate.active {
+            display: flex;
+        }
+
+        .gate-content {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 40px;
+            border-radius: 0px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .gate-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #F0D080;
+            margin-bottom: 20px;
+        }
+
+        .gate-content p {
+            color: #C8D4E8;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .gate-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: #0F1A2E;
+            border: 1px solid #C9A84C;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            border-radius: 0px;
+            font-size: 14px;
+        }
+
+        .gate-input::placeholder {
+            color: #6B84AA;
+        }
+
+        .gate-input:focus {
+            outline: none;
+            border-color: #F0D080;
+            box-shadow: 0 0 10px rgba(201, 168, 76, 0.3);
+        }
+
+        .gate-button {
+            width: 100%;
+            padding: 12px;
+            background: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Playfair Display', serif;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .gate-button:hover {
+            background: #F0D080;
+            transform: scale(1.02);
+        }
+
+        .gate-error {
+            color: #EF4444;
+            font-size: 12px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .gate-help {
+            font-size: 12px;
+            color: #6B84AA;
+            margin-top: 20px;
+        }
+
+        .gate-help a {
+            color: #C9A84C;
+            text-decoration: none;
+        }
+
+        .gate-help a:hover {
+            color: #F0D080;
+        }
+
+        header {
+            background: #0D1526;
+            border-bottom: 2px solid #C9A84C;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #F0D080;
+            margin-bottom: 10px;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background: #C9A84C;
+            color: #070C18;
+            padding: 6px 16px;
+            border-radius: 0px;
+            font-weight: 700;
+            font-size: 12px;
+            font-family: 'Lora', serif;
+            margin-bottom: 15px;
+        }
+
+        nav {
+            background: #0F1A2E;
+            border-bottom: 1px solid #C9A84C;
+            padding: 15px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            overflow-x: auto;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            padding: 8px 14px;
+            border: 1px solid #6B84AA;
+            border-radius: 0px;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            background: #C9A84C;
+            color: #070C18;
+            border-color: #C9A84C;
+        }
+
+        nav a:first-child {
+            border-color: #C9A84C;
+            color: #F0D080;
+        }
+
+        main {
+            flex: 1;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .content-section {
+            background: #0D1526;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-left: 4px solid #C9A84C;
+            border-radius: 0px;
+        }
+
+        .content-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            color: #F0D080;
+            margin-bottom: 15px;
+        }
+
+        .content-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: #EEF2FF;
+            margin: 20px 0 10px 0;
+        }
+
+        .content-section p {
+            color: #C8D4E8;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .content-section ul, .content-section ol {
+            margin: 15px 0 15px 30px;
+            color: #C8D4E8;
+        }
+
+        .content-section li {
+            margin-bottom: 10px;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .vocab-card {
+            background: #0F1A2E;
+            border: 1px solid #C9A84C;
+            padding: 15px;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .vocab-card:hover {
+            background: #C9A84C;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(201, 168, 76, 0.2);
+        }
+
+        .vocab-card:hover .vocab-term,
+        .vocab-card:hover .vocab-def {
+            color: #070C18;
+        }
+
+        .vocab-term {
+            font-weight: 700;
+            color: #F0D080;
+            font-size: 14px;
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .vocab-def {
+            font-size: 13px;
+            color: #C8D4E8;
+            transition: color 0.3s ease;
+        }
+
+        .three-step {
+            background: #0F1A2E;
+            border: 2px solid #C9A84C;
+            padding: 25px;
+            border-radius: 0px;
+            margin: 20px 0;
+        }
+
+        .three-step h3 {
+            color: #F0D080;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .step {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #6B84AA;
+        }
+
+        .step:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: #C9A84C;
+            color: #070C18;
+            border-radius: 0px;
+            text-align: center;
+            line-height: 32px;
+            font-weight: 700;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        .step-title {
+            color: #F0D080;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .step-content {
+            margin-top: 8px;
+            margin-left: 42px;
+            color: #C8D4E8;
+            font-size: 14px;
+        }
+
+        .key-takeaways {
+            background: #0D1526;
+            border-left: 4px solid #22C55E;
+            padding: 25px;
+            border-radius: 0px;
+            margin: 20px 0;
+        }
+
+        .key-takeaways h3 {
+            color: #22C55E;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .key-takeaways ol {
+            margin-left: 20px;
+        }
+
+        .key-takeaways li {
+            color: #C8D4E8;
+            margin-bottom: 10px;
+        }
+
+        .practice-box {
+            background: #0D1526;
+            border-left: 4px solid #C9A84C;
+            padding: 25px;
+            border-radius: 0px;
+            margin: 20px 0;
+        }
+
+        .practice-box h3 {
+            color: #F0D080;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .practice-box p {
+            color: #C8D4E8;
+            font-style: italic;
+        }
+
+        .quiz-section {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 30px 0;
+        }
+
+        .quiz-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #F0D080;
+            margin-bottom: 25px;
+        }
+
+        .quiz-question {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #6B84AA;
+        }
+
+        .quiz-question:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .quiz-q-number {
+            color: #C9A84C;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .quiz-q-text {
+            color: #EEF2FF;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            background: #0F1A2E;
+            border: 1px solid #6B84AA;
+            padding: 12px 15px;
+            border-radius: 0px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .quiz-option:hover {
+            background: #C9A84C;
+            border-color: #C9A84C;
+            color: #070C18;
+        }
+
+        .quiz-option input[type="radio"] {
+            margin-right: 12px;
+            cursor: pointer;
+            accent-color: #C9A84C;
+        }
+
+        .quiz-feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 0px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.correct {
+            background: rgba(34, 197, 94, 0.2);
+            border-left: 4px solid #22C55E;
+            color: #22C55E;
+        }
+
+        .quiz-feedback.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border-left: 4px solid #EF4444;
+            color: #EF4444;
+        }
+
+        .quiz-submit {
+            background: #C9A84C;
+            color: #070C18;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 0px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 15px;
+            font-family: 'Playfair Display', serif;
+            margin-top: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-submit:hover {
+            background: #F0D080;
+            transform: scale(1.02);
+        }
+
+        .quiz-result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 0px;
+            text-align: center;
+            display: none;
+            background: #0F1A2E;
+            border: 2px solid #C9A84C;
+        }
+
+        .quiz-result.show {
+            display: block;
+        }
+
+        .quiz-result h3 {
+            color: #F0D080;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .quiz-result p {
+            color: #C8D4E8;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin: 40px 0;
+            max-width: 900px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #C9A84C;
+            background: transparent;
+            color: #C9A84C;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 700;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+            font-family: 'Lora', serif;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .nav-button:hover {
+            background: #C9A84C;
+            color: #070C18;
+        }
+
+        .nav-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-button.disabled:hover {
+            background: transparent;
+            color: #C9A84C;
+        }
+
+        footer {
+            background: #0D1526;
+            border-top: 2px solid #C9A84C;
+            padding: 25px 20px;
+            text-align: center;
+            color: #6B84AA;
+            font-size: 12px;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: #C9A84C;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #F0D080;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 24px;
+            }
+
+            .content-section {
+                padding: 20px;
+            }
+
+            .content-section h2 {
+                font-size: 20px;
+            }
+
+            nav {
+                gap: 8px;
+            }
+
+            nav a {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            main {
+                margin: 20px auto;
+            }
+
+            .gate-content {
+                padding: 30px 20px;
+                max-width: 90%;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 20px;
+            }
+
+            .content-section {
+                padding: 15px;
+            }
+
+            .content-section h2 {
+                font-size: 18px;
+            }
+
+            nav {
+                flex-direction: column;
+            }
+
+            nav a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate active" id="passwordGate">
+        <div class="gate-content">
+            <h1>Trading Foundations</h1>
+            <p>Enter your password to access this course</p>
+            <input type="password" id="passwordInput" class="gate-input" placeholder="Enter password">
+            <div class="gate-error" id="gateError">Incorrect password. Please try again.</div>
+            <button class="gate-button" onclick="checkPassword()">Access Course</button>
+            <div class="gate-help">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <div class="module-badge">Module 1 of 8</div>
+        <h1>Candlestick Basics</h1>
+    </header>
+
+    <nav>
+        <a href="../">← All Courses</a>
+        <a href="module-1.html">Module 1</a>
+        <a href="module-2.html">Module 2</a>
+        <a href="module-3.html">Module 3</a>
+        <a href="module-4.html">Module 4</a>
+        <a href="module-5.html">Module 5</a>
+        <a href="module-6.html">Module 6</a>
+        <a href="module-7.html">Module 7</a>
+        <a href="module-8.html">Module 8</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="final-exam.html">Final Exam</a>
+    </nav>
+
+    <main>
+        <div class="content-section">
+            <h2>Reading the Language of Price</h2>
+            <p>Every candle tells a story. Before indicators, before patterns, before anything — you need to read candles. This is the alphabet of trading.</p>
+            <p>Think about it: you wouldn't try to read a book in a language you don't understand. The same applies here. Candles are your letters. The patterns they form are words. The trends they create are sentences. Master the letters first, and everything else becomes readable.</p>
+            <p>CreoleTrades voice: "You can't read a book if you don't know the letters. Candles are your letters."</p>
+            <p>This module is about building that foundation. Not flashy. Not complicated. Just fundamental skills that every professional trader uses every single day.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Anatomy of a Candlestick</h2>
+            <p>A candlestick is simple. It shows four pieces of information for a time period (5-minute candle, hourly, daily, whatever):</p>
+            <ul>
+                <li><strong>Open:</strong> The opening price of the period</li>
+                <li><strong>Close:</strong> The closing price of the period</li>
+                <li><strong>High:</strong> The highest price reached during the period</li>
+                <li><strong>Low:</strong> The lowest price reached during the period</li>
+            </ul>
+
+            <h3>The Body vs. The Wick</h3>
+            <p>The candle has two parts:</p>
+            <ul>
+                <li><strong>Body (or Real Body):</strong> The rectangular block between open and close. The size tells you conviction.</li>
+                <li><strong>Wick (or Shadow):</strong> The thin lines extending above and below the body. These show rejection — price went there but buyers/sellers rejected it.</li>
+            </ul>
+
+            <h3>Color Rules</h3>
+            <ul>
+                <li><strong>Green/Bullish Candle:</strong> Close is above the open. Buyers won the period.</li>
+                <li><strong>Red/Bearish Candle:</strong> Close is below the open. Sellers won the period.</li>
+                <li><strong>Big Body:</strong> Conviction. One side dominated completely.</li>
+                <li><strong>Small Body:</strong> Indecision. Neither side could control the period.</li>
+                <li><strong>Long Wicks:</strong> Rejection. Price tested a level but was pushed back.</li>
+            </ul>
+
+            <h3>Vocabulary Grid</h3>
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="vocab-term">Body</div>
+                    <div class="vocab-def">The rectangular section of a candle representing the distance between open and close price.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Wick/Shadow</div>
+                    <div class="vocab-def">The thin lines extending from the body showing the high and low prices reached during the period.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Open</div>
+                    <div class="vocab-def">The price at which the candle period begins.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Close</div>
+                    <div class="vocab-def">The price at which the candle period ends.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">High</div>
+                    <div class="vocab-def">The highest price reached during the candle period.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Low</div>
+                    <div class="vocab-def">The lowest price reached during the candle period.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Bullish Candle</div>
+                    <div class="vocab-def">A green candle where the close is higher than the open, indicating buying pressure.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Bearish Candle</div>
+                    <div class="vocab-def">A red candle where the close is lower than the open, indicating selling pressure.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Single Candle Patterns</h2>
+            <p>These are the patterns that show up on ONE candle. Master these before moving to multi-candle patterns.</p>
+
+            <h3>Doji</h3>
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="vocab-term">Pattern</div>
+                    <div class="vocab-def">Doji</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Anatomy</div>
+                    <div class="vocab-def">Open equals close. The body is nearly non-existent.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Signal</div>
+                    <div class="vocab-def">Indecision. Neither buyers nor sellers won the period.</div>
+                </div>
+            </div>
+
+            <h3>Hammer</h3>
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="vocab-term">Pattern</div>
+                    <div class="vocab-def">Hammer</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Anatomy</div>
+                    <div class="vocab-def">Small body at the top, long lower wick. Looks like a hammer striking down.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Signal</div>
+                    <div class="vocab-def">Bullish reversal. Sellers pushed price down, but buyers rejected the lower price and pushed back up.</div>
+                </div>
+            </div>
+
+            <h3>Shooting Star</h3>
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="vocab-term">Pattern</div>
+                    <div class="vocab-def">Shooting Star</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Anatomy</div>
+                    <div class="vocab-def">Small body at the bottom, long upper wick. Opposite of hammer.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Signal</div>
+                    <div class="vocab-def">Bearish reversal. Buyers pushed price up, but sellers rejected the higher price and pushed back down.</div>
+                </div>
+            </div>
+
+            <h3>Marubozu</h3>
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="vocab-term">Pattern</div>
+                    <div class="vocab-def">Marubozu</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Anatomy</div>
+                    <div class="vocab-def">Full body, no wicks. Open and low are the same, or close and high are the same.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Signal</div>
+                    <div class="vocab-def">Pure momentum. One side completely dominated with no rejection at either end.</div>
+                </div>
+            </div>
+
+            <h3>Spinning Top</h3>
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="vocab-term">Pattern</div>
+                    <div class="vocab-def">Spinning Top</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Anatomy</div>
+                    <div class="vocab-def">Small body in the middle with equal-length wicks above and below.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Signal</div>
+                    <div class="vocab-def">Indecision. Neither side could gain control; price was pushed back from both directions equally.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Multi-Candle Patterns</h2>
+            <p>Now we combine candles to see bigger stories. These patterns span 2-3+ candles.</p>
+
+            <h3>Bullish Engulfing</h3>
+            <div class="three-step">
+                <h3>How to Identify</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <span class="step-title">Find the Setup</span>
+                    <div class="step-content">Look for a red (bearish) candle. This is your first candle.</div>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <span class="step-title">Look for the Engulfment</span>
+                    <div class="step-content">The next candle is green (bullish) and its body completely encompasses (engulfs) the previous red candle's body. The green candle's low is lower than or equal to the red candle's low, and its high is higher than the red candle's high.</div>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <span class="step-title">Confirm the Signal</span>
+                    <div class="step-content">This is a bullish reversal signal. Sellers controlled, but buyers came in with conviction and completely flipped the script.</div>
+                </div>
+            </div>
+
+            <h3>Bearish Engulfing</h3>
+            <div class="three-step">
+                <h3>How to Identify</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <span class="step-title">Find the Setup</span>
+                    <div class="step-content">Look for a green (bullish) candle.</div>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <span class="step-title">Look for the Engulfment</span>
+                    <div class="step-content">The next candle is red (bearish) and completely engulfs the previous green candle's body.</div>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <span class="step-title">Confirm the Signal</span>
+                    <div class="step-content">Bearish reversal. Buyers were in control, but sellers entered with power and flipped momentum.</div>
+                </div>
+            </div>
+
+            <h3>Morning Star</h3>
+            <div class="three-step">
+                <h3>How to Identify</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <span class="step-title">First Candle</span>
+                    <div class="step-content">A red (bearish) candle, showing weakness.</div>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <span class="step-title">Second Candle</span>
+                    <div class="step-content">A small-bodied candle (any color), typically gapping lower or just closing with a small range. This shows exhaustion — selling pressure is running out.</div>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <span class="step-title">Third Candle</span>
+                    <div class="step-content">A green (bullish) candle that closes above the midpoint of the first red candle. Buyers take control and reverse the downtrend.</div>
+                </div>
+            </div>
+
+            <h3>Evening Star</h3>
+            <div class="three-step">
+                <h3>How to Identify</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <span class="step-title">First Candle</span>
+                    <div class="step-content">A green (bullish) candle, showing strength.</div>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <span class="step-title">Second Candle</span>
+                    <div class="step-content">A small-bodied candle (any color), typically gapping higher or just closing with a small range. Shows exhaustion in the uptrend.</div>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <span class="step-title">Third Candle</span>
+                    <div class="step-content">A red (bearish) candle that closes below the midpoint of the first green candle. Sellers take control and reverse the uptrend.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Context Is Everything</h2>
+            <p>This is critical: <strong>a hammer at the bottom of a downtrend = bullish reversal signal.</strong> A hammer in the middle of a sideways range = nothing. A hammer in the middle of an uptrend = irrelevant noise.</p>
+            <p>The pattern itself matters less than where it appears. This is the principle that separates professionals from amateurs.</p>
+            <p><strong>The rule:</strong> Always ask WHERE on the chart the candle appeared, not just WHAT the candle is.</p>
+            <p>Is it at the bottom of a downtrend? (Bullish context)</p>
+            <p>Is it at the top of an uptrend? (Bearish context)</p>
+            <p>Is it in the middle of nowhere? (Neutral or irrelevant)</p>
+            <p>This principle sets up everything you'll learn later about Support & Resistance, and Smart Money Concepts. The chart location matters more than the pattern shape.</p>
+        </div>
+
+        <div class="key-takeaways">
+            <h3>Key Takeaways</h3>
+            <ol>
+                <li>Candlesticks show four prices: Open, Close, High, Low. The body is the story; the wick is the rejection.</li>
+                <li>A big body = conviction. A small body = indecision. Long wicks = rejection of price levels.</li>
+                <li>Green candles = close above open (bullish). Red candles = close below open (bearish).</li>
+                <li>Single candle patterns (Doji, Hammer, Shooting Star, Marubozu, Spinning Top) signal indecision, momentum, or reversal on their own.</li>
+                <li>Multi-candle patterns (Engulfing, Morning Star, Evening Star) tell stories across multiple periods and show stronger reversal signals.</li>
+                <li>Context trumps pattern. A hammer at the bottom of a downtrend is powerful. A hammer in a sideways range is noise. Always ask WHERE, not just WHAT.</li>
+            </ol>
+        </div>
+
+        <div class="practice-box">
+            <h3>Practice Exercise</h3>
+            <p>Open any chart on TradingView. Set it to the daily timeframe. Scroll back and find 3 examples of single candle patterns (doji, hammer, shooting star). For each one, note WHERE it appeared — top of a move, bottom of a move, or in the middle. Did the pattern lead to a reversal or continuation? Write down your findings and compare them to the expected outcomes from this module.</p>
+        </div>
+
+        <div class="quiz-section">
+            <h2>Module Quiz</h2>
+            <form id="quizForm">
+                <div class="quiz-question">
+                    <div class="quiz-q-number">Question 1 of 5</div>
+                    <div class="quiz-q-text">What does a long lower wick on a candle indicate?</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="a">
+                            <span>Sellers completely dominated the period</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="b">
+                            <span>Buyers stepped in and rejected lower prices — the candle tested below but closed higher</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="c">
+                            <span>The opening and closing prices were equal</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="d">
+                            <span>Price will definitely reverse upward on the next candle</span>
+                        </label>
+                    </div>
+                    <div class="quiz-feedback" data-correct="b"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="quiz-q-number">Question 2 of 5</div>
+                    <div class="quiz-q-text">What is a Doji candle signaling?</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="a">
+                            <span>Bullish reversal is about to happen</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="b">
+                            <span>Indecision — neither buyers nor sellers won the session</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="c">
+                            <span>Strong downtrend is starting</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="d">
+                            <span>A gap up in the next candle is coming</span>
+                        </label>
+                    </div>
+                    <div class="quiz-feedback" data-correct="b"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="quiz-q-number">Question 3 of 5</div>
+                    <div class="quiz-q-text">A bullish engulfing pattern consists of what?</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="a">
+                            <span>Two green candles in a row</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="b">
+                            <span>A red candle followed by a larger green candle that completely engulfs the red body</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="c">
+                            <span>Three candles with increasing size</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="d">
+                            <span>A Doji followed by a Hammer</span>
+                        </label>
+                    </div>
+                    <div class="quiz-feedback" data-correct="b"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="quiz-q-number">Question 4 of 5</div>
+                    <div class="quiz-q-text">You see a hammer candle in the middle of a sideways range. What does it mean?</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="a">
+                            <span>A reversal is guaranteed to occur</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="b">
+                            <span>Very little — context matters. A hammer is only a reversal signal at the bottom of a downtrend, not in the middle of nowhere</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="c">
+                            <span>The price will gap up on the next open</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="d">
+                            <span>You should immediately buy</span>
+                        </label>
+                    </div>
+                    <div class="quiz-feedback" data-correct="b"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="quiz-q-number">Question 5 of 5</div>
+                    <div class="quiz-q-text">A Marubozu candle with no wicks represents what?</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q5" value="a">
+                            <span>Indecision between buyers and sellers</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q5" value="b">
+                            <span>Pure conviction — one side completely dominated with no rejection at either end</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q5" value="c">
+                            <span>A trend reversal is imminent</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q5" value="d">
+                            <span>Price is about to consolidate</span>
+                        </label>
+                    </div>
+                    <div class="quiz-feedback" data-correct="b"></div>
+                </div>
+
+                <button type="button" class="quiz-submit" onclick="submitQuiz()">Submit Quiz</button>
+            </form>
+
+            <div class="quiz-result" id="quizResult">
+                <h3 id="resultTitle">Quiz Result</h3>
+                <p id="resultText"></p>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="#" class="nav-button disabled">← Previous Module</a>
+            <a href="module-2.html" class="nav-button">Next Module →</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 CreoleTrades. Trading Foundations Course. All rights reserved.</p>
+        <p><a href="#" onclick="logout()">Logout</a></p>
+    </footer>
+
+    <script>
+        const PASSWORD_HASH = "9004dd85ce0b8bf505d662c98afbc00c07dece9544d804442e1e6d97f6996d41";
+        const STORAGE_KEY = "stack_foundations_access";
+
+        function hashPassword(password) {
+            let hash = 0;
+            for (let i = 0; i < password.length; i++) {
+                const char = password.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return Math.abs(hash).toString(16);
+        }
+
+        async function sha256(str) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(str);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const hash = await sha256(password);
+
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                document.getElementById('passwordGate').classList.remove('active');
+            } else {
+                document.getElementById('gateError').style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        function checkAccess() {
+            if (localStorage.getItem(STORAGE_KEY) === 'true') {
+                document.getElementById('passwordGate').classList.remove('active');
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem(STORAGE_KEY);
+            document.getElementById('passwordGate').classList.add('active');
+            document.getElementById('passwordInput').value = '';
+        }
+
+        function submitQuiz() {
+            const questions = ['q1', 'q2', 'q3', 'q4', 'q5'];
+            let correct = 0;
+            let answered = 0;
+
+            questions.forEach(q => {
+                const selected = document.querySelector(`input[name="${q}"]:checked`);
+                const feedbackDiv = document.querySelector(`input[name="${q}"]`).closest('.quiz-question').querySelector('.quiz-feedback');
+                const correctAnswer = feedbackDiv.dataset.correct;
+
+                if (selected) {
+                    answered++;
+                    if (selected.value === correctAnswer) {
+                        correct++;
+                        feedbackDiv.classList.add('show', 'correct');
+                        feedbackDiv.innerHTML = '<strong>Correct!</strong> Great understanding of this concept.';
+                    } else {
+                        feedbackDiv.classList.add('show', 'incorrect');
+                        feedbackDiv.innerHTML = `<strong>Incorrect.</strong> The correct answer is: <strong>${correctAnswer.toUpperCase()}</strong>. Review the section above.`;
+                    }
+                }
+            });
+
+            const percentage = answered > 0 ? Math.round((correct / answered) * 100) : 0;
+            document.getElementById('quizResult').classList.add('show');
+            document.getElementById('resultTitle').textContent = `Your Score: ${percentage}%`;
+            document.getElementById('resultText').textContent = `You answered ${correct} out of ${answered} questions correctly. ${percentage >= 80 ? 'Excellent work! Move to the next module.' : 'Review the material and try again.'}`;
+
+            window.scrollTo(0, document.querySelector('.quiz-section').offsetTop);
+        }
+
+        checkAccess();
+    </script>
+</body>
+</html>

@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 3: ETFs Every Trader Should Know - STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #070C18 0%, #0D1526 100%);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .password-gate.active {
+            display: flex;
+        }
+
+        .password-form {
+            background: #0D1526;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            padding: 40px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .password-form h2 {
+            font-family: 'Playfair Display', serif;
+            color: #F0D080;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .password-form p {
+            color: #C8D4E8;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .password-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            background: #070C18;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            color: #F0D080;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+        }
+
+        .password-form input::placeholder {
+            color: #8899BB;
+        }
+
+        .password-form button {
+            width: 100%;
+            padding: 12px;
+            background: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .password-form button:hover {
+            background: #F0D080;
+        }
+
+        .password-form .error {
+            color: #EF4444;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+
+        .password-form a {
+            display: block;
+            margin-top: 20px;
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .password-form a:hover {
+            color: #F0D080;
+        }
+
+        .container {
+            flex: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            width: 100%;
+        }
+
+        header {
+            background: #0D1526;
+            border-bottom: 1px solid #C9A84C;
+            padding: 30px 0;
+            margin-bottom: 40px;
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .module-badge {
+            font-family: 'Playfair Display', serif;
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: #C9A84C;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #C8D4E8;
+            font-size: 16px;
+        }
+
+        nav {
+            background: #070C18;
+            border-bottom: 1px solid #C9A84C;
+            padding: 20px 0;
+            margin-bottom: 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #F0D080;
+        }
+
+        .content-section {
+            margin-bottom: 50px;
+        }
+
+        .content-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            margin-top: 40px;
+        }
+
+        .content-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: #F0D080;
+            margin-bottom: 15px;
+            margin-top: 25px;
+        }
+
+        .content-section p {
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #C8D4E8;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+            background: #0D1526;
+            padding: 25px;
+            border: 1px solid #C9A84C;
+        }
+
+        .vocab-item {
+            text-align: center;
+        }
+
+        .vocab-item strong {
+            color: #F0D080;
+            font-family: 'Playfair Display', serif;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .vocab-item small {
+            color: #8899BB;
+            font-size: 12px;
+        }
+
+        .three-step {
+            background: #0D1526;
+            border-left: 4px solid #C9A84C;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .three-step h4 {
+            color: #F0D080;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .step {
+            margin-bottom: 20px;
+        }
+
+        .step strong {
+            color: #22C55E;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .step p {
+            color: #C8D4E8;
+            margin: 0;
+        }
+
+        .key-takeaways {
+            background: linear-gradient(135deg, rgba(201, 168, 76, 0.1), rgba(240, 208, 128, 0.05));
+            border: 1px solid #C9A84C;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .key-takeaways h4 {
+            color: #F0D080;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .key-takeaways li {
+            padding: 10px 0 10px 25px;
+            position: relative;
+            color: #C8D4E8;
+        }
+
+        .key-takeaways li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+        }
+
+        .practice-box {
+            background: #0D1526;
+            border: 2px solid #22C55E;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .practice-box h4 {
+            color: #22C55E;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .practice-box p {
+            color: #C8D4E8;
+            font-style: italic;
+        }
+
+        .quiz-section {
+            background: #0D1526;
+            border: 1px solid #C9A84C;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .quiz-section h2 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .quiz-question {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #C9A84C;
+        }
+
+        .quiz-question:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .quiz-question h4 {
+            color: #F0D080;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+        }
+
+        .quiz-options {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .quiz-options li {
+            margin-bottom: 10px;
+        }
+
+        .quiz-options label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: #C8D4E8;
+        }
+
+        .quiz-options input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .quiz-answer {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 3px solid #22C55E;
+            padding: 15px;
+            margin-top: 15px;
+            display: none;
+            color: #C8D4E8;
+        }
+
+        .quiz-answer.show {
+            display: block;
+        }
+
+        .quiz-answer strong {
+            color: #22C55E;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 50px 0 40px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .nav-button {
+            background: #C9A84C;
+            color: #070C18;
+            padding: 12px 30px;
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            border-radius: 0px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .nav-button:hover {
+            background: #F0D080;
+        }
+
+        .nav-button.disabled {
+            background: #444;
+            color: #888;
+            cursor: not-allowed;
+        }
+
+        .progress-indicator {
+            color: #C9A84C;
+            font-size: 14px;
+        }
+
+        footer {
+            background: #0D1526;
+            border-top: 1px solid #C9A84C;
+            padding: 30px 0;
+            text-align: center;
+            color: #8899BB;
+            font-size: 13px;
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            .content-section h2 {
+                font-size: 24px;
+            }
+
+            nav ul {
+                gap: 10px;
+            }
+
+            nav a {
+                font-size: 12px;
+            }
+
+            .vocab-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .navigation {
+                flex-direction: column;
+            }
+
+            .nav-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate active" id="passwordGate">
+        <div class="password-form">
+            <h2>Trading Foundations</h2>
+            <p>Enter the course password to continue</p>
+            <div class="error" id="errorMsg" style="display: none;"></div>
+            <input type="password" id="passwordInput" placeholder="Password" />
+            <button onclick="checkPassword()">Unlock Course</button>
+            <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <div class="module-badge">Module 3 of 8</div>
+            <h1>ETFs Every Trader Should Know</h1>
+            <p class="subtitle">Master the core ETFs that drive the market</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="../">← All Courses</a></li>
+            <li><a href="module-1.html">Module 1</a></li>
+            <li><a href="module-2.html">Module 2</a></li>
+            <li><a href="module-3.html" class="active">Module 3</a></li>
+            <li><a href="module-4.html">Module 4</a></li>
+            <li><a href="module-5.html">Module 5</a></li>
+            <li><a href="module-6.html">Module 6</a></li>
+            <li><a href="module-7.html">Module 7</a></li>
+            <li><a href="module-8.html">Module 8</a></li>
+            <li><a href="glossary.html">Glossary</a></li>
+            <li><a href="final-exam.html">Final Exam</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="content-section">
+            <h2>What Is an ETF?</h2>
+            <p>An Exchange-Traded Fund (ETF) is an investment fund that trades on stock exchanges like individual stocks. Unlike mutual funds, which are priced once per day, ETFs can be bought and sold throughout the trading day at market prices.</p>
+            <p>The core idea: You don't need to pick individual stocks to trade the market. ETFs give you exposure to entire sectors, indices, or asset classes with one ticker symbol. Instead of buying 500 companies individually to track the S&P 500, you buy one share of SPY.</p>
+            <p>This is the foundation of modern trading. Most professional traders don't trade individual stocks—they trade ETFs because the volume is massive, the spreads are tight, and the liquidity is unmatched.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-item">
+                    <strong>ETF</strong>
+                    <small>Exchange-Traded Fund—a basket of assets traded like a stock</small>
+                </div>
+                <div class="vocab-item">
+                    <strong>Index</strong>
+                    <small>A group of assets assembled to measure market performance</small>
+                </div>
+                <div class="vocab-item">
+                    <strong>Benchmark</strong>
+                    <small>The standard used to measure the performance of an ETF</small>
+                </div>
+                <div class="vocab-item">
+                    <strong>Expense Ratio</strong>
+                    <small>Annual cost of holding the ETF (usually 0.03% to 0.5%)</small>
+                </div>
+                <div class="vocab-item">
+                    <strong>Liquidity</strong>
+                    <small>How easily you can buy/sell without moving the price</small>
+                </div>
+                <div class="vocab-item">
+                    <strong>AUM</strong>
+                    <small>Assets Under Management—total value of the fund</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>The Big Three: SPY, QQQ, IWM</h2>
+            <p>If you trade ETFs, you need to know these three. They are the most liquid, most traded ETFs on the planet. SPY alone does billions in volume daily. If you're starting out, these are your arena.</p>
+
+            <h3>SPY — The S&P 500</h3>
+            <p>Tracks the 500 largest US companies. This is the broad market. When someone says "the market is up," they're usually talking about SPY or the S&P 500. SPY is diversified across sectors and company sizes. It's the safest of the three and the most liquid. Most beginners start here.</p>
+
+            <h3>QQQ — The Nasdaq 100</h3>
+            <p>Tracks 100 of the largest non-financial US companies listed on the Nasdaq. This is heavily weighted toward tech—think Apple, Microsoft, Amazon, Tesla. QQQ moves faster than SPY and is more volatile. When tech is leading, QQQ leads. When tech sells off, QQQ drops hardest.</p>
+
+            <h3>IWM — The Russell 2000</h3>
+            <p>Tracks 2,000 smaller US companies. This is the small-cap index. IWM is more volatile than both SPY and QQQ and moves on different catalysts. When the market is in "risk-on" mode and investors feel confident, small caps lead. When fear kicks in, they sell off first.</p>
+
+            <div class="three-step">
+                <h4>Comparing the Big Three</h4>
+                <div class="step">
+                    <strong>SPY (S&P 500)</strong>
+                    <p>Broad market exposure, large-cap companies, most stable, highest volume. Best for: trading the general market direction.</p>
+                </div>
+                <div class="step">
+                    <strong>QQQ (Nasdaq 100)</strong>
+                    <p>Tech-heavy, growth-focused, more volatile, fastest moving. Best for: capturing uptrends in growth and technology sectors.</p>
+                </div>
+                <div class="step">
+                    <strong>IWM (Russell 2000)</strong>
+                    <p>Small-cap exposure, highest volatility, leads in risk-on markets. Best for: trading micro trends and high-conviction setups.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Sector ETFs</h2>
+            <p>When you hear traders talk about "sector rotation," they're talking about money moving between these sector ETFs. Each one tracks a different industry:</p>
+            <p><strong>XLE (Energy)</strong> – Oil, gas, and energy companies. When oil is surging (like right now), XLE runs hard.</p>
+            <p><strong>XLF (Financials)</strong> – Banks and financial institutions. Trades on interest rates and credit spreads.</p>
+            <p><strong>XLK (Technology)</strong> – Software, hardware, semiconductors. Leads in growth markets.</p>
+            <p><strong>XLV (Healthcare)</strong> – Pharma, biotech, medical devices. Defensive play that holds up in downturns.</p>
+            <p><strong>XLI (Industrials)</strong> – Manufacturing, construction, machinery. Trades on economic cycle and interest rates.</p>
+            <p>The key: Know where the money is flowing. If tech is in trouble but healthcare is rallying, sector rotation is happening. Smart traders follow the money.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Safe Haven & Commodity ETFs</h2>
+            <p>These move on different catalysts than equities. They're your hedges and your alternative trades:</p>
+
+            <h3>GLD (Gold)</h3>
+            <p>When the stock market is in trouble, gold rises. It's a risk-off trade and an inflation hedge. Gold tends to rise when stocks fall.</p>
+
+            <h3>TLT (20+ Year Treasuries)</h3>
+            <p>A play on interest rates and risk sentiment. When the Fed is cutting rates or recession fears spike, TLT rallies. Like gold, it tends to rise when stocks fall.</p>
+
+            <h3>USO (Crude Oil)</h3>
+            <p>Energy and geopolitical play. Oil spikes on supply shocks, OPEC cuts, and geopolitical tension. Trades independently from stocks.</p>
+
+            <h3>UNG (Natural Gas)</h3>
+            <p>More volatile than crude oil. Trades on supply/demand, weather, and storage levels. Can make sharp moves in either direction.</p>
+
+            <p>These ETFs are critical for understanding market dynamics. Gold and TLT rising while stocks fall is a red flag. Oil spiking while stocks hold is a sign of inflation concerns.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Leveraged & Inverse ETFs</h2>
+            <p>These are powerful but dangerous. Use them correctly and they're your secret weapon. Use them wrong and you'll blow up your account.</p>
+
+            <h3>Leveraged ETFs</h3>
+            <p><strong>TQQQ</strong> – 3x leveraged QQQ. Moves three times as fast as QQQ. <strong>SPXL</strong> – 3x leveraged SPY.</p>
+
+            <h3>Inverse ETFs</h3>
+            <p><strong>SQQQ</strong> – 3x inverse QQQ. Rises when QQQ falls. <strong>SPXS</strong> – 3x inverse SPY.</p>
+
+            <div class="three-step">
+                <h4>How Leverage Decay Works (The Math You Need to Know)</h4>
+                <div class="step">
+                    <strong>Step 1: Understand Daily Rebalancing</strong>
+                    <p>Leveraged ETFs rebalance every day to maintain their 3x multiplier. This creates "decay"—a slow loss of value over time, especially in choppy or sideways markets.</p>
+                </div>
+                <div class="step">
+                    <strong>Step 2: The Risk</strong>
+                    <p>If QQQ goes up 10% then down 10%, QQQ is flat. But TQQQ (3x QQQ) is down 15% because of daily rebalancing. This is leverage decay in action.</p>
+                </div>
+                <div class="step">
+                    <strong>Step 3: The Rule</strong>
+                    <p>NEVER hold leveraged or inverse ETFs overnight unless you understand this math and have a specific reason to. They're designed for single-day trades only.</p>
+                </div>
+            </div>
+
+            <div class="key-takeaways">
+                <h4>Leveraged & Inverse ETFs: When to Use, When to Avoid</h4>
+                <ul>
+                    <li>Use for: Day trading, capturing a specific intraday move, hedging a position for hours only</li>
+                    <li>Avoid for: Overnight holds, weekly trades, long-term positions of any kind</li>
+                    <li>If you're not 100% certain about leverage decay, don't touch these yet</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Key Takeaways</h2>
+            <div class="key-takeaways">
+                <ul>
+                    <li>ETFs are baskets of assets that trade like stocks—they're the foundation of modern trading</li>
+                    <li>SPY, QQQ, and IWM are the big three—master these and you understand market structure</li>
+                    <li>Sector ETFs show you where money is rotating—track them to find leading sectors</li>
+                    <li>Gold (GLD) and Treasuries (TLT) are your hedges—they rise when stocks fall</li>
+                    <li>Leveraged ETFs (TQQQ, SPXL) are 3x power—day-trade only, never hold overnight</li>
+                    <li>Liquidity is everything—trade the most liquid ETFs on the planet for tight spreads and instant fills</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Practice Exercise</h2>
+            <div class="practice-box">
+                <h4>Live Market Comparison</h4>
+                <p>Open TradingView. Pull up SPY, QQQ, and IWM on the same screen (use the compare feature). Look at the last 3 months of charts side by side. Which one led? Which one lagged? Now add XLE to the comparison—how did energy perform compared to the broad market and tech?</p>
+                <p><strong>What you're learning:</strong> Understanding relative strength between ETFs tells you where institutional money is flowing. This is how you spot sector rotation in real-time.</p>
+            </div>
+        </div>
+
+        <div class="quiz-section">
+            <h2>Module Quiz</h2>
+
+            <div class="quiz-question">
+                <h4>Question 1: What does SPY track?</h4>
+                <ul class="quiz-options">
+                    <li><label><input type="radio" name="q1" value="a"> The Nasdaq 100 (tech-heavy index)</label></li>
+                    <li><label><input type="radio" name="q1" value="b"> The S&P 500 index (500 of the largest US companies)</label></li>
+                    <li><label><input type="radio" name="q1" value="c"> The Russell 2000 (small-cap index)</label></li>
+                    <li><label><input type="radio" name="q1" value="d"> The Dow Jones Industrial Average</label></li>
+                </ul>
+                <button class="nav-button" onclick="revealAnswer(1)">Show Answer</button>
+                <div class="quiz-answer" id="answer1">
+                    <strong>Correct Answer:</strong> The S&P 500 index (500 of the largest US companies). SPY is the broad market—when someone says "the market," they usually mean SPY.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>Question 2: Why should beginners avoid holding TQQQ overnight?</h4>
+                <ul class="quiz-options">
+                    <li><label><input type="radio" name="q2" value="a"> It's too expensive to trade</label></li>
+                    <li><label><input type="radio" name="q2" value="b"> Leveraged ETFs decay due to daily rebalancing—they're designed for single-day trades only, not long-term holds</label></li>
+                    <li><label><input type="radio" name="q2" value="c"> It only trades during market hours</label></li>
+                    <li><label><input type="radio" name="q2" value="d"> It's illegal to hold leveraged ETFs overnight</label></li>
+                </ul>
+                <button class="nav-button" onclick="revealAnswer(2)">Show Answer</button>
+                <div class="quiz-answer" id="answer2">
+                    <strong>Correct Answer:</strong> Leveraged ETFs decay due to daily rebalancing—they're designed for single-day trades only, not long-term holds. If the market goes up 10% then down 10%, TQQQ will be down more than flat because of how leverage compounds daily.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>Question 3: During a risk-off event, which ETFs typically rise?</h4>
+                <ul class="quiz-options">
+                    <li><label><input type="radio" name="q3" value="a"> XLE and XLK</label></li>
+                    <li><label><input type="radio" name="q3" value="b"> QQQ and IWM</label></li>
+                    <li><label><input type="radio" name="q3" value="c"> GLD (Gold) and TLT (Treasuries)—money flows out of stocks and into safe havens</label></li>
+                    <li><label><input type="radio" name="q3" value="d"> SPY and USO</label></li>
+                </ul>
+                <button class="nav-button" onclick="revealAnswer(3)">Show Answer</button>
+                <div class="quiz-answer" id="answer3">
+                    <strong>Correct Answer:</strong> GLD (Gold) and TLT (Treasuries). In a risk-off event, investors sell stocks and buy safe-haven assets. Gold rises as an inflation hedge and safe store of value. Treasuries rise as interest rate expectations fall.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>Question 4: QQQ is heavily weighted toward which sector?</h4>
+                <ul class="quiz-options">
+                    <li><label><input type="radio" name="q4" value="a"> Technology—it tracks the Nasdaq 100 which is dominated by tech giants like Apple, Microsoft, and Tesla</label></li>
+                    <li><label><input type="radio" name="q4" value="b"> Energy and utilities</label></li>
+                    <li><label><input type="radio" name="q4" value="c"> Healthcare and pharmaceuticals</label></li>
+                    <li><label><input type="radio" name="q4" value="d"> Financials and banks</label></li>
+                </ul>
+                <button class="nav-button" onclick="revealAnswer(4)">Show Answer</button>
+                <div class="quiz-answer" id="answer4">
+                    <strong>Correct Answer:</strong> Technology. The Nasdaq 100 is loaded with tech companies—this is why QQQ moves faster than SPY in growth markets and sells off harder when tech is under pressure.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>Question 5: What does "sector rotation" mean for ETF traders?</h4>
+                <ul class="quiz-options">
+                    <li><label><input type="radio" name="q5" value="a"> Selling all your positions every quarter</label></li>
+                    <li><label><input type="radio" name="q5" value="b"> Money shifts between sectors based on economic conditions—knowing which sector ETFs are leading tells you where institutional money is flowing</label></li>
+                    <li><label><input type="radio" name="q5" value="c"> Rotating between different leveraged ETFs</label></li>
+                    <li><label><input type="radio" name="q5" value="d"> The daily rebalancing of inverse ETFs</label></li>
+                </ul>
+                <button class="nav-button" onclick="revealAnswer(5)">Show Answer</button>
+                <div class="quiz-answer" id="answer5">
+                    <strong>Correct Answer:</strong> Money shifts between sectors based on economic conditions—knowing which sector ETFs are leading tells you where institutional money is flowing. When energy starts rallying hard while tech stumbles, that's sector rotation happening in real-time.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="module-2.html" class="nav-button">← Previous: Module 2</a>
+            <span class="progress-indicator">Module 3 of 8</span>
+            <a href="module-4.html" class="nav-button">Next: Module 4 →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>STACK Academy — Trading Foundations | Module 3 of 8</p>
+        <p>© 2026 Creole Trades. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Password verification using SHA-256
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const errorMsg = document.getElementById('errorMsg');
+            const password = passwordInput.value;
+
+            if (!password) {
+                errorMsg.textContent = 'Please enter a password';
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            const hash = await hashPassword(password);
+            const correctHash = '9004dd85ce0b8bf505d662c98afbc00c07dece9544d804442e1e6d97f6996d41';
+
+            if (hash === correctHash) {
+                localStorage.setItem('stack_foundations_access', 'true');
+                document.getElementById('passwordGate').classList.remove('active');
+            } else {
+                errorMsg.textContent = 'Incorrect password. Try again.';
+                errorMsg.style.display = 'block';
+                passwordInput.value = '';
+            }
+        }
+
+        function revealAnswer(questionNum) {
+            document.getElementById('answer' + questionNum).classList.toggle('show');
+        }
+
+        // Check if user already has access
+        window.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('stack_foundations_access') === 'true') {
+                document.getElementById('passwordGate').classList.remove('active');
+            }
+
+            // Allow Enter key to submit password
+            document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkPassword();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

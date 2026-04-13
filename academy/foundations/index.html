@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Foundations - STACK Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #070C18;
+            border-bottom: 1px solid #0D1526;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #EEF2FF;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #C9A84C;
+        }
+
+        .back-link {
+            color: #6B84AA;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #C9A84C;
+        }
+
+        .hero {
+            background-color: #070C18;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 8px 16px;
+            border-radius: 0px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 56px;
+            font-weight: 700;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #C8D4E8;
+            margin-bottom: 40px;
+            line-height: 1.8;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 16px 32px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            border-radius: 0px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .cta-button:hover {
+            background-color: #F0D080;
+        }
+
+        .section {
+            padding: 80px 20px;
+            background-color: #070C18;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: #EEF2FF;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            border: 1px solid #1a2a3a;
+            transition: border-color 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: #C9A84C;
+        }
+
+        .card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #EEF2FF;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #C8D4E8;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .included-section {
+            background-color: #0D1526;
+            padding: 40px;
+            border-radius: 0px;
+            margin-bottom: 60px;
+        }
+
+        .included-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .included-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .included-item::before {
+            content: "✓";
+            color: #22C55E;
+            font-weight: 700;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .included-item p {
+            color: #C8D4E8;
+            font-size: 15px;
+        }
+
+        .callout {
+            background-color: #0D1526;
+            border-left: 4px solid #C9A84C;
+            padding: 30px;
+            margin-bottom: 60px;
+            border-radius: 0px;
+        }
+
+        .callout p {
+            color: #EEF2FF;
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .callout a {
+            color: #C9A84C;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .callout a:hover {
+            text-decoration: underline;
+        }
+
+        .pricing-section {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .pricing-card {
+            background-color: #0D1526;
+            padding: 60px 40px;
+            border-radius: 0px;
+            display: inline-block;
+            margin-bottom: 40px;
+        }
+
+        .price {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: #C9A84C;
+            margin-bottom: 10px;
+        }
+
+        .price-description {
+            color: #C8D4E8;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .journey-section {
+            margin-bottom: 60px;
+        }
+
+        .journey-path {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .journey-step {
+            background-color: #0D1526;
+            padding: 20px 30px;
+            border-radius: 0px;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .journey-step.active {
+            border: 2px solid #C9A84C;
+        }
+
+        .journey-step h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+        }
+
+        .journey-step p {
+            color: #6B84AA;
+            font-size: 14px;
+        }
+
+        .arrow {
+            color: #C9A84C;
+            font-size: 24px;
+        }
+
+        footer {
+            background-color: #0D1526;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid #1a2a3a;
+        }
+
+        footer p {
+            color: #6B84AA;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            color: #C9A84C;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                gap: 15px;
+            }
+
+            nav a {
+                font-size: 12px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .section h2 {
+                font-size: 32px;
+            }
+
+            .price {
+                font-size: 36px;
+            }
+
+            .journey-path {
+                flex-direction: column;
+            }
+
+            .arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">STACK Academy</div>
+            <nav>
+                <a href="https://creoletrades.com">Home</a>
+                <a href="/blog">Blog</a>
+                <a href="https://discord.gg/gzxcV6HDTM">Discord</a>
+                <a href="https://www.youtube.com/@Creole_Trades">YouTube</a>
+                <a href="../" class="back-link">← All Courses</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-container">
+            <div class="badge">Start Here</div>
+            <h1>Trading Foundations</h1>
+            <p>Everything a beginner needs before Smart Money Concepts. Candlesticks, chart patterns, moving averages, trendlines, support & resistance — the complete foundation for every market.</p>
+            <a href="https://buy.stripe.com/4gM00lapp7cC5a85oG9k40e" class="cta-button">Enroll Now — $47</a>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-container">
+            <h2>What You'll Learn</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Candlestick Basics</h3>
+                    <p>Read price action like a pro. Doji, hammer, engulfing, and more.</p>
+                </div>
+                <div class="card">
+                    <h3>Chart Patterns</h3>
+                    <p>Double tops, flags, wedges, head & shoulders — and when they fail.</p>
+                </div>
+                <div class="card">
+                    <h3>ETFs Every Trader Should Know</h3>
+                    <p>SPY, QQQ, IWM, sectors, gold, treasuries — your trading arena.</p>
+                </div>
+                <div class="card">
+                    <h3>Beginner Strategies</h3>
+                    <p>Breakout, pullback, momentum, mean reversion — simple, repeatable setups.</p>
+                </div>
+                <div class="card">
+                    <h3>Moving Averages</h3>
+                    <p>12 EMA, 200 SMA, WTMA Cloud, crossovers — the trend is your friend.</p>
+                </div>
+                <div class="card">
+                    <h3>Trendlines & Channels</h3>
+                    <p>Draw, validate, trade. The simplest and most powerful tool.</p>
+                </div>
+                <div class="card">
+                    <h3>Support & Resistance</h3>
+                    <p>Key levels, S/R flips, psychological levels, volume profile.</p>
+                </div>
+                <div class="card">
+                    <h3>Putting It All Together</h3>
+                    <p>The pre-trade checklist. Confluence. Ready for SMC.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-container">
+            <h2>What's Included</h2>
+            <div class="included-section">
+                <div class="included-list">
+                    <div class="included-item">
+                        <p>8 Modules</p>
+                    </div>
+                    <div class="included-item">
+                        <p>40 Quiz Questions</p>
+                    </div>
+                    <div class="included-item">
+                        <p>20-Question Final Exam</p>
+                    </div>
+                    <div class="included-item">
+                        <p>Complete Glossary</p>
+                    </div>
+                    <div class="included-item">
+                        <p>Discord Community</p>
+                    </div>
+                    <div class="included-item">
+                        <p>Direct Path to SMC</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="callout">
+                <p>This is where every STACKer starts. Master the basics, then graduate to Smart Money Concepts.</p>
+                <a href="#">Explore SMC Course →</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section pricing-section">
+        <div class="section-container">
+            <div class="pricing-card">
+                <div class="price">$47</div>
+                <div class="price-description">One-Time Payment · Lifetime Access</div>
+                <a href="https://buy.stripe.com/4gM00lapp7cC5a85oG9k40e" class="cta-button">Enroll Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section journey-section">
+        <div class="section-container">
+            <h2>Your Learning Path</h2>
+            <div class="journey-path">
+                <div class="journey-step active">
+                    <h4>Trading Foundations</h4>
+                    <p>$47</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="journey-step">
+                    <h4>SMC Course</h4>
+                    <p>Next level</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="journey-step">
+                    <h4>Options</h4>
+                    <p>Advanced</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="journey-step">
+                    <h4>Risk Management</h4>
+                    <p>Mastery</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 CreoleTrades. All rights reserved.</p>
+        <p><a href="../">View All Courses</a></p>
+    </footer>
+</body>
+</html>

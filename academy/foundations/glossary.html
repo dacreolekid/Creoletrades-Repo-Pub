@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Foundations Glossary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #070C18 0%, #0A0F1B 100%);
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-box {
+            background: #0D1526;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-box h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .login-box p {
+            color: #C8D4E8;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: #070C18;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .password-input::placeholder {
+            color: #7B8FA8;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #F0D080;
+        }
+
+        .error-message {
+            color: #EF4444;
+            font-size: 13px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .help-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .help-link a {
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .help-link a:hover {
+            color: #F0D080;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid #C9A84C;
+            padding-bottom: 20px;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 12px;
+            border: 1px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            color: #F0D080;
+            border-color: #C9A84C;
+        }
+
+        nav a.active {
+            color: #F0D080;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background: #C9A84C;
+            color: #070C18;
+            padding: 6px 12px;
+            font-family: 'Playfair Display', serif;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border-radius: 0px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            color: #C8D4E8;
+            font-size: 16px;
+            font-style: italic;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .vocab-card {
+            background: #0D1526;
+            border: 2px solid #C9A84C;
+            border-radius: 0px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        .vocab-card:hover {
+            box-shadow: 0 0 20px rgba(201, 168, 76, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .vocab-term {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: #F0D080;
+            margin-bottom: 10px;
+        }
+
+        .vocab-definition {
+            color: #C8D4E8;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid #C9A84C;
+            text-align: center;
+            color: #7B8FA8;
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            nav {
+                flex-direction: column;
+            }
+
+            nav a {
+                display: block;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Password Gate -->
+    <div id="login-screen" class="login-container">
+        <div class="login-box">
+            <h1>Trading Foundations</h1>
+            <p>Access the Glossary</p>
+            <input
+                type="password"
+                id="password-input"
+                class="password-input"
+                placeholder="Enter password"
+                autocomplete="off"
+            >
+            <button class="login-btn" onclick="verifyPassword()">Unlock</button>
+            <div class="error-message" id="error-msg">Incorrect password. Try again.</div>
+            <div class="help-link">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content (Hidden until authenticated) -->
+    <div id="course-content" class="hidden">
+        <div class="container">
+            <nav>
+                <a href="../">← All Courses</a>
+                <a href="module-1.html">Module 1</a>
+                <a href="module-2.html">Module 2</a>
+                <a href="module-3.html">Module 3</a>
+                <a href="module-4.html">Module 4</a>
+                <a href="module-5.html">Module 5</a>
+                <a href="module-6.html">Module 6</a>
+                <a href="module-7.html">Module 7</a>
+                <a href="module-8.html">Module 8</a>
+                <a href="glossary.html" class="active">Glossary</a>
+                <a href="final-exam.html">Final Exam</a>
+            </nav>
+
+            <header>
+                <div class="module-badge">Glossary</div>
+                <h1>Trading Foundations Glossary</h1>
+                <p class="page-subtitle">Complete reference guide to key trading concepts and terminology</p>
+            </header>
+
+            <div class="vocab-grid">
+                <!-- Module 1: Candlesticks -->
+                <div class="vocab-card">
+                    <div class="vocab-term">Body</div>
+                    <div class="vocab-definition">The rectangular portion of a candlestick that represents the difference between the opening and closing price. A filled body indicates a bearish candle (close lower than open), while an empty body indicates a bullish candle (close higher than open).</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Wick/Shadow</div>
+                    <div class="vocab-definition">The thin line extending from the top and bottom of a candlestick's body. The upper wick shows the high price, and the lower wick shows the low price during that period. Wicks indicate rejection of price levels.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Open</div>
+                    <div class="vocab-definition">The first price at which a security trades during a specific time period. On a candlestick, it's where the body begins at the bottom of a bullish candle or the top of a bearish candle.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Close</div>
+                    <div class="vocab-definition">The final price at which a security trades during a specific time period. It's where the candlestick body ends, and many traders consider it the most important price on the chart.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">High</div>
+                    <div class="vocab-definition">The highest price reached during a specific time period, represented by the top of the upper wick on a candlestick. It shows maximum buying pressure.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Low</div>
+                    <div class="vocab-definition">The lowest price reached during a specific time period, represented by the bottom of the lower wick on a candlestick. It shows maximum selling pressure.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Bullish Candle</div>
+                    <div class="vocab-definition">A candlestick where the closing price is higher than the opening price, indicating buying pressure dominated the period. Typically shown in green or with an empty (white) body.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Bearish Candle</div>
+                    <div class="vocab-definition">A candlestick where the closing price is lower than the opening price, indicating selling pressure dominated the period. Typically shown in red or with a filled (black) body.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Doji</div>
+                    <div class="vocab-definition">A candlestick pattern where the open and close prices are virtually equal, forming a cross or plus sign. It signals indecision in the market and often appears at turning points.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Hammer</div>
+                    <div class="vocab-definition">A single-candle bullish pattern with a small body at the top and a long lower wick. It forms at the bottom of downtrends and signals rejection of lower prices and potential reversal.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Shooting Star</div>
+                    <div class="vocab-definition">A single-candle bearish pattern with a small body at the bottom and a long upper wick. It forms at the top of uptrends and signals rejection of higher prices and potential reversal.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Marubozu</div>
+                    <div class="vocab-definition">A candlestick with little to no wicks, where the open equals the low and close equals the high (bullish marubozu) or vice versa (bearish). It shows strong directional conviction.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Spinning Top</div>
+                    <div class="vocab-definition">A candlestick with a small body in the middle and relatively equal upper and lower wicks. It signals indecision and often appears during consolidation phases or reversals.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Bullish Engulfing</div>
+                    <div class="vocab-definition">A two-candle reversal pattern where a small bearish candle is completely engulfed by a larger bullish candle the following period. It signals strong buying pressure and potential uptrend start.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Bearish Engulfing</div>
+                    <div class="vocab-definition">A two-candle reversal pattern where a small bullish candle is completely engulfed by a larger bearish candle the following period. It signals strong selling pressure and potential downtrend start.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Morning Star</div>
+                    <div class="vocab-definition">A three-candle bullish reversal pattern: bearish candle, small-bodied candle (gap down), then bullish candle. It signals reversal from downtrend to uptrend.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Evening Star</div>
+                    <div class="vocab-definition">A three-candle bearish reversal pattern: bullish candle, small-bodied candle (gap up), then bearish candle. It signals reversal from uptrend to downtrend.</div>
+                </div>
+
+                <!-- Module 2: Chart Patterns -->
+                <div class="vocab-card">
+                    <div class="vocab-term">Double Top</div>
+                    <div class="vocab-definition">A bearish reversal pattern where price reaches the same high level twice with a valley in between. It signals resistance and potential downtrend when the valley low is broken.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Double Bottom</div>
+                    <div class="vocab-definition">A bullish reversal pattern where price reaches the same low level twice with a peak in between. It signals support and potential uptrend when the peak high is broken.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Head & Shoulders</div>
+                    <div class="vocab-definition">A bearish reversal pattern with three peaks: lower left shoulder, higher head, and lower right shoulder, connected by a neckline. It forms at the end of uptrends and predicts significant downward movement.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Bull Flag</div>
+                    <div class="vocab-definition">A bullish continuation pattern where price rallies sharply, then consolidates in a rectangular or slightly bearish-angled pattern before breaking upward to continue the trend.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Bear Flag</div>
+                    <div class="vocab-definition">A bearish continuation pattern where price drops sharply, then consolidates in a rectangular or slightly bullish-angled pattern before breaking downward to continue the downtrend.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Ascending Triangle</div>
+                    <div class="vocab-definition">A bullish continuation pattern with a horizontal resistance level at the top and rising support level at the bottom. Price typically breaks upward from this triangle.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Descending Triangle</div>
+                    <div class="vocab-definition">A bearish continuation pattern with a horizontal support level at the bottom and falling resistance level at the top. Price typically breaks downward from this triangle.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Rising Wedge</div>
+                    <div class="vocab-definition">A bearish reversal or continuation pattern where both support and resistance move upward but converge, with resistance rising faster than support. Usually results in a downward breakout.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Falling Wedge</div>
+                    <div class="vocab-definition">A bullish reversal or continuation pattern where both support and resistance move downward but converge, with support falling faster than resistance. Usually results in an upward breakout.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Neckline</div>
+                    <div class="vocab-definition">The line connecting support or resistance levels in multi-candle patterns like Head & Shoulders or Double Top/Bottom. Breaking the neckline confirms the pattern and signals the expected directional move.</div>
+                </div>
+
+                <!-- Module 3: ETFs -->
+                <div class="vocab-card">
+                    <div class="vocab-term">ETF</div>
+                    <div class="vocab-definition">Exchange-Traded Fund. A basket of securities (stocks, bonds, commodities) bundled into one tradeable security. ETFs offer diversification, lower costs, and easier access to markets compared to individual stocks.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Index</div>
+                    <div class="vocab-definition">A collection of assets (stocks, bonds) designed to represent a market or sector. Examples include the S&P 500, Nasdaq-100, or sector-specific indices. Many ETFs track indices.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Benchmark</div>
+                    <div class="vocab-definition">A reference index used to measure the performance of an investment or portfolio. Traders compare their returns against benchmarks to evaluate whether they're beating the market.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Expense Ratio</div>
+                    <div class="vocab-definition">The annual cost of owning an ETF expressed as a percentage of assets. It covers management fees, administrative costs, and other expenses. Lower expense ratios are preferable for long-term holdings.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Liquidity</div>
+                    <div class="vocab-definition">The ease with which an asset can be bought or sold without significantly affecting its price. High-volume ETFs have better liquidity, allowing traders to enter and exit positions quickly.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">AUM</div>
+                    <div class="vocab-definition">Assets Under Management. The total market value of all assets held in an ETF. Higher AUM typically indicates popularity and liquidity, while lower AUM may signal potential closure risk.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Leveraged ETF</div>
+                    <div class="vocab-definition">An ETF that uses derivatives and debt to amplify returns of an underlying index, typically 2x or 3x. Leveraged ETFs are designed for short-term trading and lose value over time in sideways markets.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Inverse ETF</div>
+                    <div class="vocab-definition">An ETF designed to profit from price declines by moving opposite to an underlying index. Also called short ETFs, they're useful for hedging or bearish directional bets.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Sector Rotation</div>
+                    <div class="vocab-definition">A strategy of moving capital between different sector ETFs based on economic cycles and market conditions. Different sectors outperform at different times in the economic cycle.</div>
+                </div>
+
+                <!-- Module 4: Strategies -->
+                <div class="vocab-card">
+                    <div class="vocab-term">Breakout</div>
+                    <div class="vocab-definition">A trade initiated when price breaks above resistance or below support with increased volume. Breakout trades capitalize on price momentum moving into new price territory.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Pullback</div>
+                    <div class="vocab-definition">A temporary reversal of price within an established trend. Pullback trading involves entering in the direction of the main trend during minor retracements, offering better risk-reward ratios.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Momentum</div>
+                    <div class="vocab-definition">The speed and magnitude of price movement. Momentum trading involves buying assets gaining upward momentum and selling those losing downward momentum, riding the trend.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Mean Reversion</div>
+                    <div class="vocab-definition">A strategy based on the assumption that extreme price moves tend to revert toward average levels. Mean reversion traders buy oversold assets and sell overbought assets.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Paper Trading</div>
+                    <div class="vocab-definition">Practicing trading with simulated money without real capital at risk. Paper trading helps develop discipline and test strategies before committing real money.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Measured Move</div>
+                    <div class="vocab-definition">A price projection technique that measures the height of a pattern and projects it forward to estimate a price target. Common in flag and triangle breakouts.</div>
+                </div>
+
+                <!-- Module 5: Moving Averages -->
+                <div class="vocab-card">
+                    <div class="vocab-term">SMA</div>
+                    <div class="vocab-definition">Simple Moving Average. Calculated by summing closing prices over a period and dividing by the number of periods. It gives equal weight to all prices and is slower to respond to recent changes.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">EMA</div>
+                    <div class="vocab-definition">Exponential Moving Average. Calculated to give greater weight to recent prices. EMAs respond faster to price changes than SMAs and are preferred for shorter-term trading.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">12 EMA</div>
+                    <div class="vocab-definition">An exponential moving average based on the last 12 periods. The 12 EMA is commonly used in short-term trading to identify trend direction and entry/exit points.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">200 SMA</div>
+                    <div class="vocab-definition">A simple moving average based on the last 200 periods. The 200 SMA is considered the long-term trend line and is widely respected by institutional traders for major support/resistance.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Kumo Cloud (WTMA Cloud)</div>
+                    <div class="vocab-definition">A visual band created by two moving averages in Ichimoku analysis. The space between the cloud levels provides dynamic support and resistance, with price above cloud bullish and below cloud bearish.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Golden Cross</div>
+                    <div class="vocab-definition">A bullish signal that occurs when a faster moving average (12 EMA) crosses above a slower moving average (200 SMA). It often signals the start of an uptrend.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Death Cross</div>
+                    <div class="vocab-definition">A bearish signal that occurs when a faster moving average (12 EMA) crosses below a slower moving average (200 SMA). It often signals the start of a downtrend.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Dynamic Support/Resistance</div>
+                    <div class="vocab-definition">Support or resistance levels created by moving averages that change over time as the average updates. Price often bounces off these dynamic levels, providing trading opportunities.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Lag</div>
+                    <div class="vocab-definition">The delay inherent in moving averages as they need time to adjust to new price information. Longer period MAs have more lag; this is a tradeoff for smoother, more reliable signals.</div>
+                </div>
+
+                <!-- Module 6: Trendlines -->
+                <div class="vocab-card">
+                    <div class="vocab-term">Trendline</div>
+                    <div class="vocab-definition">A line drawn connecting two or more price points to show the direction and strength of a trend. Uptrends connect rising lows; downtrends connect falling highs. Breaks in trendlines signal potential trend reversals.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Ascending Channel</div>
+                    <div class="vocab-definition">Two parallel upward-sloping lines that contain price movement in an uptrend. The lower line is support, the upper line is resistance. Price bounces between these lines until a breakout occurs.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Descending Channel</div>
+                    <div class="vocab-definition">Two parallel downward-sloping lines that contain price movement in a downtrend. The upper line is resistance, the lower line is support. Price bounces between these lines until a breakout occurs.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Trendline Break</div>
+                    <div class="vocab-definition">When price closes beyond a trendline with conviction, typically on volume. A trendline break signals potential trend reversal or continuation depending on context.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">False Break</div>
+                    <div class="vocab-definition">When price briefly breaks a trendline or support/resistance but quickly returns, creating a fake-out. False breaks often precede strong moves in the original direction.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Confluence</div>
+                    <div class="vocab-definition">When multiple technical levels (trendlines, moving averages, support/resistance, patterns) align at the same price area. High-confluence zones are stronger support or resistance and offer better risk-reward trades.</div>
+                </div>
+
+                <!-- Module 7: Support & Resistance -->
+                <div class="vocab-card">
+                    <div class="vocab-term">Support</div>
+                    <div class="vocab-definition">A price level where buying pressure prevents price from falling further. Support often forms at previous lows where bulls previously defended price. It acts like a floor.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Resistance</div>
+                    <div class="vocab-definition">A price level where selling pressure prevents price from rising further. Resistance often forms at previous highs where bears previously defended price. It acts like a ceiling.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Support/Resistance Flip (S/R Flip)</div>
+                    <div class="vocab-definition">When a broken resistance level becomes new support (or vice versa). After price breaks above resistance, that level often holds as dynamic support on pullbacks, creating trading opportunities.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Psychological Level</div>
+                    <div class="vocab-definition">Round price numbers like 100, 1000, or 5000 that psychologically attract buyers and sellers. These levels often act as support or resistance due to their psychological importance.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Volume at Price (VRVP)</div>
+                    <div class="vocab-definition">A visualization of trading volume at different price levels. High-volume price levels often become support and resistance because traders remember where large volumes traded historically.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">High-Volume Node</div>
+                    <div class="vocab-definition">A price area where large amounts of trading volume occurred historically. These nodes act as strong support or resistance because traders remember the price action there.</div>
+                </div>
+
+                <!-- Module 8: Framework -->
+                <div class="vocab-card">
+                    <div class="vocab-term">Pre-Trade Checklist</div>
+                    <div class="vocab-definition">A systematic list of criteria to verify before entering a trade, ensuring proper risk-reward, confirmation, and alignment with your trading plan. Using checklists prevents emotional trading.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Watchlist</div>
+                    <div class="vocab-definition">A curated list of securities you monitor for trading opportunities. A focused watchlist of 5-10 high-quality setups is more effective than watching hundreds of random tickers.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Risk-to-Reward Ratio</div>
+                    <div class="vocab-definition">The relationship between the amount you risk (distance to stop-loss) and potential profit (distance to target). Professional traders require at least 1:2 or 1:3 ratios to make trading profitable over time.</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-term">Position Sizing</div>
+                    <div class="vocab-definition">Determining the number of shares or contracts to trade based on account size and risk tolerance. Proper position sizing ensures you don't lose too much on any single trade and lets you survive losing streaks.</div>
+                </div>
+            </div>
+
+            <footer>
+                <p>&copy; 2025 STACK Academy. Trading Foundations Glossary.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        const PASSWORD_HASH = "9004dd85ce0b8bf505d662c98afbc00c07dece9544d804442e1e6d97f6996d41";
+        const STORAGE_KEY = "stack_foundations_access";
+
+        function hashPassword(password) {
+            return new Promise(resolve => {
+                const encoder = new TextEncoder();
+                const data = encoder.encode(password);
+                crypto.subtle.digest('SHA-256', data).then(hashBuffer => {
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                    resolve(hashHex);
+                });
+            });
+        }
+
+        async function verifyPassword() {
+            const passwordInput = document.getElementById('password-input');
+            const errorMsg = document.getElementById('error-msg');
+            const password = passwordInput.value.trim();
+
+            if (!password) {
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            const hash = await hashPassword(password);
+
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('course-content').classList.remove('hidden');
+                errorMsg.style.display = 'none';
+            } else {
+                errorMsg.style.display = 'block';
+                passwordInput.value = '';
+            }
+        }
+
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                verifyPassword();
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem(STORAGE_KEY) === 'true') {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('course-content').classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
