@@ -1,0 +1,17 @@
+{
+  "name": "Princess Trader",
+  "short_name": "PrincessTrader",
+  "description": "A magical trading adventure for young princesses!",
+  "start_url": "./index.html",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#1a0a2e",
+  "theme_color": "#1a0a2e",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231a0a2e' width='100' height='100' rx='20'/><text y='65' x='50' text-anchor='middle' font-size='55'>👑</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

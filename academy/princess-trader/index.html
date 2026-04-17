@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1a0a2e">
+<title>Princess Trader</title>
+<link rel="manifest" href="manifest.json">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+html,body{width:100%;height:100%;overflow:hidden;background:#1a0a2e;font-family:'Segoe UI',system-ui,sans-serif;touch-action:none}
+canvas{display:block;position:fixed;top:0;left:0}
+#hud{position:fixed;top:0;left:0;width:100%;padding:10px 16px;display:none;justify-content:space-between;align-items:center;z-index:20;pointer-events:none}
+#hud-left{display:flex;gap:6px;align-items:center}
+#hud-right{display:flex;gap:16px;align-items:center;font-size:18px;font-weight:700;color:#ffd700}
+.heart{font-size:22px}
+#speech-bubble{position:fixed;bottom:130px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.95);color:#2d1b4e;font-size:18px;font-weight:600;padding:14px 24px;border-radius:18px;max-width:80%;text-align:center;z-index:20;display:none;box-shadow:0 4px 20px rgba(0,0,0,0.4);line-height:1.4}
+#speech-bubble::after{content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);border-left:10px solid transparent;border-right:10px solid transparent;border-top:10px solid rgba(255,255,255,0.95)}
+.touch-controls{position:fixed;bottom:0;left:0;width:100%;height:120px;display:none;justify-content:space-between;align-items:center;padding:0 16px 16px;z-index:30}
+.touch-btn{width:66px;height:66px;border-radius:50%;border:2.5px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:28px;color:rgba(255,255,255,0.7);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);transition:background 0.1s}
+.touch-btn:active,.touch-btn.pressed{background:rgba(255,215,0,0.35);border-color:#ffd700}
+.dpad{display:flex;gap:10px}
+.action-btns{display:flex;gap:10px}
+#loading-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#1a0a2e 0%,#2d1b4e 50%,#1a0a2e 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:100}
+.title-crown{font-size:64px;margin-bottom:10px;animation:float 2s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+#loading-screen h1{font-size:38px;color:#ffd700;margin-bottom:6px;text-shadow:0 0 30px rgba(255,215,0,0.4)}
+#loading-screen p{color:#c4a0ff;font-size:16px;margin-bottom:24px}
+#start-btn{background:linear-gradient(135deg,#ffd700,#ffaa00);color:#1a0a2e;border:none;padding:16px 44px;font-size:22px;font-weight:700;border-radius:28px;cursor:pointer;box-shadow:0 4px 24px rgba(255,215,0,0.4);transition:transform 0.2s;animation:pulse-btn 2s ease-in-out infinite}
+@keyframes pulse-btn{0%,100%{box-shadow:0 4px 24px rgba(255,215,0,0.4)}50%{box-shadow:0 4px 40px rgba(255,215,0,0.7)}}
+#start-btn:active{transform:scale(0.95)}
+.loading-stars{position:absolute;width:100%;height:100%;pointer-events:none;overflow:hidden}
+.loading-star{position:absolute;width:3px;height:3px;background:white;border-radius:50%;animation:twinkle 3s ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:0.2}50%{opacity:1}}
+</style>
+</head>
+<body>
+
+<div id="loading-screen">
+  <div class="loading-stars" id="loading-stars"></div>
+  <div class="title-crown">👑</div>
+  <h1>Princess Trader</h1>
+  <p>A Magical Kingdom of Markets</p>
+  <button id="start-btn" onclick="initGame()">Tap to Play!</button>
+</div>
+
+<canvas id="game"></canvas>
+
+<div id="hud">
+  <div id="hud-left"></div>
+  <div id="hud-right">
+    <span id="hud-gems">0</span>
+    <span id="hud-tiaras" style="color:#ff69b4">0</span>
+  </div>
+</div>
+<div id="speech-bubble"></div>
+<button id="pause-btn" style="position:fixed;top:10px;right:10px;z-index:25;width:40px;height:40px;border-radius:50%;border:2px solid rgba(255,255,255,0.3);background:rgba(0,0,0,0.3);color:white;font-size:18px;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);cursor:pointer" onclick="togglePause()">⏸</button>
+
+<div class="touch-controls" id="touch-controls">
+  <div class="dpad">
+    <button class="touch-btn" id="btn-left">◀</button>
+    <button class="touch-btn" id="btn-right">▶</button>
+  </div>
+  <div class="action-btns">
+    <button class="touch-btn" id="btn-action" style="background:rgba(255,215,0,0.2);border-color:rgba(255,215,0,0.5);font-size:18px">★</button>
+    <button class="touch-btn" id="btn-jump">▲</button>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// PRINCESS TRADER — PREMIUM ENGINE V2
+// ================================================================
+
+// --- Canvas Setup ---
+const C = document.getElementById('game');
+const ctx = C.getContext('2d');
+let W, H;
+function resize() { W = C.width = innerWidth; H = C.height = innerHeight; }
+addEventListener('resize', resize); resize();
+
+// --- Game State ---
+let STATE = 'loading'; // loading | worldmap | playing | minigame | boss | levelcomplete | gameover | tutorial
+let currentWorld = 0;
+let tutorialStep = 0, tutorialTimer = 0, hasSeenTutorial = false;
+let gems = 0, totalGems = 0, tiaras = 0, totalTiaras = 0;
+let hearts = 3, maxHearts = 3;
+let unlockedWorlds = 1;
+let frame = 0;
+let shakeTimer = 0, shakeIntensity = 0;
+let freezeFrames = 0;
+let paused = false;
+
+// --- Save/Load ---
+function save() { try { localStorage.setItem('pt2', JSON.stringify({ uw: unlockedWorlds, tg: totalGems, tt: totalTiaras, tut:1 })); } catch(e){} }
+function load() { try { const d = JSON.parse(localStorage.getItem('pt2')); if(d){unlockedWorlds=d.uw||1;totalGems=d.tg||0;totalTiaras=d.tt||0;if(d.tut)hasSeenTutorial=true;} } catch(e){} }
+
+// --- Decorative Stars on Title ---
+(function(){const c=document.getElementById('loading-stars');for(let i=0;i<40;i++){const s=document.createElement('div');s.className='loading-star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*3+'s';s.style.width=s.style.height=(1+Math.random()*2)+'px';c.appendChild(s);}})();
+
+// ================================================================
+// VOICE ENGINE — Daddy's Voice First, TTS Fallback
+// ================================================================
+const voiceClips = {};
+const VOICE_PATH = './';
+const ALL_CLIP_IDS = [
+  'menu_welcome','menu_choose','menu_return',
+  'w1_intro','w1_green1','w1_green2','w1_green3','w1_red1','w1_red2',
+  'w1_mini_intro','w1_mini_correct','w1_mini_wrong','w1_complete',
+  'w2_intro','w2_triangle','w2_mountain','w2_complete',
+  'w3_intro','w3_teach','w3_complete',
+  'w4_intro','w4_wait','w4_jump','w4_complete',
+  'w5_intro','w5_flow','w5_against','w5_complete',
+  'w6_intro','w6_draw','w6_complete',
+  'w7_intro','w7_support','w7_resistance','w7_break','w7_complete',
+  'w8_intro','w8_demand','w8_supply','w8_buylow','w8_boss_intro','w8_boss_win','w8_complete',
+  'gen_gem','gen_powerup','gen_troll','gen_fall','gen_star3','gen_star2','gen_star1',
+  'gen_unlock','gen_quiz_right','gen_quiz_wrong','gen_paused','gen_hint'
+];
+let speaking = false, speechQueue = [];
+
+function preloadVoice() {
+  ALL_CLIP_IDS.forEach(id => {
+    const a = new Audio(); a.src = VOICE_PATH + id + '.webm'; a.preload = 'auto';
+    a.addEventListener('canplaythrough', () => { voiceClips[id] = a; }, { once: true });
+    a.addEventListener('error', () => {});
+  });
+}
+
+function playVoice(clipId, text, cb) {
+  const bub = document.getElementById('speech-bubble');
+  bub.textContent = text; bub.style.display = 'block';
+  speaking = true;
+  const done = () => { bub.style.display = 'none'; speaking = false; if(cb)cb(); processQ(); };
+  if (voiceClips[clipId]) {
+    const a = voiceClips[clipId].cloneNode(); a.volume = 1;
+    a.onended = done; a.onerror = () => ttsFallback(text, done);
+    a.play().catch(() => ttsFallback(text, done));
+  } else { ttsFallback(text, done); }
+}
+
+function ttsFallback(text, done) {
+  if (!('speechSynthesis' in window)) { setTimeout(done, 2500); return; }
+  const u = new SpeechSynthesisUtterance(text); u.rate=0.85; u.pitch=1.3;
+  const v = speechSynthesis.getVoices();
+  const fv = v.find(x => /samantha|fiona|victoria|zira|female/i.test(x.name)) || v[0];
+  if(fv) u.voice = fv; u.onend = done;
+  speechSynthesis.cancel(); speechSynthesis.speak(u);
+}
+
+function queueVoice(id, text, cb) { speechQueue.push({id,text,cb}); if(!speaking) processQ(); }
+function processQ() { if(!speechQueue.length) return; const n=speechQueue.shift(); playVoice(n.id,n.text,n.cb); }
+if('speechSynthesis' in window){speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices();speechSynthesis.getVoices();}
+preloadVoice();
+
+// ================================================================
+// SOUND EFFECTS — Web Audio API (tiny synth bleeps)
+// ================================================================
+let audioCtx = null;
+function initAudio() { if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }
+
+function sfx(type) {
+  if(!audioCtx) return;
+  const now = audioCtx.currentTime;
+  const g = audioCtx.createGain();
+  const o = audioCtx.createOscillator();
+  o.connect(g); g.connect(audioCtx.destination);
+
+  if(type==='jump') {
+    o.type='sine'; o.frequency.setValueAtTime(400,now); o.frequency.linearRampToValueAtTime(800,now+0.12);
+    g.gain.setValueAtTime(0.12,now); g.gain.linearRampToValueAtTime(0,now+0.15);
+    o.start(now); o.stop(now+0.15);
+  } else if(type==='collect') {
+    o.type='sine'; o.frequency.setValueAtTime(600,now); o.frequency.linearRampToValueAtTime(1200,now+0.08);
+    g.gain.setValueAtTime(0.1,now); g.gain.linearRampToValueAtTime(0,now+0.12);
+    o.start(now); o.stop(now+0.12);
+    // Second note (chime)
+    const o2=audioCtx.createOscillator(),g2=audioCtx.createGain();
+    o2.connect(g2);g2.connect(audioCtx.destination);
+    o2.type='sine'; o2.frequency.setValueAtTime(900,now+0.06); o2.frequency.linearRampToValueAtTime(1400,now+0.14);
+    g2.gain.setValueAtTime(0.08,now+0.06); g2.gain.linearRampToValueAtTime(0,now+0.18);
+    o2.start(now+0.06); o2.stop(now+0.18);
+  } else if(type==='stomp') {
+    o.type='square'; o.frequency.setValueAtTime(200,now); o.frequency.linearRampToValueAtTime(80,now+0.15);
+    g.gain.setValueAtTime(0.15,now); g.gain.linearRampToValueAtTime(0,now+0.2);
+    o.start(now); o.stop(now+0.2);
+  } else if(type==='hurt') {
+    o.type='sawtooth'; o.frequency.setValueAtTime(300,now); o.frequency.linearRampToValueAtTime(100,now+0.25);
+    g.gain.setValueAtTime(0.1,now); g.gain.linearRampToValueAtTime(0,now+0.3);
+    o.start(now); o.stop(now+0.3);
+  } else if(type==='powerup') {
+    o.type='sine';
+    o.frequency.setValueAtTime(500,now); o.frequency.linearRampToValueAtTime(700,now+0.1);
+    o.frequency.linearRampToValueAtTime(1000,now+0.2); o.frequency.linearRampToValueAtTime(1300,now+0.3);
+    g.gain.setValueAtTime(0.1,now); g.gain.linearRampToValueAtTime(0,now+0.35);
+    o.start(now); o.stop(now+0.35);
+  } else if(type==='win') {
+    // Triumphant arpeggio
+    [523,659,784,1047].forEach((f,i)=>{
+      const ow=audioCtx.createOscillator(),gw=audioCtx.createGain();
+      ow.connect(gw);gw.connect(audioCtx.destination);
+      ow.type='sine'; ow.frequency.value=f;
+      gw.gain.setValueAtTime(0.08,now+i*0.12); gw.gain.linearRampToValueAtTime(0,now+i*0.12+0.3);
+      ow.start(now+i*0.12); ow.stop(now+i*0.12+0.3);
+    });
+    g.gain.setValueAtTime(0,now); o.start(now); o.stop(now+0.01); // dummy
+  } else if(type==='correct') {
+    o.type='sine'; o.frequency.setValueAtTime(660,now); o.frequency.linearRampToValueAtTime(880,now+0.1);
+    g.gain.setValueAtTime(0.1,now); g.gain.linearRampToValueAtTime(0,now+0.15);
+    o.start(now); o.stop(now+0.15);
+  } else if(type==='wrong') {
+    o.type='square'; o.frequency.setValueAtTime(200,now); o.frequency.linearRampToValueAtTime(150,now+0.2);
+    g.gain.setValueAtTime(0.08,now); g.gain.linearRampToValueAtTime(0,now+0.25);
+    o.start(now); o.stop(now+0.25);
+  }
+}
+
+// ================================================================
+// INPUT
+// ================================================================
+const keys = { left:false, right:false, up:false, action:false, upPressed:false };
+document.addEventListener('keydown', e => {
+  if(e.key==='ArrowLeft') keys.left=true;
+  if(e.key==='ArrowRight') keys.right=true;
+  if((e.key==='ArrowUp'||e.key===' ')&&!keys.up) { keys.up=true; keys.upPressed=true; }
+  if(e.key==='z'||e.key==='Enter') keys.action=true;
+});
+document.addEventListener('keyup', e => {
+  if(e.key==='ArrowLeft') keys.left=false;
+  if(e.key==='ArrowRight') keys.right=false;
+  if(e.key==='ArrowUp'||e.key===' ') keys.up=false;
+  if(e.key==='z'||e.key==='Enter') keys.action=false;
+});
+
+function setupTouch() {
+  const map = { 'btn-left':'left','btn-right':'right','btn-jump':'up','btn-action':'action' };
+  Object.entries(map).forEach(([id,key]) => {
+    const el = document.getElementById(id);
+    el.addEventListener('touchstart', e => { e.preventDefault(); keys[key]=true; if(key==='up') keys.upPressed=true; el.classList.add('pressed'); });
+    el.addEventListener('touchend', e => { e.preventDefault(); keys[key]=false; el.classList.remove('pressed'); });
+    el.addEventListener('touchcancel', e => { keys[key]=false; el.classList.remove('pressed'); });
+  });
+}
+
+// ================================================================
+// DRAWING HELPERS
+// ================================================================
+function rect(x,y,w,h,c) { ctx.fillStyle=c; ctx.fillRect(x,y,w,h); }
+function circle(x,y,r,c) { ctx.fillStyle=c; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill(); }
+function text(t,x,y,s,c,a='center') { ctx.fillStyle=c; ctx.font=`bold ${s}px 'Segoe UI',system-ui,sans-serif`; ctx.textAlign=a; ctx.textBaseline='middle'; ctx.fillText(t,x,y); }
+function star(cx,cy,r,c) { ctx.fillStyle=c; ctx.beginPath(); for(let i=0;i<5;i++){const a1=(i*72-90)*Math.PI/180;const a2=((i*72)+36-90)*Math.PI/180;ctx.lineTo(cx+Math.cos(a1)*r,cy+Math.sin(a1)*r);ctx.lineTo(cx+Math.cos(a2)*r*0.4,cy+Math.sin(a2)*r*0.4);}ctx.closePath();ctx.fill(); }
+function roundRect(x,y,w,h,r,c) { ctx.fillStyle=c; ctx.beginPath(); ctx.roundRect(x,y,w,h,r); ctx.fill(); }
+
+// ================================================================
+// PARTICLES
+// ================================================================
+let particles = [];
+function spawnP(x,y,color,n,opts={}) {
+  for(let i=0;i<n;i++) particles.push({
+    x,y, vx:(Math.random()-0.5)*(opts.spread||6), vy:(Math.random()-1)*(opts.upward||5),
+    life:30+Math.random()*20, maxLife:50, color, size:2+Math.random()*4, type:opts.type||'star'
+  });
+}
+function updateParticles() {
+  for(let i=particles.length-1;i>=0;i--) {
+    const p=particles[i]; p.x+=p.vx; p.y+=p.vy; p.vy+=0.15; p.life--;
+    if(p.life<=0) particles.splice(i,1);
+  }
+}
+function drawParticles(camX=0) {
+  for(const p of particles) {
+    ctx.globalAlpha=p.life/p.maxLife;
+    const px = STATE==='playing'||STATE==='boss' ? p.x-camX : p.x;
+    if(p.type==='star') star(px,p.y,p.size,p.color);
+    else if(p.type==='circle') circle(px,p.y,p.size,p.color);
+    else { rect(px-p.size/2,p.y-p.size/2,p.size,p.size,p.color); }
+  }
+  ctx.globalAlpha=1;
+}
+
+// ================================================================
+// PRINCESS — Animated Sprite
+// ================================================================
+const P = {
+  x:100, y:0, vx:0, vy:0, w:36, h:48,
+  onGround:false, facing:1, animFrame:0, animTimer:0,
+  state:'idle', // idle, walk, jump, hurt, celebrate
+  hurtTimer:0, invincible:0, shieldTimer:0, speedTimer:0,
+  doubleJump:false, canDoubleJump:false
+};
+
+function drawPrincess(camX) {
+  const sx = P.x - camX, sy = P.y;
+  const f = P.facing;
+
+  // Invincible flash
+  if(P.invincible > 0 && frame % 6 < 3) return;
+
+  // Shield glow
+  if(P.shieldTimer > 0) {
+    ctx.globalAlpha = 0.2 + Math.sin(frame*0.1)*0.1;
+    circle(sx, sy+20, 34, '#00bfff');
+    ctx.globalAlpha = 1;
+  }
+
+  // Speed trail
+  if(P.speedTimer > 0) {
+    ctx.globalAlpha = 0.15;
+    drawPrincessBody(sx - f*8, sy, f, '#ffd700');
+    ctx.globalAlpha = 0.08;
+    drawPrincessBody(sx - f*16, sy, f, '#ffd700');
+    ctx.globalAlpha = 1;
+  }
+
+  drawPrincessBody(sx, sy, f);
+}
+
+function drawPrincessBody(sx, sy, f, tint) {
+  const isWalk = P.state === 'walk';
+  const isJump = P.state === 'jump';
+  const walkBob = isWalk ? Math.sin(frame*0.25)*2 : 0;
+
+  // --- Dress ---
+  const dressColor = tint || '#ff69b4';
+  const dressLight = tint || '#ffb6d9';
+  ctx.fillStyle = dressColor;
+  ctx.beginPath();
+  ctx.moveTo(sx-2, sy+14+walkBob);
+  ctx.quadraticCurveTo(sx-22, sy+48, sx-18, sy+48);
+  ctx.lineTo(sx+18, sy+48);
+  ctx.quadraticCurveTo(sx+22, sy+48, sx+2, sy+14+walkBob);
+  ctx.closePath(); ctx.fill();
+
+  // Dress shimmer
+  ctx.fillStyle = dressLight;
+  ctx.beginPath();
+  ctx.moveTo(sx, sy+18+walkBob);
+  ctx.quadraticCurveTo(sx-14, sy+44, sx-10, sy+44);
+  ctx.lineTo(sx+10, sy+44);
+  ctx.quadraticCurveTo(sx+14, sy+44, sx, sy+18+walkBob);
+  ctx.closePath(); ctx.fill();
+
+  // Dress sparkles
+  if(!tint) {
+    for(let i=0;i<3;i++) {
+      const sx2 = sx + Math.sin(frame*0.08+i*2.5)*10;
+      const sy2 = sy + 28 + i*6 + walkBob;
+      const sp = Math.sin(frame*0.1+i)*0.5+0.5;
+      ctx.globalAlpha = sp * 0.7;
+      star(sx2, sy2, 2, 'white');
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // --- Arms ---
+  if(!tint) {
+    const armSwing = isWalk ? Math.sin(frame*0.25)*12 : 0;
+    ctx.strokeStyle = '#ffe0bd'; ctx.lineWidth = 4; ctx.lineCap = 'round';
+    // Left arm
+    ctx.beginPath(); ctx.moveTo(sx-12, sy+18); ctx.lineTo(sx-18, sy+28-armSwing); ctx.stroke();
+    // Right arm (holds wand)
+    ctx.beginPath(); ctx.moveTo(sx+12, sy+18); ctx.lineTo(sx+18, sy+28+armSwing); ctx.stroke();
+    // Wand
+    const wx = sx + f*22, wy = sy + 24 + armSwing*f;
+    ctx.strokeStyle = '#daa520'; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.moveTo(sx+f*16, sy+26+armSwing*f); ctx.lineTo(wx, wy-8); ctx.stroke();
+    star(wx, wy-14, 5+Math.sin(frame*0.15)*1.5, '#ffd700');
+  }
+
+  // --- Head ---
+  circle(sx, sy+6, 13, tint || '#ffe0bd');
+
+  // --- Hair ---
+  if(!tint) {
+    ctx.fillStyle = '#6B3A2A';
+    ctx.beginPath(); ctx.arc(sx, sy+2, 14, Math.PI, 2*Math.PI); ctx.fill();
+    rect(sx-14, sy, 4, 20, '#6B3A2A');
+    rect(sx+10, sy, 4, 20, '#6B3A2A');
+    // Hair flow when moving
+    if(isWalk || isJump) {
+      ctx.fillStyle = '#6B3A2A';
+      ctx.beginPath();
+      ctx.moveTo(sx-f*10, sy+2);
+      ctx.quadraticCurveTo(sx-f*20, sy+10, sx-f*16, sy+22);
+      ctx.lineTo(sx-f*12, sy+18);
+      ctx.closePath(); ctx.fill();
+    }
+  }
+
+  // --- Crown ---
+  if(!tint) {
+    ctx.fillStyle = '#ffd700';
+    ctx.beginPath();
+    ctx.moveTo(sx-9, sy-6);
+    ctx.lineTo(sx-7, sy-16); ctx.lineTo(sx-3, sy-8);
+    ctx.lineTo(sx, sy-18);
+    ctx.lineTo(sx+3, sy-8); ctx.lineTo(sx+7, sy-16);
+    ctx.lineTo(sx+9, sy-6);
+    ctx.closePath(); ctx.fill();
+    circle(sx, sy-12, 2.5, '#ff1493');
+    circle(sx-5, sy-10, 1.5, '#00bfff');
+    circle(sx+5, sy-10, 1.5, '#00bfff');
+  }
+
+  // --- Face ---
+  if(!tint) {
+    const ex = f * 2;
+    // Eyes
+    circle(sx-4+ex, sy+4, 3, 'white');
+    circle(sx+4+ex, sy+4, 3, 'white');
+    circle(sx-4+ex, sy+4, 1.8, '#2d1b4e');
+    circle(sx+4+ex, sy+4, 1.8, '#2d1b4e');
+    circle(sx-3.5+ex, sy+3.5, 0.8, 'white');
+    circle(sx+4.5+ex, sy+3.5, 0.8, 'white');
+    // Blush
+    ctx.globalAlpha = 0.3;
+    circle(sx-7, sy+7, 3, '#ff69b4');
+    circle(sx+7, sy+7, 3, '#ff69b4');
+    ctx.globalAlpha = 1;
+    // Mouth
+    if(P.state === 'hurt') {
+      circle(sx+ex, sy+10, 2.5, '#cc5577');
+    } else {
+      ctx.strokeStyle = '#cc5577'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(sx+ex, sy+10, 3, 0.2, Math.PI-0.2); ctx.stroke();
+    }
+  }
+
+  // --- Legs/Feet ---
+  if(!tint) {
+    if(isWalk) {
+      const legA = Math.sin(frame*0.3)*8;
+      rect(sx-7+legA, sy+44, 8, 5, '#ff1493');
+      rect(sx-1-legA, sy+44, 8, 5, '#ff1493');
+    } else if(isJump) {
+      rect(sx-8, sy+44, 7, 4, '#ff1493');
+      rect(sx+1, sy+44, 7, 4, '#ff1493');
+    } else {
+      rect(sx-7, sy+44, 7, 5, '#ff1493');
+      rect(sx, sy+44, 7, 5, '#ff1493');
+    }
+  }
+}
+
+// ================================================================
+// TRICKY TROLL — Enemy
+// ================================================================
+function drawTroll(x, y, camX, variant) {
+  const sx = x - camX;
+  const bob = Math.sin(frame*0.06+x)*3;
+  const ty = y + bob;
+  const c1 = variant === 'boss' ? '#8B0000' : '#5a3d8a';
+  const c2 = variant === 'boss' ? '#ff4444' : '#7c5cbf';
+  const scale = variant === 'boss' ? 1.5 : 1;
+
+  ctx.save();
+  ctx.translate(sx, ty);
+  ctx.scale(scale, scale);
+
+  // Body
+  circle(0, 8, 16, c1);
+  circle(0, 8, 13, c2);
+
+  // Horns
+  ctx.fillStyle = '#8B7355';
+  ctx.beginPath(); ctx.moveTo(-10,-6); ctx.lineTo(-14,-20); ctx.lineTo(-4,-8); ctx.closePath(); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(10,-6); ctx.lineTo(14,-20); ctx.lineTo(4,-8); ctx.closePath(); ctx.fill();
+
+  // Eyes (sneaky)
+  circle(-5, 4, 4, '#ffd700');
+  circle(5, 4, 4, '#ffd700');
+  circle(-4, 4, 2, '#1a0a2e');
+  circle(6, 4, 2, '#1a0a2e');
+
+  // Sneaky grin
+  ctx.strokeStyle = '#ffd700'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.arc(0, 12, 7, 0.3, Math.PI-0.3); ctx.stroke();
+  // Teeth
+  rect(-4, 12, 3, 3, 'white');
+  rect(1, 12, 3, 3, 'white');
+
+  // Legs
+  const legA = Math.sin(frame*0.15+x)*4;
+  rect(-10, 20+legA, 7, 8, c1);
+  rect(3, 20-legA, 7, 8, c1);
+
+  ctx.restore();
+
+  // Danger indicator (floating !)
+  if(variant !== 'boss') {
+    ctx.globalAlpha = Math.sin(frame*0.08)*0.3+0.7;
+    text('!', sx, ty-30*scale, 16, '#ef4444');
+    ctx.globalAlpha = 1;
+  }
+}
+
+// ================================================================
+// CANDLE SPRITE
+// ================================================================
+function drawCandle(x, y, type, camX, bob) {
+  const sx = x - camX;
+  const by = y + Math.sin((frame+bob)*0.05)*4;
+  const green = type==='green';
+  const body = green ? '#22c55e' : '#ef4444';
+  const light = green ? '#4ade80' : '#f87171';
+  const glow = green ? 'rgba(34,197,94,0.15)' : 'rgba(239,68,68,0.15)';
+
+  // Glow
+  circle(sx, by+12, 24, glow);
+
+  // Body
+  roundRect(sx-9, by, 18, 28, 4, body);
+  roundRect(sx-7, by+2, 14, 24, 3, light);
+
+  // Wick + flame
+  rect(sx-1, by-7, 2, 8, '#8B7355');
+  ctx.fillStyle = '#ffd700'; ctx.beginPath();
+  const flick = Math.sin(frame*0.2)*2;
+  ctx.moveTo(sx, by-16+flick); ctx.quadraticCurveTo(sx+5, by-10, sx, by-7);
+  ctx.quadraticCurveTo(sx-5, by-10, sx, by-16+flick); ctx.fill();
+
+  // Arrow
+  const aDir = green ? -1 : 1;
+  const aY = green ? by-22 : by+32;
+  ctx.fillStyle = body; ctx.beginPath();
+  ctx.moveTo(sx, aY+aDir*(-8)); ctx.lineTo(sx-6, aY); ctx.lineTo(sx+6, aY);
+  ctx.closePath(); ctx.fill();
+
+  // Face
+  circle(sx-3, by+11, 2, 'white'); circle(sx+3, by+11, 2, 'white');
+  circle(sx-3, by+11, 1, '#1a0a2e'); circle(sx+3, by+11, 1, '#1a0a2e');
+  if(green) {
+    ctx.strokeStyle='white'; ctx.lineWidth=1.2;
+    ctx.beginPath(); ctx.arc(sx, by+16, 2.5, 0.2, Math.PI-0.2); ctx.stroke();
+  } else {
+    ctx.strokeStyle='white'; ctx.lineWidth=1.2;
+    ctx.beginPath(); ctx.arc(sx, by+18, 2.5, Math.PI+0.3, -0.3); ctx.stroke();
+  }
+}
+
+// ================================================================
+// POWER-UPS
+// ================================================================
+function drawPowerUp(x, y, type, camX) {
+  const sx = x - camX;
+  const by = y + Math.sin(frame*0.07+x)*5;
+  const glow = type==='shield' ? 'rgba(0,191,255,0.2)' : type==='speed' ? 'rgba(255,215,0,0.2)' : 'rgba(255,105,180,0.2)';
+  circle(sx, by, 20, glow);
+
+  if(type === 'shield') {
+    // Blue shield icon
+    ctx.fillStyle = '#00bfff'; ctx.beginPath();
+    ctx.moveTo(sx, by-14); ctx.lineTo(sx+12, by-6); ctx.lineTo(sx+10, by+8);
+    ctx.quadraticCurveTo(sx, by+16, sx-10, by+8); ctx.lineTo(sx-12, by-6);
+    ctx.closePath(); ctx.fill();
+    star(sx, by-2, 6, 'white');
+  } else if(type === 'speed') {
+    // Gold lightning bolt
+    ctx.fillStyle = '#ffd700'; ctx.beginPath();
+    ctx.moveTo(sx+2, by-14); ctx.lineTo(sx-8, by+2); ctx.lineTo(sx-1, by+2);
+    ctx.lineTo(sx-3, by+14); ctx.lineTo(sx+8, by-2); ctx.lineTo(sx+1, by-2);
+    ctx.closePath(); ctx.fill();
+  } else if(type === 'tiara') {
+    // Pink tiara
+    ctx.fillStyle = '#ff69b4'; ctx.beginPath();
+    ctx.moveTo(sx-10, by+4); ctx.lineTo(sx-6, by-10); ctx.lineTo(sx-2, by-2);
+    ctx.lineTo(sx, by-14); ctx.lineTo(sx+2, by-2); ctx.lineTo(sx+6, by-10);
+    ctx.lineTo(sx+10, by+4); ctx.closePath(); ctx.fill();
+    circle(sx, by-8, 3, '#ff1493');
+  } else if(type === 'heart') {
+    // Heart
+    ctx.fillStyle = '#ef4444';
+    ctx.beginPath();
+    ctx.moveTo(sx, by+6);
+    ctx.bezierCurveTo(sx-12, by-6, sx-12, by-14, sx, by-8);
+    ctx.bezierCurveTo(sx+12, by-14, sx+12, by-6, sx, by+6);
+    ctx.fill();
+  }
+}
+
+// ================================================================
+// LEVEL GENERATION
+// ================================================================
+let level = null, camX = 0;
+let platforms = [], candles = [], enemies = [], powerUps = [], decorations = [];
+let bossObj = null;
+
+const WORLD_THEMES = [
+  { name:'Candle Kingdom', sky1:'#2d1b4e', sky2:'#1a0a2e', ground:'#3d2914', grass:'#22c55e', platColor:'#ff69b4' },
+  { name:'Pattern Palace', sky1:'#1a2a4e', sky2:'#0d1526', ground:'#2a2040', grass:'#9b59b6', platColor:'#9b59b6' },
+  { name:'ETF Forest', sky1:'#0d2818', sky2:'#071a10', ground:'#2a1a08', grass:'#27ae60', platColor:'#27ae60' },
+  { name:'Strategy Springs', sky1:'#0d1f3a', sky2:'#070f1e', ground:'#1a2a3a', grass:'#3498db', platColor:'#3498db' },
+  { name:'Moving River', sky1:'#0d2a2a', sky2:'#071a1a', ground:'#1a2a2a', grass:'#1abc9c', platColor:'#1abc9c' },
+  { name:'Trendline Trail', sky1:'#2a1a0a', sky2:'#1a0f05', ground:'#3d2914', grass:'#e67e22', platColor:'#e67e22' },
+  { name:'Support Bridge', sky1:'#2a0a0d', sky2:'#1a0508', ground:'#2a1a1a', grass:'#e74c3c', platColor:'#e74c3c' },
+  { name:'The Final Castle', sky1:'#2a2a0d', sky2:'#1a1a07', ground:'#2a2a14', grass:'#ffd700', platColor:'#ffd700' },
+];
+
+function genLevel(wi) {
+  const lw = 4000 + wi * 400;
+  const theme = WORLD_THEMES[wi];
+  platforms=[]; candles=[]; enemies=[]; powerUps=[]; decorations=[]; particles=[];
+  bossObj = null;
+
+  // Ground tiles
+  for(let x=0; x<lw; x+=48) platforms.push({ x, y:H-56, w:48, h:56, type:'ground' });
+
+  // Gaps (increase with world)
+  const gapCount = 1 + wi;
+  for(let g=0; g<gapCount; g++) {
+    const gx = 600 + g * (lw/(gapCount+1));
+    // Remove 2-3 ground tiles to create gap
+    const gapWidth = 2 + Math.floor(Math.random()*2);
+    platforms = platforms.filter(p => !(p.type==='ground' && p.x >= gx && p.x < gx + gapWidth*48));
+  }
+
+  // Platforms (floating)
+  const platCount = 14 + wi * 3;
+  for(let i=0; i<platCount; i++) {
+    const px = 180 + i * ((lw-200)/platCount) + (Math.random()-0.5)*40;
+    const py = H - 130 - Math.random()*200;
+    const pw = 48*(2+Math.floor(Math.random()*2));
+    platforms.push({ x:px, y:py, w:pw, h:14, type:'platform', moving: Math.random()>0.75, moveRange:40+Math.random()*40, moveSpeed:0.01+Math.random()*0.005, startY:py });
+  }
+
+  // Candles
+  const candleCount = 10 + wi * 2;
+  for(let i=0; i<candleCount; i++) {
+    const cx = 200 + i*(lw/candleCount) + Math.random()*50;
+    const plats = platforms.filter(p=>p.type==='platform' && Math.abs(p.x-cx)<200);
+    let cy = H-96;
+    if(plats.length && Math.random()>0.3) cy = plats[0].y - 36;
+    candles.push({ x:cx, y:cy, type:Math.random()>0.25?'green':'red', collected:false, bob:Math.random()*100 });
+  }
+
+  // Enemies — Tricky Trolls
+  const enemyCount = 2 + wi * 2;
+  for(let i=0; i<enemyCount; i++) {
+    const ex = 400 + i*(lw/(enemyCount+1)) + Math.random()*100;
+    enemies.push({
+      x:ex, y:H-88, startX:ex, patrolRange:80+Math.random()*80,
+      speed:0.4+wi*0.07, dir:1, variant:'normal', alive:true
+    });
+  }
+
+  // Power-ups
+  const puTypes = ['shield','speed','tiara','heart'];
+  const puCount = 3 + Math.floor(wi/2);
+  for(let i=0; i<puCount; i++) {
+    const px = 300 + i*(lw/(puCount+1)) + Math.random()*100;
+    const plats = platforms.filter(p=>p.type==='platform' && Math.abs(p.x-px)<200);
+    let py = H-96;
+    if(plats.length) py = plats[0].y - 36;
+    powerUps.push({ x:px, y:py, type:puTypes[i%puTypes.length], collected:false, bob:Math.random()*100 });
+  }
+
+  // Boss at the end (every world has one)
+  bossObj = {
+    x: lw-200, y: H-100, hp: 3+wi, maxHp: 3+wi, phase: 'idle',
+    attackTimer: 0, variant: 'boss', alive: true, hitTimer: 0
+  };
+
+  // Decorations: clouds (all worlds)
+  for(let i=0;i<12;i++) decorations.push({ x:Math.random()*lw, y:30+Math.random()*120, type:'cloud', size:20+Math.random()*30, speed:0.15+Math.random()*0.25 });
+
+  // World-specific decorations
+  if(wi===0) { // Candle Kingdom — flowers and candle lanterns
+    for(let i=0;i<25;i++) decorations.push({ x:Math.random()*lw, y:H-60, type:'flower', color:['#ff69b4','#ffd700','#ff6347','#9b59b6','#00bfff'][i%5] });
+    for(let i=0;i<8;i++) decorations.push({ x:200+i*(lw/8), y:H-120-Math.random()*30, type:'lantern' });
+  } else if(wi===1) { // Pattern Palace — crystal shapes, floating triangles
+    for(let i=0;i<10;i++) decorations.push({ x:Math.random()*lw, y:60+Math.random()*180, type:'crystal', color:['#9b59b6','#a855f7','#c084fc'][i%3], size:12+Math.random()*18 });
+    for(let i=0;i<15;i++) decorations.push({ x:Math.random()*lw, y:H-60, type:'flower', color:['#9b59b6','#c084fc','#a855f7'][i%3] });
+  } else if(wi===2) { // ETF Forest — big trees, mushrooms
+    for(let i=0;i<10;i++) decorations.push({ x:100+i*(lw/10), y:H-56, type:'tree', height:70+Math.random()*50 });
+    for(let i=0;i<18;i++) decorations.push({ x:Math.random()*lw, y:H-60, type:'mushroom', color:['#ef4444','#22c55e','#ffd700'][i%3] });
+  } else if(wi===3) { // Strategy Springs — water springs, clocks
+    for(let i=0;i<12;i++) decorations.push({ x:Math.random()*lw, y:H-60, type:'spring' });
+    for(let i=0;i<6;i++) decorations.push({ x:200+i*(lw/6), y:60+Math.random()*100, type:'clock' });
+  } else if(wi===4) { // Moving River — water ripples, fish
+    for(let i=0;i<20;i++) decorations.push({ x:Math.random()*lw, y:H-40-Math.random()*20, type:'ripple', speed:0.5+Math.random()*0.5 });
+    for(let i=0;i<8;i++) decorations.push({ x:Math.random()*lw, y:H-70-Math.random()*30, type:'fish', dir:Math.random()>0.5?1:-1 });
+  } else if(wi===5) { // Trendline Trail — mountain peaks, dotted trails
+    for(let i=0;i<6;i++) decorations.push({ x:300+i*(lw/6), y:H-56, type:'tree', height:60+Math.random()*40 });
+    for(let i=0;i<15;i++) decorations.push({ x:Math.random()*lw, y:H-60, type:'flower', color:['#e67e22','#f39c12','#ffd700'][i%3] });
+  } else if(wi===6) { // Support Bridge — brick pillars, bridges
+    for(let i=0;i<8;i++) decorations.push({ x:200+i*(lw/8), y:H-56, type:'pillar', height:50+Math.random()*40 });
+    for(let i=0;i<15;i++) decorations.push({ x:Math.random()*lw, y:H-60, type:'flower', color:['#e74c3c','#ff6b6b','#ffd700'][i%3] });
+  } else if(wi===7) { // The Final Castle — castle towers, garden/tower landmarks
+    for(let i=0;i<3;i++) decorations.push({ x:300+i*(lw/3), y:H-56, type:'castle_tower', height:90+Math.random()*30 });
+    for(let i=0;i<20;i++) decorations.push({ x:Math.random()*lw, y:H-60, type:'flower', color:['#ffd700','#ff69b4','#22c55e'][i%3] });
+    // Magic Garden at start, Castle Tower at end
+    decorations.push({ x:180, y:H-56, type:'garden_sign' });
+    decorations.push({ x:lw-350, y:H-56, type:'tower_sign' });
+  }
+
+  // End flag
+  decorations.push({ x:lw-100, y:H-136, type:'flag' });
+
+  return { width:lw, worldIdx:wi, theme };
+}
+
+// ================================================================
+// LEVEL PLAY
+// ================================================================
+function startLevel(wi) {
+  currentWorld = wi;
+  level = genLevel(wi);
+  P.x=80; P.y=H-120; P.vx=0; P.vy=0; P.onGround=false; P.state='idle';
+  P.hurtTimer=0; P.invincible=0; P.shieldTimer=0; P.speedTimer=0;
+  hearts=maxHearts; gems=0; tiaras=0;
+  camX=0; freezeFrames=0; shakeTimer=0;
+  STATE='playing'; paused=false;
+  document.getElementById('touch-controls').style.display='flex';
+  document.getElementById('hud').style.display='flex';
+  document.getElementById('pause-btn').style.display='flex';
+  document.getElementById('pause-btn').textContent='⏸';
+  updateHUD();
+
+  const introClips = [
+    {id:'w1_intro',text:"Welcome to Candle Kingdom! See the candles? Green candles are happy — they go UP! Red candles are sad — they go DOWN!"},
+    {id:'w2_intro',text:"Welcome to Pattern Palace! Look at the shapes in the sky! Triangles and mountains tell us where prices might go next!"},
+    {id:'w3_intro',text:"Welcome to ETF Forest! Each path leads to a different land. Some lands have toys, some have food, some have gold!"},
+    {id:'w4_intro',text:"Welcome to Strategy Springs! Here we learn the most important thing — when to jump in and when to wait. Patience is a superpower!"},
+    {id:'w5_intro',text:"Welcome to Moving River! See the water flowing? It shows which way things are moving. Follow the river!"},
+    {id:'w6_intro',text:"Welcome to Trendline Trail! Draw a line through the mountains to find the path. If the path goes up, we go up too!"},
+    {id:'w7_intro',text:"Welcome to the Support Bridge! Some bridges hold you up — that's called support! And some ceilings stop you from going higher — that's resistance!"},
+    {id:'w8_intro',text:"Welcome to the Final Castle! This is where it all comes together. Remember — buy at the Magic Garden and sell at the Castle Tower!"},
+  ];
+  if(!hasSeenTutorial && wi===0) {
+    setTimeout(() => {
+      queueVoice(introClips[wi].id, introClips[wi].text, () => startTutorial());
+    }, 600);
+  } else {
+    setTimeout(() => queueVoice(introClips[wi].id, introClips[wi].text), 600);
+  }
+}
+
+function updateHUD() {
+  const hl = document.getElementById('hud-left');
+  hl.innerHTML = '';
+  for(let i=0;i<maxHearts;i++) {
+    const h = document.createElement('span'); h.className='heart';
+    h.textContent = i<hearts ? '❤️' : '🖤'; hl.appendChild(h);
+  }
+  document.getElementById('hud-gems').textContent = '💎 ' + gems;
+  document.getElementById('hud-tiaras').textContent = '👑 ' + tiaras;
+}
+
+function updatePlayer() {
+  if(freezeFrames>0) { freezeFrames--; return; }
+  const speed = P.speedTimer > 0 ? 2.75 : 1.9;
+  const gravity = 0.28;
+  const jumpForce = -8.0;
+
+  // Timers
+  if(P.invincible>0) P.invincible--;
+  if(P.shieldTimer>0) P.shieldTimer--;
+  if(P.speedTimer>0) P.speedTimer--;
+  if(P.hurtTimer>0) { P.hurtTimer--; if(P.hurtTimer===0) P.state='idle'; }
+
+  if(P.state==='hurt' && P.hurtTimer>0) {
+    P.vx *= 0.9;
+    P.vy += gravity;
+    P.y += P.vy; P.x += P.vx;
+    collideGround();
+    return;
+  }
+
+  // Movement
+  if(keys.left) { P.vx = -speed; P.facing = -1; P.state = P.onGround ? 'walk' : 'jump'; }
+  else if(keys.right) { P.vx = speed; P.facing = 1; P.state = P.onGround ? 'walk' : 'jump'; }
+  else { P.vx *= 0.75; if(P.onGround) P.state = 'idle'; }
+
+  // Jump
+  if(keys.upPressed) {
+    if(P.onGround) { P.vy = jumpForce; P.onGround = false; P.canDoubleJump = true; P.state='jump'; sfx('jump'); }
+    else if(P.canDoubleJump) { P.vy = jumpForce*0.85; P.canDoubleJump = false; spawnP(P.x,P.y+40,'#ffd700',4,{spread:3,upward:2}); sfx('jump'); }
+    keys.upPressed = false;
+  }
+
+  // Gravity
+  P.vy += gravity;
+  if(P.vy > 14) P.vy = 14;
+  if(!P.onGround) P.state = 'jump';
+
+  P.x += P.vx;
+  P.y += P.vy;
+  collideGround();
+
+  // World bounds
+  if(P.x<20) P.x=20;
+  if(level && P.x>level.width-20) P.x=level.width-20;
+
+  // Fall off
+  if(P.y > H+100) {
+    hurtPlayer();
+    P.x = Math.max(80, P.x - 200);
+    P.y = H - 200; P.vy = 0;
+    if(!speaking) queueVoice('gen_fall', "Oops! Let's try again!");
+  }
+
+  // Collect candles — world-specific voice lines
+  const worldVoiceLines = [
+    // W1 Candle Kingdom
+    { green:[{id:'w1_green1',t:"Great job! You found a happy green candle!"},{id:'w1_green2',t:"Green means UP! That's when buyers are happy!"},{id:'w1_green3',t:"Up, up, up! Another green candle!"}],
+      red:[{id:'w1_red1',t:"Uh oh! A red candle. That one went DOWN."},{id:'w1_red2',t:"Red means prices went down. But that's okay! We learn from it."}] },
+    // W2 Pattern Palace
+    { green:[{id:'w2_triangle',t:"See that triangle? When prices make that shape, something big is about to happen!"},{id:'w2_mountain',t:"That looks like a mountain! Prices went up, up, up to the top, and then came back down!"},{id:'gen_gem',t:"Ooh, shiny! You found a gem!"}],
+      red:[{id:'w2_mountain',t:"That looks like a mountain! Prices went up, up, up to the top, and then came back down!"}] },
+    // W3 ETF Forest
+    { green:[{id:'w3_teach',t:"In the real world, we can buy pieces of different things — like a little piece of all the toy stores!"},{id:'gen_gem',t:"Ooh, shiny! You found a gem!"},{id:'w3_intro',t:"Welcome to ETF Forest! Each path leads to a different land."}],
+      red:[{id:'w3_teach',t:"In the real world, we can buy pieces of different things — like a little piece of all the toy stores!"}] },
+    // W4 Strategy Springs
+    { green:[{id:'w4_jump',t:"Perfect timing! You jumped at just the right moment!"},{id:'w4_wait',t:"Not yet... wait for it... NOW! See? Patience wins!"},{id:'gen_gem',t:"Ooh, shiny! You found a gem!"}],
+      red:[{id:'w4_wait',t:"Not yet... wait for it... NOW! See? Patience wins!"}] },
+    // W5 Moving River
+    { green:[{id:'w5_flow',t:"The river flows up! That means things are going up too. Swim with the river, not against it!"},{id:'gen_gem',t:"Ooh, shiny! You found a gem!"},{id:'w5_flow',t:"The river flows up! Swim with the river!"}],
+      red:[{id:'w5_against',t:"Careful! The river is flowing the other way now! Don't swim against it!"}] },
+    // W6 Trendline Trail
+    { green:[{id:'w6_draw',t:"Connect the dots! See? The path shows us where to go next!"},{id:'gen_gem',t:"Ooh, shiny! You found a gem!"},{id:'w6_draw',t:"Connect the dots! The path shows us where to go!"}],
+      red:[{id:'w6_draw',t:"Connect the dots! See? The path shows us where to go next!"}] },
+    // W7 Support Bridge
+    { green:[{id:'w7_support',t:"The bridge is holding! That's support — it keeps prices from falling!"},{id:'w7_break',t:"Whoa! You broke through the ceiling! When that happens, prices can fly!"},{id:'gen_gem',t:"Ooh, shiny! You found a gem!"}],
+      red:[{id:'w7_resistance',t:"Bonk! The ceiling stopped you! That's resistance — it keeps prices from going up!"}] },
+    // W8 The Final Castle
+    { green:[{id:'w8_demand',t:"This is the Magic Garden! Prices are low here. This is where smart princesses BUY!"},{id:'w8_buylow',t:"Buy low at the garden, sell high at the tower! That's how a Princess Trader makes gold!"},{id:'gen_gem',t:"Ooh, shiny! You found a gem!"}],
+      red:[{id:'w8_supply',t:"You made it to the Castle Tower! Prices are high here. This is where smart princesses SELL!"}] },
+  ];
+
+  for(const c of candles) {
+    if(c.collected) continue;
+    if(Math.abs(P.x-c.x)<32 && Math.abs((P.y+24)-c.y)<36) {
+      c.collected = true;
+      const wv = worldVoiceLines[currentWorld] || worldVoiceLines[0];
+      if(c.type==='green') {
+        gems+=2; totalGems+=2;
+        spawnP(c.x,c.y,'#22c55e',8); sfx('collect');
+        const greenCount = candles.filter(x=>x.collected&&x.type==='green').length;
+        if(!speaking && (greenCount===1||greenCount===4||greenCount===8)) {
+          const idx = greenCount===1?0:greenCount===4?1:Math.min(2,wv.green.length-1);
+          queueVoice(wv.green[idx].id, wv.green[idx].t);
+        }
+      } else {
+        gems+=1; totalGems+=1;
+        spawnP(c.x,c.y,'#ef4444',5); sfx('collect');
+        const redCount = candles.filter(x=>x.collected&&x.type==='red').length;
+        if(!speaking && redCount===1) {
+          queueVoice(wv.red[0].id, wv.red[0].t);
+        }
+      }
+      updateHUD();
+    }
+  }
+
+  // Collect power-ups
+  for(const pu of powerUps) {
+    if(pu.collected) continue;
+    if(Math.abs(P.x-pu.x)<30 && Math.abs((P.y+24)-pu.y)<30) {
+      pu.collected = true;
+      spawnP(pu.x,pu.y,'#ffd700',10,{spread:8,upward:6}); sfx('powerup');
+      if(pu.type==='shield') { P.shieldTimer=300; queueVoice('gen_powerup',"Magic wand power! You're glowing!"); }
+      else if(pu.type==='speed') { P.speedTimer=240; queueVoice('gen_powerup',"Magic wand power! You're glowing!"); }
+      else if(pu.type==='tiara') { tiaras++; totalTiaras++; updateHUD(); }
+      else if(pu.type==='heart') { if(hearts<maxHearts) hearts++; updateHUD(); }
+    }
+  }
+
+  // Enemy collision
+  for(const e of enemies) {
+    if(!e.alive) continue;
+    const dist = Math.abs(P.x-e.x);
+    const yDist = (P.y+40) - e.y;
+    if(dist<30 && Math.abs(yDist)<30) {
+      if(P.vy > 0 && yDist < 0) {
+        // Stomp!
+        e.alive = false; P.vy = -8;
+        spawnP(e.x, e.y, '#9b59b6', 12, {spread:8});
+        freezeFrames = 4; sfx('stomp');
+      } else {
+        hurtPlayer();
+        if(!speaking) queueVoice('gen_troll', "Watch out! A tricky troll!");
+      }
+    }
+  }
+
+  // Boss collision
+  if(bossObj && bossObj.alive && STATE==='playing') {
+    const bDist = Math.abs(P.x - bossObj.x);
+    if(bDist < 200 && STATE !== 'boss') {
+      STATE = 'boss';
+      const bossClipId = 'w'+(currentWorld+1)+'_boss_intro';
+      const hasBossClip = voiceClips[bossClipId];
+      queueVoice(hasBossClip ? bossClipId : 'gen_troll',
+        currentWorld===7 ? "The Tricky Troll King is here! Use everything you learned to outsmart him!" : "Watch out! A tricky troll!");
+    }
+  }
+
+  // Camera
+  const tCam = P.x - W/3;
+  camX += (tCam - camX) * 0.08;
+  if(camX<0) camX=0;
+  if(level && camX>level.width-W) camX=level.width-W;
+}
+
+function collideGround() {
+  P.onGround = false;
+  for(const p of platforms) {
+    // Moving platforms
+    if(p.moving) p.y = p.startY + Math.sin(frame*p.moveSpeed)*p.moveRange;
+
+    if(P.x+14 > p.x && P.x-14 < p.x+p.w) {
+      if(P.y+48 >= p.y && P.y+48 <= p.y+20 && P.vy >= 0) {
+        P.y = p.y-48; P.vy=0; P.onGround=true;
+      }
+    }
+  }
+}
+
+function hurtPlayer() {
+  if(P.invincible>0 || P.shieldTimer>0) {
+    if(P.shieldTimer>0) { P.shieldTimer=0; spawnP(P.x,P.y+20,'#00bfff',10,{spread:10}); }
+    return;
+  }
+  hearts--;
+  P.invincible = 90;
+  P.hurtTimer = 20; sfx('hurt');
+  P.state = 'hurt';
+  P.vy = -6;
+  P.vx = -P.facing * 4;
+  shakeTimer = 12; shakeIntensity = 6;
+  updateHUD();
+  if(hearts<=0) gameOver();
+}
+
+function gameOver() {
+  STATE = 'gameover'; paused=false;
+  document.getElementById('touch-controls').style.display='none';
+  document.getElementById('pause-btn').style.display='none';
+  queueVoice('gen_fall', "Oops! Let's try again!");
+}
+
+// ================================================================
+// BOSS FIGHT
+// ================================================================
+function updateBoss() {
+  if(!bossObj || !bossObj.alive) return;
+  const b = bossObj;
+  b.attackTimer++;
+  if(b.hitTimer>0) b.hitTimer--;
+
+  // Patrol
+  b.x += Math.sin(frame*0.01)*1;
+
+  // Player stomp check
+  const bDist = Math.abs(P.x - b.x);
+  const yDist = (P.y+40) - b.y;
+  if(bDist < 40 && P.vy > 0 && yDist < -5 && yDist > -35) {
+    b.hp--; b.hitTimer = 15; P.vy = -10;
+    spawnP(b.x, b.y, '#ffd700', 15, {spread:10});
+    freezeFrames = 6; shakeTimer = 8; shakeIntensity = 4; sfx('stomp');
+    if(b.hp <= 0) {
+      b.alive = false;
+      spawnP(b.x, b.y, '#ffd700', 30, {spread:15, upward:10}); sfx('win');
+      const bossWinId = 'w'+(currentWorld+1)+'_boss_win';
+      const hasBossWin = voiceClips[bossWinId];
+      const clipId = hasBossWin ? bossWinId : (currentWorld===7 ? 'w8_boss_win' : 'gen_star3');
+      const clipText = currentWorld===7 ? "You defeated the Troll King! You are a TRUE Princess Trader!" : "You beat the troll! Amazing!";
+      queueVoice(clipId, clipText, () => {
+        startMinigame();
+      });
+    }
+  } else if(bDist < 45 && Math.abs(yDist) < 25) {
+    hurtPlayer();
+  }
+}
+
+// ================================================================
+// DRAW LEVEL
+// ================================================================
+function drawLevel() {
+  const theme = level.theme;
+
+  // Sky
+  const grad = ctx.createLinearGradient(0,0,0,H);
+  grad.addColorStop(0, theme.sky1); grad.addColorStop(1, theme.sky2);
+  ctx.fillStyle = grad; ctx.fillRect(0,0,W,H);
+
+  // Parallax stars
+  for(let i=0;i<35;i++) {
+    const sx=((i*173+50)-camX*0.05)%W, sy=(i*83+20)%(H*0.45);
+    ctx.globalAlpha = Math.sin(frame*0.02+i)*0.3+0.5;
+    circle(sx<0?sx+W:sx, sy, 1+i%2*0.5, 'white');
+  } ctx.globalAlpha=1;
+
+  // Parallax mountains
+  ctx.fillStyle = theme.sky1;
+  for(let i=0;i<6;i++) {
+    const mx = ((i*260)-camX*0.15)%(W+300)-150;
+    const mh = 80+i*15;
+    ctx.beginPath(); ctx.moveTo(mx,H-56); ctx.lineTo(mx+80,H-56-mh); ctx.lineTo(mx+160,H-56); ctx.closePath(); ctx.fill();
+  }
+
+  // Clouds (parallax)
+  for(const d of decorations) {
+    if(d.type==='cloud') {
+      const cx = ((d.x-camX*0.2)+frame*d.speed*0.3)%(level.width+200)-100;
+      if(cx>-60&&cx<W+60) {
+        ctx.globalAlpha=0.12;
+        circle(cx,d.y,d.size,'white'); circle(cx+d.size*0.6,d.y+3,d.size*0.65,'white'); circle(cx-d.size*0.4,d.y+2,d.size*0.45,'white');
+        ctx.globalAlpha=1;
+      }
+    }
+  }
+
+  // Trees
+  for(const d of decorations) {
+    if(d.type==='tree') {
+      const tx = d.x-camX; if(tx<-40||tx>W+40) continue;
+      rect(tx-4, d.y-d.height, 8, d.height, '#5a3d2a');
+      circle(tx, d.y-d.height-10, 22, theme.grass);
+      circle(tx-12, d.y-d.height+5, 16, theme.grass);
+      circle(tx+12, d.y-d.height+5, 16, theme.grass);
+    }
+  }
+
+  // World-specific decorations (behind platforms)
+  for(const d of decorations) {
+    if(d.type==='lantern') {
+      const lx=d.x-camX; if(lx<-30||lx>W+30) continue;
+      rect(lx-1,d.y,2,40,'#8B7355');
+      ctx.globalAlpha=0.15+Math.sin(frame*0.08+d.x)*0.1;
+      circle(lx,d.y-8,18,'#ffd700');
+      ctx.globalAlpha=1;
+      circle(lx,d.y-8,6,'#ffd700');
+      circle(lx,d.y-8,3,'#fff8dc');
+    } else if(d.type==='crystal') {
+      const cx=d.x-camX; if(cx<-30||cx>W+30) continue;
+      ctx.globalAlpha=0.35+Math.sin(frame*0.04+d.x)*0.15;
+      ctx.fillStyle=d.color; ctx.beginPath();
+      ctx.moveTo(cx,d.y-d.size); ctx.lineTo(cx+d.size*0.5,d.y);
+      ctx.lineTo(cx,d.y+d.size*0.3); ctx.lineTo(cx-d.size*0.5,d.y);
+      ctx.closePath(); ctx.fill();
+      ctx.globalAlpha=1;
+    } else if(d.type==='mushroom') {
+      const mx=d.x-camX; if(mx<-15||mx>W+15) continue;
+      rect(mx-2,d.y-5,4,8,'#ffe0bd');
+      ctx.fillStyle=d.color; ctx.beginPath();
+      ctx.arc(mx,d.y-7,8,Math.PI,0); ctx.fill();
+      circle(mx-3,d.y-10,2,'white'); circle(mx+2,d.y-8,1.5,'white');
+    } else if(d.type==='spring') {
+      const sx=d.x-camX; if(sx<-15||sx>W+15) continue;
+      const splashH=Math.sin(frame*0.06+d.x)*4;
+      ctx.globalAlpha=0.4;
+      circle(sx,d.y-3+splashH,5,'#3498db'); circle(sx,d.y-8+splashH*0.7,3,'#87ceeb');
+      ctx.globalAlpha=1;
+    } else if(d.type==='clock') {
+      const cx=d.x-camX; if(cx<-20||cx>W+20) continue;
+      ctx.globalAlpha=0.6;
+      circle(cx,d.y,16,'rgba(255,255,255,0.1)');
+      ctx.strokeStyle='#3498db'; ctx.lineWidth=1.5;
+      ctx.beginPath(); ctx.arc(cx,d.y,14,0,Math.PI*2); ctx.stroke();
+      // Clock hands
+      const ha=frame*0.02+d.x, ma=frame*0.1+d.x;
+      ctx.beginPath(); ctx.moveTo(cx,d.y); ctx.lineTo(cx+Math.cos(ha)*8,d.y+Math.sin(ha)*8); ctx.stroke();
+      ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(cx,d.y); ctx.lineTo(cx+Math.cos(ma)*11,d.y+Math.sin(ma)*11); ctx.stroke();
+      ctx.globalAlpha=1;
+    } else if(d.type==='ripple') {
+      const rx=((d.x+frame*d.speed)%level.width)-camX; if(rx<-20||rx>W+20) continue;
+      ctx.globalAlpha=0.2+Math.sin(frame*0.05+d.x)*0.1;
+      ctx.strokeStyle='#87ceeb'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.arc(rx,d.y,6+Math.sin(frame*0.04+d.x)*3,0.3,Math.PI-0.3); ctx.stroke();
+      ctx.globalAlpha=1;
+    } else if(d.type==='fish') {
+      const fx=((d.x+frame*0.3*d.dir)%level.width)-camX; if(fx<-20||fx>W+20) continue;
+      ctx.globalAlpha=0.5;
+      ctx.fillStyle='#1abc9c'; ctx.beginPath();
+      ctx.moveTo(fx+d.dir*10,d.y); ctx.lineTo(fx-d.dir*6,d.y-5); ctx.lineTo(fx-d.dir*6,d.y+5); ctx.closePath(); ctx.fill();
+      ctx.fillStyle='#16a085'; ctx.beginPath();
+      ctx.moveTo(fx-d.dir*6,d.y); ctx.lineTo(fx-d.dir*12,d.y-4); ctx.lineTo(fx-d.dir*12,d.y+4); ctx.closePath(); ctx.fill();
+      ctx.globalAlpha=1;
+    } else if(d.type==='pillar') {
+      const px=d.x-camX; if(px<-20||px>W+20) continue;
+      rect(px-8,d.y-d.height,16,d.height,'#8B4513');
+      rect(px-12,d.y-d.height,24,6,'#A0522D');
+      rect(px-12,d.y-6,24,6,'#A0522D');
+    } else if(d.type==='castle_tower') {
+      const tx=d.x-camX; if(tx<-30||tx>W+30) continue;
+      rect(tx-16,d.y-d.height,32,d.height,'#4a3728');
+      rect(tx-20,d.y-d.height,8,12,'#4a3728'); rect(tx+12,d.y-d.height,8,12,'#4a3728');
+      rect(tx-24,d.y-d.height-6,16,6,'#5a4738'); rect(tx+8,d.y-d.height-6,16,6,'#5a4738');
+      // Window
+      ctx.fillStyle='#ffd700'; ctx.globalAlpha=0.5+Math.sin(frame*0.05+d.x)*0.2;
+      circle(tx,d.y-d.height+30,5,'#ffd700');
+      ctx.globalAlpha=1;
+    } else if(d.type==='garden_sign') {
+      const gx=d.x-camX; if(gx<-50||gx>W+50) continue;
+      rect(gx-1,d.y-50,2,50,'#8B7355');
+      roundRect(gx-40,d.y-65,80,22,6,'#22c55e');
+      text('Magic Garden',gx,d.y-54,11,'white');
+      for(let f=0;f<5;f++){circle(gx-30+f*15,d.y-6,4,['#ff69b4','#ffd700','#ff6347','#9b59b6','#22c55e'][f]);}
+    } else if(d.type==='tower_sign') {
+      const tx=d.x-camX; if(tx<-50||tx>W+50) continue;
+      rect(tx-1,d.y-50,2,50,'#8B7355');
+      roundRect(tx-40,d.y-65,80,22,6,'#ef4444');
+      text('Castle Tower',tx,d.y-54,11,'white');
+      star(tx,d.y-85,8,'#ffd700');
+    }
+  }
+
+  // Ground & platforms
+  for(const p of platforms) {
+    if(p.moving) p.y = p.startY + Math.sin(frame*p.moveSpeed)*p.moveRange;
+    const px=p.x-camX; if(px>W+48||px+p.w<-48) continue;
+    if(p.type==='ground') {
+      rect(px, p.y, p.w, 3, theme.grass);
+      rect(px, p.y+3, p.w, p.h-3, theme.ground);
+      for(let g=0;g<p.w;g+=8) { if(Math.sin(p.x+g)>0.4) rect(px+g,p.y-2,2,4,theme.grass); }
+    } else {
+      roundRect(px, p.y, p.w, p.h, 4, theme.platColor);
+      ctx.globalAlpha=0.3; roundRect(px+2,p.y+2,p.w-4,4,2,'white'); ctx.globalAlpha=1;
+      if(p.moving) { ctx.globalAlpha=0.4; text('~',px+p.w/2,p.y-8,12,theme.platColor); ctx.globalAlpha=1; }
+    }
+  }
+
+  // Flowers
+  for(const d of decorations) {
+    if(d.type==='flower') {
+      const fx=d.x-camX; if(fx<-10||fx>W+10) continue;
+      rect(fx,d.y-7,2,9,'#22c55e'); circle(fx+1,d.y-9,4.5,d.color); circle(fx+1,d.y-9,2,'#ffd700');
+    }
+  }
+
+  // Power-ups
+  for(const pu of powerUps) { if(!pu.collected) drawPowerUp(pu.x,pu.y,pu.type,camX); }
+
+  // Candles
+  for(const c of candles) { if(!c.collected){ const cx=c.x-camX; if(cx>-40&&cx<W+40) drawCandle(c.x,c.y,c.type,camX,c.bob); }}
+
+  // Enemies
+  for(const e of enemies) { if(e.alive){ const ex=e.x-camX; if(ex>-40&&ex<W+40) drawTroll(e.x,e.y,camX,e.variant); }}
+
+  // Boss
+  if(bossObj && bossObj.alive) {
+    drawTroll(bossObj.x, bossObj.y, camX, 'boss');
+    // Boss HP bar
+    const bsx = bossObj.x-camX;
+    if(bsx>-100&&bsx<W+100) {
+      const bw=60, bh=6;
+      rect(bsx-bw/2, bossObj.y-55, bw, bh, '#333');
+      rect(bsx-bw/2, bossObj.y-55, bw*(bossObj.hp/bossObj.maxHp), bh, bossObj.hitTimer>0?'white':'#ef4444');
+    }
+  }
+
+  // Flag
+  const flag = decorations.find(d=>d.type==='flag');
+  if(flag) {
+    const fx=flag.x-camX;
+    rect(fx,flag.y,3,80,'#ffd700');
+    ctx.fillStyle='#ff69b4'; ctx.beginPath();
+    ctx.moveTo(fx+3,flag.y); ctx.lineTo(fx+40+Math.sin(frame*0.08)*4,flag.y+14); ctx.lineTo(fx+3,flag.y+28); ctx.closePath(); ctx.fill();
+    star(fx+20,flag.y+14,7,'#ffd700');
+  }
+
+  // Princess
+  drawPrincess(camX);
+
+  // Particles
+  drawParticles(camX);
+
+  // World name
+  ctx.globalAlpha=0.35; text(WORLD_THEMES[currentWorld].name,W/2,28,18,'white'); ctx.globalAlpha=1;
+}
+
+// Update enemies
+function updateEnemies() {
+  for(const e of enemies) {
+    if(!e.alive) continue;
+    e.x += e.speed * e.dir;
+    if(e.x > e.startX + e.patrolRange || e.x < e.startX - e.patrolRange) e.dir *= -1;
+  }
+}
+
+// ================================================================
+// MINI-GAME ENGINE — World-Specific Games
+// ================================================================
+let mini = { type:'sort', phase:'intro', candles:[], sorted:0, total:10, dragging:null, ox:0, oy:0,
+  greenBox:{}, redBox:{}, quiz:null, qIdx:0, score:0 };
+
+// Quiz questions per world (W2-W7) — 4 questions each, tap the right answer
+const worldQuizzes = {
+  1: { title:'Pattern Quiz!', intro:{id:'w2_intro',t:"Look at the shapes! Can you pick the right answer?"}, qs:[
+    {q:"What shape looks like a mountain?",a:["Triangle","Circle","Square"],correct:0},
+    {q:"When prices go UP then DOWN, what does it look like?",a:["A mountain!","A river","A box"],correct:0},
+    {q:"Triangles on a chart mean...",a:["Something big might happen!","Nothing","Time for bed"],correct:0},
+    {q:"Patterns help us see where prices might...",a:["Go next!","Sleep","Disappear"],correct:0},
+  ]},
+  2: { title:'ETF Quiz!', intro:{id:'w3_intro',t:"Different lands! Can you match them?"}, qs:[
+    {q:"An ETF lets you buy a piece of...",a:["Lots of things at once!","Just one toy","Nothing"],correct:0},
+    {q:"Different lands in the market are like...",a:["Different kinds of stores!","The same thing","Rocks"],correct:0},
+    {q:"Why is it good to explore many lands?",a:["So we don't put all eggs in one basket!","Because we're bored","For fun only"],correct:0},
+    {q:"If you could own a piece of every toy store, that's like...",a:["An ETF!","One toy","A mountain"],correct:0},
+  ]},
+  3: { title:'Strategy Quiz!', intro:{id:'w4_intro',t:"Timing is everything! When do we jump?"}, qs:[
+    {q:"The most important thing in trading is...",a:["Patience!","Going fast","Guessing"],correct:0},
+    {q:"When should a Princess Trader jump in?",a:["When the time is right!","Right away always","Never"],correct:0},
+    {q:"If you're not sure, you should...",a:["Wait and watch!","Jump anyway","Close your eyes"],correct:0},
+    {q:"Patience is a...",a:["Superpower!","Boring thing","Bad idea"],correct:0},
+  ]},
+  4: { title:'River Quiz!', intro:{id:'w5_intro',t:"Follow the flow! Which way is the river going?"}, qs:[
+    {q:"A moving average is like a...",a:["Flowing river!","Standing rock","Sleeping cat"],correct:0},
+    {q:"If the river flows UP, prices are probably...",a:["Going up too!","Going down","Staying still"],correct:0},
+    {q:"You should swim...",a:["With the river!","Against the river","On land"],correct:0},
+    {q:"When the river changes direction, we should...",a:["Pay attention and be careful!","Ignore it","Go faster"],correct:0},
+  ]},
+  5: { title:'Trendline Quiz!', intro:{id:'w6_intro',t:"Draw the path! Can you follow the trail?"}, qs:[
+    {q:"A trendline connects...",a:["The dots on a chart!","Random spots","Nothing"],correct:0},
+    {q:"If the line goes UP, the trend is...",a:["Bullish — going up!","Going down","Sideways"],correct:0},
+    {q:"Trendlines help us see...",a:["Where prices might go!","What's for dinner","The weather"],correct:0},
+    {q:"When prices break the line, it might mean...",a:["The trend is changing!","Nothing happened","Time for snack"],correct:0},
+  ]},
+  6: { title:'Support & Resistance!', intro:{id:'w7_intro',t:"Floors and ceilings! What holds and what stops?"}, qs:[
+    {q:"Support is like a...",a:["Floor that holds prices up!","Ceiling","Wall"],correct:0},
+    {q:"Resistance is like a...",a:["Ceiling that stops prices!","Floor","Door"],correct:0},
+    {q:"When price breaks through the ceiling...",a:["It can fly high!","It falls down","Nothing happens"],correct:0},
+    {q:"A good Princess Trader watches for...",a:["Floors and ceilings!","Only ceilings","Only colors"],correct:0},
+  ]},
+  7: { title:'Buy Low, Sell High!', intro:{id:'w8_intro',t:"The most important lesson! Where do smart princesses buy and sell?"}, qs:[
+    {q:"Smart princesses BUY at the...",a:["Magic Garden (low prices)!","Castle Tower","Anywhere"],correct:0},
+    {q:"Smart princesses SELL at the...",a:["Castle Tower (high prices)!","Magic Garden","The river"],correct:0},
+    {q:"Buy low, sell high means...",a:["Buy cheap, sell for more!","Buy expensive","Give it away"],correct:0},
+    {q:"The Magic Garden is also called a...",a:["Demand zone!","Supply zone","Troll zone"],correct:0},
+  ]},
+};
+
+function startMinigame() {
+  STATE='minigame'; paused=false;
+  document.getElementById('touch-controls').style.display='none';
+  document.getElementById('pause-btn').style.display='none';
+  particles=[];
+
+  if(currentWorld === 0) {
+    // W1: Candle Sort
+    mini = { type:'sort', phase:'intro', candles:[], sorted:0, total:10, dragging:null, ox:0, oy:0,
+      greenBox:{x:W/2-170,y:H-170,w:130,h:120}, redBox:{x:W/2+40,y:H-170,w:130,h:120}, quiz:null, qIdx:0, score:0 };
+    for(let i=0;i<mini.total;i++) {
+      mini.candles.push({ x:60+(i%5)*(W/6)+Math.random()*15, y:160+Math.floor(i/5)*110+Math.random()*15,
+        type:i<5?'green':'red', sorted:false, homeX:0, homeY:0 });
+    }
+    for(let i=mini.candles.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[mini.candles[i].type,mini.candles[j].type]=[mini.candles[j].type,mini.candles[i].type];}
+    mini.candles.forEach(c=>{c.homeX=c.x;c.homeY=c.y;});
+    queueVoice('w1_mini_intro',"Mini-game time! Drag the candles to the right boxes! Green candles go in the UP box. Red candles go in the DOWN box!",()=>{mini.phase='playing';});
+  } else {
+    // W2-W8: Quiz
+    const qData = worldQuizzes[currentWorld];
+    mini = { type:'quiz', phase:'intro', candles:[], sorted:0, total:0, dragging:null, ox:0, oy:0,
+      greenBox:{}, redBox:{}, quiz:qData, qIdx:0, score:0 };
+    queueVoice(qData.intro.id, qData.intro.t, ()=>{mini.phase='playing';});
+  }
+}
+
+function drawMinigame() {
+  // Shared background
+  const theme = WORLD_THEMES[currentWorld];
+  const grad=ctx.createLinearGradient(0,0,0,H); grad.addColorStop(0,theme.sky1); grad.addColorStop(1,'#1a0a2e');
+  ctx.fillStyle=grad; ctx.fillRect(0,0,W,H);
+  for(let i=0;i<25;i++){ctx.globalAlpha=Math.sin(frame*0.03+i)*0.3+0.4;circle((i*137+50)%W,(i*97+30)%(H*0.4),1.5,'white');}ctx.globalAlpha=1;
+
+  if(mini.type==='sort') drawSortGame();
+  else drawQuizGame();
+
+  drawParticles();
+
+  // Complete overlay
+  if(mini.phase==='complete') {
+    ctx.fillStyle='rgba(0,0,0,0.5)'; ctx.fillRect(0,0,W,H);
+    text('You Did It!',W/2,H/2-40,40,'#ffd700');
+    star(W/2,H/2+15,28,'#ffd700');
+    text(mini.type==='sort'?'+10 Gems!':mini.score+'/'+mini.quiz.qs.length+' correct!',W/2,H/2+60,22,'#22c55e');
+    const pa=Math.sin(frame*0.08)*0.2+0.8; ctx.globalAlpha=pa; text('Tap to continue',W/2,H/2+100,16,'#c4a0ff'); ctx.globalAlpha=1;
+  }
+}
+
+// --- Sort game draw ---
+function drawSortGame() {
+  text('Sort the Candles!',W/2,36,26,'#ffd700');
+  text(mini.sorted+' / '+mini.total,W/2,68,18,'white');
+  const gb=mini.greenBox, rb=mini.redBox;
+  ctx.fillStyle='rgba(34,197,94,0.12)'; ctx.strokeStyle='#22c55e'; ctx.lineWidth=2.5;
+  ctx.beginPath();ctx.roundRect(gb.x,gb.y,gb.w,gb.h,14);ctx.fill();ctx.stroke();
+  text('UP ▲',gb.x+gb.w/2,gb.y+40,24,'#22c55e');
+  text('Green',gb.x+gb.w/2,gb.y+gb.h-18,13,'#4ade80');
+  ctx.fillStyle='rgba(239,68,68,0.12)'; ctx.strokeStyle='#ef4444'; ctx.lineWidth=2.5;
+  ctx.beginPath();ctx.roundRect(rb.x,rb.y,rb.w,rb.h,14);ctx.fill();ctx.stroke();
+  text('DOWN ▼',rb.x+rb.w/2,rb.y+40,24,'#ef4444');
+  text('Red',rb.x+rb.w/2,rb.y+rb.h-18,13,'#f87171');
+  for(const c of mini.candles) { if(!c.sorted) drawCandle(c.x,c.y,c.type,0,0); }
+}
+
+// --- Quiz game draw ---
+function drawQuizGame() {
+  if(mini.phase!=='playing'&&mini.phase!=='feedback') return;
+  const q = mini.quiz.qs[mini.qIdx];
+  if(!q) return;
+
+  text(mini.quiz.title,W/2,36,24,'#ffd700');
+  text('Question '+(mini.qIdx+1)+' of '+mini.quiz.qs.length,W/2,65,14,'#c4a0ff');
+
+  // Question
+  const qW = Math.min(W-40, 500);
+  roundRect((W-qW)/2, 90, qW, 70, 14, 'rgba(255,255,255,0.08)');
+  ctx.strokeStyle='rgba(255,255,255,0.15)'; ctx.lineWidth=1;
+  ctx.beginPath();ctx.roundRect((W-qW)/2,90,qW,70,14);ctx.stroke();
+  text(q.q, W/2, 125, 18, '#EEF2FF');
+
+  // Answer buttons
+  const btnW = Math.min(W-60, 400), btnH = 60, btnGap = 14;
+  const startBtnY = 185;
+  for(let i=0;i<q.a.length;i++) {
+    const by = startBtnY + i*(btnH+btnGap);
+    const bx = (W-btnW)/2;
+    let bgColor = 'rgba(255,255,255,0.06)';
+    let borderColor = 'rgba(255,255,255,0.15)';
+    let textColor = '#EEF2FF';
+
+    if(mini.phase==='feedback') {
+      if(i===q.correct) { bgColor='rgba(34,197,94,0.2)'; borderColor='#22c55e'; textColor='#22c55e'; }
+      else if(i===mini.lastPick&&i!==q.correct) { bgColor='rgba(239,68,68,0.2)'; borderColor='#ef4444'; textColor='#ef4444'; }
+    }
+
+    roundRect(bx, by, btnW, btnH, 12, bgColor);
+    ctx.strokeStyle=borderColor; ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.roundRect(bx,by,btnW,btnH,12);ctx.stroke();
+    text(q.a[i], W/2, by+btnH/2, 17, textColor);
+  }
+}
+
+// --- Mini-game input ---
+function miniTouch(tx,ty) {
+  if(mini.phase==='complete'){completeLevel();return;}
+
+  if(mini.type==='sort') {
+    if(mini.phase!=='playing') return;
+    for(let i=mini.candles.length-1;i>=0;i--){
+      const c=mini.candles[i]; if(c.sorted) continue;
+      if(tx>c.x-22&&tx<c.x+22&&ty>c.y-12&&ty<c.y+40){mini.dragging=i;mini.ox=c.x-tx;mini.oy=c.y-ty;break;}
+    }
+  } else if(mini.type==='quiz') {
+    if(mini.phase==='feedback') return;
+    if(mini.phase!=='playing') return;
+    const q = mini.quiz.qs[mini.qIdx];
+    if(!q) return;
+    const btnW = Math.min(W-60, 400), btnH = 60, btnGap = 14, startBtnY = 185;
+    for(let i=0;i<q.a.length;i++) {
+      const by = startBtnY + i*(btnH+btnGap);
+      const bx = (W-btnW)/2;
+      if(tx>=bx&&tx<=bx+btnW&&ty>=by&&ty<=by+btnH) {
+        mini.lastPick = i;
+        mini.phase = 'feedback';
+        if(i===q.correct) {
+          mini.score++;
+          spawnP(W/2, by+btnH/2, '#22c55e', 12, {spread:10}); sfx('correct');
+          if(mini.qIdx===0) queueVoice('gen_quiz_right',"That's correct! You remembered!");
+        } else {
+          spawnP(W/2, by+btnH/2, '#ef4444', 6, {spread:6}); sfx('wrong');
+          if(mini.qIdx===0) queueVoice('gen_quiz_wrong',"Not quite! But that's how we learn. Try again!");
+        }
+        // Advance after delay
+        setTimeout(()=>{
+          mini.qIdx++;
+          if(mini.qIdx >= mini.quiz.qs.length) {
+            mini.phase='complete'; gems+=mini.score*3; totalGems+=mini.score*3; updateHUD();
+            const cClip = 'w'+(currentWorld+1)+'_complete';
+            const clips = {w2_complete:"Pattern Palace complete!",w3_complete:"ETF Forest explored!",w4_complete:"Strategy Springs done!",w5_complete:"Moving River mastered!",w6_complete:"Trendline Trail conquered!",w7_complete:"Support Bridge crossed!",w8_complete:"You completed the entire kingdom! I'm so proud of you, Princess!"};
+            queueVoice(cClip, clips[cClip]||"Amazing job!");
+          } else { mini.phase='playing'; }
+        }, 1200);
+        break;
+      }
+    }
+  }
+}
+
+function miniMove(tx,ty) {
+  if(mini.type==='sort'&&mini.dragging!==null){const c=mini.candles[mini.dragging];c.x=tx+mini.ox;c.y=ty+mini.oy;}
+}
+
+function miniDrop() {
+  if(mini.type!=='sort'||mini.dragging===null) return;
+  const c=mini.candles[mini.dragging], gb=mini.greenBox, rb=mini.redBox;
+  let ok=false;
+  if(c.x>gb.x&&c.x<gb.x+gb.w&&c.y>gb.y&&c.y<gb.y+gb.h) {
+    if(c.type==='green'){c.sorted=true;mini.sorted++;spawnP(c.x,c.y,'#22c55e',10);
+      if(mini.sorted===1||mini.sorted===5||mini.sorted===mini.total) queueVoice('w1_mini_correct',"That's right! You're so smart!");
+      ok=true;}
+    else{c.x=c.homeX;c.y=c.homeY;spawnP(c.x,c.y,'#ef4444',4);
+      if(!speaking) queueVoice('w1_mini_wrong',"Oops! Try the other box! You got this!");ok=true;}
+  }
+  if(!ok&&c.x>rb.x&&c.x<rb.x+rb.w&&c.y>rb.y&&c.y<rb.y+rb.h) {
+    if(c.type==='red'){c.sorted=true;mini.sorted++;spawnP(c.x,c.y,'#ef4444',10);
+      if(mini.sorted===1||mini.sorted===5||mini.sorted===mini.total) queueVoice('w1_mini_correct',"That's right! You're so smart!");}
+    else{c.x=c.homeX;c.y=c.homeY;spawnP(c.x,c.y,'#22c55e',4);
+      if(!speaking) queueVoice('w1_mini_wrong',"Oops! Try the other box! You got this!");}
+  } else if(!ok){c.x=c.homeX;c.y=c.homeY;}
+  mini.dragging=null;
+  if(mini.sorted>=mini.total){mini.phase='complete';gems+=10;totalGems+=10;updateHUD();
+    queueVoice('w1_complete',"You finished Candle Kingdom! Green goes UP, red goes DOWN. You're a natural, Princess!");}
+}
+
+// ================================================================
+// LEVEL COMPLETE
+// ================================================================
+let compAnim = 0;
+function completeLevel() {
+  STATE='levelcomplete'; compAnim=0; paused=false;
+  document.getElementById('touch-controls').style.display='none';
+  document.getElementById('pause-btn').style.display='none';
+  if(currentWorld+1>=unlockedWorlds&&currentWorld<7) unlockedWorlds=currentWorld+2;
+  save(); sfx('win');
+
+  const clips=[
+    {id:'w1_complete',t:"You finished Candle Kingdom! Green goes UP, red goes DOWN. You're a natural, Princess!"},
+    {id:'w2_complete',t:"Pattern Palace complete! Now you can see the shapes! Amazing!"},
+    {id:'w3_complete',t:"ETF Forest explored! So many lands to visit!"},
+    {id:'w4_complete',t:"Strategy Springs done! You know when to jump and when to wait. That's what the best traders do!"},
+    {id:'w5_complete',t:"Moving River mastered! You can follow the flow now! Rivers show us the way!"},
+    {id:'w6_complete',t:"Trendline Trail conquered! You can draw the path through any mountain now!"},
+    {id:'w7_complete',t:"Support Bridge crossed! You know floors and ceilings now! That's a big deal!"},
+    {id:'w8_complete',t:"You completed the entire kingdom! I'm so proud of you, Princess!"},
+  ];
+  queueVoice(clips[currentWorld].id, clips[currentWorld].t);
+}
+
+function drawComplete() {
+  compAnim++;
+  const theme = WORLD_THEMES[currentWorld];
+  const grad=ctx.createLinearGradient(0,0,0,H); grad.addColorStop(0,theme.sky1); grad.addColorStop(1,'#1a0a2e');
+  ctx.fillStyle=grad; ctx.fillRect(0,0,W,H);
+
+  if(compAnim%6===0) spawnP(Math.random()*W,Math.random()*H*0.5,['#ffd700','#ff69b4','#22c55e','#00bfff'][Math.floor(Math.random()*4)],3);
+  drawParticles();
+
+  const a=Math.min(compAnim/30,1); ctx.globalAlpha=a;
+  text('World Complete!',W/2,H*0.12,38,'#ffd700');
+  text(theme.name,W/2,H*0.2,26,'white');
+
+  // Dancing princess celebration
+  const dancePhase = compAnim*0.08;
+  const danceBob = Math.sin(dancePhase*2)*6;
+  const danceX = W/2 + Math.sin(dancePhase)*20;
+  const danceY = H*0.34 + danceBob;
+  ctx.save();
+  // Princess body (dancing)
+  const df = Math.sin(dancePhase)>0?1:-1;
+  // Dress swish
+  ctx.fillStyle='#ff69b4'; ctx.beginPath();
+  ctx.moveTo(danceX-2, danceY+14);
+  ctx.quadraticCurveTo(danceX-24+Math.sin(dancePhase)*6, danceY+48, danceX-20, danceY+48);
+  ctx.lineTo(danceX+20, danceY+48);
+  ctx.quadraticCurveTo(danceX+24-Math.sin(dancePhase)*6, danceY+48, danceX+2, danceY+14);
+  ctx.closePath(); ctx.fill();
+  // Shimmer dress
+  ctx.fillStyle='#ffb6d9'; ctx.beginPath();
+  ctx.moveTo(danceX, danceY+18);
+  ctx.quadraticCurveTo(danceX-14+Math.sin(dancePhase)*3, danceY+44, danceX-10, danceY+44);
+  ctx.lineTo(danceX+10, danceY+44);
+  ctx.quadraticCurveTo(danceX+14-Math.sin(dancePhase)*3, danceY+44, danceX, danceY+18);
+  ctx.closePath(); ctx.fill();
+  // Arms up celebrating
+  ctx.strokeStyle='#ffe0bd'; ctx.lineWidth=4; ctx.lineCap='round';
+  const armAngle1=Math.sin(dancePhase*1.5)*0.4-0.8;
+  const armAngle2=Math.sin(dancePhase*1.5+1)*0.4-0.8;
+  ctx.beginPath(); ctx.moveTo(danceX-12,danceY+18); ctx.lineTo(danceX-12+Math.cos(armAngle1)*22,danceY+18+Math.sin(armAngle1)*22); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(danceX+12,danceY+18); ctx.lineTo(danceX+12+Math.cos(armAngle2)*22,danceY+18+Math.sin(armAngle2)*22); ctx.stroke();
+  // Wand sparkles at hand
+  star(danceX+12+Math.cos(armAngle2)*24, danceY+18+Math.sin(armAngle2)*24, 5+Math.sin(frame*0.2)*2, '#ffd700');
+  // Head
+  circle(danceX,danceY+6,13,'#ffe0bd');
+  // Hair
+  ctx.fillStyle='#6B3A2A'; ctx.beginPath(); ctx.arc(danceX,danceY+2,14,Math.PI,2*Math.PI); ctx.fill();
+  rect(danceX-14,danceY,4,20,'#6B3A2A'); rect(danceX+10,danceY,4,20,'#6B3A2A');
+  // Crown
+  ctx.fillStyle='#ffd700'; ctx.beginPath();
+  ctx.moveTo(danceX-9,danceY-6); ctx.lineTo(danceX-7,danceY-16); ctx.lineTo(danceX-3,danceY-8);
+  ctx.lineTo(danceX,danceY-18); ctx.lineTo(danceX+3,danceY-8); ctx.lineTo(danceX+7,danceY-16);
+  ctx.lineTo(danceX+9,danceY-6); ctx.closePath(); ctx.fill();
+  circle(danceX,danceY-12,2.5,'#ff1493');
+  // Happy face
+  circle(danceX-4,danceY+4,3,'white'); circle(danceX+4,danceY+4,3,'white');
+  circle(danceX-4,danceY+4,1.8,'#2d1b4e'); circle(danceX+4,danceY+4,1.8,'#2d1b4e');
+  ctx.strokeStyle='#cc5577'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.arc(danceX,danceY+10,4,0.1,Math.PI-0.1); ctx.stroke();
+  // Blush
+  ctx.globalAlpha=0.3; circle(danceX-7,danceY+7,3,'#ff69b4'); circle(danceX+7,danceY+7,3,'#ff69b4'); ctx.globalAlpha=a;
+  // Feet
+  const legD=Math.sin(dancePhase*3)*8;
+  rect(danceX-7+legD,danceY+44,8,5,'#ff1493'); rect(danceX-1-legD,danceY+44,8,5,'#ff1493');
+  ctx.restore();
+
+  // Stars
+  const stars = gems>=20?3:gems>=12?2:1;
+  for(let i=0;i<3;i++) star(W/2+(i-1)*55,H*0.4,22,i<stars?'#ffd700':'#333');
+
+  text('💎 '+gems+'   👑 '+tiaras,W/2,H*0.52,22,'#22c55e');
+  if(currentWorld<7) text('Next: '+WORLD_THEMES[currentWorld+1].name,W/2,H*0.63,18,'#c4a0ff');
+  else text('You completed ALL worlds!',W/2,H*0.63,20,'#ffd700');
+
+  if(compAnim>50) { ctx.globalAlpha=Math.sin(frame*0.08)*0.2+0.8; text('Tap to continue',W/2,H*0.78,16,'white'); }
+  ctx.globalAlpha=1;
+}
+
+// ================================================================
+// GAME OVER
+// ================================================================
+function drawGameOver() {
+  const grad=ctx.createLinearGradient(0,0,0,H); grad.addColorStop(0,'#2a0a0d'); grad.addColorStop(1,'#1a0a2e');
+  ctx.fillStyle=grad; ctx.fillRect(0,0,W,H);
+  text('Oh no!',W/2,H*0.3,40,'#ef4444');
+  text('The trolls got you!',W/2,H*0.42,20,'#c4a0ff');
+  text('💎 '+gems+' gems collected',W/2,H*0.55,18,'#ffd700');
+  const pa=Math.sin(frame*0.08)*0.2+0.8; ctx.globalAlpha=pa; text('Tap to try again',W/2,H*0.7,16,'white'); ctx.globalAlpha=1;
+}
+
+// ================================================================
+// WORLD MAP
+// ================================================================
+let mapScroll=0, mapTouchY=null, mapTouchScroll=0, mapTouchTime=0;
+
+function drawWorldMap() {
+  const grad=ctx.createLinearGradient(0,0,0,H); grad.addColorStop(0,'#0d0520'); grad.addColorStop(1,'#1a0a2e');
+  ctx.fillStyle=grad; ctx.fillRect(0,0,W,H);
+
+  for(let i=0;i<50;i++){const sx=(i*137+50)%W,sy=(i*97+30)%(H*0.55);ctx.globalAlpha=Math.sin(frame*0.03+i)*0.4+0.4;circle(sx,sy,1+(i%3)*0.4,'white');}ctx.globalAlpha=1;
+
+  text('👑 Princess Trader',W/2,46,30,'#ffd700');
+  text('💎 '+totalGems+'   👑 '+totalTiaras,W/2,80,15,'#c4a0ff');
+
+  const startY=120, cardH=82, gap=12;
+  for(let i=0;i<8;i++) {
+    const wy=startY+i*(cardH+gap)-mapScroll;
+    if(wy<-cardH||wy>H+cardH) continue;
+    const w=WORLD_THEMES[i], unlocked=i<unlockedWorlds, alpha=unlocked?1:0.3;
+    ctx.globalAlpha=alpha;
+    const cardW=Math.min(W-32,380), cx=(W-cardW)/2;
+
+    roundRect(cx,wy,cardW,cardH,14,unlocked?w.sky1:'#1a1a2e');
+    ctx.strokeStyle=unlocked?w.platColor:'#333'; ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.roundRect(cx,wy,cardW,cardH,14);ctx.stroke();
+
+    const numX=cx+40; circle(numX,wy+cardH/2,20,unlocked?w.platColor:'#333');
+    text(unlocked?String(i+1):'🔒',numX,wy+cardH/2,unlocked?20:16,unlocked?'white':'#666');
+    text(w.name,cx+cardW/2+16,wy+28,18,unlocked?'#fff':'#666');
+
+    if(i<unlockedWorlds-1) star(cx+cardW-28,wy+cardH/2,12,'#ffd700');
+    ctx.globalAlpha=1;
+  }
+
+  if(mapScroll<150){ctx.globalAlpha=Math.sin(frame*0.05)*0.3+0.4;text('Swipe up for more',W/2,H-24,13,'#c4a0ff');ctx.globalAlpha=1;}
+}
+
+// ================================================================
+// GLOBAL TOUCH/CLICK HANDLERS
+// ================================================================
+C.addEventListener('touchstart', e => {
+  const t=e.touches[0];
+  if(STATE==='tutorial'){tutorialTap();return;}
+  else if(STATE==='worldmap'){mapTouchY=t.clientY;mapTouchScroll=mapScroll;mapTouchTime=Date.now();}
+  else if(STATE==='minigame') miniTouch(t.clientX,t.clientY);
+  else if(STATE==='levelcomplete'&&compAnim>50) { STATE='worldmap'; document.getElementById('hud').style.display='none'; }
+  else if(STATE==='gameover') startLevel(currentWorld);
+});
+C.addEventListener('touchmove', e => {
+  e.preventDefault(); const t=e.touches[0];
+  if(STATE==='worldmap'&&mapTouchY!==null) mapScroll=Math.max(0,Math.min(600,mapTouchScroll+(mapTouchY-t.clientY)));
+  else if(STATE==='minigame') miniMove(t.clientX,t.clientY);
+});
+C.addEventListener('touchend', e => {
+  if(STATE==='worldmap'&&mapTouchY!==null){
+    if(Date.now()-mapTouchTime<300){const ty=e.changedTouches[0].clientY+mapScroll;const startY=120,cardH=82,gap=12;
+      for(let i=0;i<8;i++){const wy=startY+i*(cardH+gap);if(ty>=wy&&ty<=wy+cardH&&i<unlockedWorlds){startLevel(i);break;}}}
+    mapTouchY=null;
+  } else if(STATE==='minigame') miniDrop();
+});
+C.addEventListener('click', e => {
+  if(STATE==='tutorial'){tutorialTap();return;}
+  else if(STATE==='worldmap'){const ty=e.clientY+mapScroll;const startY=120,cardH=82,gap=12;
+    for(let i=0;i<8;i++){const wy=startY+i*(cardH+gap);if(ty>=wy&&ty<=wy+cardH&&i<unlockedWorlds){startLevel(i);break;}}}
+  else if(STATE==='minigame'){if(mini.phase==='complete'){completeLevel();}else miniTouch(e.clientX,e.clientY);}
+  else if(STATE==='levelcomplete'&&compAnim>50){STATE='worldmap';document.getElementById('hud').style.display='none';}
+  else if(STATE==='gameover') startLevel(currentWorld);
+});
+// Mouse drag for desktop minigame
+let mDrag=false;
+C.addEventListener('mousedown',e=>{if(STATE==='minigame'&&mini.phase==='playing'){miniTouch(e.clientX,e.clientY);if(mini.dragging!==null)mDrag=true;}});
+C.addEventListener('mousemove',e=>{if(mDrag)miniMove(e.clientX,e.clientY);});
+C.addEventListener('mouseup',e=>{if(mDrag){miniDrop();mDrag=false;}});
+
+// ================================================================
+// PAUSE SYSTEM
+// ================================================================
+function togglePause() {
+  if(STATE!=='playing'&&STATE!=='boss') return;
+  paused=!paused;
+  const btn=document.getElementById('pause-btn');
+  btn.textContent=paused?'▶':'⏸';
+  if(paused&&!speaking) queueVoice('gen_paused',"Game paused! Tap play when you're ready!");
+}
+
+function drawPauseOverlay() {
+  ctx.fillStyle='rgba(0,0,0,0.6)'; ctx.fillRect(0,0,W,H);
+  text('⏸',W/2,H/2-50,60,'#ffd700');
+  text('Paused',W/2,H/2+10,32,'white');
+  const p=Math.sin(frame*0.08)*0.2+0.8; ctx.globalAlpha=p;
+  text('Tap ▶ to continue',W/2,H/2+50,16,'#c4a0ff');
+  ctx.globalAlpha=1;
+}
+
+// ================================================================
+// TUTORIAL OVERLAY
+// ================================================================
+function startTutorial() {
+  STATE='tutorial'; tutorialStep=0; tutorialTimer=0;
+  document.getElementById('touch-controls').style.display='none';
+  document.getElementById('pause-btn').style.display='none';
+  queueVoice('gen_hint',"Let me show you how to play! See the buttons at the bottom?");
+}
+
+function drawTutorial() {
+  // Draw the level underneath so it looks contextual
+  drawLevel();
+  tutorialTimer++;
+
+  // Dark overlay
+  ctx.fillStyle='rgba(0,0,0,0.55)';
+  ctx.fillRect(0,0,W,H);
+
+  const pulse = Math.sin(frame*0.1)*0.15+0.85;
+
+  if(tutorialStep===0) {
+    // Left/Right arrows
+    const ly = H-80;
+    ctx.globalAlpha=pulse;
+    // Left button highlight
+    circle(50, ly, 44, 'rgba(255,215,0,0.25)');
+    text('◀', 50, ly, 38, '#ffd700');
+    // Right button highlight
+    circle(130, ly, 44, 'rgba(255,215,0,0.25)');
+    text('▶', 130, ly, 38, '#ffd700');
+    ctx.globalAlpha=1;
+    // Label
+    roundRect(W/2-150, H/2-50, 300, 70, 16, 'rgba(26,10,46,0.9)');
+    text('These arrows move you!', W/2, H/2-25, 22, '#ffd700');
+    text('◀ Left    ▶ Right', W/2, H/2, 18, '#c4a0ff');
+    // Tap to continue
+    ctx.globalAlpha=pulse; text('Tap to continue', W/2, H/2+50, 15, 'white'); ctx.globalAlpha=1;
+  } else if(tutorialStep===1) {
+    // Jump button
+    const jx = W-60, jy = H-80;
+    ctx.globalAlpha=pulse;
+    circle(jx, jy, 44, 'rgba(255,215,0,0.25)');
+    text('▲', jx, jy, 38, '#ffd700');
+    ctx.globalAlpha=1;
+    roundRect(W/2-150, H/2-50, 300, 70, 16, 'rgba(26,10,46,0.9)');
+    text('This makes you JUMP!', W/2, H/2-25, 22, '#ffd700');
+    text('Tap it twice to double jump!', W/2, H/2, 18, '#c4a0ff');
+    ctx.globalAlpha=pulse; text('Tap to continue', W/2, H/2+50, 15, 'white'); ctx.globalAlpha=1;
+  } else if(tutorialStep===2) {
+    // Candles
+    drawCandle(W/2-60, H/2-30, 'green', 0, 0);
+    drawCandle(W/2+60, H/2-30, 'red', 0, 50);
+    roundRect(W/2-170, H/2+30, 340, 80, 16, 'rgba(26,10,46,0.9)');
+    text('Collect the candles!', W/2, H/2+52, 22, '#ffd700');
+    text('Green = UP = Happy!', W/2, H/2+75, 16, '#22c55e');
+    text('Red = DOWN = Sad!', W/2, H/2+95, 16, '#ef4444');
+    ctx.globalAlpha=pulse; text('Tap to continue', W/2, H/2+130, 15, 'white'); ctx.globalAlpha=1;
+  } else if(tutorialStep===3) {
+    // Trolls
+    drawTroll(W/2, H/2-20, 0, 'normal');
+    roundRect(W/2-170, H/2+30, 340, 70, 16, 'rgba(26,10,46,0.9)');
+    text('Watch out for trolls!', W/2, H/2+52, 22, '#ef4444');
+    text('Jump ON TOP of them to stomp!', W/2, H/2+75, 18, '#c4a0ff');
+    ctx.globalAlpha=pulse; text('Tap to START!', W/2, H/2+120, 18, '#ffd700'); ctx.globalAlpha=1;
+  }
+}
+
+function tutorialTap() {
+  tutorialStep++;
+  if(tutorialStep===1) queueVoice('gen_hint',"This button makes you jump! Tap it twice to fly even higher!");
+  else if(tutorialStep===2) queueVoice('gen_hint',"Collect the candles! Green candles go UP. Red candles go DOWN.");
+  else if(tutorialStep===3) queueVoice('gen_troll',"Watch out for the tricky trolls! Jump on top of them to stomp!");
+  else if(tutorialStep>=4) {
+    hasSeenTutorial=true; save();
+    STATE='playing';
+    document.getElementById('touch-controls').style.display='flex';
+    document.getElementById('hud').style.display='flex';
+    document.getElementById('pause-btn').style.display='flex';
+  }
+}
+
+// ================================================================
+// GAME LOOP
+// ================================================================
+function update() {
+  if(paused) return;
+  if(STATE==='playing'||STATE==='boss') { updatePlayer(); updateEnemies(); if(STATE==='boss') updateBoss(); }
+  updateParticles();
+  if(shakeTimer>0) shakeTimer--;
+}
+
+function draw() {
+  ctx.save();
+  if(shakeTimer>0) {
+    const sx=(Math.random()-0.5)*shakeIntensity, sy=(Math.random()-0.5)*shakeIntensity;
+    ctx.translate(sx,sy);
+  }
+
+  ctx.clearRect(0,0,W,H);
+  switch(STATE) {
+    case 'worldmap': drawWorldMap(); break;
+    case 'playing': case 'boss': drawLevel(); if(paused) drawPauseOverlay(); break;
+    case 'tutorial': drawTutorial(); break;
+    case 'minigame': drawMinigame(); break;
+    case 'levelcomplete': drawComplete(); break;
+    case 'gameover': drawGameOver(); break;
+  }
+  ctx.restore();
+}
+
+function loop() { frame++; update(); draw(); requestAnimationFrame(loop); }
+
+function initGame() {
+  document.getElementById('loading-screen').style.display='none';
+  initAudio(); load(); setupTouch(); STATE='worldmap';
+  queueVoice('menu_welcome',"Hello Princess! Welcome to Princess Trader!");
+  queueVoice('menu_choose',"Tap a world to begin your adventure!");
+  loop();
+}
+</script>
+</body>
+</html>

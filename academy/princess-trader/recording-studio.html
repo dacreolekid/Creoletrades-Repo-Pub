@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Princess Trader — Voice Recording Studio</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:#070C18;color:#C8D4E8;font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;padding:20px;padding-bottom:100px}
+h1{text-align:center;color:#ffd700;font-size:28px;margin-bottom:4px}
+.subtitle{text-align:center;color:#c4a0ff;font-size:14px;margin-bottom:8px}
+.instructions{background:#0D1526;border:1px solid #1a2a3a;border-radius:12px;padding:16px;margin-bottom:20px;font-size:14px;line-height:1.6;color:#8899bb}
+.instructions strong{color:#ffd700}
+.progress-bar{background:#0D1526;border-radius:8px;height:8px;margin-bottom:20px;overflow:hidden}
+.progress-fill{background:linear-gradient(90deg,#ffd700,#ff69b4);height:100%;border-radius:8px;transition:width 0.4s ease}
+.progress-text{text-align:center;color:#6B84AA;font-size:13px;margin-bottom:20px}
+.category{margin-bottom:24px}
+.category-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #1a2a3a;cursor:pointer}
+.category-header h2{font-size:18px;color:#ffd700;flex:1}
+.category-badge{background:#C9A84C;color:#070C18;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px}
+.category-toggle{color:#6B84AA;font-size:18px;transition:transform 0.3s}
+.category-toggle.open{transform:rotate(180deg)}
+.category-body{display:none}
+.category-body.open{display:block}
+.line-card{background:#0D1526;border:1px solid #1a2a3a;border-radius:12px;padding:16px;margin-bottom:10px;transition:border-color 0.3s}
+.line-card.recorded{border-color:#22c55e}
+.line-card.recording{border-color:#ef4444;box-shadow:0 0 15px rgba(239,68,68,0.3)}
+.line-id{font-size:11px;color:#6B84AA;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+.line-status{font-size:11px;padding:2px 8px;border-radius:8px;font-weight:600}
+.status-pending{background:rgba(107,132,170,0.2);color:#6B84AA}
+.status-recorded{background:rgba(34,197,94,0.2);color:#22c55e}
+.status-recording{background:rgba(239,68,68,0.3);color:#ef4444;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.script-text{font-size:18px;color:#EEF2FF;line-height:1.5;margin-bottom:12px;font-style:italic}
+.script-note{font-size:12px;color:#8899bb;margin-bottom:12px}
+.line-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{border:none;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;display:flex;align-items:center;gap:6px}
+.btn:active{transform:scale(0.96)}
+.btn-record{background:#ef4444;color:white}
+.btn-record:hover{background:#dc2626}
+.btn-stop{background:#ffd700;color:#070C18}
+.btn-play{background:#22c55e;color:white}
+.btn-play:hover{background:#16a34a}
+.btn-delete{background:rgba(239,68,68,0.15);color:#ef4444;border:1px solid rgba(239,68,68,0.3)}
+.btn-download{background:#C9A84C;color:#070C18}
+.btn-download:hover{background:#F0D080}
+.recording-dot{width:10px;height:10px;border-radius:50%;background:#ef4444;animation:pulse 0.8s infinite}
+audio{width:100%;margin-top:8px;height:36px;border-radius:8px}
+.toolbar{position:fixed;bottom:0;left:0;width:100%;background:#0D1526;border-top:2px solid #C9A84C;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;gap:10px;z-index:100}
+.toolbar-info{color:#C8D4E8;font-size:13px}
+.toolbar-info span{color:#ffd700;font-weight:700}
+.btn-download-all{background:#C9A84C;color:#070C18;border:none;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-download-all:active{transform:scale(0.96)}
+.btn-download-all:disabled{opacity:0.4;cursor:not-allowed}
+.tip-box{background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:13px;color:#C9A84C;line-height:1.5}
+</style>
+</head>
+<body>
+
+<h1>Princess Trader</h1>
+<p class="subtitle">Voice Recording Studio</p>
+
+<div class="instructions">
+  <strong>How it works:</strong> Each card below has a script line. Tap the red <strong>Record</strong> button, read the line out loud in your best daddy-teaching voice, then tap <strong>Stop</strong>. You can preview, re-record, or delete any clip. When you're done, tap <strong>Download All</strong> at the bottom — it saves a zip of all your clips ready to drop into the game.
+</div>
+
+<div class="tip-box">
+  <strong>Tips for great recordings:</strong> Find a quiet room. Hold the tablet 8-10 inches from your face. Speak slowly and warmly — she's 5. Smile while you talk (she'll hear it). Each clip should be 3-8 seconds. Don't worry about perfection — daddy's real voice beats polished any day.
+</div>
+
+<div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+<p class="progress-text" id="progress-text">0 of 62 lines recorded</p>
+
+<div id="script-container"></div>
+
+<div class="toolbar">
+  <div class="toolbar-info">Recorded: <span id="toolbar-count">0</span> / 62</div>
+  <button class="btn-download-all" id="download-all-btn" onclick="downloadAll()" disabled>Download All Clips</button>
+</div>
+
+<script>
+// ============================================================
+// FULL NARRATION SCRIPT — 62 LINES
+// ============================================================
+const scriptData = [
+  {
+    category: "Title & Menu",
+    lines: [
+      { id: "menu_welcome", text: "Hello Princess! Welcome to Princess Trader!", note: "Warm, excited. Like she just opened a present." },
+      { id: "menu_choose", text: "Tap a world to begin your adventure!", note: "Encouraging. Point-forward energy." },
+      { id: "menu_return", text: "Welcome back, Princess! Ready for more?", note: "Returning player. Warm recognition." },
+    ]
+  },
+  {
+    category: "World 1 — Candle Kingdom",
+    lines: [
+      { id: "w1_intro", text: "Welcome to Candle Kingdom! See the candles? Green candles are happy — they go UP! Red candles are sad — they go DOWN!", note: "Key teaching moment. Slow down on UP and DOWN." },
+      { id: "w1_green1", text: "Great job! You found a happy green candle!", note: "Celebration. She just collected a green candle." },
+      { id: "w1_green2", text: "Green means UP! That's when buyers are happy!", note: "Reinforcing the lesson." },
+      { id: "w1_green3", text: "Up, up, up! Another green candle!", note: "Playful. Keep the energy." },
+      { id: "w1_red1", text: "Uh oh! A red candle. That one went DOWN.", note: "Not scary — just observational. Gentle." },
+      { id: "w1_red2", text: "Red means prices went down. But that's okay! We learn from it.", note: "Reassuring. No fear around red." },
+      { id: "w1_mini_intro", text: "Mini-game time! Drag the candles to the right boxes! Green candles go in the UP box. Red candles go in the DOWN box!", note: "Clear instructions. Excited energy." },
+      { id: "w1_mini_correct", text: "That's right! You're so smart!", note: "Pure celebration." },
+      { id: "w1_mini_wrong", text: "Oops! Try the other box! You got this!", note: "Encouraging, not punishing." },
+      { id: "w1_complete", text: "You finished Candle Kingdom! Green goes UP, red goes DOWN. You're a natural, Princess!", note: "Big celebration. Proud daddy voice." },
+    ]
+  },
+  {
+    category: "World 2 — Pattern Palace",
+    lines: [
+      { id: "w2_intro", text: "Welcome to Pattern Palace! Look at the shapes in the sky! Triangles and mountains tell us where prices might go next!", note: "Wonder and curiosity." },
+      { id: "w2_triangle", text: "See that triangle? When prices make that shape, something big is about to happen!", note: "Teaching moment." },
+      { id: "w2_mountain", text: "That looks like a mountain! Prices went up, up, up to the top, and then came back down!", note: "Use hand gestures energy in voice." },
+      { id: "w2_complete", text: "Pattern Palace complete! Now you can see the shapes! Amazing!", note: "Proud." },
+    ]
+  },
+  {
+    category: "World 3 — ETF Forest",
+    lines: [
+      { id: "w3_intro", text: "Welcome to ETF Forest! Each path leads to a different land. Some lands have toys, some have food, some have gold!", note: "Exploring different markets as different lands." },
+      { id: "w3_teach", text: "In the real world, we can buy pieces of different things — like a little piece of all the toy stores!", note: "ETF concept simplified." },
+      { id: "w3_complete", text: "ETF Forest explored! So many lands to visit!", note: "Accomplished." },
+    ]
+  },
+  {
+    category: "World 4 — Strategy Springs",
+    lines: [
+      { id: "w4_intro", text: "Welcome to Strategy Springs! Here we learn the most important thing — when to jump in and when to wait. Patience is a superpower!", note: "Calm, wise. Key lesson." },
+      { id: "w4_wait", text: "Not yet... wait for it... NOW! See? Patience wins!", note: "Building tension, then release. Fun." },
+      { id: "w4_jump", text: "Perfect timing! You jumped at just the right moment!", note: "Celebration of patience." },
+      { id: "w4_complete", text: "Strategy Springs done! You know when to jump and when to wait. That's what the best traders do!", note: "Connecting to trading." },
+    ]
+  },
+  {
+    category: "World 5 — Moving River",
+    lines: [
+      { id: "w5_intro", text: "Welcome to Moving River! See the water flowing? It shows which way things are moving. Follow the river!", note: "Moving average = river concept." },
+      { id: "w5_flow", text: "The river flows up! That means things are going up too. Swim with the river, not against it!", note: "Trend following simplified." },
+      { id: "w5_against", text: "Careful! The river is flowing the other way now! Don't swim against it!", note: "Warning, not scary." },
+      { id: "w5_complete", text: "Moving River mastered! You can follow the flow now! Rivers show us the way!", note: "Proud." },
+    ]
+  },
+  {
+    category: "World 6 — Trendline Trail",
+    lines: [
+      { id: "w6_intro", text: "Welcome to Trendline Trail! Draw a line through the mountains to find the path. If the path goes up, we go up too!", note: "Trendline as a path." },
+      { id: "w6_draw", text: "Connect the dots! See? The path shows us where to go next!", note: "Interactive teaching." },
+      { id: "w6_complete", text: "Trendline Trail conquered! You can draw the path through any mountain now!", note: "Empowering." },
+    ]
+  },
+  {
+    category: "World 7 — Support Bridge",
+    lines: [
+      { id: "w7_intro", text: "Welcome to the Support Bridge! Some bridges hold you up — that's called support! And some ceilings stop you from going higher — that's resistance!", note: "S/R as floors and ceilings. KEY concept." },
+      { id: "w7_support", text: "The bridge is holding! That's support — it keeps prices from falling!", note: "Support as a bridge." },
+      { id: "w7_resistance", text: "Bonk! The ceiling stopped you! That's resistance — it keeps prices from going up!", note: "Playful bonk. Fun." },
+      { id: "w7_break", text: "Whoa! You broke through the ceiling! When that happens, prices can fly!", note: "Breakout concept." },
+      { id: "w7_complete", text: "Support Bridge crossed! You know floors and ceilings now! That's a big deal!", note: "Big accomplishment." },
+    ]
+  },
+  {
+    category: "World 8 — The Final Castle (SMC Core)",
+    lines: [
+      { id: "w8_intro", text: "Welcome to the Final Castle! This is where it all comes together. Remember — buy at the Magic Garden and sell at the Castle Tower!", note: "THE SMC lesson. Demand = Magic Garden, Supply = Castle Tower. Slow and clear." },
+      { id: "w8_demand", text: "This is the Magic Garden! Prices are low here. This is where smart princesses BUY!", note: "Demand zone. Emphasis on BUY." },
+      { id: "w8_supply", text: "You made it to the Castle Tower! Prices are high here. This is where smart princesses SELL!", note: "Supply zone. Emphasis on SELL." },
+      { id: "w8_buylow", text: "Buy low at the garden, sell high at the tower! That's how a Princess Trader makes gold!", note: "THE core lesson. Say it like a mantra." },
+      { id: "w8_boss_intro", text: "The Tricky Troll King is here! Use everything you learned to outsmart him!", note: "Boss fight intro. Exciting but not scary." },
+      { id: "w8_boss_win", text: "You defeated the Troll King! You are a TRUE Princess Trader!", note: "Ultimate celebration. Go big." },
+      { id: "w8_complete", text: "You completed the entire kingdom! You know candles, patterns, trends, support, and the most important rule — buy at the garden, sell at the tower! I'm so proud of you, Princess!", note: "THE ending. Full emotion. This is daddy telling his daughter he's proud." },
+    ]
+  },
+  {
+    category: "General — Encouragement & UI",
+    lines: [
+      { id: "gen_gem", text: "Ooh, shiny! You found a gem!", note: "Quick, delighted." },
+      { id: "gen_powerup", text: "Magic wand power! You're glowing!", note: "Power-up collected." },
+      { id: "gen_troll", text: "Watch out! A tricky troll!", note: "Alert but playful, not scary." },
+      { id: "gen_fall", text: "Oops! Let's try again!", note: "She fell. Encouraging, no judgment." },
+      { id: "gen_star3", text: "Three stars! Perfect score! You're amazing!", note: "Top score celebration." },
+      { id: "gen_star2", text: "Two stars! Great job, Princess!", note: "Good score." },
+      { id: "gen_star1", text: "One star! You can always come back and try for more!", note: "Encouraging replay." },
+      { id: "gen_unlock", text: "A new world is unlocked! Let's go explore!", note: "New content available." },
+      { id: "gen_quiz_right", text: "That's correct! You remembered!", note: "Quiz checkpoint correct." },
+      { id: "gen_quiz_wrong", text: "Not quite! But that's how we learn. Try again!", note: "Quiz wrong. Gentle." },
+      { id: "gen_paused", text: "Take a break, Princess. The kingdom will be here when you come back!", note: "Game paused. Warm." },
+      { id: "gen_hint", text: "Need a hint? Look for the sparkles!", note: "Hint system." },
+    ]
+  }
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let recordings = {};
+let mediaRecorder = null;
+let audioChunks = [];
+let currentRecording = null;
+
+// Load saved state
+try {
+  const saved = localStorage.getItem('pt_studio_state');
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    // Restore blob URLs won't work across sessions, but we track which are recorded
+  }
+} catch(e) {}
+
+// Count total lines
+let totalLines = 0;
+scriptData.forEach(cat => totalLines += cat.lines.length);
+
+// ============================================================
+// RENDER
+// ============================================================
+function render() {
+  const container = document.getElementById('script-container');
+  container.innerHTML = '';
+
+  scriptData.forEach((cat, ci) => {
+    const catDiv = document.createElement('div');
+    catDiv.className = 'category';
+
+    const recordedInCat = cat.lines.filter(l => recordings[l.id]).length;
+
+    catDiv.innerHTML = `
+      <div class="category-header" onclick="toggleCategory(${ci})">
+        <h2>${cat.category}</h2>
+        <span class="category-badge">${recordedInCat}/${cat.lines.length}</span>
+        <span class="category-toggle ${ci === 0 ? 'open' : ''}" id="toggle-${ci}">▼</span>
+      </div>
+      <div class="category-body ${ci === 0 ? 'open' : ''}" id="cat-body-${ci}"></div>
+    `;
+
+    const body = catDiv.querySelector('.category-body');
+
+    cat.lines.forEach(line => {
+      const isRecorded = !!recordings[line.id];
+      const isRecording = currentRecording === line.id;
+      const card = document.createElement('div');
+      card.className = `line-card ${isRecorded ? 'recorded' : ''} ${isRecording ? 'recording' : ''}`;
+      card.id = `card-${line.id}`;
+
+      let statusHTML = '';
+      if (isRecording) {
+        statusHTML = `<span class="line-status status-recording"><span class="recording-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:4px;vertical-align:middle"></span> Recording...</span>`;
+      } else if (isRecorded) {
+        statusHTML = `<span class="line-status status-recorded">Recorded</span>`;
+      } else {
+        statusHTML = `<span class="line-status status-pending">Pending</span>`;
+      }
+
+      let controlsHTML = '';
+      if (isRecording) {
+        controlsHTML = `<button class="btn btn-stop" onclick="stopRecording('${line.id}')">&#9632; Stop</button>`;
+      } else if (isRecorded) {
+        controlsHTML = `
+          <button class="btn btn-play" onclick="playRecording('${line.id}')">&#9654; Play</button>
+          <button class="btn btn-record" onclick="startRecording('${line.id}')" style="font-size:12px;padding:8px 14px">Re-record</button>
+          <button class="btn btn-delete" onclick="deleteRecording('${line.id}')" style="font-size:12px;padding:8px 14px">Delete</button>
+        `;
+      } else {
+        controlsHTML = `<button class="btn btn-record" onclick="startRecording('${line.id}')">&#9679; Record</button>`;
+      }
+
+      card.innerHTML = `
+        <div class="line-id">${line.id} ${statusHTML}</div>
+        <div class="script-text">"${line.text}"</div>
+        <div class="script-note">${line.note}</div>
+        <div class="line-controls">${controlsHTML}</div>
+        ${isRecorded ? `<audio controls src="${recordings[line.id].url}" id="audio-${line.id}"></audio>` : ''}
+      `;
+
+      body.appendChild(card);
+    });
+
+    container.appendChild(catDiv);
+  });
+
+  updateProgress();
+}
+
+function toggleCategory(idx) {
+  const body = document.getElementById(`cat-body-${idx}`);
+  const toggle = document.getElementById(`toggle-${idx}`);
+  body.classList.toggle('open');
+  toggle.classList.toggle('open');
+}
+
+function updateProgress() {
+  const recorded = Object.keys(recordings).length;
+  const pct = Math.round((recorded / totalLines) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = `${recorded} of ${totalLines} lines recorded`;
+  document.getElementById('toolbar-count').textContent = recorded;
+  document.getElementById('download-all-btn').disabled = recorded === 0;
+}
+
+// ============================================================
+// RECORDING ENGINE
+// ============================================================
+async function startRecording(lineId) {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    audioChunks = [];
+    mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm;codecs=opus' });
+
+    mediaRecorder.ondataavailable = e => {
+      if (e.data.size > 0) audioChunks.push(e.data);
+    };
+
+    mediaRecorder.onstop = () => {
+      const blob = new Blob(audioChunks, { type: 'audio/webm' });
+      const url = URL.createObjectURL(blob);
+      recordings[lineId] = { blob, url };
+      stream.getTracks().forEach(t => t.stop());
+      currentRecording = null;
+      render();
+    };
+
+    currentRecording = lineId;
+    mediaRecorder.start();
+    render();
+
+    // Scroll to card
+    const card = document.getElementById(`card-${lineId}`);
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  } catch (err) {
+    alert('Could not access microphone. Please allow microphone access and try again.');
+    console.error(err);
+  }
+}
+
+function stopRecording(lineId) {
+  if (mediaRecorder && mediaRecorder.state === 'recording') {
+    mediaRecorder.stop();
+  }
+}
+
+function playRecording(lineId) {
+  const audio = document.getElementById(`audio-${lineId}`);
+  if (audio) {
+    audio.currentTime = 0;
+    audio.play();
+  }
+}
+
+function deleteRecording(lineId) {
+  if (recordings[lineId]) {
+    URL.revokeObjectURL(recordings[lineId].url);
+    delete recordings[lineId];
+    render();
+  }
+}
+
+// ============================================================
+// DOWNLOAD ALL AS ZIP
+// ============================================================
+async function downloadAll() {
+  const recorded = Object.keys(recordings);
+  if (recorded.length === 0) return;
+
+  // If only a few, download individually
+  if (recorded.length <= 3) {
+    for (const id of recorded) {
+      downloadSingle(id);
+    }
+    return;
+  }
+
+  // For many files, we create individual downloads with a short delay
+  // (ZIP would require a library — keep it simple)
+  const btn = document.getElementById('download-all-btn');
+  btn.textContent = 'Downloading...';
+  btn.disabled = true;
+
+  for (let i = 0; i < recorded.length; i++) {
+    await new Promise(resolve => {
+      setTimeout(() => {
+        downloadSingle(recorded[i]);
+        resolve();
+      }, 300 * i);
+    });
+  }
+
+  btn.textContent = 'Download All Clips';
+  btn.disabled = false;
+}
+
+function downloadSingle(lineId) {
+  const rec = recordings[lineId];
+  if (!rec) return;
+  const a = document.createElement('a');
+  a.href = rec.url;
+  a.download = `${lineId}.webm`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+render();
+</script>
+</body>
+</html>
