@@ -1590,6 +1590,81 @@
     .blog-cta { text-align: center; margin-top: 1rem; }
     @media (max-width: 900px) { .blog-preview-grid { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 600px) { .blog-preview-grid { grid-template-columns: 1fr; } }
+
+    /* ── ACADEMY PREVIEW ── */
+    .academy-intro {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.85;
+      max-width: 640px;
+      margin-bottom: 3rem;
+    }
+    .academy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+    .academy-card {
+      background: var(--iron);
+      border: 1px solid var(--border-dim);
+      padding: 1.75rem 1.5rem;
+      transition: border-color 0.35s, transform 0.35s;
+      display: flex;
+      flex-direction: column;
+    }
+    .academy-card:hover {
+      border-color: var(--border);
+      transform: translateY(-3px);
+    }
+    .academy-card-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.75rem;
+      line-height: 1;
+    }
+    .academy-card-level {
+      font-style: italic;
+      font-size: 0.62rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .academy-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--parchment);
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+    .academy-card p {
+      font-size: 0.78rem;
+      color: var(--text);
+      line-height: 1.7;
+      flex: 1;
+    }
+    .academy-card-modules {
+      font-size: 0.7rem;
+      color: var(--spice);
+      font-style: italic;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-dim);
+    }
+    .academy-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .academy-cta-note {
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--muted);
+    }
+    @media (max-width: 900px) { .academy-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .academy-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -2129,6 +2204,76 @@
 
     <div class="blog-cta reveal">
       <a href="/blog" class="btn btn-outline">View all posts →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ ACADEMY ══════════════ -->
+<section id="academy" class="section">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">⚜ STACK Academy</span>
+      <h2 class="section-title">Learn the <em>Method</em></h2>
+      <span class="iron-border"></span>
+    </div>
+
+    <p class="academy-intro reveal">Self-paced courses built around the STACK framework — from your first candlestick chart to full Smart Money execution. Each course includes lessons, quizzes, a final exam, and a glossary. Go at your own speed. Come back as many times as you need.</p>
+
+    <div class="academy-grid">
+
+      <div class="academy-card reveal">
+        <div class="academy-card-icon">📐</div>
+        <div class="academy-card-level">Foundation</div>
+        <h3>Trading Foundations</h3>
+        <p>Market structure, candlestick anatomy, support and resistance, trendlines, and the basics every trader needs before placing a single trade.</p>
+        <div class="academy-card-modules">8 Modules + Final Exam</div>
+      </div>
+
+      <div class="academy-card reveal reveal-delay-1">
+        <div class="academy-card-icon">⚜</div>
+        <div class="academy-card-level">Core</div>
+        <h3>The STACK Method</h3>
+        <p>Structure. Timeframe. Awareness. Confirmation. Knowledge. The five-layer decision framework that powers every CreoleTrades plan.</p>
+        <div class="academy-card-modules">6 Modules + Final Exam</div>
+      </div>
+
+      <div class="academy-card reveal reveal-delay-2">
+        <div class="academy-card-icon">🏗️</div>
+        <div class="academy-card-level">Intermediate</div>
+        <h3>Smart Money Concepts</h3>
+        <p>Order blocks, liquidity sweeps, BOS, CHoCH, fair value gaps, and institutional price delivery — the language of professional traders.</p>
+        <div class="academy-card-modules">6 Modules + Final Exam</div>
+      </div>
+
+      <div class="academy-card reveal">
+        <div class="academy-card-icon">📊</div>
+        <div class="academy-card-level">Intermediate</div>
+        <h3>Options Trading</h3>
+        <p>Calls, puts, Greeks, spreads, and how to pair options strategies with STACK setups for defined-risk execution.</p>
+        <div class="academy-card-modules">4 Modules + Final Exam</div>
+      </div>
+
+      <div class="academy-card reveal reveal-delay-1">
+        <div class="academy-card-icon">🛡️</div>
+        <div class="academy-card-level">All Levels</div>
+        <h3>Risk Management</h3>
+        <p>Position sizing, stop placement, risk-to-reward, portfolio heat, and the discipline rules that keep you in the game long-term.</p>
+        <div class="academy-card-modules">6 Modules + Final Exam</div>
+      </div>
+
+      <div class="academy-card reveal reveal-delay-2">
+        <div class="academy-card-icon">📈</div>
+        <div class="academy-card-level">Advanced</div>
+        <h3>LEAPS &amp; Long-Term</h3>
+        <p>Long-dated options, DCA strategies, and how to build conviction positions using higher-timeframe STACK analysis.</p>
+        <div class="academy-card-modules">3 Modules + Final Exam</div>
+      </div>
+
+    </div>
+
+    <div class="academy-cta-row reveal">
+      <a href="/academy" class="btn btn-spice">Explore All Courses →</a>
+      <span class="academy-cta-note">Free access — no account required.</span>
     </div>
   </div>
 </section>
