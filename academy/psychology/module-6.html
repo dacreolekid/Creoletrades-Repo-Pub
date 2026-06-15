@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tilt, Drawdown &amp; the Revenge Spiral - The Trader's Mind - STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #070C18;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .password-gate.hidden {
+            display: none;
+        }
+
+        .password-container {
+            background-color: #0D1526;
+            padding: 60px 40px;
+            border-radius: 0px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .password-container h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .password-container p {
+            color: #C8D4E8;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 15px;
+            background-color: #070C18;
+            border: 1px solid #6B84AA;
+            border-radius: 0px;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #C9A84C;
+        }
+
+        .password-btn {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .password-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .password-error {
+            color: #EF4444;
+            margin-top: 15px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
+        .password-help {
+            margin-top: 20px;
+            border-top: 1px solid #6B84AA;
+            padding-top: 20px;
+        }
+
+        .password-help a {
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .password-help a:hover {
+            color: #F0D080;
+        }
+
+        header {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-bottom: 1px solid #0F1A2E;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 6px 12px;
+            border-radius: 0px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        nav {
+            background-color: #0F1A2E;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #0D1526;
+            overflow-x: auto;
+        }
+
+        nav a {
+            flex: 0 0 auto;
+            padding: 16px 20px;
+            color: #C8D4E8;
+            text-decoration: none;
+            border-right: 1px solid #0D1526;
+            font-size: 13px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            background-color: #070C18;
+            color: #C9A84C;
+        }
+
+        nav a.active {
+            background-color: #070C18;
+            color: #C9A84C;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .content-section {
+            margin-bottom: 50px;
+        }
+
+        .content-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .content-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .content-section p {
+            color: #C8D4E8;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .content-section strong {
+            color: #EEF2FF;
+        }
+
+        .lead-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            font-style: italic;
+            border-left: 4px solid #C9A84C;
+            padding: 10px 0 10px 25px;
+            margin: 25px 0;
+            line-height: 1.5;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .vocab-card {
+            background-color: #0D1526;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .vocab-card:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .vocab-card .term {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #F0D080;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .vocab-card .definition {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .three-step {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .three-step h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .step {
+            background-color: #070C18;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+        }
+
+        .step .step-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #C9A84C;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .step .step-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .step .step-text {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .key-takeaways {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .key-takeaways h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-takeaways li {
+            color: #C8D4E8;
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .key-takeaways li:before {
+            content: "⚜";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+            font-size: 14px;
+        }
+
+        .practice-box {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #22C55E;
+        }
+
+        .practice-box h3 {
+            color: #22C55E;
+            margin-top: 0;
+        }
+
+        .practice-box p {
+            color: #C8D4E8;
+            font-style: italic;
+        }
+
+        .wolf-cta {
+            background: linear-gradient(135deg, #0D1526, #0F1A2E);
+            padding: 32px;
+            border-radius: 0px;
+            margin: 35px 0;
+            border: 2px solid #C9A84C;
+        }
+
+        .wolf-cta .wolf-cta-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #C9A84C;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .wolf-cta h3 {
+            font-family: 'Playfair Display', serif;
+            color: #F0D080;
+            font-size: 24px;
+            margin: 0 0 14px 0;
+            font-weight: 700;
+        }
+
+        .wolf-cta p {
+            color: #C8D4E8;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .wolf-cta-btn {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 14px 30px;
+            text-decoration: none;
+            font-family: 'Lora', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .wolf-cta-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .wolf-cta .wolf-cta-fine {
+            display: block;
+            margin: 16px 0 0 0;
+            font-size: 12px;
+            color: #6B84AA;
+            font-style: italic;
+        }
+
+        .quiz-section {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .quiz-section h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .quiz-question {
+            margin-bottom: 30px;
+        }
+
+        .quiz-question .question-text {
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .quiz-option {
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            border: 1px solid #0F1A2E;
+            border-radius: 0px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            user-select: none;
+        }
+
+        .quiz-option:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option input[type="radio"] {
+            margin-right: 12px;
+        }
+
+        .quiz-option label {
+            cursor: pointer;
+            color: #C8D4E8;
+        }
+
+        .quiz-option.selected {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option.correct {
+            background-color: #0F1A2E;
+            border-color: #22C55E;
+        }
+
+        .quiz-option.incorrect {
+            background-color: #0F1A2E;
+            border-color: #EF4444;
+        }
+
+        .quiz-explanation {
+            display: none;
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-top: 8px;
+            border-left: 3px solid #C9A84C;
+            color: #C8D4E8;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .quiz-explanation.show {
+            display: block;
+        }
+
+        .quiz-score {
+            background-color: #0F1A2E;
+            padding: 20px;
+            border-radius: 0px;
+            margin-top: 30px;
+            border: 1px solid #C9A84C;
+            text-align: center;
+        }
+
+        .quiz-score .score-text {
+            color: #EEF2FF;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .quiz-score .score-percentage {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #C9A84C;
+            font-weight: 900;
+        }
+
+        .quiz-btn {
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .quiz-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0;
+            gap: 20px;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 16px 24px;
+            background-color: #0D1526;
+            color: #C9A84C;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .nav-button:hover {
+            background-color: #C9A84C;
+            color: #070C18;
+        }
+
+        .nav-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-button.disabled:hover {
+            background-color: #0D1526;
+            color: #C9A84C;
+        }
+
+        footer {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-top: 1px solid #0F1A2E;
+            color: #6B84AA;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            nav {
+                padding: 0;
+            }
+
+            nav a {
+                padding: 12px 16px;
+                font-size: 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .content-section h2 {
+                font-size: 24px;
+            }
+
+            .lead-quote {
+                font-size: 17px;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate" id="passwordGate">
+        <div class="password-container">
+            <h2>STACK Academy</h2>
+            <p>Enter your password to access The Trader's Mind</p>
+            <input type="password" id="passwordInput" class="password-input" placeholder="Password">
+            <button class="password-btn" onclick="checkPassword()">Access Course</button>
+            <div class="password-error" id="passwordError">Incorrect password. Try again.</div>
+            <div class="password-help">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <h1>The Trader's Mind</h1>
+        <span class="module-badge">Module 6 of 8</span>
+    </header>
+
+    <nav>
+        <a href="../">← All Courses</a>
+        <a href="module-1.html">Module 1</a>
+        <a href="module-2.html">Module 2</a>
+        <a href="module-3.html">Module 3</a>
+        <a href="module-4.html">Module 4</a>
+        <a href="module-5.html">Module 5</a>
+        <a href="module-6.html" class="active">Module 6</a>
+        <a href="module-7.html">Module 7</a>
+        <a href="module-8.html">Module 8</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="final-exam.html">Final Exam</a>
+    </nav>
+
+    <div class="container">
+        <div class="content-section">
+            <h2>What Tilt Really Is</h2>
+            <p>You took the loss. Maybe it was a clean stop on a good plan&mdash;or maybe it was a bad beat, the kind where the setup was right and price ran you out anyway. Either way, something just changed in your body. There's heat in your chest. Your jaw is tight. And underneath the words you're telling yourself runs one quiet, dangerous thought: <em>"I'll show the market."</em> That, right there, is <strong>tilt</strong>.</p>
+            <p class="lead-quote">"Tilt isn't a bad trade. Tilt is the trade you take to answer the last one."</p>
+            <p>The word is borrowed from poker, and it means exactly what it sounds like&mdash;<strong>emotional, reactive decision-making in the wake of a loss or a bad beat.</strong> A tilted player stops reading the table and starts trying to <em>get even.</em> A tilted trader stops reading structure and starts trying to get the money back. The chart didn't change. The operator did. The same survival wiring you met in Module 1 has grabbed the wheel, and it is no longer interested in confirmation&mdash;it wants <strong>revenge</strong>.</p>
+            <p>Here's what makes tilt so dangerous: it doesn't announce itself as emotion. It disguises itself as <em>conviction.</em> The tilted trader doesn't feel out of control&mdash;they feel <strong>certain</strong>. "This one's obvious." "I'm just getting back what's mine." That false clarity is the tell. Real edge is calm. Tilt is urgent.</p>
+            <p>So the first skill of this module isn't a rule&mdash;it's <strong>detection</strong>. You have to learn to feel tilt in your body <em>before</em> it reaches your mouse. The heat. The urgency. The held breath. The lean toward the screen. Those physical signals show up seconds before the bad decision does. Catch the body, and you catch the trade. <em>You don't rush a roux. You don't rush a trade.</em></p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Tilt</div>
+                    <div class="definition">Borrowed from poker: emotional, reactive decision-making after a loss or bad beat. It disguises itself as conviction&mdash;urgency wearing the costume of certainty.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Bad Beat</div>
+                    <div class="definition">A loss where you did everything right and price still ran you out. The most common trigger for tilt, because it feels unfair.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Capitulation</div>
+                    <div class="definition">The point of emotional surrender&mdash;when frustration or exhaustion takes over and you abandon the plan entirely to "just do something."</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Tilt Tell</div>
+                    <div class="definition">Your personal early-warning signal&mdash;a physical (heat, tight jaw, fast breath) or behavioral (refreshing the chart, sizing up) sign that emotion has the wheel.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Anatomy of a Revenge Trade</h2>
+            <p>A <strong>revenge trade</strong> is the trade you take to <em>get it back.</em> Not because the setup confirmed&mdash;because the loss stung. It is the single most expensive habit in trading, and it follows a script so predictable you can almost set a watch to it.</p>
+            <p>Watch the anatomy of it:</p>
+            <ul style="margin-left: 20px; color: #C8D4E8; margin-bottom: 15px;">
+                <li><strong>It's bigger.</strong> You size up to "make it back faster." The math feels efficient. It isn't&mdash;it just means the next loss hits twice as hard.</li>
+                <li><strong>It's a worse setup.</strong> You weren't waiting for confirmation. You were hunting for <em>any</em> reason to be in. The bar for entry drops to the floor because you needed a trade, not a good one.</li>
+                <li><strong>It has no plan.</strong> No written trigger, no invalidation, no target. There wasn't time&mdash;the urgency skipped the part where the thinking brain decides anything.</li>
+            </ul>
+            <p>Now watch how <strong>one loss becomes three.</strong> The revenge trade is bigger and worse, so it usually loses too&mdash;and now you're down more than the original. That deeper hole raises the heat. So the next trade is bigger still, the setup even thinner, the plan even more absent. This is the <strong>revenge spiral</strong>: each loss funding a more desperate attempt to undo it. A red day that should have ended at one controlled loss becomes a blowout, not because the market attacked you, but because you kept handing it ammunition.</p>
+            <p>The brand answer cuts straight through it: <em>When Wolf Chart says no, you stand down.</em> A revenge trade is, by definition, a trade the structure didn't ask for. It exists only to soothe an emotion. And a trade that exists to soothe an emotion is not a trade&mdash;it's a withdrawal from your account disguised as a position.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Revenge Trading</div>
+                    <div class="definition">Taking a trade to recover a recent loss rather than because structure confirmed it. Bigger size, worse setup, no plan&mdash;the signature pattern of tilt.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Revenge Spiral</div>
+                    <div class="definition">The chain where each loss funds a larger, more desperate attempt to recover it&mdash;one controlled loss becoming three uncontrolled ones.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Drawdown Psychology</h2>
+            <p>A <strong>drawdown</strong> is simply the distance from your account's peak to its current low&mdash;how far down you are from your best. On a spreadsheet it's a number. In your skull it's something far more corrosive, because of one brutal rule: <strong>the deeper you're down, the worse you decide.</strong></p>
+            <p>This isn't a character flaw&mdash;it's the same biology from Module 1, amplified. As losses stack, your brain shifts from <em>opportunity</em> mode to <em>threat</em> mode. Stress hormones rise. And under threat, your thinking literally narrows. Psychologists call it <strong>cognitive tunneling</strong>: desperation shrinks your field of view until all you can see is the hole and the urge to climb out of it <em>right now.</em></p>
+            <p class="lead-quote">"Drawdown doesn't just cost you money. It costs you the clear mind you need to stop losing it."</p>
+            <p>That's why the spiral feeds itself. The deeper the drawdown, the more desperate the decisions&mdash;and the more desperate the decisions, the deeper the drawdown. Each turn of the loop removes a little more of the calm, structured judgment that got you a seat at the table in the first place. Capital and clarity drain together, and clarity is the one you can't reload by funding the account.</p>
+            <p>The professional move is to recognize that a drawdown is the exact moment your judgment is <strong>least</strong> trustworthy&mdash;and to make your decisions accordingly. You don't try to think your way out of a hole while the stress chemicals are narrowing your vision. You step back so the tunnel can widen again. The size of the climb-out is not a measure of how hard you should push. It's a measure of how badly you need to stop digging.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Drawdown</div>
+                    <div class="definition">The distance from your account's peak to its current low&mdash;how far down you are. Beyond the math, it's the state where judgment degrades fastest.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Cognitive Tunneling</div>
+                    <div class="definition">Stress narrowing your field of view until all you can see is the loss and the urge to recover it&mdash;the mechanism that makes a deep drawdown self-reinforcing.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Loss Streaks Are Normal</h2>
+            <p>Here is the fact that defuses half the panic before it starts, and it comes straight from Module 4: <strong>even a genuinely strong edge produces losing streaks.</strong> That is not a sign your edge is broken. It is a mathematical certainty of trading any edge at all.</p>
+            <p>Run the numbers. Say you have a real, enviable edge&mdash;you win 60% of your trades. Flip that around: you <em>lose</em> 40% of them. Over a long enough sample, strings of consecutive losses aren't just possible, they're <strong>guaranteed</strong> to appear. Four, five, six reds in a row will happen to a 60% trader, not because anything went wrong, but because that's what <strong>variance</strong> looks like up close. A coin that lands heads 60% of the time still throws tails clusters.</p>
+            <p>The danger isn't the streak itself&mdash;it's what the untrained mind <em>does</em> with it. The tilted trader reads a losing streak as a verdict: <em>"I've lost my edge. The market changed. I need to do something different right now."</em> That misread is the doorway to the revenge spiral. The trader who understands variance reads the very same streak as <strong>weather</strong>: unpleasant, temporary, and entirely expected. Same streak. Opposite response. The difference is whether you understood the probabilities before the storm hit.</p>
+            <p class="lead-quote">"Variance is not failure. A losing streak is a cost of doing business, not a verdict on your edge."</p>
+            <p>This is why <em>confirmation over prediction</em> matters most when you're cold. The edge plays out over the <strong>sample</strong>, not the next click. When you expect streaks, they lose their power to panic you&mdash;and a trader who isn't panicking is a trader who can still stand down when the structure says no.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Variance</div>
+                    <div class="definition">The natural scatter of results around your edge. Even a strong edge produces losing streaks&mdash;variance is the reason, not a broken system.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Loss Streak</div>
+                    <div class="definition">A run of consecutive losses. Mathematically guaranteed to appear over a large sample, even with a high win rate. Weather, not a verdict.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Circuit Breakers &amp; Standing Down</h2>
+            <p>You now know what tilt is, how the revenge spiral works, how drawdown rots your judgment, and why streaks are normal. So here's the question that decides whether any of it helps you: <strong>when tilt hits in real time and your judgment is the very thing that's compromised&mdash;what stops you?</strong></p>
+            <p>Not willpower. We settled that in Module 1: willpower drains under stress, exactly when you need it. The answer is the same as it's always been&mdash;you <strong>pre-decide</strong>. You build a <strong>circuit breaker</strong>: a hard, mechanical rule, set in advance while you're calm, that pulls you out of the market before the spiral can start. It doesn't ask how you feel. It just trips.</p>
+
+            <div class="three-step">
+                <h3>Three Circuit Breakers Worth Committing To</h3>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Max Daily Loss</div>
+                        <div class="step-text">A fixed dollar or percentage line for the day. Hit it and you are done&mdash;platform closed, no exceptions. It caps the damage before the drawdown can narrow your thinking.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Two Strikes &amp; Done</div>
+                        <div class="step-text">Two consecutive losses and you stand down for the day. It stops the spiral at the exact spot where one loss tries to become three.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Walk Away</div>
+                        <div class="step-text">When a tilt tell fires, you physically leave the screen. Stand up, step back. You cannot revenge trade a chart you are not sitting in front of.</div>
+                    </div>
+                </div>
+            </div>
+
+            <p>Notice these aren't suggestions you consult in the moment&mdash;they're <strong>commitments you made when you were calm</strong>, so the tilted version of you never gets a vote. That's the whole point. A circuit breaker works precisely because it removes the decision from the person least able to make it: you, mid-spiral.</p>
+            <p>And here's the reframe that separates amateurs from professionals: <strong>standing down is not losing.</strong> It is the most disciplined act in trading. The amateur thinks walking away from a red day is weakness&mdash;they have to "make it back." The professional knows that protecting the account and protecting the mind <em>is</em> the edge. <em>When Wolf Chart says no, you stand down.</em> Not reluctantly. Not as a last resort. As the plan. <em>The K doesn't negotiate</em>&mdash;Keep Discipline includes the discipline to close the laptop.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Circuit Breaker</div>
+                    <div class="definition">A hard, mechanical rule set in advance that pulls you out of the market before tilt can spiral&mdash;a decision made while calm so the tilted you can't override it.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Max Daily Loss</div>
+                    <div class="definition">A fixed loss limit for the trading day. Reach it and you stop&mdash;no exceptions. The hard cap that keeps one bad day from becoming a blowout.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="wolf-cta">
+                <div class="wolf-cta-label">⚜ The Confirmation Tool</div>
+                <h3>The Plan You Built Cold Is Your Circuit Breaker</h3>
+                <p>Tilt's whole power comes from improvising in the heat&mdash;hunting for any reason to be in, with no written line to hold you. The antidote is a plan that already exists before the emotion does. This is where the <strong style="color:#F0D080;">Black Wolf</strong> package earns its place. Black Wolf is a <strong style="color:#F0D080;">custom GPT</strong> that reads your <strong style="color:#F0D080;">Wolf Chart 2.1</strong> indicators and drafts a structured trade plan&mdash;entry, invalidation, and targets&mdash;laid out objectively, applying a method <strong style="color:#F0D080;">refined over 16 years of trading</strong>. When tilt hits, you follow the plan or you're done for the day. The plan is your circuit breaker, and it stays objective at the exact moment you can't be.</p>
+                <p>The package is all-in-one: the Black Wolf GPT, the Wolf Chart 2.1 indicators, and access to two communities that keep you accountable when you want to chase a loss&mdash;<strong style="color:#F0D080;">The Trading Roux</strong> and the <strong style="color:#F0D080;">Wolf Empire</strong> Discord.</p>
+                <a href="https://thewolfchart.com/?via=creoletrades" class="wolf-cta-btn" target="_blank" rel="noopener">Get the Black Wolf Package &rarr;</a>
+                <span class="wolf-cta-fine">A trade plan is a starting point, not a guarantee&mdash;always confirm it against your own structure read.</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="key-takeaways">
+                <h3>Key Takeaways</h3>
+                <ul>
+                    <li>Tilt is emotional, reactive decision-making after a loss or bad beat. Its tell is false certainty&mdash;it disguises itself as conviction. Real edge is calm; tilt is urgent.</li>
+                    <li>The revenge trade follows a fixed script: bigger size, worse setup, no plan. That's how one controlled loss becomes three uncontrolled ones&mdash;the revenge spiral.</li>
+                    <li>Drawdown degrades judgment. The deeper you're down, the more stress narrows your thinking (cognitive tunneling), so the spiral feeds itself.</li>
+                    <li>Loss streaks are normal. Even a 60% edge throws strings of losses&mdash;that's variance, not a broken system. Expecting streaks defuses the panic that starts the spiral.</li>
+                    <li>Willpower won't save you mid-tilt because it drains under stress. A circuit breaker&mdash;max daily loss, two strikes and done, walk away&mdash;is decided in advance so the tilted you can't override it.</li>
+                    <li>Standing down is not losing&mdash;it's the most disciplined act in trading. When Wolf Chart says no, you stand down. Protecting the account and the mind is the edge.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="practice-box">
+                <h3>Practice Exercise</h3>
+                <p><strong>This is real. Do this now:</strong></p>
+                <p>Part one&mdash;name your tilt tells. Pull up a memory of your last revenge trade and write down, by hand, exactly what your body and behavior were doing in the seconds before you clicked. Physical tells: heat in your chest, tight jaw, fast or held breath, leaning toward the screen? Behavioral tells: refreshing the chart, sizing up, dropping your standards for entry, muttering "I'll show the market"? These are your personal early-warning system. You can't catch tilt you can't name.</p>
+                <p>Part two&mdash;commit to one hard circuit breaker. Write a single, mechanical rule and the consequence in plain language, e.g. <em>"Two consecutive losses = done for the day. No exceptions. Platform closed."</em> Pick the one you'll actually honor&mdash;a max daily loss number, a two-strikes rule, or a walk-away trigger&mdash;and put it where you'll see it before the market opens. You're moving the decision to stop out of the heat and into the calm, exactly like Module 1 taught. The K doesn't negotiate.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="quiz-section">
+                <h3>Knowledge Check</h3>
+                <div class="quiz-question">
+                    <div class="question-text">1. You just took a stop and notice heat in your chest, a tight jaw, and the thought "I'll show the market." What is this?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 0)">
+                        <label><input type="radio" name="q1"> A normal, healthy sign that you care about your results</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 1)">
+                        <label><input type="radio" name="q1"> Clear confirmation that the next setup is high-probability</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 2)">
+                        <label><input type="radio" name="q1"> Tilt&mdash;emotional, reactive decision-making setting up after a loss</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 3)">
+                        <label><input type="radio" name="q1"> Proof your edge has stopped working</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation0">
+                        Heat, urgency, and the "I'll show the market" feeling are classic tilt tells. Tilt disguises itself as conviction&mdash;the physical signals show up before the bad decision does, which is why detecting them in your body is the first skill.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">2. Which set of traits best describes a revenge trade?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 0)">
+                        <label><input type="radio" name="q2"> Bigger size, worse setup, no plan&mdash;taken to "get it back"</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 1)">
+                        <label><input type="radio" name="q2"> Smaller size, patient entry, tight written plan</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 2)">
+                        <label><input type="radio" name="q2"> Normal size, confirmed setup, pre-set invalidation</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 3)">
+                        <label><input type="radio" name="q2"> A trade you skip entirely because structure said no</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation1">
+                        The revenge trade follows a fixed script: bigger size to "make it back faster," a worse setup because you needed any reason to be in, and no plan because urgency skipped the thinking. That's how one loss becomes three.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">3. You have a strong 60% win rate and just took five losses in a row. What is the correct read?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 0)">
+                        <label><input type="radio" name="q3"> Your edge is broken and you must change your strategy immediately</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 1)">
+                        <label><input type="radio" name="q3"> You should size up to make the losses back faster</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 2)">
+                        <label><input type="radio" name="q3"> The market has permanently turned against you</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 3)">
+                        <label><input type="radio" name="q3"> This is expected variance&mdash;even a strong edge produces losing streaks</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation2">
+                        A 60% edge means you lose 40% of trades, so strings of consecutive losses are mathematically guaranteed over a large sample. Variance is not failure&mdash;reading the streak as weather, not a verdict, is what keeps you out of the revenge spiral.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">4. What is the primary job of a circuit breaker like a max daily loss or a "two strikes and done" rule?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 0)">
+                        <label><input type="radio" name="q4"> To guarantee you finish every day green</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 1)">
+                        <label><input type="radio" name="q4"> To pull you out of the market on a rule set in advance, before tilt can spiral</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 2)">
+                        <label><input type="radio" name="q4"> To remove all risk from your trading</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 3)">
+                        <label><input type="radio" name="q4"> To help you trade larger size with more confidence</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation3">
+                        A circuit breaker is a hard, mechanical rule decided while you're calm. It removes the decision to stop from the tilted version of you&mdash;the person least able to make it&mdash;and caps the damage before the drawdown narrows your thinking. It doesn't remove risk or guarantee a green day.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">5. You hit your pre-set max daily loss. The brand discipline says to do what?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 0)">
+                        <label><input type="radio" name="q5"> Take one more trade to try to get back to break-even</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 1)">
+                        <label><input type="radio" name="q5"> Size up on the next setup to make the day back faster</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 2)">
+                        <label><input type="radio" name="q5"> Stand down for the day&mdash;protecting the account and the mind is the edge</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 3)">
+                        <label><input type="radio" name="q5"> Lower your standards and take any setup that appears</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation4">
+                        Standing down is not losing&mdash;it's the most disciplined act in trading. When Wolf Chart says no, you stand down. The K doesn't negotiate: Keep Discipline includes the discipline to close the laptop and protect both capital and clarity.
+                    </div>
+                </div>
+
+                <button class="quiz-btn" onclick="submitQuiz()">Submit Quiz</button>
+                <div class="quiz-score" id="quizScore" style="display: none;">
+                    <div class="score-text">Quiz Complete</div>
+                    <div class="score-percentage" id="scorePercentage">0%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="module-5.html" class="nav-button">← Previous Module</a>
+            <a href="module-7.html" class="nav-button">Next Module →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 CreoleTrades. STACK Academy &mdash; The Trader's Mind. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const PASSWORD_HASH = "b956307831faa0ef5676c738be0b711bd89d4b0bb71454059847d28944b2b9ad";
+        const STORAGE_KEY = "stack_psychology_access";
+
+        function sha256(str) {
+            return new Promise(resolve => {
+                const buffer = new TextEncoder().encode(str);
+                crypto.subtle.digest('SHA-256', buffer).then(hashBuffer => {
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                    resolve(hashHex);
+                });
+            });
+        }
+
+        async function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const errorDiv = document.getElementById('passwordError');
+            const hash = await sha256(passwordInput.value);
+
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                document.getElementById('passwordGate').classList.add('hidden');
+            } else {
+                errorDiv.classList.add('show');
+                passwordInput.value = '';
+                setTimeout(() => errorDiv.classList.remove('show'), 3000);
+            }
+        }
+
+        function checkAccess() {
+            if (localStorage.getItem(STORAGE_KEY) !== 'true') {
+                document.getElementById('passwordGate').classList.remove('hidden');
+            } else {
+                document.getElementById('passwordGate').classList.add('hidden');
+            }
+        }
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        window.addEventListener('load', checkAccess);
+
+        const quizAnswers = [2, 0, 3, 1, 2];
+        let selectedAnswers = [-1, -1, -1, -1, -1];
+
+        function selectOption(element, questionNum, optionNum) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedAnswers[questionNum] = optionNum;
+        }
+
+        function submitQuiz() {
+            let correct = 0;
+            for (let i = 0; i < quizAnswers.length; i++) {
+                const options = document.querySelectorAll(`.quiz-question`)[i].querySelectorAll('.quiz-option');
+                if (selectedAnswers[i] === quizAnswers[i]) {
+                    options[selectedAnswers[i]].classList.add('correct');
+                    correct++;
+                } else if (selectedAnswers[i] !== -1) {
+                    options[selectedAnswers[i]].classList.add('incorrect');
+                    options[quizAnswers[i]].classList.add('correct');
+                }
+                document.getElementById(`explanation${i}`).classList.add('show');
+            }
+            const percentage = Math.round((correct / quizAnswers.length) * 100);
+            document.getElementById('scorePercentage').textContent = percentage + '%';
+            document.getElementById('quizScore').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

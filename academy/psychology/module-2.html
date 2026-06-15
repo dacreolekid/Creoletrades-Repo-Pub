@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Four Horsemen: Fear, Greed, Hope & Regret - The Trader's Mind - STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #070C18;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .password-gate.hidden {
+            display: none;
+        }
+
+        .password-container {
+            background-color: #0D1526;
+            padding: 60px 40px;
+            border-radius: 0px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .password-container h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .password-container p {
+            color: #C8D4E8;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 15px;
+            background-color: #070C18;
+            border: 1px solid #6B84AA;
+            border-radius: 0px;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #C9A84C;
+        }
+
+        .password-btn {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .password-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .password-error {
+            color: #EF4444;
+            margin-top: 15px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
+        .password-help {
+            margin-top: 20px;
+            border-top: 1px solid #6B84AA;
+            padding-top: 20px;
+        }
+
+        .password-help a {
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .password-help a:hover {
+            color: #F0D080;
+        }
+
+        header {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-bottom: 1px solid #0F1A2E;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 6px 12px;
+            border-radius: 0px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        nav {
+            background-color: #0F1A2E;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #0D1526;
+            overflow-x: auto;
+        }
+
+        nav a {
+            flex: 0 0 auto;
+            padding: 16px 20px;
+            color: #C8D4E8;
+            text-decoration: none;
+            border-right: 1px solid #0D1526;
+            font-size: 13px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            background-color: #070C18;
+            color: #C9A84C;
+        }
+
+        nav a.active {
+            background-color: #070C18;
+            color: #C9A84C;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .content-section {
+            margin-bottom: 50px;
+        }
+
+        .content-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .content-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .content-section p {
+            color: #C8D4E8;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .content-section strong {
+            color: #EEF2FF;
+        }
+
+        .lead-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            font-style: italic;
+            border-left: 4px solid #C9A84C;
+            padding: 10px 0 10px 25px;
+            margin: 25px 0;
+            line-height: 1.5;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .vocab-card {
+            background-color: #0D1526;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .vocab-card:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .vocab-card .term {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #F0D080;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .vocab-card .definition {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .three-step {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .three-step h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .step {
+            background-color: #070C18;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+        }
+
+        .step .step-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #C9A84C;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .step .step-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .step .step-text {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .key-takeaways {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .key-takeaways h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-takeaways li {
+            color: #C8D4E8;
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .key-takeaways li:before {
+            content: "⚜";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+            font-size: 14px;
+        }
+
+        .practice-box {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #22C55E;
+        }
+
+        .practice-box h3 {
+            color: #22C55E;
+            margin-top: 0;
+        }
+
+        .practice-box p {
+            color: #C8D4E8;
+            font-style: italic;
+        }
+
+        .wolf-cta {
+            background: linear-gradient(135deg, #0D1526, #0F1A2E);
+            padding: 32px;
+            border-radius: 0px;
+            margin: 35px 0;
+            border: 2px solid #C9A84C;
+        }
+
+        .wolf-cta .wolf-cta-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #C9A84C;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .wolf-cta h3 {
+            font-family: 'Playfair Display', serif;
+            color: #F0D080;
+            font-size: 24px;
+            margin: 0 0 14px 0;
+            font-weight: 700;
+        }
+
+        .wolf-cta p {
+            color: #C8D4E8;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .wolf-cta-btn {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 14px 30px;
+            text-decoration: none;
+            font-family: 'Lora', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .wolf-cta-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .wolf-cta .wolf-cta-fine {
+            display: block;
+            margin: 16px 0 0 0;
+            font-size: 12px;
+            color: #6B84AA;
+            font-style: italic;
+        }
+
+        .quiz-section {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .quiz-section h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .quiz-question {
+            margin-bottom: 30px;
+        }
+
+        .quiz-question .question-text {
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .quiz-option {
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            border: 1px solid #0F1A2E;
+            border-radius: 0px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            user-select: none;
+        }
+
+        .quiz-option:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option input[type="radio"] {
+            margin-right: 12px;
+        }
+
+        .quiz-option label {
+            cursor: pointer;
+            color: #C8D4E8;
+        }
+
+        .quiz-option.selected {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option.correct {
+            background-color: #0F1A2E;
+            border-color: #22C55E;
+        }
+
+        .quiz-option.incorrect {
+            background-color: #0F1A2E;
+            border-color: #EF4444;
+        }
+
+        .quiz-explanation {
+            display: none;
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-top: 8px;
+            border-left: 3px solid #C9A84C;
+            color: #C8D4E8;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .quiz-explanation.show {
+            display: block;
+        }
+
+        .quiz-score {
+            background-color: #0F1A2E;
+            padding: 20px;
+            border-radius: 0px;
+            margin-top: 30px;
+            border: 1px solid #C9A84C;
+            text-align: center;
+        }
+
+        .quiz-score .score-text {
+            color: #EEF2FF;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .quiz-score .score-percentage {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #C9A84C;
+            font-weight: 900;
+        }
+
+        .quiz-btn {
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .quiz-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0;
+            gap: 20px;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 16px 24px;
+            background-color: #0D1526;
+            color: #C9A84C;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .nav-button:hover {
+            background-color: #C9A84C;
+            color: #070C18;
+        }
+
+        .nav-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-button.disabled:hover {
+            background-color: #0D1526;
+            color: #C9A84C;
+        }
+
+        footer {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-top: 1px solid #0F1A2E;
+            color: #6B84AA;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            nav {
+                padding: 0;
+            }
+
+            nav a {
+                padding: 12px 16px;
+                font-size: 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .content-section h2 {
+                font-size: 24px;
+            }
+
+            .lead-quote {
+                font-size: 17px;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate" id="passwordGate">
+        <div class="password-container">
+            <h2>STACK Academy</h2>
+            <p>Enter your password to access The Trader's Mind</p>
+            <input type="password" id="passwordInput" class="password-input" placeholder="Password">
+            <button class="password-btn" onclick="checkPassword()">Access Course</button>
+            <div class="password-error" id="passwordError">Incorrect password. Try again.</div>
+            <div class="password-help">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <h1>The Trader's Mind</h1>
+        <span class="module-badge">Module 2 of 8</span>
+    </header>
+
+    <nav>
+        <a href="../">← All Courses</a>
+        <a href="module-1.html">Module 1</a>
+        <a href="module-2.html" class="active">Module 2</a>
+        <a href="module-3.html">Module 3</a>
+        <a href="module-4.html">Module 4</a>
+        <a href="module-5.html">Module 5</a>
+        <a href="module-6.html">Module 6</a>
+        <a href="module-7.html">Module 7</a>
+        <a href="module-8.html">Module 8</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="final-exam.html">Final Exam</a>
+    </nav>
+
+    <div class="container">
+        <div class="content-section">
+            <h2>The Emotional Cycle of a Trade</h2>
+            <p>Every trade you take rides a wave of feeling, whether you notice it or not. Module 1 showed you the machinery&mdash;the amygdala, loss aversion, the dopamine pull. This module names the four operators those forces send to take your wheel: <strong>fear, greed, hope, and regret.</strong> Master traders don't kill these emotions. Nobody does. They learn to <strong>recognize</strong> the cycle as it turns&mdash;and then refuse to act on it.</p>
+            <p class="lead-quote">"The chart doesn't move you. The feeling about the chart moves you. The trader's whole job is to tell those two apart."</p>
+            <p>Here's the cycle, and it is almost universal. Price dips, and you feel <strong>hope</strong>&mdash;"this is my entry, it's going to turn." Price climbs, and hope warms into confidence, then into <strong>euphoria</strong> near the top, right when you should be trimming. Then price rolls over. Confidence curdles into <strong>fear</strong>, fear into <strong>panic</strong>, and at the very bottom&mdash;when the pain is loudest and the bottom is closest&mdash;you hit <strong>capitulation</strong> and dump the position. Then regret arrives to clean up, and the next trade is born from it.</p>
+            <p>Read that again, because it's the cruelest part: the emotions peak at the exact moments you should do the opposite. Maximum euphoria near the top. Maximum fear near the bottom. <strong>The feeling is a contrarian signal pointed at your own account.</strong> Most traders feel the cycle and act on it. Professionals feel the same cycle&mdash;and let a pre-decided plan act instead. <em>Confirmation over prediction.</em></p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Euphoria</div>
+                    <div class="definition">The high-confidence rush near a top, when a trade is deep in profit and caution evaporates. It's the feeling that tells you to add size right before you should be trimming.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Capitulation</div>
+                    <div class="definition">The emotional surrender at the bottom, where the pain of holding becomes unbearable and you dump the position&mdash;usually at the worst possible price.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Fear Wears Two Masks</h2>
+            <p>Of the four horsemen, <strong>fear</strong> is the one most traders think they understand&mdash;and the one that fools them most, because it shows up wearing two completely different masks that do opposite damage.</p>
+            <p>The first mask is <strong>fear of loss.</strong> A valid setup forms. Structure, trigger, alignment&mdash;the Wolf Chart lights up green. And you freeze. You can't pull the trigger, because the possibility of being wrong feels heavier than the opportunity of being right (that's loss aversion from Module 1, wearing a costume). When fear of loss <em>does</em> let you in, it shoves you out too early&mdash;you grab a fraction of the move and watch the rest run without you, because banking a small win felt safer than holding for the target. This is also the soil where <strong>analysis paralysis</strong> grows: you keep "confirming" until the setup is gone, because pulling the trigger means risking the loss.</p>
+            <p>The second mask is <strong>fear of missing out</strong>&mdash;FOMO. Same emotion, flipped inside out. Now the threat isn't losing money; it's watching a move happen without you. So you chase. You buy an extended candle far from any clean entry, with no invalidation that makes sense, because the fear of being left behind drowns out the fear of being wrong. FOMO is fear pretending to be courage.</p>
+            <p>Notice the trap: <strong>the same emotion makes you skip the good trade and chase the bad one.</strong> Fear of loss keeps you out of the valid setup at the demand zone; FOMO drags you into the invalid one at the top. The cure for both is identical&mdash;a written entry. If the trade is on your plan, fear of loss doesn't get a veto. If it's not on your plan, FOMO doesn't get a vote.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">FOMO</div>
+                    <div class="definition">Fear of missing out. The urge to chase a move already underway so you're not "left behind"&mdash;buying far from a clean entry with no sensible invalidation. Fear wearing the costume of courage.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Analysis Paralysis</div>
+                    <div class="definition">Endlessly "confirming" a setup until the opportunity is gone. It looks like diligence but it's fear of loss hiding behind a magnifying glass.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Greed Moves the Goalposts</h2>
+            <p>If fear keeps you from the trade, <strong>greed</strong> ruins the one you're already in. And it almost never shows up as some cartoon of reckless lust for money. It shows up quietly, as a <em>reasonable-sounding</em> voice that moves the goalposts after the whistle.</p>
+            <p>Watch how it works. Your plan called for an exit at the target. Price gets there. And greed whispers: "It's strong&mdash;why cap it here? Let it run to the next level." So you cancel the order you set in calm and replace it with a wish you formed in the heat. Then price stalls, rolls over, and gives back the gain you already had in hand. <strong>Greed turned a winner into a scratch&mdash;or a loser.</strong> The trade was right. The exit, renegotiated mid-move, was wrong.</p>
+            <p>Greed has two other favorite disguises. The first is <strong>moving targets mid-trade</strong>&mdash;every time price approaches your exit, you nudge it further, so the target is never reached and the trade is never closed until it closes <em>against</em> you. The second is <strong>oversizing after a win streak.</strong> Three green trades in a row and the voice says you've "figured it out," so you double the size&mdash;right in time for the fourth trade, the loser, to do four times the damage. Greed is loudest exactly when your guard is lowest.</p>
+            <p>The antidote isn't willpower; it's a pre-set target. <em>You don't rush a roux. You don't rush a trade.</em> When the target was written before the entry, hitting it isn't a decision you have to win in real time&mdash;it's an order that simply fires. The goalposts can't move if you bolted them down while you were calm.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Hope Is the Most Expensive Emotion</h2>
+            <p>Fear costs you opportunities. Greed costs you gains. But <strong>hope</strong> is the one that costs you capital&mdash;real, account-draining capital&mdash;which is why it's the most expensive emotion a trader carries.</p>
+            <p>Here's the mechanism. A trade goes against you and trips your invalidation. That level was your line: the point where the idea is proven wrong and you're supposed to be out. But getting out means <em>accepting</em> the loss, locking in the pain&mdash;and hope offers a way to avoid the pain. "It'll come back." "It's just a shakeout." "I'll exit at break-even." So you slide the stop, or delete it, and hold. <strong>Hope is the single emotion that makes a trader ignore a level they set themselves.</strong></p>
+            <p>Then hope escalates. The position is deeper in the red, so you <strong>average down</strong>&mdash;adding to a loser to lower your cost basis, telling yourself you're "getting a better price." You are not getting a better price. You are increasing your risk on a trade that has already told you it was wrong. A small, planned loss has become a large, unplanned one, and it grew on nothing but hope.</p>
+            <p>This is precisely why the brand says <em>invalidation protects capital.</em> The invalidation level isn't the problem&mdash;hope is what makes you ignore it. The level is a decision your thinking brain made in calm; hope is your survival brain trying to renegotiate it in pain. When you honor the invalidation, you cut hope off before it can spend your account. <em>The K doesn't negotiate.</em></p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Disposition Effect</div>
+                    <div class="definition">The proven pattern of selling winners too early and holding losers too long. Greed clips the winner; hope nurses the loser&mdash;two horsemen, one costly habit.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Regret and the Revenge It Breeds</h2>
+            <p>The fourth horseman shows up <em>after</em> the trade is over, which is exactly why it's so dangerous&mdash;you think you're safe, and that's when it strikes. <strong>Regret</strong> is the ache of "I should have," and left unmanaged, it breeds the most destructive behavior in trading: <strong>revenge.</strong></p>
+            <p>It starts with <strong>regret aversion</strong>&mdash;the urge to make decisions that minimize future regret rather than maximize good process. You skip a clean setup because the <em>last</em> one like it lost, and you can't stomach the regret of being wrong twice. Or you take a trade you have no business taking, purely to undo the sting of the last one. That second trade is the dangerous one. It isn't on your plan. It exists for one reason: to make the previous loss <em>not count.</em></p>
+            <p>And the market doesn't grant do-overs. The revenge trade, taken in anger and off-plan, usually loses too&mdash;which deepens the regret, which demands a bigger revenge trade, which loses bigger. That's the <strong>spiral</strong>, and it has ended more accounts in a single afternoon than any bad strategy ever has. The loss didn't break the trader. The reaction to the loss did.</p>
+            <p>You close the loop the same way professionals do&mdash;deliberately, in three moves:</p>
+
+            <div class="three-step">
+                <h3>Closing the Regret Loop</h3>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Accept</div>
+                        <div class="step-text">The loss already happened. It is sunk cost&mdash;it cannot influence the next decision. Say it plainly: the trade followed the plan and the plan still lost, or it broke the plan and taught you something. Either way, it's closed.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Log</div>
+                        <div class="step-text">Write it down&mdash;the setup, the exit, and the horseman that drove it. Putting regret on paper drains its charge and turns a sting into data you can actually learn from.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Move On</div>
+                        <div class="step-text">The next trade owes nothing to the last one. You wait for the next valid setup and trade it on its own merit&mdash;not as a rescue mission for the trade before it.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Regret Aversion</div>
+                    <div class="definition">Making choices to avoid the feeling of future regret rather than to follow good process&mdash;skipping valid setups, or taking off-plan trades just to undo the last loss.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="wolf-cta">
+                <div class="wolf-cta-label">⚜ The Confirmation Tool</div>
+                <h3>A Written Plan Gives the Four Horsemen No Vote</h3>
+                <p>Hope and greed only have power because the target and the invalidation are still <em>open questions</em> while the trade is live. A written plan closes both questions before the candle ever moves&mdash;the target is decided, the invalidation is decided, so there's nothing left for the four horsemen to renegotiate. The hard part is writing that plan objectively before your own bias creeps in, with a racing mind in front of a moving chart. That's the gap a tool can close.</p>
+                <p>This is where the <strong style="color:#F0D080;">Black Wolf</strong> package earns its place. Black Wolf is a <strong style="color:#F0D080;">custom GPT</strong> that reads your <strong style="color:#F0D080;">Wolf Chart 2.1</strong> indicators and drafts a structured trade plan for you&mdash;entry, invalidation, and targets&mdash;laid out objectively before fear, greed, hope, or regret gets a vote. It applies a method refined over <strong style="color:#F0D080;">16 years of trading</strong>, so your target and your line are written in calm, not bargained for in the heat. You still confirm it against your own structure read&mdash;<em>confirmation over prediction, always</em>&mdash;but the plan is already on paper, which is exactly what disarms the cycle this module just walked you through.</p>
+                <p>The package is all-in-one: the Black Wolf GPT, the Wolf Chart 2.1 indicators, and access to two communities that keep you accountable&mdash;<strong style="color:#F0D080;">The Trading Roux</strong> and the <strong style="color:#F0D080;">Wolf Empire</strong> Discord.</p>
+                <a href="https://thewolfchart.com/?via=creoletrades" class="wolf-cta-btn" target="_blank" rel="noopener">Get the Black Wolf Package &rarr;</a>
+                <span class="wolf-cta-fine">A trade plan is a starting point, not a guarantee&mdash;always confirm it against your own structure read.</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="key-takeaways">
+                <h3>Key Takeaways</h3>
+                <ul>
+                    <li>Every trade rides an emotional cycle&mdash;hope on the dip, euphoria near the top, fear and panic on the drop, capitulation at the bottom. The feeling peaks exactly when you should do the opposite.</li>
+                    <li>Fear wears two masks: fear of loss keeps you out of valid setups and clips winners early; FOMO chases extended moves. Same emotion, opposite damage.</li>
+                    <li>Greed moves the goalposts&mdash;refusing the target, sliding it mid-trade, oversizing after a win streak. It turns a winner into a loser.</li>
+                    <li>Hope is the most expensive emotion: it's what makes you ignore your own invalidation, hold losers, and average down. Invalidation protects capital&mdash;hope is what makes you ignore it.</li>
+                    <li>Regret breeds revenge. The off-plan trade taken to undo the last loss starts a spiral that ends accounts. Close the loop: accept, log, move on.</li>
+                    <li>A written plan is the antidote to all four. Decide entry, invalidation, and targets in calm, and the horsemen get no vote when the candle moves.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="practice-box">
+                <h3>Practice Exercise</h3>
+                <p><strong>This is real. Do this now:</strong></p>
+                <p>Pull up your last five trades. For each one, tag the <em>exit</em> with the horseman that actually drove it&mdash;fear (panicked out, or never let it run), greed (moved the target, refused to bank it), hope (ignored your invalidation, held the loser), or regret (revenge trade to undo the one before). Be honest; the goal is the pattern, not a clean scorecard.</p>
+                <p>Then, beside each one, write a single line: what would a pre-set plan have done instead? "Target was hit&mdash;the order fires, greed gets no vote." "Invalidation tripped&mdash;I'm out, hope gets no vote." You're proving to yourself, in your own trade history, that the plan&mdash;not the feeling&mdash;was the better operator all along.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="quiz-section">
+                <h3>Knowledge Check</h3>
+                <div class="quiz-question">
+                    <div class="question-text">1. A trade trips your invalidation level, but you slide the stop lower and hold, telling yourself "it'll come back." Which horseman is driving this decision?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 0)">
+                        <label><input type="radio" name="q1"> Hope&mdash;you're ignoring a level you set yourself to avoid accepting the loss</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 1)">
+                        <label><input type="radio" name="q1"> Greed&mdash;you're trying to squeeze out more profit</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 2)">
+                        <label><input type="radio" name="q1"> FOMO&mdash;you're afraid of missing the recovery</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 3)">
+                        <label><input type="radio" name="q1"> Regret&mdash;you're trying to undo a previous trade</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation0">
+                        Ignoring your own invalidation to avoid locking in a loss is hope. It's the emotion that makes you hold losers and average down&mdash;which is why invalidation protects capital, and hope is what makes you ignore it.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">2. Why does this module call hope "the most expensive emotion"?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 0)">
+                        <label><input type="radio" name="q2"> It makes you skip valid setups, so you miss opportunities</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 1)">
+                        <label><input type="radio" name="q2"> It makes you take profit too early on your winners</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 2)">
+                        <label><input type="radio" name="q2"> It makes you trade larger size after a winning streak</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 3)">
+                        <label><input type="radio" name="q2"> It makes you ignore your invalidation and hold or add to losers, turning a small planned loss into a large one</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation1">
+                        Fear costs opportunities and greed costs gains, but hope costs capital. By making you ignore invalidation, hold losers, and average down, it converts a small, planned loss into a large, unplanned one.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">3. How are "fear of loss" and "FOMO" related?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 0)">
+                        <label><input type="radio" name="q3"> They are completely unrelated emotions with nothing in common</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 1)">
+                        <label><input type="radio" name="q3"> They are the same emotion&mdash;fear&mdash;doing opposite damage: one keeps you out of valid setups, the other drags you into bad ones</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 2)">
+                        <label><input type="radio" name="q3"> FOMO is a form of greed, while fear of loss is a form of hope</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 3)">
+                        <label><input type="radio" name="q3"> They both make you hold losing trades for too long</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation2">
+                        Both masks are fear. Fear of loss freezes you out of valid setups and clips winners early; FOMO is fear of being left behind that chases extended moves. Same emotion, opposite damage&mdash;and a written entry cures both.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">4. Price reaches the target you set before entry. Greed whispers "let it run to the next level." What defeats that greed in the moment?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 0)">
+                        <label><input type="radio" name="q4"> Trusting your gut, since the move feels strong</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 1)">
+                        <label><input type="radio" name="q4"> Adding size to make the most of the momentum</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 2)">
+                        <label><input type="radio" name="q4"> A pre-set target decided in calm&mdash;the order simply fires, so there's no decision to win in real time</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 3)">
+                        <label><input type="radio" name="q4"> Deleting the target so you can watch price action freely</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation3">
+                        Greed moves the goalposts. A target written before the entry can't be renegotiated mid-move&mdash;the order fires and the gain is banked. You bolted the goalposts down while you were calm.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">5. Price dips and you feel a surge of hope; it climbs and you feel euphoric near the top; it rolls over and you panic-sell at the bottom. What does recognizing this cycle teach a professional to do?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 0)">
+                        <label><input type="radio" name="q5"> Recognize that the feeling peaks when they should do the opposite, and let a pre-decided plan act instead</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 1)">
+                        <label><input type="radio" name="q5"> Act on each feeling quickly, since the emotion is an accurate read of the market</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 2)">
+                        <label><input type="radio" name="q5"> Try to feel nothing at all and trade like a robot</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 3)">
+                        <label><input type="radio" name="q5"> Add size whenever euphoria peaks, because confidence confirms the trade</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation4">
+                        Euphoria peaks near tops and panic peaks near bottoms&mdash;the feeling is a contrarian signal pointed at your own account. Pros don't kill the emotion; they recognize the cycle and let a plan made in calm act in its place.
+                    </div>
+                </div>
+
+                <button class="quiz-btn" onclick="submitQuiz()">Submit Quiz</button>
+                <div class="quiz-score" id="quizScore" style="display: none;">
+                    <div class="score-text">Quiz Complete</div>
+                    <div class="score-percentage" id="scorePercentage">0%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="module-1.html" class="nav-button">← Previous Module</a>
+            <a href="module-3.html" class="nav-button">Next Module →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 CreoleTrades. STACK Academy &mdash; The Trader's Mind. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const PASSWORD_HASH = "b956307831faa0ef5676c738be0b711bd89d4b0bb71454059847d28944b2b9ad";
+        const STORAGE_KEY = "stack_psychology_access";
+
+        function sha256(str) {
+            return new Promise(resolve => {
+                const buffer = new TextEncoder().encode(str);
+                crypto.subtle.digest('SHA-256', buffer).then(hashBuffer => {
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                    resolve(hashHex);
+                });
+            });
+        }
+
+        async function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const errorDiv = document.getElementById('passwordError');
+            const hash = await sha256(passwordInput.value);
+
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                document.getElementById('passwordGate').classList.add('hidden');
+            } else {
+                errorDiv.classList.add('show');
+                passwordInput.value = '';
+                setTimeout(() => errorDiv.classList.remove('show'), 3000);
+            }
+        }
+
+        function checkAccess() {
+            if (localStorage.getItem(STORAGE_KEY) !== 'true') {
+                document.getElementById('passwordGate').classList.remove('hidden');
+            } else {
+                document.getElementById('passwordGate').classList.add('hidden');
+            }
+        }
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        window.addEventListener('load', checkAccess);
+
+        const quizAnswers = [0, 3, 1, 2, 0];
+        let selectedAnswers = [-1, -1, -1, -1, -1];
+
+        function selectOption(element, questionNum, optionNum) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedAnswers[questionNum] = optionNum;
+        }
+
+        function submitQuiz() {
+            let correct = 0;
+            for (let i = 0; i < quizAnswers.length; i++) {
+                const options = document.querySelectorAll(`.quiz-question`)[i].querySelectorAll('.quiz-option');
+                if (selectedAnswers[i] === quizAnswers[i]) {
+                    options[selectedAnswers[i]].classList.add('correct');
+                    correct++;
+                } else if (selectedAnswers[i] !== -1) {
+                    options[selectedAnswers[i]].classList.add('incorrect');
+                    options[quizAnswers[i]].classList.add('correct');
+                }
+                document.getElementById(`explanation${i}`).classList.add('show');
+            }
+            const percentage = Math.round((correct / quizAnswers.length) * 100);
+            document.getElementById('scorePercentage').textContent = percentage + '%';
+            document.getElementById('quizScore').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

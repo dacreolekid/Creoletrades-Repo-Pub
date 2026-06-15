@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glossary - The Trader's Mind - STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #070C18;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .password-gate.hidden {
+            display: none;
+        }
+
+        .password-container {
+            background-color: #0D1526;
+            padding: 60px 40px;
+            border-radius: 0px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .password-container h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .password-container p {
+            color: #C8D4E8;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 15px;
+            background-color: #070C18;
+            border: 1px solid #6B84AA;
+            border-radius: 0px;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #C9A84C;
+        }
+
+        .password-btn {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .password-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .password-error {
+            color: #EF4444;
+            margin-top: 15px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
+        .password-help {
+            margin-top: 20px;
+            border-top: 1px solid #6B84AA;
+            padding-top: 20px;
+        }
+
+        .password-help a {
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .password-help a:hover {
+            color: #F0D080;
+        }
+
+        header {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-bottom: 1px solid #0F1A2E;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 6px 12px;
+            border-radius: 0px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        nav {
+            background-color: #0F1A2E;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #0D1526;
+            overflow-x: auto;
+        }
+
+        nav a {
+            flex: 0 0 auto;
+            padding: 16px 20px;
+            color: #C8D4E8;
+            text-decoration: none;
+            border-right: 1px solid #0D1526;
+            font-size: 13px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            background-color: #070C18;
+            color: #C9A84C;
+        }
+
+        nav a.active {
+            background-color: #070C18;
+            color: #C9A84C;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .content-section {
+            margin-bottom: 50px;
+        }
+
+        .content-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .content-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .content-section p {
+            color: #C8D4E8;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .content-section strong {
+            color: #EEF2FF;
+        }
+
+        .lead-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            font-style: italic;
+            border-left: 4px solid #C9A84C;
+            padding: 10px 0 10px 25px;
+            margin: 25px 0;
+            line-height: 1.5;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .vocab-card {
+            background-color: #0D1526;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .vocab-card:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .vocab-card .term {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #F0D080;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .vocab-card .definition {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .three-step {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .three-step h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .step {
+            background-color: #070C18;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+        }
+
+        .step .step-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #C9A84C;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .step .step-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .step .step-text {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .key-takeaways {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .key-takeaways h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-takeaways li {
+            color: #C8D4E8;
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .key-takeaways li:before {
+            content: "⚜";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+            font-size: 14px;
+        }
+
+        .practice-box {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #22C55E;
+        }
+
+        .practice-box h3 {
+            color: #22C55E;
+            margin-top: 0;
+        }
+
+        .practice-box p {
+            color: #C8D4E8;
+            font-style: italic;
+        }
+
+        .wolf-cta {
+            background: linear-gradient(135deg, #0D1526, #0F1A2E);
+            padding: 32px;
+            border-radius: 0px;
+            margin: 35px 0;
+            border: 2px solid #C9A84C;
+        }
+
+        .wolf-cta .wolf-cta-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #C9A84C;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .wolf-cta h3 {
+            font-family: 'Playfair Display', serif;
+            color: #F0D080;
+            font-size: 24px;
+            margin: 0 0 14px 0;
+            font-weight: 700;
+        }
+
+        .wolf-cta p {
+            color: #C8D4E8;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .wolf-cta-btn {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 14px 30px;
+            text-decoration: none;
+            font-family: 'Lora', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .wolf-cta-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .wolf-cta .wolf-cta-fine {
+            display: block;
+            margin: 16px 0 0 0;
+            font-size: 12px;
+            color: #6B84AA;
+            font-style: italic;
+        }
+
+        .quiz-section {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .quiz-section h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .quiz-question {
+            margin-bottom: 30px;
+        }
+
+        .quiz-question .question-text {
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .quiz-option {
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            border: 1px solid #0F1A2E;
+            border-radius: 0px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            user-select: none;
+        }
+
+        .quiz-option:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option input[type="radio"] {
+            margin-right: 12px;
+        }
+
+        .quiz-option label {
+            cursor: pointer;
+            color: #C8D4E8;
+        }
+
+        .quiz-option.selected {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option.correct {
+            background-color: #0F1A2E;
+            border-color: #22C55E;
+        }
+
+        .quiz-option.incorrect {
+            background-color: #0F1A2E;
+            border-color: #EF4444;
+        }
+
+        .quiz-explanation {
+            display: none;
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-top: 8px;
+            border-left: 3px solid #C9A84C;
+            color: #C8D4E8;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .quiz-explanation.show {
+            display: block;
+        }
+
+        .quiz-score {
+            background-color: #0F1A2E;
+            padding: 20px;
+            border-radius: 0px;
+            margin-top: 30px;
+            border: 1px solid #C9A84C;
+            text-align: center;
+        }
+
+        .quiz-score .score-text {
+            color: #EEF2FF;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .quiz-score .score-percentage {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #C9A84C;
+            font-weight: 900;
+        }
+
+        .quiz-btn {
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .quiz-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0;
+            gap: 20px;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 16px 24px;
+            background-color: #0D1526;
+            color: #C9A84C;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .nav-button:hover {
+            background-color: #C9A84C;
+            color: #070C18;
+        }
+
+        .nav-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-button.disabled:hover {
+            background-color: #0D1526;
+            color: #C9A84C;
+        }
+
+        footer {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-top: 1px solid #0F1A2E;
+            color: #6B84AA;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            nav {
+                padding: 0;
+            }
+
+            nav a {
+                padding: 12px 16px;
+                font-size: 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .content-section h2 {
+                font-size: 24px;
+            }
+
+            .lead-quote {
+                font-size: 17px;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* Glossary-specific additions (appended; no existing rules altered) */
+        .glossary-search {
+            width: 100%;
+            padding: 14px 18px;
+            margin: 10px 0 5px 0;
+            background-color: #0D1526;
+            border: 1px solid #6B84AA;
+            border-radius: 0px;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            font-size: 15px;
+        }
+
+        .glossary-search:focus {
+            outline: none;
+            border-color: #C9A84C;
+        }
+
+        .glossary-search::placeholder {
+            color: #6B84AA;
+        }
+
+        .glossary-count {
+            font-size: 13px;
+            color: #6B84AA;
+            margin-bottom: 10px;
+        }
+
+        .glossary-empty {
+            display: none;
+            color: #6B84AA;
+            font-style: italic;
+            padding: 20px 0;
+        }
+
+        .glossary-empty.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate" id="passwordGate">
+        <div class="password-container">
+            <h2>STACK Academy</h2>
+            <p>Enter your password to access The Trader's Mind</p>
+            <input type="password" id="passwordInput" class="password-input" placeholder="Password">
+            <button class="password-btn" onclick="checkPassword()">Access Course</button>
+            <div class="password-error" id="passwordError">Incorrect password. Try again.</div>
+            <div class="password-help">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <h1>The Trader's Mind</h1>
+        <span class="module-badge">Glossary</span>
+    </header>
+
+    <nav>
+        <a href="../">← All Courses</a>
+        <a href="module-1.html">Module 1</a>
+        <a href="module-2.html">Module 2</a>
+        <a href="module-3.html">Module 3</a>
+        <a href="module-4.html">Module 4</a>
+        <a href="module-5.html">Module 5</a>
+        <a href="module-6.html">Module 6</a>
+        <a href="module-7.html">Module 7</a>
+        <a href="module-8.html">Module 8</a>
+        <a href="glossary.html" class="active">Glossary</a>
+        <a href="final-exam.html">Final Exam</a>
+    </nav>
+
+    <div class="container">
+        <div class="content-section">
+            <h2>Glossary</h2>
+            <p>Every key term from The Trader's Mind, in one place and in plain English. This is your quick-reference deck&mdash;the same vocabulary you met across all eight modules, alphabetized so you can find a concept fast and dedupe the language in your own notes. Start typing in the search box to filter the cards.</p>
+
+            <input type="text" id="glossarySearch" class="glossary-search" placeholder="Search a term... (e.g. tilt, dopamine, R-multiple)" aria-label="Search glossary terms">
+            <div class="glossary-count" id="glossaryCount"></div>
+
+            <div class="vocab-grid" id="glossaryGrid">
+                <div class="vocab-card">
+                    <div class="term">Accountability</div>
+                    <div class="definition">Owning your decisions and results without excuses. It's the habit of measuring yourself against your own rules&mdash;and answering to a journal, a mentor, or a community when you break them.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Amygdala</div>
+                    <div class="definition">The brain's threat detector. Fast and emotional, it can override rational thought to trigger instant survival reactions.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Amygdala Hijack</div>
+                    <div class="definition">When the emotional brain overrides the thinking brain. In trading, it's the panic close, the revenge click, the frozen stare.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Analysis Paralysis</div>
+                    <div class="definition">Freezing because you're chasing certainty that never comes. So much input piles up that you miss the trade or talk yourself out of a valid plan.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Anchoring</div>
+                    <div class="definition">Latching onto one number&mdash;your entry price, a recent high&mdash;and judging everything against it. The anchor distorts decisions even when the market has clearly moved on.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Break-Even Bias</div>
+                    <div class="definition">The urge to hold a losing trade until it returns to your entry, just to avoid the pain of being wrong.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Calibration</div>
+                    <div class="definition">How well your confidence matches reality. A calibrated trader who says "60% chance" is right about 60% of the time&mdash;no overclaiming, no false modesty.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Capitulation</div>
+                    <div class="definition">The moment of emotional surrender&mdash;dumping a position in despair or abandoning your plan after a string of losses. It usually happens at the worst possible price.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Checklist</div>
+                    <div class="definition">A short, fixed list of conditions a trade must meet before you click. It moves the decision out of the heat of the moment and into a process you built while calm.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Circuit Breaker</div>
+                    <div class="definition">A personal hard stop&mdash;a rule that pulls you out of the market after a set loss, a set number of trades, or a tilt warning. It protects the account from your worst moments.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Cognitive Load</div>
+                    <div class="definition">The mental bandwidth a task consumes. Under stress it shrinks, which is why you "forget" your plan mid-trade.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Confirmation Bias</div>
+                    <div class="definition">Seeing only the evidence that supports the trade you already want. You zoom into the timeframe that agrees with you and ignore the one that doesn't.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Consistency</div>
+                    <div class="definition">Doing the same disciplined process trade after trade, regardless of the last outcome. It's what turns a scattered edge into a reliable one.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Decision Fatigue</div>
+                    <div class="definition">The drop in decision quality after making many choices. Late in a session your judgment is worn down, which is when off-plan trades creep in.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Disposition Effect</div>
+                    <div class="definition">The proven pattern of selling winners early and holding losers too long&mdash;loss aversion in live trading.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Dopamine</div>
+                    <div class="definition">The brain's anticipation chemical. It spikes hardest when you might win and don't know for sure&mdash;the fuel behind the slot-machine pull of overtrading.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Drawdown</div>
+                    <div class="definition">A decline in your account from a recent peak. Drawdowns are normal and survivable&mdash;managing your reaction to them matters more than the number itself.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Edge</div>
+                    <div class="definition">A repeatable reason your trades make money over a large sample. An edge lives in the process and the math, not in any single trade.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Emotional Governance</div>
+                    <div class="definition">The system of rules and routines you use to keep emotion from driving your decisions. Not erasing feelings&mdash;giving them a process to answer to.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Environment Design</div>
+                    <div class="definition">Shaping your physical and digital space so the disciplined choice is the easy one&mdash;clean desk, alerts off, plan in view, distractions out of reach.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Euphoria</div>
+                    <div class="definition">The dangerous high after a big win or a hot streak. It quietly inflates your size and lowers your standards right before the give-back.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Expectancy</div>
+                    <div class="definition">The average amount you can expect to win or lose per trade, given your win rate and your average win versus average loss. Positive expectancy over time is the whole game.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Fight-or-Flight</div>
+                    <div class="definition">The body's automatic stress response&mdash;adrenaline, tunnel vision, urgency. Useful against predators, dangerous against price action.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">FOMO (Fear of Missing Out)</div>
+                    <div class="definition">The impulse to chase a move you didn't plan because you can't stand watching it go without you. It throws structure out the window and usually buys the top.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Gambler's Fallacy</div>
+                    <div class="definition">Believing a streak is "due" to reverse&mdash;that after several losers a winner must be next. Independent trades have no memory; the market owes you nothing.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">HALT (Hungry/Angry/Lonely/Tired)</div>
+                    <div class="definition">A quick self-check before you trade. If you're Hungry, Angry, Lonely, or Tired, your judgment is compromised&mdash;fix the state first or step away.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Heuristic</div>
+                    <div class="definition">A mental shortcut your brain uses to decide fast. Often handy, but in markets these shortcuts quietly become the biases that cost you money.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Identity-Based Habits</div>
+                    <div class="definition">Habits anchored to who you are, not just what you want&mdash;"I'm a trader who follows his plan." When the rule is part of your identity, discipline stops feeling like a fight.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Loss Aversion</div>
+                    <div class="definition">The tendency to feel losses about twice as intensely as equivalent gains. The engine behind cutting winners and holding losers.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Max Daily Loss</div>
+                    <div class="definition">A pre-set dollar or percentage limit that ends your trading day once hit. It caps a bad day before it turns into a blown account.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Outcome Bias</div>
+                    <div class="definition">Judging a decision only by how it turned out. A winning trade taken off-plan was still a bad decision&mdash;and rewarding it teaches the wrong lesson.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Overtrading</div>
+                    <div class="definition">Taking more trades than your edge or your account supports&mdash;often driven by boredom, the dopamine pull, or revenge. Activity is not productivity.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Position Sizing</div>
+                    <div class="definition">Deciding how much to trade so a single loss stays within your plan. Correct sizing is what keeps one bad trade from doing lasting damage.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Post-Market Review</div>
+                    <div class="definition">A deliberate look back after the session&mdash;what you did well, where you went off-plan, what to adjust. This is where most of the real learning actually happens.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Pre-Market Routine</div>
+                    <div class="definition">The fixed sequence you run before the session&mdash;levels, bias, plan, and a state check. It puts your thinking brain in charge before the first candle prints.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Probabilistic Thinking</div>
+                    <div class="definition">Treating every trade as one outcome in a distribution, not a verdict on your skill. You think in odds and samples, not in certainties.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Process vs Outcome</div>
+                    <div class="definition">Separating the quality of your decision from the result of a single trade. You can do everything right and still lose&mdash;so you grade the process, not the P&amp;L.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">R-Multiple</div>
+                    <div class="definition">A trade's result expressed in units of the risk you took. Risk $100 to make $300 and you booked a +3R winner&mdash;a clean way to compare trades regardless of size.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Recency Bias</div>
+                    <div class="definition">Letting your last few trades dominate your judgment&mdash;turning timid after losses or reckless after wins. The recent past feels louder than it deserves to be.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Regret Aversion</div>
+                    <div class="definition">Making choices mainly to avoid the sting of future regret&mdash;skipping a valid setup because the last one stung, or chasing one to avoid missing out. Fear of regret, not the plan, drives the click.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Revenge Trading</div>
+                    <div class="definition">The impulse to jump back in right after a loss to "get even." It ignores the plan and turns one red trade into a red day. The cure is a mandatory pause.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Risk Per Trade</div>
+                    <div class="definition">The fixed amount you're willing to lose on any single trade, set in advance. Capping it&mdash;often around 1% of the account&mdash;is what guarantees survival through a losing streak.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Sample Size</div>
+                    <div class="definition">The number of trades you're judging an edge by. A handful means nothing; only a large sample tells you whether your process actually works.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Sizing to Sleep</div>
+                    <div class="definition">Trading small enough that an open position never costs you a night's rest. If a trade keeps you up, your size is too big&mdash;not the market's fault.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">State Management</div>
+                    <div class="definition">Actively managing your physical and emotional state&mdash;sleep, food, breathing, breaks&mdash;so you sit down to trade in a clear, steady frame.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Sunk Cost Fallacy</div>
+                    <div class="definition">Letting money already lost drive the next decision. The capital is gone; the only question is what the chart says now. Loss aversion makes the sunk cost scream the loudest.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Tilt</div>
+                    <div class="definition">An emotional spiral&mdash;borrowed from poker&mdash;where frustration takes the wheel and decisions fall apart. Recognizing tilt early and walking away is a skill in itself.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Trade Plan</div>
+                    <div class="definition">Your entry trigger, invalidation, position size, and targets&mdash;decided and written down before you click. It moves every emotional choice out of the heat of the trade.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Trading Constitution</div>
+                    <div class="definition">Your personal set of non-negotiable rules&mdash;the standards you commit to in calm and refuse to renegotiate mid-trade. Your written law for how you operate.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Trading Journal</div>
+                    <div class="definition">A detailed record of every trade&mdash;entry, exit, reasoning, and emotional state. Journaling is how you see your patterns clearly and stop repeating the same mistakes.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Variable Reward Schedule</div>
+                    <div class="definition">A reward pattern where payoffs are unpredictable&mdash;the same loop a slot machine runs. It's the most addictive schedule there is, and the market runs it on you all day.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Variance</div>
+                    <div class="definition">The natural swing in results around your true edge. Even a winning system has losing streaks and hot streaks&mdash;variance is the noise you have to sit through.</div>
+                </div>
+            </div>
+
+            <div class="glossary-empty" id="glossaryEmpty">No terms match your search. Try a different word.</div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="module-1.html" class="nav-button">← Back to Course</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 CreoleTrades. STACK Academy &mdash; The Trader's Mind. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const PASSWORD_HASH = "b956307831faa0ef5676c738be0b711bd89d4b0bb71454059847d28944b2b9ad";
+        const STORAGE_KEY = "stack_psychology_access";
+
+        function sha256(str) {
+            return new Promise(resolve => {
+                const buffer = new TextEncoder().encode(str);
+                crypto.subtle.digest('SHA-256', buffer).then(hashBuffer => {
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                    resolve(hashHex);
+                });
+            });
+        }
+
+        async function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const errorDiv = document.getElementById('passwordError');
+            const hash = await sha256(passwordInput.value);
+
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                document.getElementById('passwordGate').classList.add('hidden');
+            } else {
+                errorDiv.classList.add('show');
+                passwordInput.value = '';
+                setTimeout(() => errorDiv.classList.remove('show'), 3000);
+            }
+        }
+
+        function checkAccess() {
+            if (localStorage.getItem(STORAGE_KEY) !== 'true') {
+                document.getElementById('passwordGate').classList.remove('hidden');
+            } else {
+                document.getElementById('passwordGate').classList.add('hidden');
+            }
+        }
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        window.addEventListener('load', checkAccess);
+
+        // Glossary search filter
+        (function () {
+            const search = document.getElementById('glossarySearch');
+            const grid = document.getElementById('glossaryGrid');
+            const cards = Array.from(grid.querySelectorAll('.vocab-card'));
+            const countEl = document.getElementById('glossaryCount');
+            const emptyEl = document.getElementById('glossaryEmpty');
+            const total = cards.length;
+
+            function update() {
+                const q = search.value.trim().toLowerCase();
+                let visible = 0;
+                cards.forEach(card => {
+                    const term = card.querySelector('.term').textContent.toLowerCase();
+                    const def = card.querySelector('.definition').textContent.toLowerCase();
+                    const match = q === '' || term.includes(q) || def.includes(q);
+                    card.style.display = match ? '' : 'none';
+                    if (match) visible++;
+                });
+                emptyEl.classList.toggle('show', visible === 0);
+                countEl.textContent = q === ''
+                    ? total + ' terms'
+                    : visible + ' of ' + total + ' terms';
+            }
+
+            search.addEventListener('input', update);
+            update();
+        })();
+    </script>
+</body>
+</html>

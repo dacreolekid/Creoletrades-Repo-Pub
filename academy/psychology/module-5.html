@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk as a Psychological Tool: Size to Sleep - The Trader's Mind - STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #070C18;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .password-gate.hidden {
+            display: none;
+        }
+
+        .password-container {
+            background-color: #0D1526;
+            padding: 60px 40px;
+            border-radius: 0px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .password-container h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .password-container p {
+            color: #C8D4E8;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 15px;
+            background-color: #070C18;
+            border: 1px solid #6B84AA;
+            border-radius: 0px;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #C9A84C;
+        }
+
+        .password-btn {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .password-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .password-error {
+            color: #EF4444;
+            margin-top: 15px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
+        .password-help {
+            margin-top: 20px;
+            border-top: 1px solid #6B84AA;
+            padding-top: 20px;
+        }
+
+        .password-help a {
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .password-help a:hover {
+            color: #F0D080;
+        }
+
+        header {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-bottom: 1px solid #0F1A2E;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 6px 12px;
+            border-radius: 0px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        nav {
+            background-color: #0F1A2E;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #0D1526;
+            overflow-x: auto;
+        }
+
+        nav a {
+            flex: 0 0 auto;
+            padding: 16px 20px;
+            color: #C8D4E8;
+            text-decoration: none;
+            border-right: 1px solid #0D1526;
+            font-size: 13px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            background-color: #070C18;
+            color: #C9A84C;
+        }
+
+        nav a.active {
+            background-color: #070C18;
+            color: #C9A84C;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .content-section {
+            margin-bottom: 50px;
+        }
+
+        .content-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .content-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .content-section p {
+            color: #C8D4E8;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .content-section strong {
+            color: #EEF2FF;
+        }
+
+        .lead-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            font-style: italic;
+            border-left: 4px solid #C9A84C;
+            padding: 10px 0 10px 25px;
+            margin: 25px 0;
+            line-height: 1.5;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .vocab-card {
+            background-color: #0D1526;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .vocab-card:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .vocab-card .term {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #F0D080;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .vocab-card .definition {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .three-step {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .three-step h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .step {
+            background-color: #070C18;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+        }
+
+        .step .step-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #C9A84C;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .step .step-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .step .step-text {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .key-takeaways {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .key-takeaways h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-takeaways li {
+            color: #C8D4E8;
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .key-takeaways li:before {
+            content: "⚜";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+            font-size: 14px;
+        }
+
+        .practice-box {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #22C55E;
+        }
+
+        .practice-box h3 {
+            color: #22C55E;
+            margin-top: 0;
+        }
+
+        .practice-box p {
+            color: #C8D4E8;
+            font-style: italic;
+        }
+
+        .wolf-cta {
+            background: linear-gradient(135deg, #0D1526, #0F1A2E);
+            padding: 32px;
+            border-radius: 0px;
+            margin: 35px 0;
+            border: 2px solid #C9A84C;
+        }
+
+        .wolf-cta .wolf-cta-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #C9A84C;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .wolf-cta h3 {
+            font-family: 'Playfair Display', serif;
+            color: #F0D080;
+            font-size: 24px;
+            margin: 0 0 14px 0;
+            font-weight: 700;
+        }
+
+        .wolf-cta p {
+            color: #C8D4E8;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .wolf-cta-btn {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 14px 30px;
+            text-decoration: none;
+            font-family: 'Lora', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .wolf-cta-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .wolf-cta .wolf-cta-fine {
+            display: block;
+            margin: 16px 0 0 0;
+            font-size: 12px;
+            color: #6B84AA;
+            font-style: italic;
+        }
+
+        .quiz-section {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .quiz-section h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .quiz-question {
+            margin-bottom: 30px;
+        }
+
+        .quiz-question .question-text {
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .quiz-option {
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            border: 1px solid #0F1A2E;
+            border-radius: 0px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            user-select: none;
+        }
+
+        .quiz-option:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option input[type="radio"] {
+            margin-right: 12px;
+        }
+
+        .quiz-option label {
+            cursor: pointer;
+            color: #C8D4E8;
+        }
+
+        .quiz-option.selected {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option.correct {
+            background-color: #0F1A2E;
+            border-color: #22C55E;
+        }
+
+        .quiz-option.incorrect {
+            background-color: #0F1A2E;
+            border-color: #EF4444;
+        }
+
+        .quiz-explanation {
+            display: none;
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-top: 8px;
+            border-left: 3px solid #C9A84C;
+            color: #C8D4E8;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .quiz-explanation.show {
+            display: block;
+        }
+
+        .quiz-score {
+            background-color: #0F1A2E;
+            padding: 20px;
+            border-radius: 0px;
+            margin-top: 30px;
+            border: 1px solid #C9A84C;
+            text-align: center;
+        }
+
+        .quiz-score .score-text {
+            color: #EEF2FF;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .quiz-score .score-percentage {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #C9A84C;
+            font-weight: 900;
+        }
+
+        .quiz-btn {
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .quiz-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0;
+            gap: 20px;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 16px 24px;
+            background-color: #0D1526;
+            color: #C9A84C;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .nav-button:hover {
+            background-color: #C9A84C;
+            color: #070C18;
+        }
+
+        .nav-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-button.disabled:hover {
+            background-color: #0D1526;
+            color: #C9A84C;
+        }
+
+        footer {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-top: 1px solid #0F1A2E;
+            color: #6B84AA;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            nav {
+                padding: 0;
+            }
+
+            nav a {
+                padding: 12px 16px;
+                font-size: 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .content-section h2 {
+                font-size: 24px;
+            }
+
+            .lead-quote {
+                font-size: 17px;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate" id="passwordGate">
+        <div class="password-container">
+            <h2>STACK Academy</h2>
+            <p>Enter your password to access The Trader's Mind</p>
+            <input type="password" id="passwordInput" class="password-input" placeholder="Password">
+            <button class="password-btn" onclick="checkPassword()">Access Course</button>
+            <div class="password-error" id="passwordError">Incorrect password. Try again.</div>
+            <div class="password-help">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <h1>The Trader's Mind</h1>
+        <span class="module-badge">Module 5 of 8</span>
+    </header>
+
+    <nav>
+        <a href="../">← All Courses</a>
+        <a href="module-1.html">Module 1</a>
+        <a href="module-2.html">Module 2</a>
+        <a href="module-3.html">Module 3</a>
+        <a href="module-4.html">Module 4</a>
+        <a href="module-5.html" class="active">Module 5</a>
+        <a href="module-6.html">Module 6</a>
+        <a href="module-7.html">Module 7</a>
+        <a href="module-8.html">Module 8</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="final-exam.html">Final Exam</a>
+    </nav>
+
+    <div class="container">
+        <div class="content-section">
+            <h2>Position Sizing Is Emotional Governance</h2>
+            <p>Most traders treat position size as a math problem&mdash;a number you back into from your stop and your account balance. That math matters, and CreoleTrades teaches it cold in the Risk Management Foundations course. But this module is about something the formula never tells you: <strong>your position size is the single biggest dial you control over your own state of mind.</strong></p>
+            <p class="lead-quote">"Size is not just how much you can lose. It's how clearly you can think while you're in the trade."</p>
+            <p>This is the distinction that matters here. <em>The Risk Management course covers the formula&mdash;the 1% rule, the position-sizing math, portfolio heat. Here we cover what size does to your mind.</em> Same lever, two completely different jobs. One protects the account. The other protects the operator running the account.</p>
+            <p>Think of it like the heat under a roux. Too low and nothing develops. Too high and you scorch the whole pot in seconds&mdash;no recovery, start over. Position size is your heat. Turn it up too far and every small move feels like a crisis, your hands shake, your judgment scorches. Keep it controlled and the same chart that used to terrify you becomes something you can read calmly. <strong>The size you choose decides whether your thinking brain or your survival brain shows up to the trade.</strong></p>
+            <p>That makes sizing the most underrated psychological tool you have. It's not a number you set and forget. It's <strong>emotional governance</strong>&mdash;the act of deciding, in advance and on purpose, how much pressure you're willing to put your own nervous system under.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Oversizing Is the #1 Cause of Bad Decisions</h2>
+            <p>Go back through your worst trades&mdash;the panic exits, the moved stops, the revenge clicks, the "I just watched it happen" moments from earlier in this course. Look honestly at the size on each one. There's a pattern almost every trader finds: <strong>the biggest mistakes came on the biggest positions.</strong> That's not a coincidence. It's cause and effect.</p>
+            <p>Here's the mechanism. When a position is sized correctly, a tick against you is information&mdash;a data point in a plan you already wrote. When a position is <strong>oversized</strong>, that exact same tick is a <em>threat.</em> Your account is moving in amounts your nervous system reads as danger, and the amygdala doesn't care that it's "just a chart." It triggers the same fight-or-flight response a real predator would. Heart rate up, tunnel vision, the screaming urge to do something <em>right now.</em></p>
+            <p>And what does the survival brain do once it has the wheel? It abandons the plan. The invalidation you set calmly gets renegotiated&mdash;"I'll give it a little more room." The target you defined gets clipped early because the unrealized gain is too big to risk giving back. Every lesson from the loss-aversion and amygdala-hijack modules comes roaring back to life&mdash;<strong>but oversizing is what turned up the volume loud enough to drown out your discipline.</strong></p>
+            <p class="lead-quote">"You can have a perfect plan and a perfect read, and oversizing will still make you abandon both."</p>
+            <p>This reframes the whole conversation about discipline. A lot of "I lack discipline" isn't a character problem at all&mdash;it's a <strong>sizing problem wearing a discipline costume.</strong> You weren't undisciplined. You put your nervous system under more pressure than it could think through, and biology took the trade. Turn the size down and a remarkable thing happens: the discipline you thought you lacked was there the whole time, just buried under too much heat.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Size to Sleep</h2>
+            <p>So how do you find the size that keeps your thinking brain in charge? You don't need a spreadsheet for the first test&mdash;you need an honest answer to one question.</p>
+            <p class="lead-quote">"If a position keeps you up at night or glued to the screen, it's too big. Period."</p>
+            <p>This is the principle we call <strong>Sizing to Sleep.</strong> It says your body already knows when you're oversized, long before your P&amp;L confirms it. The tells are physical and they don't lie: you can't look away from the screen. You check the position at dinner. You wake up at 3 a.m. and reach for your phone to see the overnight move. Your chest is tight on a trade that, on paper, risks an amount you claimed you were "comfortable" with.</p>
+            <p><strong>Comfort is information.</strong> That discomfort isn't weakness to push through&mdash;it's your nervous system reporting, accurately, that the position is larger than your mind can carry without being hijacked. The fix is not to white-knuckle it. The fix is to <strong>trade a size you can think clearly at.</strong></p>
+            <p>Here's the part that's hard to accept: the right size is almost always smaller than your ego wants. A smaller position feels like you're "leaving money on the table." But a smaller size that you execute by the book beats a larger size that fear forces you to fumble. <em>You don't rush a roux. You don't rush a trade.</em> And you don't size so big that you can't sit calmly while it cooks. The goal isn't the biggest possible win&mdash;it's the size at which <strong>you</strong> still show up to manage the trade, instead of your panic showing up in your place.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Position Sizing</div>
+                    <div class="definition">The decision of how large a trade to take. Mechanically a risk number; psychologically, the dial that sets how clearly you'll think.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Risk Per Trade</div>
+                    <div class="definition">The fixed amount you're willing to lose on a single position. Kept small, it keeps a loss survivable&mdash;for the account and the mind.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Sizing to Sleep</div>
+                    <div class="definition">Trading a size small enough that the position never keeps you up at night or glued to the screen. Comfort is information.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Max Daily Loss</div>
+                    <div class="definition">A pre-set ceiling on what you'll lose in one day. When hit, you stop&mdash;a circuit breaker decided while calm, before tilt can vote.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">R-Multiple</div>
+                    <div class="definition">A trade's result expressed in units of risk (1R = your planned risk). Thinking in R keeps you focused on process, not dollar swings.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Emotional Governance</div>
+                    <div class="definition">Using size as a deliberate control on your own state&mdash;deciding in advance how much pressure your nervous system will carry.</div>
+                </div>
+            </div>
+            <p style="font-size: 14px; color: #6B84AA;"><em>Note: for the mechanics of <strong style="color:#6B84AA;">portfolio heat</strong>&mdash;how much total risk you carry across all open positions at once&mdash;see the Risk Management Foundations course. Here, we stay on what size does to the mind.</em></p>
+        </div>
+
+        <div class="content-section">
+            <h2>Invalidation Protects the Mind, Not Just Capital</h2>
+            <p>Earlier in this course you learned that a pre-defined <strong>invalidation</strong> level disarms loss aversion&mdash;you set the exit while the thinking brain is in charge, so the survival brain can't renegotiate it later. <em>Invalidation protects capital.</em> That's true. But there's a second job invalidation does that almost nobody talks about, and it's the heart of this module.</p>
+            <p class="lead-quote">"A defined stop doesn't just cap your loss. It gives your mind permission to stop monitoring."</p>
+            <p>Think about what an <em>undefined</em> stop does to you. With no line drawn in advance, every tick is an open question: <em>Is this the move? Should I get out now? What if it goes further?</em> That's an exhausting, unanswerable loop, and it runs in the background draining the exact cognitive bandwidth you need to think. You can't read structure clearly when half your brain is screaming "watch it, watch it, watch it."</p>
+            <p>A defined invalidation closes the loop. The worst case is already decided. You know&mdash;precisely, in advance&mdash;the most this trade can cost you and the exact price at which your read is wrong. There's nothing left to monitor frame-by-frame, because the decision that matters has already been made. <strong>That frees your mind from the exhausting fear of constant surveillance.</strong> You stop guarding the position and start managing it.</p>
+            <p>This is where invalidation and sizing work together as one tool. A defined stop tells you <em>where</em> you're wrong. Correct size makes the cost of being wrong <em>small enough to accept calmly.</em> Put them together and you've removed the two things that hijack traders: the open-ended fear of "how bad could this get," and the panic of a loss too big to stomach. <em>The K doesn't negotiate.</em> The invalidation is set, the size is controlled, and now&mdash;finally&mdash;you can think.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Calm Size = Objective Decisions</h2>
+            <p>Pull the threads together and you arrive at the core equation of this module. There is a direct, mechanical link between the size you carry and the quality of the decisions you make. It's not a motivational idea. It's cause and effect.</p>
+
+            <div class="three-step">
+                <h3>How Modest Risk Becomes Clean Execution</h3>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Calm Size</div>
+                        <div class="step-text">Risk is small and pre-defined. The position can move against you without your nervous system reading it as a threat. No hijack trigger.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Clear Mind</div>
+                        <div class="step-text">With no fight-or-flight response firing, your thinking brain stays online. Cognitive bandwidth goes to reading structure, not guarding the account.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Rule-Following Execution</div>
+                        <div class="step-text">A clear mind follows the plan it wrote. Invalidation holds, targets hold, the process runs. <em>Confirmation over prediction.</em></div>
+                    </div>
+                </div>
+            </div>
+
+            <p>Run that chain in reverse and you have the anatomy of every blown trade: oversize, trigger the threat response, lose the thinking brain, abandon the plan. The chain is the same every time&mdash;and the very first link, the one that decides everything downstream, is <strong>size.</strong></p>
+            <p>This is why size is the most leveraged psychological decision you make all day. It's set before the trade, while you're calm, with full access to your judgment. Every emotional decision <em>during</em> the trade is downstream of it. Get the size right and you're not fighting your biology in the heat of the moment&mdash;you've arranged things so the fight never starts. <strong>Modest, pre-defined risk isn't the timid choice. It's the professional one, because it's the choice that keeps the professional&mdash;you&mdash;in the chair.</strong></p>
+            <p>So the honest hard part remains: in the moment a setup appears, can you objectively define your invalidation and translate it into a calm size <em>before</em> your pulse climbs and your ego starts lobbying for more? A racing mind in front of a live chart rarely does that well. That's exactly the gap a tool can close.</p>
+
+            <div class="wolf-cta">
+                <div class="wolf-cta-label">⚜ The Confirmation Tool</div>
+                <h3>Let Your Size Be a Calculation, Not a Flinch</h3>
+                <p>This is where the <strong style="color:#F0D080;">Black Wolf</strong> package earns its place in your process. Black Wolf is a <strong style="color:#F0D080;">custom GPT</strong> that reads your <strong style="color:#F0D080;">Wolf Chart 2.1</strong> indicators and drafts a structured trade plan for you&mdash;and crucially, it gives you a <strong style="color:#F0D080;">defined invalidation up front.</strong> When your stop is defined before you're in the trade, your size becomes a calm calculation off that line instead of a flinch driven by fear. It applies a method <strong style="color:#F0D080;">refined over 16 years of trading</strong>, so you start from a disciplined plan instead of a blank chart and a racing heart.</p>
+                <p>The package is all-in-one: the Black Wolf GPT, the Wolf Chart 2.1 indicators, and access to two communities that keep you accountable&mdash;<strong style="color:#F0D080;">The Trading Roux</strong> and the <strong style="color:#F0D080;">Wolf Empire</strong> Discord. You still confirm every plan against your own structure read&mdash;<em>confirmation over prediction, always</em>&mdash;but the invalidation is already on paper, so the hard part of sizing is done while you're calm.</p>
+                <a href="https://thewolfchart.com/?via=creoletrades" class="wolf-cta-btn" target="_blank" rel="noopener">Get the Black Wolf Package &rarr;</a>
+                <span class="wolf-cta-fine">A trade plan is a starting point, not a guarantee&mdash;always confirm it against your own structure read.</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="key-takeaways">
+                <h3>Key Takeaways</h3>
+                <ul>
+                    <li>Position size is more than a risk number&mdash;it's the dial that controls your clarity. Small size keeps the thinking brain online; big size hands the wheel to the survival brain.</li>
+                    <li>Oversizing is the #1 cause of bad decisions. When the position is too big, every tick reads as a threat and fear makes you abandon the plan you wrote calmly.</li>
+                    <li>Much of what feels like "lack of discipline" is really a sizing problem in disguise. Turn the size down and the discipline you thought you lacked is usually there.</li>
+                    <li>Size to Sleep: if a position keeps you up at night or glued to the screen, it's too big. Comfort is information&mdash;trade a size you can think clearly at.</li>
+                    <li>A defined invalidation protects the mind, not just capital. Knowing the worst case in advance frees you from the exhausting fear of constant monitoring, so you can actually think.</li>
+                    <li>This module is the psychology of risk, not the math. The Risk Management Foundations course teaches the formula and portfolio heat; here, calm size equals objective, rule-following decisions.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="practice-box">
+                <h3>Practice Exercise</h3>
+                <p><strong>This is real. Do this now:</strong></p>
+                <p>Pull up your last emotional trade&mdash;the one where you moved a stop, panic-closed, or clipped a winner out of fear. Now recompute it at <em>exactly half</em> the size you actually traded. Write the numbers down by hand: half the shares or contracts, half the dollar swing per tick, half the maximum loss.</p>
+                <p>Then ask yourself honestly, and write the answers: At half size, would that same move against you have felt like a threat&mdash;or just information? Would you have left the screen and let the plan run? Would you have honored your invalidation instead of renegotiating it? Be brutally honest about whether the smaller size would have let <em>you</em> show up to manage the trade instead of your panic.</p>
+                <p>The point isn't to relive a loss. It's to feel, in your own real numbers, the direct link between size and clarity&mdash;so the next time you set a position, you size to sleep on purpose.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="quiz-section">
+                <h3>Knowledge Check</h3>
+                <div class="quiz-question">
+                    <div class="question-text">1. According to this module, beyond capping your loss, what is the most important thing position size controls?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 0)">
+                        <label><input type="radio" name="q1"> The number of indicators you need on your chart</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 1)">
+                        <label><input type="radio" name="q1"> How quickly the market will move in your favor</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 2)">
+                        <label><input type="radio" name="q1"> Your win rate over the long run</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 3)">
+                        <label><input type="radio" name="q1"> How clearly you can think while you're in the trade</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation0">
+                        Size is emotional governance. It's the dial that decides whether your thinking brain or your survival brain shows up to the trade&mdash;small size keeps you clear, big size hijacks you.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">2. A trader with a solid plan keeps panic-closing and moving stops. They oversize on almost every trade. What does this module say is the most likely root cause?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 0)">
+                        <label><input type="radio" name="q2"> Oversizing turns every tick into a threat, triggering fear that makes them abandon the plan</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 1)">
+                        <label><input type="radio" name="q2"> They simply lack the willpower to be disciplined</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 2)">
+                        <label><input type="radio" name="q2"> Their strategy is broken and needs replacing</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 3)">
+                        <label><input type="radio" name="q2"> They need to trade even bigger so they take it seriously</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation1">
+                        Much of what looks like "lack of discipline" is a sizing problem in disguise. When the position is too big, the survival brain reads every tick as danger and abandons the plan. Turn the size down and the discipline is usually there.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">3. You can't stop checking a position&mdash;you watch it at dinner and wake at 3 a.m. to see the overnight move. What is the "Size to Sleep" principle telling you?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 0)">
+                        <label><input type="radio" name="q3"> Push through the discomfort; real traders stay glued to the screen</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 1)">
+                        <label><input type="radio" name="q3"> Add to the position to justify the attention you're giving it</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 2)">
+                        <label><input type="radio" name="q3"> The position is too big&mdash;comfort is information, so cut the size to one you can think clearly at</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 3)">
+                        <label><input type="radio" name="q3"> Remove your stop so you stop worrying about it</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation2">
+                        Your body knows you're oversized before your P&amp;L confirms it. Being glued to the screen is the tell. Comfort is information&mdash;the fix is to trade a size you can sleep on, not to white-knuckle through it.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">4. Besides capping the dollar loss, how does a defined invalidation level set in advance help you psychologically?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 0)">
+                        <label><input type="radio" name="q4"> It guarantees the trade can't lose money</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 1)">
+                        <label><input type="radio" name="q4"> It frees your mind from the exhausting fear of constant monitoring&mdash;the worst case is already decided</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 2)">
+                        <label><input type="radio" name="q4"> It lets you safely trade a much larger position</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 3)">
+                        <label><input type="radio" name="q4"> It predicts exactly where price will reverse</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation3">
+                        An undefined stop runs an exhausting "should I get out now?" loop that drains the bandwidth you need to think. A defined invalidation closes the loop&mdash;the worst case is set, so you can stop surveilling and start managing.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">5. The Risk Management Foundations course and this Psychology module both deal with risk. What is the difference between them?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 0)">
+                        <label><input type="radio" name="q5"> They teach the same thing; one is just a review of the other</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 1)">
+                        <label><input type="radio" name="q5"> The Risk course is about emotions and this module is about the math</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 2)">
+                        <label><input type="radio" name="q5"> Neither one covers position sizing</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 3)">
+                        <label><input type="radio" name="q5"> The Risk course teaches the mechanics&mdash;the formula, the 1% rule, portfolio heat; this module covers the psychology of risk&mdash;what size does to your mind</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation4">
+                        Same lever, two jobs. The Risk Management Foundations course teaches the formula and portfolio-heat math. This module covers emotional governance&mdash;how calm, pre-defined size keeps your thinking brain in charge.
+                    </div>
+                </div>
+
+                <button class="quiz-btn" onclick="submitQuiz()">Submit Quiz</button>
+                <div class="quiz-score" id="quizScore" style="display: none;">
+                    <div class="score-text">Quiz Complete</div>
+                    <div class="score-percentage" id="scorePercentage">0%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="module-4.html" class="nav-button">← Previous Module</a>
+            <a href="module-6.html" class="nav-button">Next Module →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 CreoleTrades. STACK Academy &mdash; The Trader's Mind. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const PASSWORD_HASH = "b956307831faa0ef5676c738be0b711bd89d4b0bb71454059847d28944b2b9ad";
+        const STORAGE_KEY = "stack_psychology_access";
+
+        function sha256(str) {
+            return new Promise(resolve => {
+                const buffer = new TextEncoder().encode(str);
+                crypto.subtle.digest('SHA-256', buffer).then(hashBuffer => {
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                    resolve(hashHex);
+                });
+            });
+        }
+
+        async function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const errorDiv = document.getElementById('passwordError');
+            const hash = await sha256(passwordInput.value);
+
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                document.getElementById('passwordGate').classList.add('hidden');
+            } else {
+                errorDiv.classList.add('show');
+                passwordInput.value = '';
+                setTimeout(() => errorDiv.classList.remove('show'), 3000);
+            }
+        }
+
+        function checkAccess() {
+            if (localStorage.getItem(STORAGE_KEY) !== 'true') {
+                document.getElementById('passwordGate').classList.remove('hidden');
+            } else {
+                document.getElementById('passwordGate').classList.add('hidden');
+            }
+        }
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        window.addEventListener('load', checkAccess);
+
+        const quizAnswers = [3, 0, 2, 1, 3];
+        let selectedAnswers = [-1, -1, -1, -1, -1];
+
+        function selectOption(element, questionNum, optionNum) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedAnswers[questionNum] = optionNum;
+        }
+
+        function submitQuiz() {
+            let correct = 0;
+            for (let i = 0; i < quizAnswers.length; i++) {
+                const options = document.querySelectorAll(`.quiz-question`)[i].querySelectorAll('.quiz-option');
+                if (selectedAnswers[i] === quizAnswers[i]) {
+                    options[selectedAnswers[i]].classList.add('correct');
+                    correct++;
+                } else if (selectedAnswers[i] !== -1) {
+                    options[selectedAnswers[i]].classList.add('incorrect');
+                    options[quizAnswers[i]].classList.add('correct');
+                }
+                document.getElementById(`explanation${i}`).classList.add('show');
+            }
+            const percentage = Math.round((correct / quizAnswers.length) * 100);
+            document.getElementById('scorePercentage').textContent = percentage + '%';
+            document.getElementById('quizScore').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

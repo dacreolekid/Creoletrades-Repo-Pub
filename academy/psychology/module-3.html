@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biases at the Hard Right Edge - The Trader's Mind - STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #070C18;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .password-gate.hidden {
+            display: none;
+        }
+
+        .password-container {
+            background-color: #0D1526;
+            padding: 60px 40px;
+            border-radius: 0px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .password-container h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .password-container p {
+            color: #C8D4E8;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 15px;
+            background-color: #070C18;
+            border: 1px solid #6B84AA;
+            border-radius: 0px;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #C9A84C;
+        }
+
+        .password-btn {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .password-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .password-error {
+            color: #EF4444;
+            margin-top: 15px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
+        .password-help {
+            margin-top: 20px;
+            border-top: 1px solid #6B84AA;
+            padding-top: 20px;
+        }
+
+        .password-help a {
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .password-help a:hover {
+            color: #F0D080;
+        }
+
+        header {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-bottom: 1px solid #0F1A2E;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 6px 12px;
+            border-radius: 0px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        nav {
+            background-color: #0F1A2E;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #0D1526;
+            overflow-x: auto;
+        }
+
+        nav a {
+            flex: 0 0 auto;
+            padding: 16px 20px;
+            color: #C8D4E8;
+            text-decoration: none;
+            border-right: 1px solid #0D1526;
+            font-size: 13px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            background-color: #070C18;
+            color: #C9A84C;
+        }
+
+        nav a.active {
+            background-color: #070C18;
+            color: #C9A84C;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .content-section {
+            margin-bottom: 50px;
+        }
+
+        .content-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .content-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .content-section p {
+            color: #C8D4E8;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .content-section strong {
+            color: #EEF2FF;
+        }
+
+        .lead-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            font-style: italic;
+            border-left: 4px solid #C9A84C;
+            padding: 10px 0 10px 25px;
+            margin: 25px 0;
+            line-height: 1.5;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .vocab-card {
+            background-color: #0D1526;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .vocab-card:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .vocab-card .term {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #F0D080;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .vocab-card .definition {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .three-step {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .three-step h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .step {
+            background-color: #070C18;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+        }
+
+        .step .step-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #C9A84C;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .step .step-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .step .step-text {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .key-takeaways {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .key-takeaways h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-takeaways li {
+            color: #C8D4E8;
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .key-takeaways li:before {
+            content: "⚜";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+            font-size: 14px;
+        }
+
+        .practice-box {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #22C55E;
+        }
+
+        .practice-box h3 {
+            color: #22C55E;
+            margin-top: 0;
+        }
+
+        .practice-box p {
+            color: #C8D4E8;
+            font-style: italic;
+        }
+
+        .wolf-cta {
+            background: linear-gradient(135deg, #0D1526, #0F1A2E);
+            padding: 32px;
+            border-radius: 0px;
+            margin: 35px 0;
+            border: 2px solid #C9A84C;
+        }
+
+        .wolf-cta .wolf-cta-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #C9A84C;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .wolf-cta h3 {
+            font-family: 'Playfair Display', serif;
+            color: #F0D080;
+            font-size: 24px;
+            margin: 0 0 14px 0;
+            font-weight: 700;
+        }
+
+        .wolf-cta p {
+            color: #C8D4E8;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .wolf-cta-btn {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 14px 30px;
+            text-decoration: none;
+            font-family: 'Lora', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .wolf-cta-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .wolf-cta .wolf-cta-fine {
+            display: block;
+            margin: 16px 0 0 0;
+            font-size: 12px;
+            color: #6B84AA;
+            font-style: italic;
+        }
+
+        .quiz-section {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .quiz-section h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .quiz-question {
+            margin-bottom: 30px;
+        }
+
+        .quiz-question .question-text {
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .quiz-option {
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            border: 1px solid #0F1A2E;
+            border-radius: 0px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            user-select: none;
+        }
+
+        .quiz-option:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option input[type="radio"] {
+            margin-right: 12px;
+        }
+
+        .quiz-option label {
+            cursor: pointer;
+            color: #C8D4E8;
+        }
+
+        .quiz-option.selected {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option.correct {
+            background-color: #0F1A2E;
+            border-color: #22C55E;
+        }
+
+        .quiz-option.incorrect {
+            background-color: #0F1A2E;
+            border-color: #EF4444;
+        }
+
+        .quiz-explanation {
+            display: none;
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-top: 8px;
+            border-left: 3px solid #C9A84C;
+            color: #C8D4E8;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .quiz-explanation.show {
+            display: block;
+        }
+
+        .quiz-score {
+            background-color: #0F1A2E;
+            padding: 20px;
+            border-radius: 0px;
+            margin-top: 30px;
+            border: 1px solid #C9A84C;
+            text-align: center;
+        }
+
+        .quiz-score .score-text {
+            color: #EEF2FF;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .quiz-score .score-percentage {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #C9A84C;
+            font-weight: 900;
+        }
+
+        .quiz-btn {
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .quiz-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0;
+            gap: 20px;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 16px 24px;
+            background-color: #0D1526;
+            color: #C9A84C;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .nav-button:hover {
+            background-color: #C9A84C;
+            color: #070C18;
+        }
+
+        .nav-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-button.disabled:hover {
+            background-color: #0D1526;
+            color: #C9A84C;
+        }
+
+        footer {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-top: 1px solid #0F1A2E;
+            color: #6B84AA;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            nav {
+                padding: 0;
+            }
+
+            nav a {
+                padding: 12px 16px;
+                font-size: 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .content-section h2 {
+                font-size: 24px;
+            }
+
+            .lead-quote {
+                font-size: 17px;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate" id="passwordGate">
+        <div class="password-container">
+            <h2>STACK Academy</h2>
+            <p>Enter your password to access The Trader's Mind</p>
+            <input type="password" id="passwordInput" class="password-input" placeholder="Password">
+            <button class="password-btn" onclick="checkPassword()">Access Course</button>
+            <div class="password-error" id="passwordError">Incorrect password. Try again.</div>
+            <div class="password-help">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <h1>The Trader's Mind</h1>
+        <span class="module-badge">Module 3 of 8</span>
+    </header>
+
+    <nav>
+        <a href="../">← All Courses</a>
+        <a href="module-1.html">Module 1</a>
+        <a href="module-2.html">Module 2</a>
+        <a href="module-3.html" class="active">Module 3</a>
+        <a href="module-4.html">Module 4</a>
+        <a href="module-5.html">Module 5</a>
+        <a href="module-6.html">Module 6</a>
+        <a href="module-7.html">Module 7</a>
+        <a href="module-8.html">Module 8</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="final-exam.html">Final Exam</a>
+    </nav>
+
+    <div class="container">
+        <div class="content-section">
+            <h2>Your Brain Runs on Shortcuts</h2>
+            <p>Your brain processes more information than it could ever consciously handle, so it cheats. It takes shortcuts. Instead of weighing every detail of every decision, it leans on fast mental rules of thumb that get you to "good enough" without burning the energy a full analysis would cost. Psychologists call these shortcuts <strong>heuristics</strong>, and in daily life they are a gift. They let you cross a street, read a face, and pick a lunch without grinding to a halt.</p>
+            <p class="lead-quote">"A shortcut that saves your life in the wild can quietly drain your account at the hard right edge of the chart."</p>
+            <p>The trouble is that the same machinery that helps you survive the world betrays you in the market. The <strong>hard right edge</strong> of the chart&mdash;the live candle, the unknown next bar&mdash;is exactly where your brain reaches for a shortcut to resolve the uncertainty. It wants a fast answer. It wants the discomfort of "I don't know" to go away. So it fills the gap with a story, a memory, a number it's already attached to&mdash;and you mistake that reflex for analysis.</p>
+            <p>These shortcuts, when they distort your judgment, are called <strong>cognitive biases</strong>. You will not delete them; they are built into the hardware. But you can learn to spot them, name them, and build a process that checks them. This module walks the four biases that quietly cost traders the most: <strong>confirmation, recency and anchoring, sunk cost, and outcome bias.</strong> <em>You don't rush a roux. You don't rush a trade.</em> And you don't trust the first story your brain hands you at the edge of the chart.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Confirmation Bias</h2>
+            <p>Of every bias on this list, <strong>confirmation bias</strong> is the most expensive&mdash;and the hardest to feel happening. Here is the mechanism: the moment you form an opinion about a trade, your brain stops being a neutral observer. It becomes a lawyer building a case. From that point on, you notice every piece of evidence that <em>confirms</em> your view and quietly discount every piece that <em>refutes</em> it.</p>
+            <p>You're long, so the small bullish wick jumps out at you while the lower high overhead fades into the background. You wanted the breakout, so the one green volume bar feels like proof and the three red ones feel like noise. You aren't lying to yourself on purpose. Your brain is doing what it always does&mdash;defending the position it already took. That's why two traders can look at the identical chart and see opposite stories: each one is reading the chart through the bias they walked in with.</p>
+            <p>The antidote is the most important habit in this entire course, and it has a name: <strong>structure-first.</strong> You read the structure of the chart <em>objectively, before</em> you form an opinion or take a side. Mark the swing highs and lows, the supply and demand, the trend&mdash;as facts on the chart, not as ammunition for a trade you already want. Only after the structure is read do you ask, "What does this allow?" When you let structure speak first, there's no thesis yet for confirmation bias to defend.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Heuristic</div>
+                    <div class="definition">A mental shortcut the brain uses to make fast decisions without full analysis. Efficient in life, often distorting at the chart.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Confirmation Bias</div>
+                    <div class="definition">Once you hold a view, you seek and weight evidence that confirms it while ignoring evidence that refutes it. You stop reading; you start defending.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Structure-First</div>
+                    <div class="definition">Reading the chart's objective structure&mdash;swings, supply, demand, trend&mdash;before forming any opinion, so there's no thesis for bias to protect.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Disconfirming Evidence</div>
+                    <div class="definition">The data that argues against your trade. The pro hunts for it on purpose; the biased brain pretends it isn't there.</div>
+                </div>
+            </div>
+
+            <p>This is why the brand preaches <em>structure-first</em> and <em>confirmation over prediction</em> in the same breath. Predicting means picking a side and then defending it&mdash;a confirmation-bias trap by design. Confirming means letting objective structure decide whether the trade is even allowed. One reads the chart. The other argues with it.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Recency &amp; Anchoring</h2>
+            <p>Two more shortcuts work as a pair, and both fixate your attention on the wrong thing. The first is <strong>recency bias</strong>: your brain treats the most recent event as the most important one, letting your last trade or last result color your next decision far more than it should.</p>
+            <p>You take three losses in a row, and now every setup looks like a trap&mdash;you hesitate on a clean one and miss it. Or you string together three wins, and suddenly you feel unstoppable, sizing up and skipping confirmation because "you're hot." Neither feeling is information. The market has no memory of your last trade, and your edge is the same as it was this morning. Recency bias just turns the last few candles of <em>your</em> story into a forecast they were never qualified to make.</p>
+            <p>The second is <strong>anchoring</strong>: your brain latches onto the first number it sees and judges everything against it, even when that number is irrelevant. In trading, the anchor is usually <strong>your own entry price</strong> or a round number. You bought at 100, so you "can't" sell at 98&mdash;not because structure says hold, but because 100 is the number burned into your head. Price breaks down through every level that mattered, yet you wait for it to get "back to even," anchored to a number the market stopped caring about the instant you clicked.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Recency Bias</div>
+                    <div class="definition">Over-weighting the most recent result&mdash;your last trade or last few candles&mdash;so it drives the next decision more than it should.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Anchoring</div>
+                    <div class="definition">Fixating on the first number you saw&mdash;your entry price, a round figure&mdash;and judging current price against it instead of against structure.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Break-Even Magnet</div>
+                    <div class="definition">The anchored urge to hold a losing trade until it returns to your entry, ignoring that structure already invalidated the idea.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Hot-Hand Illusion</div>
+                    <div class="definition">Recency bias on a win streak&mdash;feeling unbeatable after a few green trades and abandoning the process that produced them.</div>
+                </div>
+            </div>
+
+            <p>The fix for both is the same fix as everything else in this course: <strong>structure-first.</strong> Structure doesn't care what your last trade did, and it doesn't care what price you paid. The swing levels, the supply and demand, the trend&mdash;those are the only anchors that earn a vote. Your entry price is an emotional anchor. The structure on the chart is a real one. <em>Invalidation protects capital</em> precisely because it's drawn from structure, not from the number you're hoping to get back to.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Sunk Cost &amp; Averaging Down</h2>
+            <p>The <strong>sunk cost fallacy</strong> is the trap of throwing good money after bad to avoid admitting the first money is gone. A sunk cost is exactly that&mdash;already spent, already lost, gone whether you act or not. Logically it should have <em>zero</em> weight in your next decision. But emotionally it screams the loudest, because closing the trade means accepting the loss, and the mind will do almost anything to avoid that moment.</p>
+            <p>In trading, sunk cost wears a specific and dangerous costume: <strong>averaging down.</strong> The trade goes against you, so you add to it at a lower price to improve your average entry. It feels proactive&mdash;"I'm getting a better price"&mdash;but look at what's actually driving it. You're not adding because structure improved. You're adding because you can't accept the loss, and a bigger position lets you pretend the original decision wasn't wrong. You've let a sunk cost write the next order.</p>
+            <p>The most destructive version is the <strong>martingale</strong> trap: doubling down again and again on a losing position, convinced the reversal is "due." Each add deepens the hole and raises the stakes. The math is brutal&mdash;a position that keeps moving against you while you keep adding doesn't need many rounds to threaten the whole account. This is the <strong>gambler's fallacy</strong> in disguise: the belief that a string of losses makes a win more likely, when each new candle is independent of the last.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Sunk Cost Fallacy</div>
+                    <div class="definition">Letting money already lost drive the next decision&mdash;throwing good money after bad to avoid realizing the loss.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Averaging Down</div>
+                    <div class="definition">Adding to a losing trade to lower your average entry. Sometimes a plan&mdash;but usually sunk cost refusing to take the loss.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Martingale Trap</div>
+                    <div class="definition">Doubling down repeatedly on a loser, betting the reversal is "due." Each add deepens the hole and risks the account.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Gambler's Fallacy</div>
+                    <div class="definition">Believing a streak of losses makes a win more likely. Each candle is independent; the market doesn't owe you a bounce.</div>
+                </div>
+            </div>
+
+            <p>The discipline here is clean: <strong>a sunk cost should never drive the next decision.</strong> When price hits your invalidation, the idea is wrong&mdash;and a wrong idea doesn't get more right because you added to it. <em>Invalidation protects capital.</em> Adding to a loser to escape the feeling of being wrong is not a strategy; it's the sunk cost fallacy spending your account to protect your ego.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Outcome Bias</h2>
+            <p>The last bias is the sneakiest, because it hides inside your wins. <strong>Outcome bias</strong> is the tendency to judge the quality of a decision by how it turned out, instead of by whether it was a good decision at the moment you made it. You let the result grade the process backwards.</p>
+            <p>Picture two trades. In the first, you followed your plan to the letter&mdash;clean structure, confirmed trigger, proper size, invalidation set&mdash;and the trade lost. In the second, you chased a setup that wasn't there, oversized with no stop, got lucky on a headline, and won. Outcome bias tells you the first was a bad trade and the second was a good one. <strong>It has them exactly reversed.</strong> The first was a good decision with a bad result. The second was a reckless decision with a lucky result&mdash;and if you call that "skill," you've just trained yourself to do the dangerous thing again.</p>
+            <p>This is why the rule is: <strong>grade the decision, not the dollar.</strong> Over enough trades, a sound process with proper risk produces an edge. But any single trade is mostly noise&mdash;a good process can lose and a reckless gamble can win. If you let the P&amp;L of one trade decide whether your process was right, you'll abandon good habits after unlucky losses and reinforce bad ones after lucky wins. Both errors are outcome bias, and both quietly erode the discipline that actually pays.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Outcome Bias</div>
+                    <div class="definition">Judging a decision by its result instead of its quality. A good process that loses gets blamed; a reckless gamble that wins gets praised.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Process vs. Outcome</div>
+                    <div class="definition">The process is what you control; the outcome is partly noise. Edge lives in the process, repeated over many trades.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Resulting</div>
+                    <div class="definition">Poker's term for outcome bias&mdash;reverse-engineering decision quality from a single result instead of the information you had.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Lucky Win</div>
+                    <div class="definition">A profitable trade taken from a broken process. The most dangerous result there is, because it rewards the wrong behavior.</div>
+                </div>
+            </div>
+
+            <p>This is why the journal matters more than the account balance on any given day. <em>Confirmation over prediction</em> isn't just about entries&mdash;it's about how you review. Mark each trade by whether you followed your process, not by whether it paid. Grade the decision, not the dollar, and the edge takes care of itself over time.</p>
+        </div>
+
+        <div class="content-section">
+            <div class="key-takeaways">
+                <h3>Key Takeaways</h3>
+                <ul>
+                    <li>The brain runs on heuristics&mdash;mental shortcuts that save energy in life but distort judgment at the hard right edge of the chart, where it craves a fast answer to uncertainty.</li>
+                    <li>Confirmation bias makes you defend a view instead of read the chart&mdash;noticing what confirms and ignoring what refutes. The antidote is structure-first: read structure objectively before forming an opinion.</li>
+                    <li>Recency bias over-weights your last trade or result; anchoring fixates on your entry price or a round number. Structure&mdash;not your last result or your fill&mdash;is the only anchor that earns a vote.</li>
+                    <li>Sunk cost is money already lost; it should carry zero weight in the next decision. Averaging down and the martingale trap are sunk cost in costume&mdash;adding to a loser to avoid admitting it's wrong.</li>
+                    <li>The gambler's fallacy treats independent candles like a streak that's "due." A wrong idea doesn't get more right because you added to it&mdash;invalidation protects capital.</li>
+                    <li>Outcome bias judges a decision by its result. Grade the decision, not the dollar: a good process can lose, and a reckless gamble can win.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="practice-box">
+                <h3>Practice Exercise</h3>
+                <p><strong>This is real. Do this now:</strong></p>
+                <p>Pull up one clearly losing trade&mdash;not your worst disaster, just one where the result was red. You're going to audit it for bias, decision by decision. Write three lines by hand.</p>
+                <p>(1) The entry: when you clicked in, were you reading structure objectively, or had you already decided and were you collecting evidence to confirm it? Name the bias if there was one. (2) The hold: while it moved against you, what kept you in&mdash;an anchor to your entry price, a sunk cost you couldn't accept, the feeling a bounce was "due"? Name it. (3) The exit: did you exit at structure-based invalidation, or did recency, anchoring, or panic decide for you?</p>
+                <p>Then ask the honest question: graded on <em>process</em>, not on the loss&mdash;was this actually a bad decision, or a sound decision with a bad result? You're learning to see the bias under the result, so you can name it next time before it costs you.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="wolf-cta">
+                <div class="wolf-cta-label">⚜ The Confirmation Tool</div>
+                <h3>Let an Objective Read Strip the Bias Out of Your Plan</h3>
+                <p>Here's the hard part of everything this module just covered: confirmation bias is invisible from the inside. The moment you fall in love with a trade idea, you stop seeing the evidence against it&mdash;and you can't audit a blind spot you can't feel. That's exactly where the <strong style="color:#F0D080;">Black Wolf</strong> package earns its place. Black Wolf is a <strong style="color:#F0D080;">custom GPT</strong> that reads your <strong style="color:#F0D080;">Wolf Chart 2.1</strong> indicators and drafts a structured trade plan&mdash;entry, invalidation, and targets&mdash;from the objective structure on the chart, not from the story you walked in wanting. A GPT reading the indicators doesn't fall in love with your idea; it doesn't anchor to your entry price; it doesn't nurse a sunk cost. It applies a method refined over <strong style="color:#F0D080;">16 years of trading</strong>, so you start from a structure-first read instead of a thesis you're already defending.</p>
+                <p>You still confirm it against your own structure read&mdash;<em>confirmation over prediction, always</em>&mdash;but now you're checking your bias against an objective draft instead of arguing with yourself. The package is all-in-one: the Black Wolf GPT, the Wolf Chart 2.1 indicators, and access to two communities that keep you accountable&mdash;<strong style="color:#F0D080;">The Trading Roux</strong> and the <strong style="color:#F0D080;">Wolf Empire</strong> Discord.</p>
+                <a href="https://thewolfchart.com/?via=creoletrades" class="wolf-cta-btn" target="_blank" rel="noopener">Get the Black Wolf Package &rarr;</a>
+                <span class="wolf-cta-fine">A trade plan is a starting point, not a guarantee&mdash;always confirm it against your own structure read.</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="quiz-section">
+                <h3>Knowledge Check</h3>
+                <div class="quiz-question">
+                    <div class="question-text">1. You're long a stock. You find yourself zeroing in on every small bullish wick while waving off the lower high overhead and the red volume bars. Which bias is running the show?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 0)">
+                        <label><input type="radio" name="q1"> Anchoring&mdash;you're fixated on a round number</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 1)">
+                        <label><input type="radio" name="q1"> Confirmation bias&mdash;you're collecting evidence that supports the position you already took and discounting what refutes it</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 2)">
+                        <label><input type="radio" name="q1"> Outcome bias&mdash;you're judging the trade by its result</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 3)">
+                        <label><input type="radio" name="q1"> Recency bias&mdash;your last trade is coloring this one</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation0">
+                        Once you hold a view, the brain stops observing and starts defending&mdash;noticing confirming evidence and discounting disconfirming evidence. That's confirmation bias, the most expensive bias in trading.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">2. The module names one habit as the direct antidote to confirmation bias. What is it?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 0)">
+                        <label><input type="radio" name="q2"> Pick a clear directional bias before the session and commit to it fully</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 1)">
+                        <label><input type="radio" name="q2"> Add more indicators until they all agree with your idea</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 2)">
+                        <label><input type="radio" name="q2"> Structure-first&mdash;read the chart's objective structure before forming an opinion, so there's no thesis to defend</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 3)">
+                        <label><input type="radio" name="q2"> Trade only in the direction of your most recent winner</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation1">
+                        Structure-first means reading swings, supply, demand, and trend objectively before you take a side. When structure speaks first, there's no opinion yet for confirmation bias to protect&mdash;confirmation over prediction.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">3. You bought at 100. Price has broken down through every level that mattered, but you refuse to sell at 98 because you "can't take a loss" and want to get "back to even." Which bias is driving you?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 0)">
+                        <label><input type="radio" name="q2"> Anchoring to your entry price instead of reading current structure</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 1)">
+                        <label><input type="radio" name="q2"> Outcome bias&mdash;a lucky win taught you a bad lesson</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 2)">
+                        <label><input type="radio" name="q2"> Confirmation bias&mdash;you're seeking supporting evidence</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 3)">
+                        <label><input type="radio" name="q2"> The hot-hand illusion from a win streak</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation2">
+                        Your entry price is an emotional anchor, not a structural one. The market stopped caring about 100 the instant you clicked. Holding to "get back to even" is anchoring&mdash;structure, not your fill, should decide the exit.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">4. A trade moves against you. You add to it at a lower price&mdash;not because structure improved, but because a bigger position lets you avoid admitting the first decision was wrong. What is this?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 0)">
+                        <label><input type="radio" name="q4"> Smart scaling&mdash;you're always right to improve your average</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 1)">
+                        <label><input type="radio" name="q4"> Recency bias coloring your sizing</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 2)">
+                        <label><input type="radio" name="q4"> The sunk cost fallacy&mdash;averaging down to avoid realizing a loss, letting money already lost drive the next order</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 3)">
+                        <label><input type="radio" name="q4"> Disciplined risk management</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation3">
+                        Adding to a loser to escape the feeling of being wrong is the sunk cost fallacy in costume. A wrong idea doesn't get more right because you added to it. When price hits invalidation, the idea is wrong&mdash;invalidation protects capital.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">5. Trade A followed your plan perfectly&mdash;clean structure, confirmed trigger, proper size, stop set&mdash;and lost. Trade B was an oversized, no-stop chase that got lucky on a headline and won. How should you grade them?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 0)">
+                        <label><input type="radio" name="q5"> Trade B was the good one&mdash;it made money, and the P&amp;L is what counts</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 1)">
+                        <label><input type="radio" name="q5"> Both were bad because one lost and the other broke the rules</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 2)">
+                        <label><input type="radio" name="q5"> Trade A was a good decision with a bad result; Trade B was a reckless decision with a lucky result&mdash;grade the decision, not the dollar</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 3)">
+                        <label><input type="radio" name="q5"> It's impossible to tell without seeing more trades</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation4">
+                        Judging a decision by its result is outcome bias, and here it has them reversed. A sound process can lose and a reckless gamble can win on any single trade. Grade the decision, not the dollar&mdash;or you'll reinforce the lucky win and abandon the good process.
+                    </div>
+                </div>
+
+                <button class="quiz-btn" onclick="submitQuiz()">Submit Quiz</button>
+                <div class="quiz-score" id="quizScore" style="display: none;">
+                    <div class="score-text">Quiz Complete</div>
+                    <div class="score-percentage" id="scorePercentage">0%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="module-2.html" class="nav-button">← Previous Module</a>
+            <a href="module-4.html" class="nav-button">Next Module →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 CreoleTrades. STACK Academy &mdash; The Trader's Mind. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const PASSWORD_HASH = "b956307831faa0ef5676c738be0b711bd89d4b0bb71454059847d28944b2b9ad";
+        const STORAGE_KEY = "stack_psychology_access";
+
+        function sha256(str) {
+            return new Promise(resolve => {
+                const buffer = new TextEncoder().encode(str);
+                crypto.subtle.digest('SHA-256', buffer).then(hashBuffer => {
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                    resolve(hashHex);
+                });
+            });
+        }
+
+        async function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const errorDiv = document.getElementById('passwordError');
+            const hash = await sha256(passwordInput.value);
+
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                document.getElementById('passwordGate').classList.add('hidden');
+            } else {
+                errorDiv.classList.add('show');
+                passwordInput.value = '';
+                setTimeout(() => errorDiv.classList.remove('show'), 3000);
+            }
+        }
+
+        function checkAccess() {
+            if (localStorage.getItem(STORAGE_KEY) !== 'true') {
+                document.getElementById('passwordGate').classList.remove('hidden');
+            } else {
+                document.getElementById('passwordGate').classList.add('hidden');
+            }
+        }
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        window.addEventListener('load', checkAccess);
+
+        const quizAnswers = [1, 2, 0, 2, 2];
+        let selectedAnswers = [-1, -1, -1, -1, -1];
+
+        function selectOption(element, questionNum, optionNum) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedAnswers[questionNum] = optionNum;
+        }
+
+        function submitQuiz() {
+            let correct = 0;
+            for (let i = 0; i < quizAnswers.length; i++) {
+                const options = document.querySelectorAll(`.quiz-question`)[i].querySelectorAll('.quiz-option');
+                if (selectedAnswers[i] === quizAnswers[i]) {
+                    options[selectedAnswers[i]].classList.add('correct');
+                    correct++;
+                } else if (selectedAnswers[i] !== -1) {
+                    options[selectedAnswers[i]].classList.add('incorrect');
+                    options[quizAnswers[i]].classList.add('correct');
+                }
+                document.getElementById(`explanation${i}`).classList.add('show');
+            }
+            const percentage = Math.round((correct / quizAnswers.length) * 100);
+            document.getElementById('scorePercentage').textContent = percentage + '%';
+            document.getElementById('quizScore').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

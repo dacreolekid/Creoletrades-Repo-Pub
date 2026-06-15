@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building the Disciplined Identity: The Long Game - The Trader's Mind - STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #070C18;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .password-gate.hidden {
+            display: none;
+        }
+
+        .password-container {
+            background-color: #0D1526;
+            padding: 60px 40px;
+            border-radius: 0px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .password-container h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .password-container p {
+            color: #C8D4E8;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 15px;
+            background-color: #070C18;
+            border: 1px solid #6B84AA;
+            border-radius: 0px;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #C9A84C;
+        }
+
+        .password-btn {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .password-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .password-error {
+            color: #EF4444;
+            margin-top: 15px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
+        .password-help {
+            margin-top: 20px;
+            border-top: 1px solid #6B84AA;
+            padding-top: 20px;
+        }
+
+        .password-help a {
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .password-help a:hover {
+            color: #F0D080;
+        }
+
+        header {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-bottom: 1px solid #0F1A2E;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 6px 12px;
+            border-radius: 0px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        nav {
+            background-color: #0F1A2E;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #0D1526;
+            overflow-x: auto;
+        }
+
+        nav a {
+            flex: 0 0 auto;
+            padding: 16px 20px;
+            color: #C8D4E8;
+            text-decoration: none;
+            border-right: 1px solid #0D1526;
+            font-size: 13px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            background-color: #070C18;
+            color: #C9A84C;
+        }
+
+        nav a.active {
+            background-color: #070C18;
+            color: #C9A84C;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .content-section {
+            margin-bottom: 50px;
+        }
+
+        .content-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .content-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .content-section p {
+            color: #C8D4E8;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .content-section strong {
+            color: #EEF2FF;
+        }
+
+        .lead-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            font-style: italic;
+            border-left: 4px solid #C9A84C;
+            padding: 10px 0 10px 25px;
+            margin: 25px 0;
+            line-height: 1.5;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .vocab-card {
+            background-color: #0D1526;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .vocab-card:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .vocab-card .term {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #F0D080;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .vocab-card .definition {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .three-step {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .three-step h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .step {
+            background-color: #070C18;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+        }
+
+        .step .step-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #C9A84C;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .step .step-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .step .step-text {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .key-takeaways {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .key-takeaways h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-takeaways li {
+            color: #C8D4E8;
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .key-takeaways li:before {
+            content: "⚜";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+            font-size: 14px;
+        }
+
+        .practice-box {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #22C55E;
+        }
+
+        .practice-box h3 {
+            color: #22C55E;
+            margin-top: 0;
+        }
+
+        .practice-box p {
+            color: #C8D4E8;
+            font-style: italic;
+        }
+
+        .wolf-cta {
+            background: linear-gradient(135deg, #0D1526, #0F1A2E);
+            padding: 32px;
+            border-radius: 0px;
+            margin: 35px 0;
+            border: 2px solid #C9A84C;
+        }
+
+        .wolf-cta .wolf-cta-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #C9A84C;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .wolf-cta h3 {
+            font-family: 'Playfair Display', serif;
+            color: #F0D080;
+            font-size: 24px;
+            margin: 0 0 14px 0;
+            font-weight: 700;
+        }
+
+        .wolf-cta p {
+            color: #C8D4E8;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .wolf-cta-btn {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 14px 30px;
+            text-decoration: none;
+            font-family: 'Lora', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .wolf-cta-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .wolf-cta .wolf-cta-fine {
+            display: block;
+            margin: 16px 0 0 0;
+            font-size: 12px;
+            color: #6B84AA;
+            font-style: italic;
+        }
+
+        .quiz-section {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .quiz-section h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .quiz-question {
+            margin-bottom: 30px;
+        }
+
+        .quiz-question .question-text {
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .quiz-option {
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            border: 1px solid #0F1A2E;
+            border-radius: 0px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            user-select: none;
+        }
+
+        .quiz-option:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option input[type="radio"] {
+            margin-right: 12px;
+        }
+
+        .quiz-option label {
+            cursor: pointer;
+            color: #C8D4E8;
+        }
+
+        .quiz-option.selected {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option.correct {
+            background-color: #0F1A2E;
+            border-color: #22C55E;
+        }
+
+        .quiz-option.incorrect {
+            background-color: #0F1A2E;
+            border-color: #EF4444;
+        }
+
+        .quiz-explanation {
+            display: none;
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-top: 8px;
+            border-left: 3px solid #C9A84C;
+            color: #C8D4E8;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .quiz-explanation.show {
+            display: block;
+        }
+
+        .quiz-score {
+            background-color: #0F1A2E;
+            padding: 20px;
+            border-radius: 0px;
+            margin-top: 30px;
+            border: 1px solid #C9A84C;
+            text-align: center;
+        }
+
+        .quiz-score .score-text {
+            color: #EEF2FF;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .quiz-score .score-percentage {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #C9A84C;
+            font-weight: 900;
+        }
+
+        .quiz-btn {
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .quiz-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0;
+            gap: 20px;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 16px 24px;
+            background-color: #0D1526;
+            color: #C9A84C;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .nav-button:hover {
+            background-color: #C9A84C;
+            color: #070C18;
+        }
+
+        .nav-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-button.disabled:hover {
+            background-color: #0D1526;
+            color: #C9A84C;
+        }
+
+        footer {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-top: 1px solid #0F1A2E;
+            color: #6B84AA;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            nav {
+                padding: 0;
+            }
+
+            nav a {
+                padding: 12px 16px;
+                font-size: 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .content-section h2 {
+                font-size: 24px;
+            }
+
+            .lead-quote {
+                font-size: 17px;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate" id="passwordGate">
+        <div class="password-container">
+            <h2>STACK Academy</h2>
+            <p>Enter your password to access The Trader's Mind</p>
+            <input type="password" id="passwordInput" class="password-input" placeholder="Password">
+            <button class="password-btn" onclick="checkPassword()">Access Course</button>
+            <div class="password-error" id="passwordError">Incorrect password. Try again.</div>
+            <div class="password-help">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <h1>The Trader's Mind</h1>
+        <span class="module-badge">Module 8 of 8</span>
+    </header>
+
+    <nav>
+        <a href="../">← All Courses</a>
+        <a href="module-1.html">Module 1</a>
+        <a href="module-2.html">Module 2</a>
+        <a href="module-3.html">Module 3</a>
+        <a href="module-4.html">Module 4</a>
+        <a href="module-5.html">Module 5</a>
+        <a href="module-6.html">Module 6</a>
+        <a href="module-7.html">Module 7</a>
+        <a href="module-8.html" class="active">Module 8</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="final-exam.html">Final Exam</a>
+    </nav>
+
+    <div class="container">
+        <div class="content-section">
+            <h2>You Don't Trade Rules &mdash; You Become a Disciplined Trader</h2>
+            <p>You've made it to the last module. Eight modules ago, we said the trader is the variable, not the chart. Now we close the loop. You've learned <em>why</em> your brain fights you and <em>what</em> to do about it&mdash;awareness, rules, repetition. This final module is about the one thing that makes all of it stick: <strong>identity.</strong></p>
+            <p class="lead-quote">"You do not rise to the level of your goals. You fall to the level of your systems&mdash;and your systems are built on who you believe you are."</p>
+            <p>Here is the trap most traders never escape. They try to <strong>follow rules through willpower.</strong> "I will not revenge trade. I will honor my stop. I will wait for confirmation." And for a few days, it works. Then the market gets loud, the willpower tank runs dry, and the old behavior comes right back. You already know why from Module 1&mdash;willpower is finite, and it drains under exactly the stress that trading creates.</p>
+            <p>The way out is not more willpower. It's a different question. Stop asking <em>"What rule do I follow here?"</em> and start asking <em>"What would a disciplined trader do here?"</em> That's the shift from <strong>rule-following</strong> to <strong>identity</strong>. A disciplined trader doesn't <em>resist</em> the revenge trade&mdash;they simply aren't the kind of person who takes it. The behavior flows from the identity, not from a fight against impulse.</p>
+            <p>This is what behavioral scientists call <strong>identity-based habits</strong>: you don't change by chasing an outcome, you change by deciding who you are and letting the behavior follow. Every trade you take is a vote. A disciplined entry is a vote for "I am a disciplined trader." A revenge click is a vote against it. You're not trying to win one trade&mdash;you're casting votes for the trader you're becoming. <em>You don't rush a roux. You don't rush a trade.</em> And you don't rush an identity either&mdash;you build it one disciplined rep at a time.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Identity-Based Habits</div>
+                    <div class="definition">Change driven by who you believe you are, not by the outcome you chase. The behavior flows from the identity, not from willpower.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Rule-Following</div>
+                    <div class="definition">White-knuckling a list of "do nots" through willpower. It works until stress drains the tank&mdash;which is exactly when you need it.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">The Vote</div>
+                    <div class="definition">Every action is a small vote for or against the trader you're becoming. Identity is the running tally of those votes.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Self-Image</div>
+                    <div class="definition">The story you tell about what kind of trader you are. Behavior bends to match it&mdash;so the story has to change first.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Journaling: The Feedback Loop</h2>
+            <p>Identity is built on evidence, and evidence comes from the <strong>trading journal.</strong> Without a journal, every trading day evaporates the moment it ends. You feel like you're learning, but you're just repeating&mdash;running the same mistakes on loop because nothing is holding up a mirror. <strong>The journal is the mirror that turns raw experience into real improvement.</strong></p>
+            <p>Most losing traders track one number: profit and loss. That's the <em>least</em> useful thing to log, because outcome is mostly noise in the short run. A good plan can lose and a bad plan can win on any single trade. What you actually want to capture is your <strong>process</strong>&mdash;the part you control.</p>
+            <p>Log these for every trade, win or lose:</p>
+            <ul style="margin-left: 20px; color: #C8D4E8; margin-bottom: 15px;">
+                <li><strong>The Setup.</strong> What did you see? Which structure, which confirmation, what was the read?</li>
+                <li><strong>The Plan.</strong> Your entry trigger, invalidation, and targets&mdash;written before you clicked.</li>
+                <li><strong>The Execution.</strong> What did you actually do? Did you follow the plan, or drift off it?</li>
+                <li><strong>The Emotion.</strong> What were you feeling at entry and during the trade? Calm, rushed, fearful, bored?</li>
+                <li><strong>The Process Grade.</strong> Independent of P&amp;L: did you trade <em>well</em>? Grade the decision, not the dollars.</li>
+            </ul>
+            <p>That last one is the whole game. When you grade <strong>process over outcome</strong>, you build a trader who can take a loss on a well-executed trade and still mark it an A&mdash;and who flags a lucky win on a broken plan as the F it really is. Over weeks, this is how <strong>calibration</strong> happens: your sense of "this is a good trade" slowly lines up with what is actually a good trade. The gap between what you feel and what is real is where most accounts die. The journal closes that gap, one honest entry at a time.</p>
+            <p class="lead-quote">"The journal doesn't lie to make you feel better. That's exactly why it works."</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Trading Journal</div>
+                    <div class="definition">The written record of setup, plan, execution, emotion, and process grade. The mirror that converts experience into improvement.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Calibration</div>
+                    <div class="definition">Closing the gap between what you <em>feel</em> is a good trade and what actually is one. Built over time through honest review.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Process Over Outcome</div>
+                    <div class="definition">Grading the quality of the decision, not the result. A well-run loss is an A; a lucky win on a broken plan is an F.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Review Cadence</div>
+                    <div class="definition">The rhythm of looking back&mdash;daily logs, weekly reviews. Patterns only appear when you study the tape of your own behavior.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Accountability &amp; Community</h2>
+            <p>Here is the part the lone-wolf fantasy gets wrong: <strong>you do not build discipline alone.</strong> The trader sitting in isolation is the trader most likely to drift&mdash;to quietly skip the journal, loosen the stop, take the trade that isn't on the plan. Nobody sees it, so nothing checks it. Private rules bend in private.</p>
+            <p>This is why <strong>accountability</strong> is a structural edge, not a soft one. When you say your plan out loud&mdash;when someone you respect will ask "did you follow it?"&mdash;the behavior changes before the question is even asked. A community keeps you honest in the exact moments your own willpower would have let you off the hook. It externalizes the discipline you can't always summon internally.</p>
+            <p>A real trading community does three things willpower can't:</p>
+            <ul style="margin-left: 20px; color: #C8D4E8; margin-bottom: 15px;">
+                <li><strong>It mirrors your blind spots.</strong> The bias you can't see in your own trades, someone else spots in a second.</li>
+                <li><strong>It normalizes the hard parts.</strong> Taking a clean loss, sitting on your hands through a no-trade day&mdash;these feel easier when you watch disciplined traders around you do the same.</li>
+                <li><strong>It raises the standard.</strong> You become the average of the traders you surround yourself with. Surround yourself with process, and process becomes your baseline.</li>
+            </ul>
+            <p>This is exactly what <strong>The Trading Roux</strong> is built to be&mdash;not a room full of hot tips, but a room full of traders holding each other to the process. <em>Confirmation over prediction</em> isn't just a personal rule there; it's the shared language. The people around you become the accountability your nervous system can't always provide on its own.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Patience &amp; Consistency Compound</h2>
+            <p>Now the long game. The single biggest difference between the amateur and the professional is not skill&mdash;it's <strong>time horizon</strong>. The amateur is hunting one big win, the trade that changes everything. The professional is stacking small, repeated, disciplined edges and letting them compound. One of those mindsets builds an account. The other blows it up chasing the dragon.</p>
+            <p class="lead-quote">"Chasing one big win is the amateur's trap. Stacking small disciplined wins is the professional's edge."</p>
+            <p>Here's the math the amateur ignores: <strong>consistency compounds, and inconsistency leaks.</strong> A trader who keeps risk tight and follows the process can survive a long string of losses and still be standing when the edge plays out. A trader who swings for the fence one week and goes to cash the next never lets anything compound&mdash;they just ride a roller coaster with a downward drift. The edge is real, but it only pays the trader who's still in the game to collect it.</p>
+            <p>This is the deepest meaning of the roux. You don't rush it. You stand over the pan, you stir, you wait&mdash;and the flavor builds from <em>consistency</em>, not from cranking the heat. Crank the heat and you scorch the whole thing. Trading is identical. <strong>Patience and consistency are not the boring parts of the edge&mdash;they are the edge.</strong> The disciplined trader makes the same unexciting, correct decision a thousand times, and the results stack quietly underneath while the impatient trader is busy blowing up and starting over.</p>
+            <p>That's why every module in this course pointed at <em>repeatability</em>, not intensity. A small edge, repeated with discipline, beats a big edge applied erratically. The market pays the patient. <em>The K doesn't negotiate</em>&mdash;and the K is most powerful as the quiet, daily decision to keep doing the right thing when nothing exciting is happening.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Consistency</div>
+                    <div class="definition">Making the same correct decision repeatedly. It's not the boring part of the edge&mdash;it <em>is</em> the edge.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Compounding</div>
+                    <div class="definition">Small disciplined edges stacking over time. It only works for the trader who stays in the game to collect it.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">The Big-Win Trap</div>
+                    <div class="definition">The amateur's hunt for one trade that changes everything. It bypasses the process and usually ends the account.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Time Horizon</div>
+                    <div class="definition">Whether you measure yourself by one trade or by a thousand. The long horizon is what lets discipline compound.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Write Your Trading Constitution</h2>
+            <p>Everything in these eight modules converges here, on one document. A <strong>Trading Constitution</strong> is your personal, written rulebook&mdash;the law you set for yourself while you're calm, so the in-the-moment trader has no room to negotiate. It is the "Rules" step from Module 1, made permanent. This is your capstone deliverable, and it's the single most useful thing you'll take out of this course.</p>
+            <p>Don't make it fancy. Make it <strong>yours, and make it specific.</strong> Vague rules ("trade well," "be disciplined") can't be enforced. Specific rules can. Here is the template&mdash;fill every section in your own words:</p>
+
+            <div class="three-step">
+                <h3>The Trading Constitution Template</h3>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-title">My Edge</div>
+                        <div class="step-text">The exact setup you trade and why it works. If you can't describe it in two sentences, you don't have an edge yet&mdash;you have a hope.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">My Risk Per Trade</div>
+                        <div class="step-text">The fixed percentage of your account you risk on any single trade. One number. Non-negotiable. <em>The K doesn't negotiate.</em></div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">My Invalidation Rules</div>
+                        <div class="step-text">What has to be true for you to be wrong&mdash;and the exact level where you exit. Defined before entry, honored without debate.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-title">My Circuit Breakers</div>
+                        <div class="step-text">The hard stops that end your session: a daily loss limit, a max number of trades, a "two losses and I'm done" rule. The kill switch for tilt.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div class="step-title">My Pre-Market Routine</div>
+                        <div class="step-text">The steps you run before the bell&mdash;levels marked, bias set, mindset checked&mdash;so you enter the session prepared, not reactive.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">6</div>
+                        <div class="step-title">My No-Trade Conditions</div>
+                        <div class="step-text">When you do <em>not</em> trade: no confirmation, choppy structure, major news pending, or you're tired, tilted, or rushed. Naming these is half the discipline.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">7</div>
+                        <div class="step-title">My Process-Grade System</div>
+                        <div class="step-text">How you score each trade on execution, not P&amp;L. An A is a well-run trade regardless of result. This is how calibration gets built.</div>
+                    </div>
+                </div>
+            </div>
+
+            <p>Write it. Print it. Put it where you trade. Read it before the session and grade yourself against it after. A Constitution you wrote and forgot is just paper&mdash;a Constitution you <em>live</em> is the disciplined identity made real. <em>Confirmation over prediction</em>, on the page and in the seat.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Trading Constitution</div>
+                    <div class="definition">Your personal written rulebook&mdash;edge, risk, invalidation, circuit breakers, routine, no-trade conditions, and process grading. The "Rules" step made permanent.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Circuit Breaker</div>
+                    <div class="definition">A pre-set hard stop&mdash;daily loss limit or max trades&mdash;that ends the session before tilt can run the account.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">No-Trade Condition</div>
+                    <div class="definition">A defined situation where the correct move is to do nothing. Sitting out is a decision, and a disciplined one.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Accountability</div>
+                    <div class="definition">Externalizing discipline through community and review, so the standard holds even when your own willpower wouldn't.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>The K Doesn't Negotiate</h2>
+            <p>Look back at the road you just walked. You learned why the market breaks your brain. You learned to name fear and greed, to spot your biases, to size risk, to wait for confirmation, to recover from drawdowns, and now&mdash;to build the identity that holds it all together. Eight modules, one through-line: <strong>discipline is not a feeling you summon, it's an identity you build and a system you obey.</strong></p>
+            <p>The S-T-A-C-K is the structure. The journal is the mirror. The community is the accountability. The Constitution is the law. And the <strong>K&mdash;Keep Discipline&mdash;is the thread that runs through every one of them.</strong> The K is the disciplined entry on a quiet day. The K is the loss you take without flinching because the plan said so. The K is the trade you <em>don't</em> take. The K doesn't negotiate&mdash;not with fear, not with greed, not with the version of you that wants to rush the roux.</p>
+            <p>You don't rush a roux. You don't rush a trade. And you don't rush the trader you're becoming&mdash;you build him one disciplined rep, one honest journal entry, one followed plan at a time. That's the long game. That's the whole course.</p>
+            <p>One step left. Write your Trading Constitution, then take everything you've learned across these eight modules into the <strong>Final Exam</strong> and prove it to yourself.</p>
+            <p class="lead-quote">"You are not the trade you just took. You are the thousand disciplined decisions stacked underneath it."</p>
+            <p>Stay STACKED.</p>
+
+            <div class="wolf-cta">
+                <div class="wolf-cta-label">⚜ The Full Package</div>
+                <h3>Make the Disciplined Identity Real</h3>
+                <p>You just built the blueprint. The <strong style="color:#F0D080;">Black Wolf</strong> package is what turns it into a daily practice. Black Wolf is a <strong style="color:#F0D080;">custom GPT</strong> that reads your <strong style="color:#F0D080;">Wolf Chart 2.1</strong> indicators and drafts a structured trade plan&mdash;entry, invalidation, and targets&mdash;so your Trading Constitution has a repeatable plan engine behind it every session. The method behind it was <strong style="color:#F0D080;">refined over 16 years of trading</strong>, so you start from a disciplined plan instead of a blank chart and a racing heart.</p>
+                <p>And it's all-in-one: the <strong style="color:#F0D080;">Black Wolf GPT</strong>, the <strong style="color:#F0D080;">Wolf Chart 2.1</strong> indicators, and the two communities that keep you honest&mdash;<strong style="color:#F0D080;">The Trading Roux</strong> and the <strong style="color:#F0D080;">Wolf Empire</strong> Discord. Your Constitution plus a repeatable plan engine plus real accountability is the disciplined identity, made real. <em>Confirmation over prediction, always</em>&mdash;you still confirm every plan against your own structure read.</p>
+                <a href="https://thewolfchart.com/?via=creoletrades" class="wolf-cta-btn" target="_blank" rel="noopener">Get the Black Wolf Package &rarr;</a>
+                <span class="wolf-cta-fine">A trade plan is a starting point, not a guarantee&mdash;always confirm it against your own structure read.</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="key-takeaways">
+                <h3>Key Takeaways</h3>
+                <ul>
+                    <li>Discipline isn't willpower&mdash;it's identity. Stop following rules through force and become the kind of trader who follows the plan. Every trade is a vote for who you're becoming.</li>
+                    <li>The trading journal is the mirror that turns experience into improvement. Log setup, plan, execution, emotion, and a process grade&mdash;and grade the decision, not the dollars.</li>
+                    <li>Calibration is the slow alignment of what you <em>feel</em> is a good trade with what actually is one. Honest journaling closes that gap; the gap is where accounts die.</li>
+                    <li>You don't build discipline alone. Accountability and community keep you honest in the exact moments your own willpower would let you off the hook. That's The Trading Roux.</li>
+                    <li>Consistency compounds and chasing big wins blows up. Small, repeated, disciplined edges stack quietly&mdash;the market pays the patient, not the busy.</li>
+                    <li>Your Trading Constitution&mdash;edge, risk, invalidation, circuit breakers, routine, no-trade conditions, process grading&mdash;is the law you write while calm. The K doesn't negotiate. Stay STACKED.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="practice-box">
+                <h3>Practice Exercise &mdash; The Capstone</h3>
+                <p><strong>This is the course's capstone assignment. Do it now, by hand or in a document you'll keep:</strong></p>
+                <p>Write your <strong>Trading Constitution</strong> using the seven-section template from Section 5. Fill in every section in your own words and make each one specific enough to enforce: (1) My Edge&mdash;the exact setup, in two sentences; (2) My Risk Per Trade&mdash;one fixed percentage; (3) My Invalidation Rules&mdash;what makes you wrong and the exact exit; (4) My Circuit Breakers&mdash;the daily loss limit and trade cap that end your session; (5) My Pre-Market Routine&mdash;the steps you run before the bell; (6) My No-Trade Conditions&mdash;when you sit on your hands; (7) My Process-Grade System&mdash;how you score execution over P&amp;L.</p>
+                <p>Then do the one thing that makes it real: print it, put it where you trade, read it before your next session, and grade yourself against it after. A Constitution you live is the disciplined identity made real&mdash;then carry it into the Final Exam.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="quiz-section">
+                <h3>Knowledge Check</h3>
+                <div class="quiz-question">
+                    <div class="question-text">1. A trader keeps promising "I just won't revenge trade" but keeps doing it anyway when the market gets loud. According to this module, what is the real fix?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 0)">
+                        <label><input type="radio" name="q1"> Shift from rule-following to identity&mdash;become the kind of trader who simply doesn't take that trade</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 1)">
+                        <label><input type="radio" name="q1"> Add more rules to the list and try harder to follow them</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 2)">
+                        <label><input type="radio" name="q1"> Trade larger so the consequences feel more serious</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 3)">
+                        <label><input type="radio" name="q1"> Rely on more willpower in the heat of the moment</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation0">
+                        Willpower drains under stress. Identity-based habits work because the behavior flows from who you are&mdash;a disciplined trader doesn't resist the revenge trade, they simply aren't the kind of person who takes it. Every trade is a vote for that identity.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">2. What is the primary purpose of a trading journal, according to this module?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 0)">
+                        <label><input type="radio" name="q2"> To track your daily profit and loss so you know if you're up or down</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 1)">
+                        <label><input type="radio" name="q2"> To prove to others that your strategy works</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 2)">
+                        <label><input type="radio" name="q2"> To record only your winning trades so you can repeat them</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 3)">
+                        <label><input type="radio" name="q2"> To be the mirror that turns experience into improvement&mdash;logging process and building calibration over time</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation1">
+                        P&amp;L is the least useful thing to log because outcome is mostly noise short-term. The journal captures process&mdash;setup, plan, execution, emotion, and a process grade&mdash;which over time builds calibration: aligning what you feel is a good trade with what actually is one.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">3. You take a loss on a trade where you followed your plan perfectly. How should you grade it in your journal?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 0)">
+                        <label><input type="radio" name="q3"> An A&mdash;you graded the process, and the execution was well-run regardless of the result</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 1)">
+                        <label><input type="radio" name="q3"> An F&mdash;you lost money, so it was a bad trade</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 2)">
+                        <label><input type="radio" name="q3"> A C&mdash;split the difference between the loss and the good execution</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 3)">
+                        <label><input type="radio" name="q3"> It doesn't matter how you grade it as long as you note the dollar amount</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation2">
+                        Grading process over outcome is the whole game. A well-executed trade is an A even when it loses, and a lucky win on a broken plan is an F. This is how you build a trader who can take a clean loss and keep trading the edge.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">4. What separates the professional's approach from the amateur's, according to the "long game" section?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 0)">
+                        <label><input type="radio" name="q4"> The professional hunts the one big win that changes everything</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 1)">
+                        <label><input type="radio" name="q4"> The professional stacks small, repeated, disciplined edges and lets consistency compound</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 2)">
+                        <label><input type="radio" name="q4"> The professional has a bigger account and can take more risk</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 3)">
+                        <label><input type="radio" name="q4"> The professional trades far more often to catch every move</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation3">
+                        Chasing one big win is the amateur's trap. Consistency compounds and inconsistency leaks&mdash;a small edge repeated with discipline beats a big edge applied erratically, because the edge only pays the trader still in the game to collect it.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">5. Which of the following belongs in a Trading Constitution?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 0)">
+                        <label><input type="radio" name="q5"> A profit target for how much you must make each week</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 1)">
+                        <label><input type="radio" name="q5"> A list of hot tips and which accounts to copy on social media</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 2)">
+                        <label><input type="radio" name="q5"> Your edge, risk per trade, invalidation rules, circuit breakers, pre-market routine, no-trade conditions, and process-grade system</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 3)">
+                        <label><input type="radio" name="q5"> A prediction of where the market will go next month</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation4">
+                        The Constitution is the "Rules" step made permanent&mdash;the law you write while calm. It defines your edge, risk per trade, invalidation, circuit breakers, pre-market routine, no-trade conditions, and process grading. It's about your own behavior, not predictions or tips.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">6. Why does this module argue you can't build discipline alone?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 5, 0)">
+                        <label><input type="radio" name="q6"> Because a community will give you better trade signals than you can find yourself</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 5, 1)">
+                        <label><input type="radio" name="q6"> Because trading is too hard to understand without a mentor making your decisions</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 5, 2)">
+                        <label><input type="radio" name="q6"> Because trading alone is against the rules of most brokers</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 5, 3)">
+                        <label><input type="radio" name="q6"> Because accountability externalizes discipline&mdash;a community keeps you honest in the moments your own willpower would let you off the hook</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation5">
+                        Private rules bend in private. Accountability is a structural edge: when someone you respect will ask "did you follow your plan?", the behavior changes before the question is asked. A community mirrors your blind spots, normalizes the hard parts, and raises your standard&mdash;that's what The Trading Roux is built to be.
+                    </div>
+                </div>
+
+                <button class="quiz-btn" onclick="submitQuiz()">Submit Quiz</button>
+                <div class="quiz-score" id="quizScore" style="display: none;">
+                    <div class="score-text">Quiz Complete</div>
+                    <div class="score-percentage" id="scorePercentage">0%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="module-7.html" class="nav-button">← Previous Module</a>
+            <a href="final-exam.html" class="nav-button">Final Exam →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 CreoleTrades. STACK Academy &mdash; The Trader's Mind. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const PASSWORD_HASH = "b956307831faa0ef5676c738be0b711bd89d4b0bb71454059847d28944b2b9ad";
+        const STORAGE_KEY = "stack_psychology_access";
+
+        function sha256(str) {
+            return new Promise(resolve => {
+                const buffer = new TextEncoder().encode(str);
+                crypto.subtle.digest('SHA-256', buffer).then(hashBuffer => {
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                    resolve(hashHex);
+                });
+            });
+        }
+
+        async function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const errorDiv = document.getElementById('passwordError');
+            const hash = await sha256(passwordInput.value);
+
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                document.getElementById('passwordGate').classList.add('hidden');
+            } else {
+                errorDiv.classList.add('show');
+                passwordInput.value = '';
+                setTimeout(() => errorDiv.classList.remove('show'), 3000);
+            }
+        }
+
+        function checkAccess() {
+            if (localStorage.getItem(STORAGE_KEY) !== 'true') {
+                document.getElementById('passwordGate').classList.remove('hidden');
+            } else {
+                document.getElementById('passwordGate').classList.add('hidden');
+            }
+        }
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        window.addEventListener('load', checkAccess);
+
+        const quizAnswers = [0, 3, 0, 1, 2, 3];
+        let selectedAnswers = [-1, -1, -1, -1, -1, -1];
+
+        function selectOption(element, questionNum, optionNum) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedAnswers[questionNum] = optionNum;
+        }
+
+        function submitQuiz() {
+            let correct = 0;
+            for (let i = 0; i < quizAnswers.length; i++) {
+                const options = document.querySelectorAll(`.quiz-question`)[i].querySelectorAll('.quiz-option');
+                if (selectedAnswers[i] === quizAnswers[i]) {
+                    options[selectedAnswers[i]].classList.add('correct');
+                    correct++;
+                } else if (selectedAnswers[i] !== -1) {
+                    options[selectedAnswers[i]].classList.add('incorrect');
+                    options[quizAnswers[i]].classList.add('correct');
+                }
+                document.getElementById(`explanation${i}`).classList.add('show');
+            }
+            const percentage = Math.round((correct / quizAnswers.length) * 100);
+            document.getElementById('scorePercentage').textContent = percentage + '%';
+            document.getElementById('quizScore').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Trader's Routine &amp; State: Showing Up Right - The Trader's Mind - STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #070C18;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .password-gate.hidden {
+            display: none;
+        }
+
+        .password-container {
+            background-color: #0D1526;
+            padding: 60px 40px;
+            border-radius: 0px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .password-container h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .password-container p {
+            color: #C8D4E8;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 15px;
+            background-color: #070C18;
+            border: 1px solid #6B84AA;
+            border-radius: 0px;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #C9A84C;
+        }
+
+        .password-btn {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .password-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .password-error {
+            color: #EF4444;
+            margin-top: 15px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
+        .password-help {
+            margin-top: 20px;
+            border-top: 1px solid #6B84AA;
+            padding-top: 20px;
+        }
+
+        .password-help a {
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .password-help a:hover {
+            color: #F0D080;
+        }
+
+        header {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-bottom: 1px solid #0F1A2E;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 6px 12px;
+            border-radius: 0px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        nav {
+            background-color: #0F1A2E;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #0D1526;
+            overflow-x: auto;
+        }
+
+        nav a {
+            flex: 0 0 auto;
+            padding: 16px 20px;
+            color: #C8D4E8;
+            text-decoration: none;
+            border-right: 1px solid #0D1526;
+            font-size: 13px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            background-color: #070C18;
+            color: #C9A84C;
+        }
+
+        nav a.active {
+            background-color: #070C18;
+            color: #C9A84C;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .content-section {
+            margin-bottom: 50px;
+        }
+
+        .content-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .content-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .content-section p {
+            color: #C8D4E8;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .content-section strong {
+            color: #EEF2FF;
+        }
+
+        .lead-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            font-style: italic;
+            border-left: 4px solid #C9A84C;
+            padding: 10px 0 10px 25px;
+            margin: 25px 0;
+            line-height: 1.5;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .vocab-card {
+            background-color: #0D1526;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .vocab-card:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .vocab-card .term {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #F0D080;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .vocab-card .definition {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .three-step {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .three-step h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .step {
+            background-color: #070C18;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+        }
+
+        .step .step-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #C9A84C;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .step .step-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .step .step-text {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .key-takeaways {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .key-takeaways h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-takeaways li {
+            color: #C8D4E8;
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .key-takeaways li:before {
+            content: "⚜";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+            font-size: 14px;
+        }
+
+        .practice-box {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #22C55E;
+        }
+
+        .practice-box h3 {
+            color: #22C55E;
+            margin-top: 0;
+        }
+
+        .practice-box p {
+            color: #C8D4E8;
+            font-style: italic;
+        }
+
+        .wolf-cta {
+            background: linear-gradient(135deg, #0D1526, #0F1A2E);
+            padding: 32px;
+            border-radius: 0px;
+            margin: 35px 0;
+            border: 2px solid #C9A84C;
+        }
+
+        .wolf-cta .wolf-cta-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #C9A84C;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .wolf-cta h3 {
+            font-family: 'Playfair Display', serif;
+            color: #F0D080;
+            font-size: 24px;
+            margin: 0 0 14px 0;
+            font-weight: 700;
+        }
+
+        .wolf-cta p {
+            color: #C8D4E8;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .wolf-cta-btn {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 14px 30px;
+            text-decoration: none;
+            font-family: 'Lora', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .wolf-cta-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .wolf-cta .wolf-cta-fine {
+            display: block;
+            margin: 16px 0 0 0;
+            font-size: 12px;
+            color: #6B84AA;
+            font-style: italic;
+        }
+
+        .quiz-section {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .quiz-section h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .quiz-question {
+            margin-bottom: 30px;
+        }
+
+        .quiz-question .question-text {
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .quiz-option {
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            border: 1px solid #0F1A2E;
+            border-radius: 0px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            user-select: none;
+        }
+
+        .quiz-option:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option input[type="radio"] {
+            margin-right: 12px;
+        }
+
+        .quiz-option label {
+            cursor: pointer;
+            color: #C8D4E8;
+        }
+
+        .quiz-option.selected {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option.correct {
+            background-color: #0F1A2E;
+            border-color: #22C55E;
+        }
+
+        .quiz-option.incorrect {
+            background-color: #0F1A2E;
+            border-color: #EF4444;
+        }
+
+        .quiz-explanation {
+            display: none;
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-top: 8px;
+            border-left: 3px solid #C9A84C;
+            color: #C8D4E8;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .quiz-explanation.show {
+            display: block;
+        }
+
+        .quiz-score {
+            background-color: #0F1A2E;
+            padding: 20px;
+            border-radius: 0px;
+            margin-top: 30px;
+            border: 1px solid #C9A84C;
+            text-align: center;
+        }
+
+        .quiz-score .score-text {
+            color: #EEF2FF;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .quiz-score .score-percentage {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #C9A84C;
+            font-weight: 900;
+        }
+
+        .quiz-btn {
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .quiz-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0;
+            gap: 20px;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 16px 24px;
+            background-color: #0D1526;
+            color: #C9A84C;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .nav-button:hover {
+            background-color: #C9A84C;
+            color: #070C18;
+        }
+
+        .nav-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-button.disabled:hover {
+            background-color: #0D1526;
+            color: #C9A84C;
+        }
+
+        footer {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-top: 1px solid #0F1A2E;
+            color: #6B84AA;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            nav {
+                padding: 0;
+            }
+
+            nav a {
+                padding: 12px 16px;
+                font-size: 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .content-section h2 {
+                font-size: 24px;
+            }
+
+            .lead-quote {
+                font-size: 17px;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate" id="passwordGate">
+        <div class="password-container">
+            <h2>STACK Academy</h2>
+            <p>Enter your password to access The Trader's Mind</p>
+            <input type="password" id="passwordInput" class="password-input" placeholder="Password">
+            <button class="password-btn" onclick="checkPassword()">Access Course</button>
+            <div class="password-error" id="passwordError">Incorrect password. Try again.</div>
+            <div class="password-help">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <h1>The Trader's Mind</h1>
+        <span class="module-badge">Module 7 of 8</span>
+    </header>
+
+    <nav>
+        <a href="../">← All Courses</a>
+        <a href="module-1.html">Module 1</a>
+        <a href="module-2.html">Module 2</a>
+        <a href="module-3.html">Module 3</a>
+        <a href="module-4.html">Module 4</a>
+        <a href="module-5.html">Module 5</a>
+        <a href="module-6.html">Module 6</a>
+        <a href="module-7.html" class="active">Module 7</a>
+        <a href="module-8.html">Module 8</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="final-exam.html">Final Exam</a>
+    </nav>
+
+    <div class="container">
+        <div class="content-section">
+            <h2>The Trade Starts Before the Open</h2>
+            <p>Walk into the session frazzled&mdash;late out of bed, scrolling your phone, coffee not kicked in&mdash;and you have already taken your first trade of the day. Not on the chart. On yourself. The <strong>state</strong> you carry to the screen is the lens you read price through, and a foggy lens reads structure wrong no matter how clean your indicators are.</p>
+            <p class="lead-quote">"You don't bring the chart to the trade. You bring yourself to the chart. Show up wrong, and the chart never had a chance."</p>
+            <p>Here is the part most traders skip: <strong>state management is the first decision of the day, and you make it whether you mean to or not.</strong> The amygdala, loss aversion, and the dopamine pull you met earlier in this course don't wait for the open&mdash;they ride in on whatever mood you woke up in. A calm, prepared trader and a rushed, reactive one can look at the identical setup and take two completely different trades, because they are running it through two different nervous systems.</p>
+            <p>This module is about the part of trading that happens off the chart&mdash;the routine and the state that decide whether your edge ever gets to show up. <em>You don't rush a roux. You don't rush a trade.</em> And you don't earn a clean read by showing up however the morning left you. You earn it on purpose, before the bell.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">State Management</div>
+                    <div class="definition">The deliberate work of arriving at the screen calm, rested, and focused&mdash;treating your mental and physical condition as the first input to every trade.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Environment Design</div>
+                    <div class="definition">Arranging your screens, alerts, and desk so the disciplined choice is the easy one and noise can't pull you off-plan.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>The Pre-Market Routine Is Armor</h2>
+            <p>Soldiers don't decide whether to put on their gear in the firefight. They suit up before. A <strong>pre-market routine</strong> is the same idea: a repeatable prep sequence you run <em>before</em> the open so that when price starts moving, nothing about it surprises you. The open is not the time to form your bias, hunt for levels, or wonder what would make you stand aside. By then the dopamine is already pulling and the clock is already ticking.</p>
+            <p>A routine is armor because it converts a chaotic, high-pressure moment into a series of boxes you already checked. <em>Structure-first</em> means the structure read is done while you're calm, not improvised while you're reacting. Here is the spine of a sound pre-market routine:</p>
+
+            <div class="three-step">
+                <h3>The Pre-Market Sequence</h3>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Review Bias</div>
+                        <div class="step-text">Top-down: higher-timeframe structure first, then drill down. Decide what the market is offering before it opens, so the open confirms your read instead of forming it.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Mark Levels</div>
+                        <div class="step-text">Draw your zones, gates, and key levels while the screen is still. A level marked in calm is a level you trust in chaos.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Set Alerts &amp; No-Trade Rules</div>
+                        <div class="step-text">Put alerts on your levels so you don't have to stare. Then define your no-trade conditions&mdash;the days, times, and states where you stand aside on purpose.</div>
+                    </div>
+                </div>
+            </div>
+
+            <p>That last piece matters most: a <strong>checklist</strong> that includes <strong>no-trade conditions</strong> is what keeps a flat, choppy, or emotionally compromised day from becoming a drawdown day. The routine doesn't just tell you when to act&mdash;it tells you when not to. <em>Confirmation over prediction:</em> the checklist is how you wait for the market to confirm instead of guessing ahead of it.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Pre-Market Routine</div>
+                    <div class="definition">A repeatable prep sequence run before the open&mdash;review bias, mark levels, set alerts, define no-trade conditions&mdash;so the open never catches you forming decisions on the fly.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Checklist</div>
+                    <div class="definition">A fixed list of steps you complete before trading. It removes the question "did I prepare?" by turning preparation into ticked boxes.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Decision Fatigue</div>
+                    <div class="definition">The erosion of decision quality as you make more choices. A routine spends fewer decisions on prep so you have more left for the trade itself.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Life Spillover</h2>
+            <p>You are not a trading account with a person attached. You are a person with a trading account&mdash;and everything in the person's life leaks into the account's P&amp;L. A bad night's sleep dulls your patience. A fight with your spouse leaves you looking for somewhere to discharge the tension. Money pressure makes you size up to "make it back." Stress narrows your focus to the next tick. None of that shows on the chart, but all of it shows in your fills.</p>
+            <p>This is <strong>life spillover</strong>, and pretending it doesn't exist is how disciplined traders blow up on a Tuesday for no chart-based reason at all. The fix is not to fix your whole life before you trade&mdash;it's to <em>screen for the spillover</em> before you risk capital. The simplest tool for that is a <strong>HALT check.</strong></p>
+
+            <div class="three-step">
+                <h3>The HALT Check &mdash; Run It Before You Risk a Dollar</h3>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">H</div>
+                        <div class="step-title">Hungry</div>
+                        <div class="step-text">Low fuel means low patience and sloppy reads. If you haven't eaten, your judgment is already compromised.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">A</div>
+                        <div class="step-title">Angry</div>
+                        <div class="step-text">Anger looks for an outlet. The market will happily become it&mdash;revenge trades start here, not on the chart.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">L</div>
+                        <div class="step-title">Lonely</div>
+                        <div class="step-text">Trading for connection or validation turns the screen into company. That's a need talking, not a setup.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">T</div>
+                        <div class="step-title">Tired</div>
+                        <div class="step-text">Fatigue is an amygdala accelerant. Tired traders skip steps, force trades, and miss invalidation. Rest is risk management.</div>
+                    </div>
+                </div>
+            </div>
+
+            <p>If two or more boxes are lit, that is not a moral failing&mdash;it is data. The disciplined move is to size down, trade only your A-plus setups, or stand aside entirely. <em>The K doesn't negotiate:</em> HALT is part of keeping discipline, and a trader who honors it on a bad day is the same trader who survives to trade the good ones.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>The Post-Market Review</h2>
+            <p>The session isn't over when the position closes. It's over when you close the loop. The <strong>post-market review</strong> is the daily habit of sitting with what just happened&mdash;not to relive the wins or flog yourself over the losses, but to grade the one thing you actually control: <strong>your process.</strong></p>
+            <p>Most traders review the wrong number. They look at P&amp;L and call it a review. But P&amp;L is an outcome, and outcomes lie in the short run&mdash;a disciplined trade can lose and a reckless one can win. If you grade yourself on money, you'll learn the wrong lessons and reward the wrong behavior. <em>Confirmation over prediction</em> applies here too: you confirm whether you followed your process, you don't predict your skill from a green or red day.</p>
+
+            <div class="three-step">
+                <h3>Close the Loop Daily</h3>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Grade the Process</div>
+                        <div class="step-text">Ask one question first: did I follow my plan? A planned loss is a good trade. An off-plan win is a bad trade that paid this time.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Note What You Followed</div>
+                        <div class="step-text">Write down the rules you kept&mdash;the trade you skipped, the invalidation you honored. Reinforcing good reps is half the work.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Note What You Broke</div>
+                        <div class="step-text">Name the rule you broke and the state you were in when you broke it. Patterns you can see are patterns you can fix.</div>
+                    </div>
+                </div>
+            </div>
+
+            <p>Done daily, the review turns scattered sessions into a feedback loop. You start to see that your worst trades cluster on your worst-state mornings&mdash;which sends you right back to the pre-market routine and the HALT check with new respect. The loop closes, and the trader compounds.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Post-Market Review</div>
+                    <div class="definition">The daily habit of grading your process&mdash;what you followed and what you broke&mdash;rather than just your P&amp;L, so each session feeds the next.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Environment Design</h2>
+            <p>Willpower is a tank that drains. Your environment doesn't drain&mdash;it just sits there shaping every choice you make, all day, for free. That's why the most underrated discipline tool isn't a mantra; it's the room you trade in. <strong>Environment design</strong> is the practice of arranging your screens, alerts, desk, and inputs so that the disciplined choice is the <em>easy</em> one and the impulsive choice is the hard one.</p>
+            <p>Your screens, alerts, and desk are <strong>tools</strong>, not décor&mdash;and tools can help you or sabotage you. A cluttered chart with nine indicators screaming at once raises cognitive load and feeds decision fatigue. A second monitor full of hot-take feeds and a buzzing phone is a dopamine slot machine bolted to your workspace. Every distracting input is a tiny invitation to go off-plan, and across a session those invitations add up.</p>
+
+            <div class="three-step">
+                <h3>Design the Disciplined Choice to Be the Easy One</h3>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Remove Noise</div>
+                        <div class="step-text">Close the chat rooms, mute the feeds, put the phone in another room. Silence the inputs that don't help you read structure.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Let Alerts Do the Watching</div>
+                        <div class="step-text">You set the levels in pre-market. Now let alerts call you to the screen instead of staring it into an impulse trade.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Clean the Desk &amp; the Chart</div>
+                        <div class="step-text">A clear desk and an uncluttered chart lower cognitive load, so your bandwidth goes to the read&mdash;not to the noise.</div>
+                    </div>
+                </div>
+            </div>
+
+            <p>The goal isn't a sterile room&mdash;it's a room that protects the calm you built in your routine. When the disciplined choice is also the path of least resistance, you stop spending willpower you don't have and start letting the environment carry the load. <em>You don't rush a roux.</em> You set the kitchen up right, you let it take its time, and the result takes care of itself.</p>
+        </div>
+
+        <div class="content-section">
+            <div class="wolf-cta">
+                <div class="wolf-cta-label">⚜ The Confirmation Tool</div>
+                <h3>Make the Plan Part of the Routine</h3>
+                <p>The strongest pre-market routines produce a written plan before the bell&mdash;and that's exactly where the <strong style="color:#F0D080;">Black Wolf</strong> package fits your morning. Black Wolf is a <strong style="color:#F0D080;">custom GPT</strong> that reads your <strong style="color:#F0D080;">Wolf Chart 2.1</strong> indicators and drafts a structured trade plan&mdash;entry, invalidation, and targets&mdash;built on a method <strong style="color:#F0D080;">refined over 16 years of trading</strong>. Run it as a step in your prep, and the plan is on paper before the open, so your routine produces discipline by default instead of leaving it to willpower in the moment.</p>
+                <p>The package is all-in-one: the Black Wolf GPT, the Wolf Chart 2.1 indicators, and access to two communities that keep you accountable&mdash;<strong style="color:#F0D080;">The Trading Roux</strong> and the <strong style="color:#F0D080;">Wolf Empire</strong> Discord. You still confirm the plan against your own structure read&mdash;<em>confirmation over prediction, always</em>&mdash;but it's drafted before your nervous system gets a vote.</p>
+                <a href="https://thewolfchart.com/?via=creoletrades" class="wolf-cta-btn" target="_blank" rel="noopener">Get the Black Wolf Package &rarr;</a>
+                <span class="wolf-cta-fine">A trade plan is a starting point, not a guarantee&mdash;always confirm it against your own structure read.</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="key-takeaways">
+                <h3>Key Takeaways</h3>
+                <ul>
+                    <li>The trade starts before the open. State management is the first decision of the day&mdash;you bring yourself to the chart, and a foggy state reads clean structure wrong.</li>
+                    <li>A pre-market routine is armor: review bias, mark levels, set alerts, and define no-trade conditions while you're calm, so the open never surprises you.</li>
+                    <li>Life spillover is real&mdash;sleep, stress, money pressure, and relationships bleed into the P&amp;L. Run a HALT check (Hungry, Angry, Lonely, Tired) before you risk a dollar.</li>
+                    <li>The post-market review grades your process, not your P&amp;L. A planned loss is a good trade; an off-plan win is a bad trade that happened to pay.</li>
+                    <li>Environment design makes the disciplined choice the easy one. Remove noise, let alerts do the watching, and lower cognitive load so willpower isn't the thing holding the line.</li>
+                    <li>Routine, state, review, and environment work together as a loop&mdash;your worst trades cluster on your worst-state days, and the loop is how you see it and fix it.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="practice-box">
+                <h3>Practice Exercise</h3>
+                <p><strong>This is real. Do this now:</strong></p>
+                <p>Build your own pre-open checklist. Start from this five-item starter and adapt it to your market and schedule&mdash;the point is that it's <em>yours</em> and you run it every session: (1) HALT check &mdash; am I Hungry, Angry, Lonely, or Tired? (2) Review higher-timeframe bias, top-down. (3) Mark my key levels and zones. (4) Set alerts on those levels. (5) Write my no-trade conditions for today.</p>
+                <p>Then build a three-item post-close review you complete before you walk away: (1) Did I follow my plan&mdash;yes or no? (2) What's one rule I kept today? (3) What's one rule I broke, and what state was I in when I broke it?</p>
+                <p>Run both for one full week by hand. By Friday you'll see your trades start to track your state&mdash;and that's the loop doing its job.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="quiz-section">
+                <h3>Knowledge Check</h3>
+                <div class="quiz-question">
+                    <div class="question-text">1. According to this module, why does state precede the trade?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 0)">
+                        <label><input type="radio" name="q1"> Because the first trade of the day is always the most profitable</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 1)">
+                        <label><input type="radio" name="q1"> Because the market opens before you do</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 2)">
+                        <label><input type="radio" name="q1"> Because emotions don't affect experienced traders</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 3)">
+                        <label><input type="radio" name="q1"> Because the state you bring to the screen is the lens you read structure through&mdash;state management is the first decision of the day</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation0">
+                        You bring yourself to the chart. A calm, prepared trader and a rushed one can read the same setup differently because they're running it through different nervous systems. Managing your state is the first decision of the day&mdash;made whether you mean to or not.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">2. What does a pre-market checklist most directly prevent?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 0)">
+                        <label><input type="radio" name="q2"> It prevents the market from ever moving against you</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 1)">
+                        <label><input type="radio" name="q2"> It prevents you from forming bias, hunting levels, and improvising no-trade rules in the heat of the open</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 2)">
+                        <label><input type="radio" name="q2"> It guarantees every trade is a winner</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 3)">
+                        <label><input type="radio" name="q2"> It removes the need to read structure at all</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation1">
+                        A routine is armor: it gets the bias, levels, alerts, and no-trade conditions decided while you're calm, so the open confirms your read instead of forcing you to form decisions on the fly under pressure.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">3. You slept four hours and skipped breakfast after an argument. You sit down to trade anyway. What does the HALT check tell you?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 0)">
+                        <label><input type="radio" name="q3"> Multiple boxes are lit (Hungry, Angry, Tired)&mdash;that's data, so size down, take only A-plus setups, or stand aside</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 1)">
+                        <label><input type="radio" name="q3"> Trade bigger to make the morning worth it</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 2)">
+                        <label><input type="radio" name="q3"> Ignore it&mdash;HALT only applies to beginners</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 3)">
+                        <label><input type="radio" name="q3"> Your P&amp;L is the only thing that matters today</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation2">
+                        Life spillover bleeds into the P&amp;L. Hungry, Angry, and Tired are all lit here. Two or more lit boxes isn't a moral failing&mdash;it's data telling you to size down, trade only your best setups, or stand aside entirely.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">4. What is the purpose of a post-market review?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 0)">
+                        <label><input type="radio" name="q4"> To tally your P&amp;L and decide if you're a good trader based on the day's money</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 1)">
+                        <label><input type="radio" name="q4"> To relive your wins and forget your losses</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 2)">
+                        <label><input type="radio" name="q4"> To find new indicators to add to your chart</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 3)">
+                        <label><input type="radio" name="q4"> To close the loop by grading your process&mdash;noting what you followed and what you broke, not just the P&amp;L</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation3">
+                        P&amp;L is an outcome, and outcomes lie in the short run. The review grades the one thing you control&mdash;your process. A planned loss is a good trade; an off-plan win is a bad trade that paid. You confirm whether you followed your plan, not your skill from a green or red day.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">5. What is the core idea of environment design?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 0)">
+                        <label><input type="radio" name="q5"> Add as many indicators and feeds as possible so you never miss anything</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 1)">
+                        <label><input type="radio" name="q5"> Trade from a different location every day to stay sharp</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 2)">
+                        <label><input type="radio" name="q5"> Arrange your screens, alerts, and desk so the disciplined choice is the easy one and noise can't pull you off-plan</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 3)">
+                        <label><input type="radio" name="q5"> Rely on willpower alone to resist distractions</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation4">
+                        Willpower drains; your environment doesn't. Remove noise, let alerts do the watching, and lower cognitive load so the disciplined choice is also the path of least resistance. You set the kitchen up right and let it carry the load&mdash;you don't rush a roux.
+                    </div>
+                </div>
+
+                <button class="quiz-btn" onclick="submitQuiz()">Submit Quiz</button>
+                <div class="quiz-score" id="quizScore" style="display: none;">
+                    <div class="score-text">Quiz Complete</div>
+                    <div class="score-percentage" id="scorePercentage">0%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="module-6.html" class="nav-button">← Previous Module</a>
+            <a href="module-8.html" class="nav-button">Next Module →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 CreoleTrades. STACK Academy &mdash; The Trader's Mind. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const PASSWORD_HASH = "b956307831faa0ef5676c738be0b711bd89d4b0bb71454059847d28944b2b9ad";
+        const STORAGE_KEY = "stack_psychology_access";
+
+        function sha256(str) {
+            return new Promise(resolve => {
+                const buffer = new TextEncoder().encode(str);
+                crypto.subtle.digest('SHA-256', buffer).then(hashBuffer => {
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                    resolve(hashHex);
+                });
+            });
+        }
+
+        async function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const errorDiv = document.getElementById('passwordError');
+            const hash = await sha256(passwordInput.value);
+
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                document.getElementById('passwordGate').classList.add('hidden');
+            } else {
+                errorDiv.classList.add('show');
+                passwordInput.value = '';
+                setTimeout(() => errorDiv.classList.remove('show'), 3000);
+            }
+        }
+
+        function checkAccess() {
+            if (localStorage.getItem(STORAGE_KEY) !== 'true') {
+                document.getElementById('passwordGate').classList.remove('hidden');
+            } else {
+                document.getElementById('passwordGate').classList.add('hidden');
+            }
+        }
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        window.addEventListener('load', checkAccess);
+
+        const quizAnswers = [3, 1, 0, 3, 2];
+        let selectedAnswers = [-1, -1, -1, -1, -1];
+
+        function selectOption(element, questionNum, optionNum) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedAnswers[questionNum] = optionNum;
+        }
+
+        function submitQuiz() {
+            let correct = 0;
+            for (let i = 0; i < quizAnswers.length; i++) {
+                const options = document.querySelectorAll(`.quiz-question`)[i].querySelectorAll('.quiz-option');
+                if (selectedAnswers[i] === quizAnswers[i]) {
+                    options[selectedAnswers[i]].classList.add('correct');
+                    correct++;
+                } else if (selectedAnswers[i] !== -1) {
+                    options[selectedAnswers[i]].classList.add('incorrect');
+                    options[quizAnswers[i]].classList.add('correct');
+                }
+                document.getElementById(`explanation${i}`).classList.add('show');
+            }
+            const percentage = Math.round((correct / quizAnswers.length) * 100);
+            document.getElementById('scorePercentage').textContent = percentage + '%';
+            document.getElementById('quizScore').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

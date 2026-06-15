@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Exam - The Trader's Mind - STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #070C18;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .password-gate.hidden {
+            display: none;
+        }
+
+        .password-container {
+            background-color: #0D1526;
+            padding: 60px 40px;
+            border-radius: 0px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .password-container h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .password-container p {
+            color: #C8D4E8;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 15px;
+            background-color: #070C18;
+            border: 1px solid #6B84AA;
+            border-radius: 0px;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #C9A84C;
+        }
+
+        .password-btn {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .password-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .password-error {
+            color: #EF4444;
+            margin-top: 15px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
+        .password-help {
+            margin-top: 20px;
+            border-top: 1px solid #6B84AA;
+            padding-top: 20px;
+        }
+
+        .password-help a {
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .password-help a:hover {
+            color: #F0D080;
+        }
+
+        header {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-bottom: 1px solid #0F1A2E;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 6px 12px;
+            border-radius: 0px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        nav {
+            background-color: #0F1A2E;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #0D1526;
+            overflow-x: auto;
+        }
+
+        nav a {
+            flex: 0 0 auto;
+            padding: 16px 20px;
+            color: #C8D4E8;
+            text-decoration: none;
+            border-right: 1px solid #0D1526;
+            font-size: 13px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            background-color: #070C18;
+            color: #C9A84C;
+        }
+
+        nav a.active {
+            background-color: #070C18;
+            color: #C9A84C;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .content-section {
+            margin-bottom: 50px;
+        }
+
+        .content-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .content-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .content-section p {
+            color: #C8D4E8;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .content-section strong {
+            color: #EEF2FF;
+        }
+
+        .lead-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            font-style: italic;
+            border-left: 4px solid #C9A84C;
+            padding: 10px 0 10px 25px;
+            margin: 25px 0;
+            line-height: 1.5;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .vocab-card {
+            background-color: #0D1526;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .vocab-card:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .vocab-card .term {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #F0D080;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .vocab-card .definition {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .three-step {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .three-step h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .step {
+            background-color: #070C18;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+        }
+
+        .step .step-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #C9A84C;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .step .step-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .step .step-text {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .key-takeaways {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .key-takeaways h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-takeaways li {
+            color: #C8D4E8;
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .key-takeaways li:before {
+            content: "⚜";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+            font-size: 14px;
+        }
+
+        .practice-box {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #22C55E;
+        }
+
+        .practice-box h3 {
+            color: #22C55E;
+            margin-top: 0;
+        }
+
+        .practice-box p {
+            color: #C8D4E8;
+            font-style: italic;
+        }
+
+        .wolf-cta {
+            background: linear-gradient(135deg, #0D1526, #0F1A2E);
+            padding: 32px;
+            border-radius: 0px;
+            margin: 35px 0;
+            border: 2px solid #C9A84C;
+        }
+
+        .wolf-cta .wolf-cta-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #C9A84C;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .wolf-cta h3 {
+            font-family: 'Playfair Display', serif;
+            color: #F0D080;
+            font-size: 24px;
+            margin: 0 0 14px 0;
+            font-weight: 700;
+        }
+
+        .wolf-cta p {
+            color: #C8D4E8;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .wolf-cta-btn {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 14px 30px;
+            text-decoration: none;
+            font-family: 'Lora', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .wolf-cta-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .wolf-cta .wolf-cta-fine {
+            display: block;
+            margin: 16px 0 0 0;
+            font-size: 12px;
+            color: #6B84AA;
+            font-style: italic;
+        }
+
+        .quiz-section {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .quiz-section h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .quiz-question {
+            margin-bottom: 30px;
+        }
+
+        .quiz-question .question-text {
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .quiz-option {
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            border: 1px solid #0F1A2E;
+            border-radius: 0px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            user-select: none;
+        }
+
+        .quiz-option:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option input[type="radio"] {
+            margin-right: 12px;
+        }
+
+        .quiz-option label {
+            cursor: pointer;
+            color: #C8D4E8;
+        }
+
+        .quiz-option.selected {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option.correct {
+            background-color: #0F1A2E;
+            border-color: #22C55E;
+        }
+
+        .quiz-option.incorrect {
+            background-color: #0F1A2E;
+            border-color: #EF4444;
+        }
+
+        .quiz-explanation {
+            display: none;
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-top: 8px;
+            border-left: 3px solid #C9A84C;
+            color: #C8D4E8;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .quiz-explanation.show {
+            display: block;
+        }
+
+        .quiz-score {
+            background-color: #0F1A2E;
+            padding: 20px;
+            border-radius: 0px;
+            margin-top: 30px;
+            border: 1px solid #C9A84C;
+            text-align: center;
+        }
+
+        .quiz-score .score-text {
+            color: #EEF2FF;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .quiz-score .score-percentage {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #C9A84C;
+            font-weight: 900;
+        }
+
+        .quiz-btn {
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .quiz-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0;
+            gap: 20px;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 16px 24px;
+            background-color: #0D1526;
+            color: #C9A84C;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .nav-button:hover {
+            background-color: #C9A84C;
+            color: #070C18;
+        }
+
+        .nav-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-button.disabled:hover {
+            background-color: #0D1526;
+            color: #C9A84C;
+        }
+
+        footer {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-top: 1px solid #0F1A2E;
+            color: #6B84AA;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        /* --- Final Exam additions --- */
+        .exam-intro {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .exam-intro h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .exam-intro p {
+            color: #C8D4E8;
+            line-height: 1.8;
+        }
+
+        .graduation-section {
+            display: none;
+            background: linear-gradient(135deg, #0D1526, #0F1A2E);
+            padding: 40px;
+            border-radius: 0px;
+            margin: 35px 0;
+            border: 2px solid #C9A84C;
+            text-align: center;
+        }
+
+        .graduation-section.show {
+            display: block;
+        }
+
+        .graduation-section .grad-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #C9A84C;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .graduation-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #F0D080;
+            margin-bottom: 16px;
+            font-weight: 900;
+        }
+
+        .graduation-section .grad-message {
+            color: #C8D4E8;
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .graduation-section .grad-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-style: italic;
+            color: #F0D080;
+            margin: 24px 0;
+            line-height: 1.6;
+        }
+
+        .graduation-section .discord-btn {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 14px 30px;
+            text-decoration: none;
+            font-family: 'Lora', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .graduation-section .discord-btn:hover {
+            background-color: #F0D080;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            nav {
+                padding: 0;
+            }
+
+            nav a {
+                padding: 12px 16px;
+                font-size: 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .content-section h2 {
+                font-size: 24px;
+            }
+
+            .lead-quote {
+                font-size: 17px;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .graduation-section h2 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate" id="passwordGate">
+        <div class="password-container">
+            <h2>STACK Academy</h2>
+            <p>Enter your password to access The Trader's Mind</p>
+            <input type="password" id="passwordInput" class="password-input" placeholder="Password">
+            <button class="password-btn" onclick="checkPassword()">Access Course</button>
+            <div class="password-error" id="passwordError">Incorrect password. Try again.</div>
+            <div class="password-help">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <h1>The Trader's Mind</h1>
+        <span class="module-badge">Final Exam</span>
+    </header>
+
+    <nav>
+        <a href="../">← All Courses</a>
+        <a href="module-1.html">Module 1</a>
+        <a href="module-2.html">Module 2</a>
+        <a href="module-3.html">Module 3</a>
+        <a href="module-4.html">Module 4</a>
+        <a href="module-5.html">Module 5</a>
+        <a href="module-6.html">Module 6</a>
+        <a href="module-7.html">Module 7</a>
+        <a href="module-8.html">Module 8</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="final-exam.html" class="active">Final Exam</a>
+    </nav>
+
+    <div class="container">
+        <div class="content-section">
+            <h2>The Trader's Mind &mdash; Final Exam</h2>
+            <p>This is the last checkpoint of The Trader's Mind. Eight modules took you through every way the market works against your wiring&mdash;the amygdala hijack, the Four Horsemen, the biases at the hard right edge, probability, risk as emotional governance, tilt and the revenge spiral, the trader's routine, and the disciplined identity. Now you put it together.</p>
+            <p class="lead-quote">"You don't rush a roux. You don't rush a trade. And you don't graduate the mental game until you can think your way through the pressure."</p>
+            <div class="exam-intro">
+                <h3>Before You Begin</h3>
+                <p>Twenty scenario questions, spread across all eight modules. Each one drops you into a real moment&mdash;an open loss, a win streak, a blank chart at 9:28am&mdash;and asks what a prepared trader does. The wrong answers are the things retail traders genuinely tell themselves. Choose the response that reflects the doctrine, not the impulse.</p>
+                <p>Pick one answer per question, then submit to see your score and your explanations. Score <strong>16 or higher</strong> to earn your graduation. Take your time&mdash;the K doesn't negotiate, and neither should you.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="quiz-section">
+                <h3>Final Exam &mdash; 20 Questions</h3>
+
+                <!-- Q1 — Module 1 -->
+                <div class="quiz-question">
+                    <div class="question-text">1. You build a flawless setup&mdash;structure, trigger, alignment all green&mdash;but you still bleed money over a month of trades. According to Module 1, where is the leak most likely coming from?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 0)">
+                        <label><input type="radio" name="q1"> Your execution is breaking down under emotion&mdash;the trader is the variable, not the chart</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 1)">
+                        <label><input type="radio" name="q1"> The setup needs more indicators stacked on top of it</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 2)">
+                        <label><input type="radio" name="q1"> The market is structurally rigged against retail and the setup can't win</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 3)">
+                        <label><input type="radio" name="q1"> It's variance&mdash;nothing to learn, just keep clicking</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation0">
+                        A good setup is necessary but not sufficient. Most traders are beaten by their own execution under emotion, not by the quality of their analysis. The trader is the variable.
+                    </div>
+                </div>
+
+                <!-- Q2 — Module 1 -->
+                <div class="quiz-question">
+                    <div class="question-text">2. Price rips against your position. Before you consciously decide anything, your hand has already slammed the close button&mdash;at what turns out to be the exact low. What just drove that?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 0)">
+                        <label><input type="radio" name="q2"> A disciplined, well-reasoned exit</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 1)">
+                        <label><input type="radio" name="q2"> Correct use of a pre-set invalidation level</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 2)">
+                        <label><input type="radio" name="q2"> An amygdala hijack&mdash;the survival brain overrode rational thought before you could think</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 3)">
+                        <label><input type="radio" name="q2"> A dopamine reward for taking action</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation1">
+                        Acting before conscious thought, driven by panic, is the signature of an amygdala hijack&mdash;fight-or-flight making the decision for you over a red candle.
+                    </div>
+                </div>
+
+                <!-- Q3 — Module 1 -->
+                <div class="quiz-question">
+                    <div class="question-text">3. You end another red day muttering "I just need more discipline." Module 1 says that framing is the trap. What's the real fix?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 0)">
+                        <label><input type="radio" name="q3"> Grit your teeth and white-knuckle your willpower harder next session</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 1)">
+                        <label><input type="radio" name="q3"> Trade bigger size so the stakes force you to focus</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 2)">
+                        <label><input type="radio" name="q3"> Remove all emotion and trade like a robot</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 3)">
+                        <label><input type="radio" name="q3"> Out-prepare your biology&mdash;pre-decide your rules while you're calm so emotion finds a process already in charge</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation2">
+                        Willpower is a finite tank that drains under stress. Professionals out-prepare their biology with systems (Awareness &rarr; Rules &rarr; Repetition); discipline is preparation, not willpower.
+                    </div>
+                </div>
+
+                <!-- Q4 — Module 2 -->
+                <div class="quiz-question">
+                    <div class="question-text">4. A clean setup prints right in front of you, but you hesitate, talk yourself out of it, and watch it run without you. Then you chase it three candles late. Which two Horsemen just tag-teamed you?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 0)">
+                        <label><input type="radio" name="q4"> Hope, then regret</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 1)">
+                        <label><input type="radio" name="q4"> Fear of loss froze the entry, then FOMO drove the chase</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 2)">
+                        <label><input type="radio" name="q4"> Greed, then hope</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 3)">
+                        <label><input type="radio" name="q4"> Regret, then greed</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation3">
+                        Fear wears two masks: fear of loss freezes you out of valid entries, and FOMO&mdash;fear of missing out&mdash;chases you back in late. Both are the same Horseman, fear, working both ends.
+                    </div>
+                </div>
+
+                <!-- Q5 — Module 2 -->
+                <div class="quiz-question">
+                    <div class="question-text">5. Your trade hits the first target you planned. Instead of taking it, you tell yourself "this one's going further" and move the target up. Price reverses and you give it all back. Which Horseman, and what's its tell?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 0)">
+                        <label><input type="radio" name="q5"> Greed&mdash;its tell is the moving target that's never enough</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 1)">
+                        <label><input type="radio" name="q5"> Fear&mdash;you were scared of missing more upside</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 2)">
+                        <label><input type="radio" name="q5"> Hope&mdash;you were praying it would come back</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 3)">
+                        <label><input type="radio" name="q5"> Regret&mdash;you were avenging an earlier miss</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation4">
+                        Greed's signature is the target that keeps moving&mdash;enough is never enough. The plan named the exit; greed renegotiated it mid-trade and handed the gains back.
+                    </div>
+                </div>
+
+                <!-- Q6 — Module 2 -->
+                <div class="quiz-question">
+                    <div class="question-text">6. Your position blows through your invalidation level. Instead of closing, you whisper "it'll come back" and give it room. Module 2 calls this a specific Horseman. Which one&mdash;and why is it so dangerous?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 5, 0)">
+                        <label><input type="radio" name="q6"> Greed&mdash;you wanted more profit</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 5, 1)">
+                        <label><input type="radio" name="q6"> Fear&mdash;you were too scared to act at all</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 5, 2)">
+                        <label><input type="radio" name="q6"> Revenge&mdash;you were trying to get back at the market</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 5, 3)">
+                        <label><input type="radio" name="q6"> Hope&mdash;it keeps you holding losers past invalidation, turning a small loss into a large one</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation5">
+                        Hope is what holds losers past invalidation. Once the level is broken the thesis is dead, but hope ignores the invalidation and lets a defined small loss metastasize.
+                    </div>
+                </div>
+
+                <!-- Q7 — Module 3 -->
+                <div class="quiz-question">
+                    <div class="question-text">7. You're convinced ABC is going up. You scroll only the timeframes and indicators that agree, and dismiss the ones flashing a warning. Module 3 names this bias&mdash;and prescribes a specific antidote. Which pair is right?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 6, 0)">
+                        <label><input type="radio" name="q7"> Recency bias&mdash;antidote is to trade smaller</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 6, 1)">
+                        <label><input type="radio" name="q7"> Anchoring bias&mdash;antidote is to use round numbers</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 6, 2)">
+                        <label><input type="radio" name="q7"> Confirmation bias&mdash;antidote is reading structure first, before forming an opinion</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 6, 3)">
+                        <label><input type="radio" name="q7"> Outcome bias&mdash;antidote is to check the result first</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation6">
+                        Hunting only for evidence that fits your view is confirmation bias. The fix is structure-first: read what the chart actually shows before you decide what you want it to show.
+                    </div>
+                </div>
+
+                <!-- Q8 — Module 3 -->
+                <div class="quiz-question">
+                    <div class="question-text">8. A trade goes against you, so you buy more at a lower price to "lower your average," even though your original invalidation already triggered. Which two biases are driving this&mdash;and what's the verdict?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 7, 0)">
+                        <label><input type="radio" name="q8"> Recency and anchoring&mdash;it's a smart way to improve your entry</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 7, 1)">
+                        <label><input type="radio" name="q8"> Sunk cost and loss aversion&mdash;averaging down into a broken thesis adds risk to a losing idea</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 7, 2)">
+                        <label><input type="radio" name="q8"> Confirmation and outcome bias&mdash;it's fine as long as it works out</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 7, 3)">
+                        <label><input type="radio" name="q8"> No bias&mdash;averaging down is always the correct move</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation7">
+                        Averaging down past invalidation is sunk cost (refusing to abandon what you've already committed) plus loss aversion (refusing to lock the pain). It pours more risk into an idea the chart already invalidated.
+                    </div>
+                </div>
+
+                <!-- Q9 — Module 3 -->
+                <div class="quiz-question">
+                    <div class="question-text">9. A trader took a reckless, off-plan, oversized trade&mdash;and it won big. He calls it a great trade. Module 3 says he's committing which error?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 8, 0)">
+                        <label><input type="radio" name="q9"> Outcome bias&mdash;he judged the decision by its result, not its process</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 8, 1)">
+                        <label><input type="radio" name="q9"> Recency bias&mdash;he overweighted the last trade</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 8, 2)">
+                        <label><input type="radio" name="q9"> Anchoring bias&mdash;he fixated on the entry price</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 8, 3)">
+                        <label><input type="radio" name="q9"> Confirmation bias&mdash;he only looked at the win</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation8">
+                        Outcome bias is judging a decision by how it turned out rather than whether the process was sound. A reckless trade that wins is still a bad trade&mdash;the result was luck, not edge.
+                    </div>
+                </div>
+
+                <!-- Q10 — Module 4 -->
+                <div class="quiz-question">
+                    <div class="question-text">10. Your strategy has a 40% win rate. Winners make 2R, losers cost 1R. What is the expectancy per trade, and does this system have an edge?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 9, 0)">
+                        <label><input type="radio" name="q10"> &minus;0.2R per trade; no edge, scrap it</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 9, 1)">
+                        <label><input type="radio" name="q10"> 0R per trade; it's a coin flip</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 9, 2)">
+                        <label><input type="radio" name="q10"> +0.8R per trade; yes, but only above a 50% win rate</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 9, 3)">
+                        <label><input type="radio" name="q10"> +0.2R per trade; yes, it's a positive-expectancy system</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation9">
+                        Expectancy = (0.40 &times; 2R) &minus; (0.60 &times; 1R) = 0.80R &minus; 0.60R = +0.20R per trade. A sub-50% win rate can still be highly profitable when winners outrun losers.
+                    </div>
+                </div>
+
+                <!-- Q11 — Module 4 -->
+                <div class="quiz-question">
+                    <div class="question-text">11. You just took five losers in a row on a positive-expectancy system. You think "I'm due&mdash;the next one has to win, so I'll size up." Module 4 calls this what?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 10, 0)">
+                        <label><input type="radio" name="q11"> Correct probability thinking&mdash;the odds really do owe you a win</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 10, 1)">
+                        <label><input type="radio" name="q11"> Proper use of expectancy</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 10, 2)">
+                        <label><input type="radio" name="q11"> The gambler's fallacy&mdash;each trade is independent, so the prior losses don't make the next one more likely to win</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 10, 3)">
+                        <label><input type="radio" name="q11"> Outcome bias about the streak</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation10">
+                        Each trade is an independent event. A losing streak does not make the next trade "due" to win&mdash;believing it does is the gambler's fallacy, and sizing up on it is how a normal drawdown becomes a blow-up.
+                    </div>
+                </div>
+
+                <!-- Q12 — Module 4 -->
+                <div class="quiz-question">
+                    <div class="question-text">12. You followed your plan perfectly, took a textbook entry, and still lost. Thinking in probabilities, how should you grade that single trade?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 11, 0)">
+                        <label><input type="radio" name="q12"> A good trade&mdash;the process was sound; a single outcome is partly random and doesn't invalidate the edge</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 11, 1)">
+                        <label><input type="radio" name="q12"> A bad trade&mdash;any loss means you did something wrong</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 11, 2)">
+                        <label><input type="radio" name="q12"> Proof the strategy is broken&mdash;abandon it immediately</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 11, 3)">
+                        <label><input type="radio" name="q12"> A signal to double your size on the next one to recover</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation11">
+                        A single trade is mostly random; the edge only shows up over a large sample. Process over outcome means a well-executed loss is still a good trade&mdash;you grade the decision, not the result.
+                    </div>
+                </div>
+
+                <!-- Q13 — Module 5 -->
+                <div class="quiz-question">
+                    <div class="question-text">13. You normally risk 1% per trade and sleep fine. On a "can't-miss" idea you put on 6% and suddenly you're glued to every tick, can't think straight, and close early in a panic. Module 5 explains the mechanism as what?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 12, 0)">
+                        <label><input type="radio" name="q13"> The bigger size sharpened your focus&mdash;you should always trade large</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 12, 1)">
+                        <label><input type="radio" name="q13"> Oversizing hijacked your mind&mdash;position size is emotional governance, and too much size guarantees the amygdala drives</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 12, 2)">
+                        <label><input type="radio" name="q13"> Pure bad luck unrelated to your sizing</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 12, 3)">
+                        <label><input type="radio" name="q13"> A confirmation problem&mdash;the setup just wasn't clean enough</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation12">
+                        Size is a psychological lever, not just a math one. Oversize and the open risk dominates your nervous system&mdash;the amygdala takes the wheel. Size to sleep: small enough that no single trade can hijack you.
+                    </div>
+                </div>
+
+                <!-- Q14 — Module 5 -->
+                <div class="quiz-question">
+                    <div class="question-text">14. A trading buddy says "stops are for people who don't have conviction&mdash;real traders just hold." Through Module 5's lens, what's the disciplined rebuttal?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 13, 0)">
+                        <label><input type="radio" name="q14"> He's right&mdash;conviction should override any pre-set exit</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 13, 1)">
+                        <label><input type="radio" name="q14"> Stops only matter for beginners; size doesn't affect psychology</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 13, 2)">
+                        <label><input type="radio" name="q14"> Conviction is all you need if your size is large enough</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 13, 3)">
+                        <label><input type="radio" name="q14"> Invalidation isn't weakness&mdash;it's a decision made while calm that protects both capital and the mind from the hijack</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation13">
+                        A pre-defined invalidation is a calm-state decision that the heat of the trade can't renegotiate. It protects capital and the mind&mdash;it's the opposite of weakness.
+                    </div>
+                </div>
+
+                <!-- Q15 — Module 6 -->
+                <div class="quiz-question">
+                    <div class="question-text">15. After two stop-outs you feel hot, jaw tight, and you find yourself reaching to "make it back right now" on a setup you'd never normally take. Module 6 says the correct move is what?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 14, 0)">
+                        <label><input type="radio" name="q15"> Size up on the next trade to recover the two losses faster</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 14, 1)">
+                        <label><input type="radio" name="q15"> Keep trading the same size until the feeling passes on its own</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 14, 2)">
+                        <label><input type="radio" name="q15"> Recognize the tilt signals and hit your circuit breaker&mdash;stand down before the revenge trade</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 14, 3)">
+                        <label><input type="radio" name="q15"> Switch to a brand-new strategy mid-session</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation14">
+                        Physical heat plus the urge to "make it back now" are classic tilt tells. The disciplined response is a pre-set circuit breaker&mdash;stand down&mdash;before the revenge trade turns a bad day into a disaster.
+                    </div>
+                </div>
+
+                <!-- Q16 — Module 6 -->
+                <div class="quiz-question">
+                    <div class="question-text">16. You're three trades into a losing streak on a system you've proven has positive expectancy. What's the probability-grounded way to read the streak?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 15, 0)">
+                        <label><input type="radio" name="q16"> Losing streaks are normal variance within a positive-expectancy edge&mdash;keep your size and process steady</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 15, 1)">
+                        <label><input type="radio" name="q16"> The system is broken and you must abandon it now</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 15, 2)">
+                        <label><input type="radio" name="q16"> You're "due," so increase size to catch the bounce</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 15, 3)">
+                        <label><input type="radio" name="q16"> Quit trading permanently</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation15">
+                        Even a strong edge produces losing streaks&mdash;that's variance, not failure. The mistake is letting a normal streak push you into oversizing or abandoning a proven process.
+                    </div>
+                </div>
+
+                <!-- Q17 — Module 7 -->
+                <div class="quiz-question">
+                    <div class="question-text">17. You slept four hours, skipped your routine, and sat down at the open already rattled from an argument at home. Module 7's "state before the open" principle says you should do what?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 16, 0)">
+                        <label><input type="radio" name="q17"> Trade your normal size&mdash;your state has nothing to do with your results</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 16, 1)">
+                        <label><input type="radio" name="q17"> Recognize the HALT and life-spillover flags and either stand down or trade greatly reduced&mdash;state shapes execution</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 16, 2)">
+                        <label><input type="radio" name="q17"> Trade bigger to distract yourself from the argument</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 16, 3)">
+                        <label><input type="radio" name="q17"> Coffee fixes it&mdash;ignore your state entirely</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation16">
+                        HALT (Hungry, Angry, Lonely, Tired) and life spillover degrade your state, and a poor state degrades execution. The pre-market check exists so you can stand down or shrink size before the open, not after the damage.
+                    </div>
+                </div>
+
+                <!-- Q18 — Module 7 -->
+                <div class="quiz-question">
+                    <div class="question-text">18. The session is over. What does Module 7 say is the highest-leverage thing you can do next, and why?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 17, 0)">
+                        <label><input type="radio" name="q18"> Immediately open the next chart&mdash;more screen time is more edge</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 17, 1)">
+                        <label><input type="radio" name="q18"> Calculate exactly how much you could have made with bigger size</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 17, 2)">
+                        <label><input type="radio" name="q18"> A post-market review&mdash;grading your process while it's fresh is how the routine compounds into skill</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 17, 3)">
+                        <label><input type="radio" name="q18"> Nothing&mdash;once the bell rings, the work is done</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation17">
+                        The post-market review closes the loop: you grade the process, not just the P&amp;L, while the session is fresh. Environment design and routine are what turn repetition into durable skill.
+                    </div>
+                </div>
+
+                <!-- Q19 — Module 8 -->
+                <div class="quiz-question">
+                    <div class="question-text">19. Two traders set the same goal. One says "I'm trying to follow my rules." The other says "I'm the kind of trader who follows the plan&mdash;period." Module 8 says which framing builds lasting discipline, and why?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 18, 0)">
+                        <label><input type="radio" name="q19"> The first&mdash;goals are more motivating than identity</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 18, 1)">
+                        <label><input type="radio" name="q19"> Neither&mdash;framing makes no difference to behavior</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 18, 2)">
+                        <label><input type="radio" name="q19"> The first&mdash;because it relies purely on willpower</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 18, 3)">
+                        <label><input type="radio" name="q19"> The second&mdash;identity-based habits stick because the behavior becomes "who I am," not a rule to muscle through</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation18">
+                        Identity-based habits outlast goal-based ones. When discipline becomes "who I am" rather than a rule you fight, following the plan stops costing willpower&mdash;repetition turns discipline into identity.
+                    </div>
+                </div>
+
+                <!-- Q20 — Module 8 -->
+                <div class="quiz-question">
+                    <div class="question-text">20. You want to build the disciplined identity for real. Module 8 prescribes a written set of personal trading rules plus a feedback loop to keep yourself honest. What's that pairing called?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 19, 0)">
+                        <label><input type="radio" name="q20"> A watchlist and a hot-key layout</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 19, 1)">
+                        <label><input type="radio" name="q20"> A Trading Constitution paired with journaling and calibration&mdash;rules you commit to, plus a review loop and accountability</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 19, 2)">
+                        <label><input type="radio" name="q20"> A bigger account and faster internet</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 19, 3)">
+                        <label><input type="radio" name="q20"> A new indicator stack and a louder alert sound</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation19">
+                        The Trading Constitution is your written, committed rule set; journaling and calibration are the feedback loop that keeps you honest. Add accountability and consistency and the disciplined identity becomes self-reinforcing.
+                    </div>
+                </div>
+
+                <button class="quiz-btn" onclick="submitQuiz()">Submit Exam</button>
+                <div class="quiz-score" id="quizScore" style="display: none;">
+                    <div class="score-text">Exam Complete</div>
+                    <div class="score-percentage" id="scorePercentage">0%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="graduation-section" id="graduationSection">
+                <div class="grad-label">⚜ STACK Academy</div>
+                <h2 id="gradHeading">Graduation</h2>
+                <p class="grad-message" id="gradMessage"></p>
+                <p class="grad-quote">"The chart was never the hard part. The trader was. Now you've trained the trader."</p>
+                <p class="grad-message">Bring the mental game into a room of traders running the same doctrine. Accountability is the last Horseman-killer&mdash;and it's where the disciplined identity gets reinforced.</p>
+                <a href="https://discord.gg/gzxcV6HDTM" class="discord-btn" target="_blank" rel="noopener">Join The Trading Roux &rarr;</a>
+                <div style="margin-top: 20px;">
+                    <button class="quiz-btn" onclick="resetQuiz()">Retake Exam</button>
+                </div>
+                <p class="grad-message" style="margin-top: 24px; font-size: 15px; color: #6B84AA;">Stay STACKED. The K doesn't negotiate.</p>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="module-8.html" class="nav-button">← Back to Course</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 CreoleTrades. STACK Academy &mdash; The Trader's Mind. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const PASSWORD_HASH = "b956307831faa0ef5676c738be0b711bd89d4b0bb71454059847d28944b2b9ad";
+        const STORAGE_KEY = "stack_psychology_access";
+
+        function sha256(str) {
+            return new Promise(resolve => {
+                const buffer = new TextEncoder().encode(str);
+                crypto.subtle.digest('SHA-256', buffer).then(hashBuffer => {
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                    resolve(hashHex);
+                });
+            });
+        }
+
+        async function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const errorDiv = document.getElementById('passwordError');
+            const hash = await sha256(passwordInput.value);
+
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                document.getElementById('passwordGate').classList.add('hidden');
+            } else {
+                errorDiv.classList.add('show');
+                passwordInput.value = '';
+                setTimeout(() => errorDiv.classList.remove('show'), 3000);
+            }
+        }
+
+        function checkAccess() {
+            if (localStorage.getItem(STORAGE_KEY) !== 'true') {
+                document.getElementById('passwordGate').classList.remove('hidden');
+            } else {
+                document.getElementById('passwordGate').classList.add('hidden');
+            }
+        }
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        window.addEventListener('load', checkAccess);
+
+        const quizAnswers = [0, 2, 3, 1, 0, 3, 2, 1, 0, 3, 2, 0, 1, 3, 2, 0, 1, 2, 3, 1];
+        let selectedAnswers = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
+
+        function selectOption(element, questionNum, optionNum) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedAnswers[questionNum] = optionNum;
+        }
+
+        function submitQuiz() {
+            let correct = 0;
+            for (let i = 0; i < quizAnswers.length; i++) {
+                const options = document.querySelectorAll(`.quiz-question`)[i].querySelectorAll('.quiz-option');
+                if (selectedAnswers[i] === quizAnswers[i]) {
+                    options[selectedAnswers[i]].classList.add('correct');
+                    correct++;
+                } else if (selectedAnswers[i] !== -1) {
+                    options[selectedAnswers[i]].classList.add('incorrect');
+                    options[quizAnswers[i]].classList.add('correct');
+                }
+                document.getElementById(`explanation${i}`).classList.add('show');
+            }
+            const percentage = Math.round((correct / quizAnswers.length) * 100);
+            document.getElementById('scorePercentage').textContent = percentage + '%';
+            document.getElementById('quizScore').style.display = 'block';
+
+            showGraduation(correct);
+        }
+
+        function showGraduation(score) {
+            const heading = document.getElementById('gradHeading');
+            const message = document.getElementById('gradMessage');
+            const section = document.getElementById('graduationSection');
+
+            if (score === 20) {
+                heading.textContent = "Perfect Score — You've Mastered the Mental Game";
+                message.innerHTML = "Twenty for twenty. You read every scenario the way a prepared trader reads the open&mdash;process first, impulse second. You've mastered the mental game. This is the standard. Now go protect it.";
+            } else if (score >= 16) {
+                heading.textContent = "You've Graduated The Trader's Mind";
+                message.innerHTML = "A strong result&mdash;you clearly understand the doctrine. Go back and study the few you missed; the gap between strong and flawless is exactly where tilt likes to hide. You've earned your graduation.";
+            } else if (score >= 12) {
+                heading.textContent = "Passing — Keep Sharpening";
+                message.innerHTML = "You passed, but there's real work left. Revisit the modules tied to the questions you missed and run the exam again. Passing isn't the goal&mdash;owning the material is.";
+            } else {
+                heading.textContent = "Not Yet — Review and Retake";
+                message.innerHTML = "You're not there yet, and that's fine&mdash;this is the hardest course in the academy for a reason. Go back through the modules, sit with the parts that tripped you, and retake the exam. The mental game rewards the trader who reviews.";
+            }
+
+            section.classList.add('show');
+        }
+
+        function resetQuiz() {
+            selectedAnswers = selectedAnswers.map(() => -1);
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            document.querySelectorAll('.quiz-explanation').forEach(exp => {
+                exp.classList.remove('show');
+            });
+            document.querySelectorAll('input[type="radio"]').forEach(r => { r.checked = false; });
+            document.getElementById('quizScore').style.display = 'none';
+            document.getElementById('scorePercentage').textContent = '0%';
+            document.getElementById('graduationSection').classList.remove('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

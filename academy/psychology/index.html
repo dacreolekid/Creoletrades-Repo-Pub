@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Trader's Mind — The Psychology of Trading | STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: #070C18;
+            border-bottom: 1px solid #0D1526;
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #C9A84C;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: #C8D4E8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            color: #C9A84C;
+            border-bottom-color: #C9A84C;
+        }
+
+        .back-link {
+            color: #C8D4E8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-left: auto;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #C9A84C;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: #070C18;
+            padding: 4rem 2rem;
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #EEF2FF;
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
+        }
+
+        .hero .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #C9A84C;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #C8D4E8;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Lora', serif;
+        }
+
+        .cta-button:hover {
+            background-color: #F0D080;
+            transform: translateY(-2px);
+        }
+
+        /* Course Overview */
+        .overview {
+            background-color: #070C18;
+            padding: 4rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .overview h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #EEF2FF;
+            margin-bottom: 1.5rem;
+        }
+
+        .overview p {
+            color: #C8D4E8;
+            font-size: 1rem;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Module Cards Grid */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .module-card {
+            background-color: #0D1526;
+            padding: 2rem;
+            border: 1px solid #1a2847;
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            background-color: #141c2f;
+            border-color: #C9A84C;
+        }
+
+        .module-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #C9A84C;
+            margin-bottom: 0.5rem;
+        }
+
+        .module-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: #EEF2FF;
+            margin-bottom: 1rem;
+        }
+
+        .module-card p {
+            color: #C8D4E8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* What's Included Section */
+        .whats-included {
+            background-color: #070C18;
+            padding: 4rem 2rem;
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .whats-included h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #EEF2FF;
+            margin-bottom: 2rem;
+        }
+
+        .included-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .included-item {
+            color: #C8D4E8;
+            font-size: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .included-item::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #22C55E;
+            font-weight: bold;
+        }
+
+        /* Why / Signature Section */
+        .why-section {
+            background-color: #070C18;
+            padding: 4rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .why-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #EEF2FF;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .callout-box {
+            background-color: #0D1526;
+            border: 2px solid #C9A84C;
+            padding: 2rem;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #EEF2FF;
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        /* Signature / What Makes This Different */
+        .signature {
+            background-color: #0D1526;
+            border-top: 1px solid #1a2847;
+            border-bottom: 1px solid #1a2847;
+            padding: 4rem 2rem;
+        }
+
+        .signature-inner {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .signature h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #EEF2FF;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .signature p {
+            color: #C8D4E8;
+            font-size: 1.05rem;
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .signature .plan-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            color: #C9A84C;
+            text-align: center;
+            font-style: italic;
+            line-height: 1.6;
+            margin: 2rem auto;
+            max-width: 700px;
+        }
+
+        .tool-callout {
+            background-color: #070C18;
+            border: 1px solid #C9A84C;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tool-callout h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #C9A84C;
+            margin-bottom: 1rem;
+        }
+
+        .tool-callout p {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tool-callout .tool-link {
+            display: inline-block;
+            color: #070C18;
+            background-color: #C9A84C;
+            padding: 0.75rem 1.75rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tool-callout .tool-link:hover {
+            background-color: #F0D080;
+            transform: translateY(-2px);
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background-color: #070C18;
+            padding: 4rem 2rem;
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #C9A84C;
+            margin-bottom: 1rem;
+        }
+
+        .pricing p {
+            color: #C8D4E8;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* FAQ Section */
+        .faq {
+            background-color: #070C18;
+            padding: 4rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .faq h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #EEF2FF;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .faq-item {
+            background-color: #0D1526;
+            border: 1px solid #1a2847;
+            padding: 1.75rem 2rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .faq-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            color: #EEF2FF;
+            margin-bottom: 0.75rem;
+        }
+
+        .faq-item p {
+            color: #C8D4E8;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem 3rem;
+            text-align: center;
+        }
+
+        .disclaimer p {
+            color: #6B84AA;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0D1526;
+            border-top: 1px solid #1a2847;
+            padding: 2rem;
+            text-align: center;
+            color: #6B84AA;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #C9A84C;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.15rem;
+            }
+
+            nav {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .back-link {
+                margin-left: 0;
+            }
+
+            .overview h2,
+            .whats-included h2,
+            .why-section h2,
+            .signature h2,
+            .faq h2,
+            .pricing h2 {
+                font-size: 1.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .signature .plan-quote {
+                font-size: 1.15rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">STACK Academy</div>
+            <nav>
+                <a href="https://creoletrades.com">Home</a>
+                <a href="/blog">Blog</a>
+                <a href="https://discord.gg/gzxcV6HDTM">Discord</a>
+                <a href="https://www.youtube.com/@Creole_Trades">YouTube</a>
+            </nav>
+            <a href="../" class="back-link">← All Courses</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>The Trader's Mind</h1>
+        <div class="subtitle">The Psychology of Trading</div>
+        <p>The setup isn't what beats most traders — the trader is. This is the missing mental game: the course that teaches you to master fear, greed, bias, tilt, drawdown, routine, and discipline. You can learn every pattern on the chart and still hand your account back to the market if your head isn't right. We fix the head.</p>
+        <a href="STRIPE_CHECKOUT_URL_PLACEHOLDER" class="cta-button">Enroll Now — $97</a>
+    </section>
+
+    <!-- Course Overview -->
+    <section class="overview">
+        <h2>What This Course Covers</h2>
+        <p>Most traders pour years into setups, indicators, and entries — then watch a single moment of fear, greed, or revenge undo it all. The Trader's Mind is the work nobody else makes you do: understanding why the market breaks your brain, naming the emotions that run your trades, spotting the biases that live at the hard right edge of the chart, and building the discipline to show up the same way every session. You don't rush a roux. You don't rush a trade. This course teaches you to slow down, think in probabilities, and trade the plan instead of the feeling.</p>
+    </section>
+
+    <!-- Module Cards -->
+    <section class="modules-grid">
+        <div class="module-card">
+            <div class="module-number">01</div>
+            <h3>Why the Market Breaks Your Brain</h3>
+            <p>Amygdala hijack, loss aversion, and the dopamine trap. Understand the wiring you're fighting before you try to fight it.</p>
+        </div>
+        <div class="module-card">
+            <div class="module-number">02</div>
+            <h3>The Four Horsemen</h3>
+            <p>Fear, Greed, Hope, and Regret. Learn to name the four emotions that drive nearly every bad trade — and what each one is really telling you.</p>
+        </div>
+        <div class="module-card">
+            <div class="module-number">03</div>
+            <h3>Biases at the Hard Right Edge</h3>
+            <p>Confirmation, recency, anchoring, sunk cost, and outcome bias. The mental shortcuts that distort what you see when the candle isn't closed yet.</p>
+        </div>
+        <div class="module-card">
+            <div class="module-number">04</div>
+            <h3>Thinking in Probabilities</h3>
+            <p>Expectancy and the edge mindset. Stop grading yourself on single trades and start thinking the way the market actually pays.</p>
+        </div>
+        <div class="module-card">
+            <div class="module-number">05</div>
+            <h3>Risk as a Psychological Tool</h3>
+            <p>Size to sleep. How position sizing is less about math and more about keeping your mind calm enough to follow the plan.</p>
+        </div>
+        <div class="module-card">
+            <div class="module-number">06</div>
+            <h3>Tilt, Drawdown & the Revenge Spiral</h3>
+            <p>Circuit breakers and standing down. Recognize tilt early, build your own stop-rules, and walk away before one red day becomes a red week.</p>
+        </div>
+        <div class="module-card">
+            <div class="module-number">07</div>
+            <h3>The Trader's Routine & State</h3>
+            <p>Showing up right. Pre-market prep, mental state, and the rituals that put you in the seat ready to execute instead of react.</p>
+        </div>
+        <div class="module-card">
+            <div class="module-number">08</div>
+            <h3>Building the Disciplined Identity</h3>
+            <p>The capstone. Write your own Trading Constitution — the personal rulebook that turns discipline from a feeling into an identity.</p>
+        </div>
+    </section>
+
+    <!-- What's Included -->
+    <section class="whats-included">
+        <h2>What's Included</h2>
+        <div class="included-list">
+            <div class="included-item">8 interactive modules</div>
+            <div class="included-item">42 quiz questions</div>
+            <div class="included-item">20-question final exam</div>
+            <div class="included-item">Complete glossary</div>
+            <div class="included-item">Discord community access</div>
+            <div class="included-item">Lifetime access to updates</div>
+        </div>
+    </section>
+
+    <!-- Why / Callout -->
+    <section class="why-section">
+        <h2>Why The Inner Game?</h2>
+        <div class="callout-box">
+            The setup isn't what beats most traders — the trader is. You can have the best chart read in the room and still lose, because the hand on the mouse is afraid, greedy, or trying to get even. Master the mind, and the method finally has a chance to work.
+        </div>
+    </section>
+
+    <!-- Signature / What Makes This Different -->
+    <section class="signature">
+        <div class="signature-inner">
+            <h2>What Makes This Different: The Plan Is the Regulator</h2>
+            <p>Plenty of psychology courses tell you to "stay disciplined" and "control your emotions" — and leave you there. The Trader's Mind goes one step further and gives you the most practical emotional regulator there is: a written trade plan. When the levels, the bias, the entry, the stop, and the size are decided in writing before the candle moves, there's far less room for fear and greed to improvise in the moment. The plan doesn't remove risk and it doesn't promise wins — nothing does — but it gives your rational mind something to hold onto when the market tries to rattle it.</p>
+            <div class="plan-quote">"You don't rush a roux. You don't rush a trade. You write it down, then you let it cook."</div>
+            <p>Throughout the course, we treat the written plan as the bridge between knowing the right thing and actually doing it under pressure. And if you want help building that plan instead of staring at a blank page, here's the tool we point students to.</p>
+
+            <div class="tool-callout">
+                <h3>The Black Wolf Package</h3>
+                <p>Black Wolf is a custom GPT that reads your Wolf Chart 2.1 indicators and drafts a structured trade plan for you, applying a method refined over 16 years of trading. It's an all-in-one package: the Black Wolf GPT, the Wolf Chart 2.1 indicators, The Trading Roux Discord, and the Wolf Empire Discord — everything you need to turn a chart into a written plan you can actually follow. It's a tool to help you think clearly and stay structured. It doesn't guarantee wins or remove risk — you still manage the trade.</p>
+                <a href="https://thewolfchart.com/?via=creoletrades" class="tool-link" target="_blank" rel="noopener">Explore the Black Wolf Package →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing">
+        <h2>$97</h2>
+        <p>One-Time Payment, Lifetime Access</p>
+        <a href="STRIPE_CHECKOUT_URL_PLACEHOLDER" class="cta-button">Complete Your Enrollment</a>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h3>I already know my strategy. Do I really need a psychology course?</h3>
+            <p>If you know your strategy and still break your own rules, this is exactly the course for you. Strategy tells you what to do. Psychology decides whether you actually do it when real money is on the line. Most blown accounts aren't a strategy problem — they're a discipline problem.</p>
+        </div>
+        <div class="faq-item">
+            <h3>What do I get after I enroll?</h3>
+            <p>Immediate access to all 8 interactive modules, 42 quiz questions, a 20-question final exam, and a complete glossary. After your purchase you'll reach the thank-you page with your course password. Updates are included for life.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Is this only for one market — stocks, options, futures?</h3>
+            <p>No. The inner game is the same whether you trade equities, options, futures, forex, or crypto. Fear, greed, tilt, and bias don't care what ticker is on your screen. The principles here apply across every market you'll ever trade.</p>
+        </div>
+        <div class="faq-item">
+            <h3>What's the capstone Trading Constitution?</h3>
+            <p>In Module 8 you write your own personal rulebook — your entries, your risk limits, your stand-down rules, and the trader you've decided to be. It's the document you come back to on the hard days, the one that turns discipline from a mood into an identity.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Will this guarantee I become profitable?</h3>
+            <p>No, and be careful with anyone who tells you otherwise. Trading carries real risk and no course, plan, or tool can promise wins. What this course can do is help you stop beating yourself — so the edge you're building actually gets a fair shot.</p>
+        </div>
+    </section>
+
+    <!-- Disclaimer -->
+    <section class="disclaimer">
+        <p>This course is for educational purposes only and is not financial, investment, or trading advice. Trading involves substantial risk of loss and is not suitable for everyone. Past performance is not indicative of future results. You are solely responsible for your own trading decisions. Nothing in this course guarantees any outcome.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 CreoleTrades. <a href="https://creoletrades.com">creoletrades.com</a> | <a href="../">Back to Catalog</a></p>
+        <p>Stay STACKED. ⚜️</p>
+    </footer>
+</body>
+</html>

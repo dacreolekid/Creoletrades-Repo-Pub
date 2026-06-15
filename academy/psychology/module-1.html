@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why the Market Breaks Your Brain - The Trader's Mind - STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #070C18;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .password-gate.hidden {
+            display: none;
+        }
+
+        .password-container {
+            background-color: #0D1526;
+            padding: 60px 40px;
+            border-radius: 0px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .password-container h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .password-container p {
+            color: #C8D4E8;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 15px;
+            background-color: #070C18;
+            border: 1px solid #6B84AA;
+            border-radius: 0px;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #C9A84C;
+        }
+
+        .password-btn {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .password-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .password-error {
+            color: #EF4444;
+            margin-top: 15px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
+        .password-help {
+            margin-top: 20px;
+            border-top: 1px solid #6B84AA;
+            padding-top: 20px;
+        }
+
+        .password-help a {
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .password-help a:hover {
+            color: #F0D080;
+        }
+
+        header {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-bottom: 1px solid #0F1A2E;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 6px 12px;
+            border-radius: 0px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        nav {
+            background-color: #0F1A2E;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #0D1526;
+            overflow-x: auto;
+        }
+
+        nav a {
+            flex: 0 0 auto;
+            padding: 16px 20px;
+            color: #C8D4E8;
+            text-decoration: none;
+            border-right: 1px solid #0D1526;
+            font-size: 13px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            background-color: #070C18;
+            color: #C9A84C;
+        }
+
+        nav a.active {
+            background-color: #070C18;
+            color: #C9A84C;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .content-section {
+            margin-bottom: 50px;
+        }
+
+        .content-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .content-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .content-section p {
+            color: #C8D4E8;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .content-section strong {
+            color: #EEF2FF;
+        }
+
+        .lead-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            font-style: italic;
+            border-left: 4px solid #C9A84C;
+            padding: 10px 0 10px 25px;
+            margin: 25px 0;
+            line-height: 1.5;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .vocab-card {
+            background-color: #0D1526;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .vocab-card:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .vocab-card .term {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #F0D080;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .vocab-card .definition {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .three-step {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .three-step h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .step {
+            background-color: #070C18;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+        }
+
+        .step .step-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #C9A84C;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .step .step-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .step .step-text {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .key-takeaways {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .key-takeaways h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-takeaways li {
+            color: #C8D4E8;
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .key-takeaways li:before {
+            content: "⚜";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+            font-size: 14px;
+        }
+
+        .practice-box {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #22C55E;
+        }
+
+        .practice-box h3 {
+            color: #22C55E;
+            margin-top: 0;
+        }
+
+        .practice-box p {
+            color: #C8D4E8;
+            font-style: italic;
+        }
+
+        .wolf-cta {
+            background: linear-gradient(135deg, #0D1526, #0F1A2E);
+            padding: 32px;
+            border-radius: 0px;
+            margin: 35px 0;
+            border: 2px solid #C9A84C;
+        }
+
+        .wolf-cta .wolf-cta-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #C9A84C;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .wolf-cta h3 {
+            font-family: 'Playfair Display', serif;
+            color: #F0D080;
+            font-size: 24px;
+            margin: 0 0 14px 0;
+            font-weight: 700;
+        }
+
+        .wolf-cta p {
+            color: #C8D4E8;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .wolf-cta-btn {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 14px 30px;
+            text-decoration: none;
+            font-family: 'Lora', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .wolf-cta-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .wolf-cta .wolf-cta-fine {
+            display: block;
+            margin: 16px 0 0 0;
+            font-size: 12px;
+            color: #6B84AA;
+            font-style: italic;
+        }
+
+        .quiz-section {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .quiz-section h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .quiz-question {
+            margin-bottom: 30px;
+        }
+
+        .quiz-question .question-text {
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .quiz-option {
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            border: 1px solid #0F1A2E;
+            border-radius: 0px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            user-select: none;
+        }
+
+        .quiz-option:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option input[type="radio"] {
+            margin-right: 12px;
+        }
+
+        .quiz-option label {
+            cursor: pointer;
+            color: #C8D4E8;
+        }
+
+        .quiz-option.selected {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option.correct {
+            background-color: #0F1A2E;
+            border-color: #22C55E;
+        }
+
+        .quiz-option.incorrect {
+            background-color: #0F1A2E;
+            border-color: #EF4444;
+        }
+
+        .quiz-explanation {
+            display: none;
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-top: 8px;
+            border-left: 3px solid #C9A84C;
+            color: #C8D4E8;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .quiz-explanation.show {
+            display: block;
+        }
+
+        .quiz-score {
+            background-color: #0F1A2E;
+            padding: 20px;
+            border-radius: 0px;
+            margin-top: 30px;
+            border: 1px solid #C9A84C;
+            text-align: center;
+        }
+
+        .quiz-score .score-text {
+            color: #EEF2FF;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .quiz-score .score-percentage {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #C9A84C;
+            font-weight: 900;
+        }
+
+        .quiz-btn {
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .quiz-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0;
+            gap: 20px;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 16px 24px;
+            background-color: #0D1526;
+            color: #C9A84C;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .nav-button:hover {
+            background-color: #C9A84C;
+            color: #070C18;
+        }
+
+        .nav-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-button.disabled:hover {
+            background-color: #0D1526;
+            color: #C9A84C;
+        }
+
+        footer {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-top: 1px solid #0F1A2E;
+            color: #6B84AA;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            nav {
+                padding: 0;
+            }
+
+            nav a {
+                padding: 12px 16px;
+                font-size: 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .content-section h2 {
+                font-size: 24px;
+            }
+
+            .lead-quote {
+                font-size: 17px;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate" id="passwordGate">
+        <div class="password-container">
+            <h2>STACK Academy</h2>
+            <p>Enter your password to access The Trader's Mind</p>
+            <input type="password" id="passwordInput" class="password-input" placeholder="Password">
+            <button class="password-btn" onclick="checkPassword()">Access Course</button>
+            <div class="password-error" id="passwordError">Incorrect password. Try again.</div>
+            <div class="password-help">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <h1>The Trader's Mind</h1>
+        <span class="module-badge">Module 1 of 8</span>
+    </header>
+
+    <nav>
+        <a href="../">← All Courses</a>
+        <a href="module-1.html" class="active">Module 1</a>
+        <a href="module-2.html">Module 2</a>
+        <a href="module-3.html">Module 3</a>
+        <a href="module-4.html">Module 4</a>
+        <a href="module-5.html">Module 5</a>
+        <a href="module-6.html">Module 6</a>
+        <a href="module-7.html">Module 7</a>
+        <a href="module-8.html">Module 8</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="final-exam.html">Final Exam</a>
+    </nav>
+
+    <div class="container">
+        <div class="content-section">
+            <h2>Why the Market Breaks Your Brain</h2>
+            <p>You can read structure perfectly. You can wait for the trigger, confirm the alignment, and watch the Wolf Chart light up green. You can build the cleanest <strong>Confirmation Stack</strong> of your trading life&mdash;and still lose, because the moment real money is on the line, a different operator takes the wheel. That operator is your own nervous system.</p>
+            <p class="lead-quote">"The chart is not what beats most traders. The trader is what beats most traders."</p>
+            <p>Here is the truth nobody hands you when you start: <strong>the market is an environment your brain was never designed to survive in.</strong> Every instinct that kept your ancestors alive&mdash;run from danger, chase the reward, remember the pain&mdash;turns into a liability the second you open a position. You are not weak. You are not broken. You are running survival software in an environment that punishes it.</p>
+            <p>This module is the first step in fixing that. Before we talk about fear, greed, biases, or discipline in the modules ahead, you have to understand the machine you're working with. <em>You don't rush a roux. You don't rush a trade.</em> And you don't master your mind before you understand why it works against you.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Built for Survival, Not for Markets</h2>
+            <p>Your brain spent hundreds of thousands of years optimizing for one job: keep you alive long enough to pass on your genes. In that world, a fast emotional reaction was a feature. Hear a rustle in the grass? Don't analyze it&mdash;<strong>run.</strong> The people who paused to calculate probabilities got eaten. The people who reacted instantly survived and became your ancestors.</p>
+            <p>That reflex still lives in a structure deep in your brain called the <strong>amygdala</strong>. It is fast, emotional, and it does not ask permission. When it senses a threat, it can override your rational thinking before your conscious mind even registers what happened. Neuroscientists call this an <strong>amygdala hijack</strong>&mdash;the thinking brain goes offline and the survival brain takes over.</p>
+            <p>Now drop that ancient wiring into a trading account. A red candle isn't a lion&mdash;but your body doesn't know that. An open loss triggers the same <strong>fight-or-flight</strong> response as physical danger: heart rate up, tunnel vision, the urge to <em>do something right now</em>. That's why traders slam the close button at the exact bottom, or freeze and let a small loss become a catastrophe. The hijack made the decision; you just watched it happen.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Amygdala</div>
+                    <div class="definition">The brain's threat detector. Fast and emotional, it can override rational thought to trigger instant survival reactions.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Amygdala Hijack</div>
+                    <div class="definition">When the emotional brain overrides the thinking brain. In trading, it's the panic close, the revenge click, the frozen stare.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Fight-or-Flight</div>
+                    <div class="definition">The body's automatic stress response&mdash;adrenaline, tunnel vision, urgency. Useful against predators, dangerous against price action.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Cognitive Load</div>
+                    <div class="definition">The mental bandwidth a task consumes. Under stress it shrinks, which is why you "forget" your plan mid-trade.</div>
+                </div>
+            </div>
+
+            <p>This is the first reframe of the entire course: <strong>your emotional reactions in a trade are not character flaws&mdash;they are biology.</strong> You can't delete the amygdala. But you can build a process that keeps it from driving. That's what the next seven modules are for.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Loss Aversion: Why Losing Hurts Twice as Much</h2>
+            <p>In the late 1970s, psychologists Daniel Kahneman and Amos Tversky ran a series of experiments that changed how we understand money and risk. Their finding, now one of the most replicated results in behavioral science: <strong>the pain of a loss is roughly twice as powerful as the pleasure of an equivalent gain.</strong> Losing $100 hurts about twice as much as winning $100 feels good.</p>
+            <p>This is called <strong>loss aversion</strong>, and it quietly sabotages traders every single day. Watch how it plays out:</p>
+            <ul style="margin-left: 20px; color: #C8D4E8; margin-bottom: 15px;">
+                <li><strong>You cut winners too early.</strong> A green trade triggers a small jolt of pleasure&mdash;and the fear of giving it back is stronger than the pull of letting it run. So you grab $50 instead of the $200 your plan called for.</li>
+                <li><strong>You hold losers too long.</strong> Closing a red trade <em>locks in</em> the pain. So you don't. You "give it room." You hope. The loss grows because avoiding it feels better than accepting it.</li>
+            </ul>
+            <p>Notice the cruel symmetry: loss aversion makes you do the <strong>exact opposite</strong> of the one rule every profitable trader follows&mdash;<em>cut your losers, let your winners run.</em> The wiring pushes you to clip winners and nurse losers. That's not bad strategy. That's bad biology, wearing the costume of a decision.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Loss Aversion</div>
+                    <div class="definition">The tendency to feel losses about twice as intensely as equivalent gains. The engine behind cutting winners and holding losers.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Disposition Effect</div>
+                    <div class="definition">The proven pattern of selling winners early and holding losers too long&mdash;loss aversion in live trading.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Break-Even Bias</div>
+                    <div class="definition">The urge to hold a losing trade until it returns to your entry, just to avoid the pain of being wrong.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Sunk Cost</div>
+                    <div class="definition">Money already lost. It should never influence the next decision&mdash;but loss aversion makes it scream the loudest.</div>
+                </div>
+            </div>
+
+            <p>This is exactly why the brand preaches that <em>invalidation protects capital.</em> A pre-defined invalidation level isn't just risk management&mdash;it's a decision you make <strong>before</strong> loss aversion can hijack you. You set the exit while the thinking brain is in charge, so the survival brain can't renegotiate it later.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>The Dopamine Trap: Why Trading Feels Like a Slot Machine</h2>
+            <p>Here's a question worth sitting with: why can you stare at a chart for six hours, take three trades you didn't plan, and feel <em>compelled</em> to keep clicking&mdash;even when you know you should walk away?</p>
+            <p>The answer is a chemical called <strong>dopamine</strong>, and a mechanism called the <strong>variable reward schedule.</strong> Dopamine isn't the "pleasure" chemical most people think it is&mdash;it's the <strong>anticipation</strong> chemical. It spikes hardest not when you win, but when you <em>might</em> win and don't know for sure. Unpredictable rewards flood your brain with more dopamine than guaranteed ones.</p>
+            <p>That's the exact design of a slot machine. Pull the lever, maybe win, mostly don't&mdash;and the not-knowing keeps you pulling. The market runs the same loop. Every tick might be the one that goes your way. Every chart you open might hide the perfect setup. The screen becomes the lever, and your brain keeps reaching for it.</p>
+            <p class="lead-quote">"Screen time is not edge. Activity is not productivity. The market pays the patient, not the busy."</p>
+            <p>This is why <strong>overtrading</strong> feels good in the moment and destroys accounts over time. The dopamine reward for <em>taking a trade</em> is immediate and real. The cost of taking a <em>bad</em> trade arrives later, when the brain has already moved on to the next pull. Your wiring rewards the action, not the outcome&mdash;which is precisely backwards from how trading actually pays.</p>
+            <p>The CreoleTrades answer is structural, not emotional. <em>Confirmation over prediction.</em> You don't act on the dopamine pull of "this might work." You wait for the setup to confirm. The discipline of waiting isn't about willpower&mdash;it's about refusing to let an anticipation chemical write your trade log.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>You're Not Undisciplined &mdash; You're Unprepared</h2>
+            <p>If you've ever ended a red day thinking <em>"I just need more discipline,"</em> understand this: <strong>discipline is not willpower, and willpower is not the fix.</strong> Willpower is a finite tank that drains under stress&mdash;exactly when you need it most. The amygdala hijack, loss aversion, and the dopamine pull all hit hardest in the heat of a live trade, when your willpower tank is already running dry.</p>
+            <p>Professionals don't out-willpower their biology. They <strong>out-prepare</strong> it. They build systems that make the right decision before emotion shows up, so that in the moment, there's nothing to decide&mdash;only a plan to follow. That's the whole reason the STACK Method exists: it moves your decisions out of the emotional present and into a process you built when you were calm.</p>
+
+            <div class="three-step">
+                <h3>The Path This Course Will Build</h3>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Awareness</div>
+                        <div class="step-text">You can't manage what you can't see. First you learn to name the emotion and the bias in real time&mdash;fear, greed, loss aversion, the dopamine pull.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Rules</div>
+                        <div class="step-text">You pre-decide. Invalidation, position size, and exits are set while the thinking brain is in charge&mdash;before the hijack can renegotiate them.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Repetition</div>
+                        <div class="step-text">You repeat the process until following the plan feels automatic. Discipline becomes identity, not effort. <em>The K doesn't negotiate.</em></div>
+                    </div>
+                </div>
+            </div>
+
+            <p>That's the journey of The Trader's Mind. Module by module, we'll take every way your brain works against you and build a system that works around it. You won't become emotionless&mdash;that's a myth. You'll become <strong>prepared</strong>, so that when emotion shows up, it finds a process already in charge.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Trade the Plan, Not the Feeling</h2>
+            <p>So what does "prepared" actually look like when the candle is moving and your pulse is climbing? It is not a breathing exercise. It is not a motivational quote taped to your monitor. It is a <strong>written trade plan.</strong></p>
+            <p>A trade plan is simply your entry trigger, your invalidation, your position size, and your targets&mdash;decided and written down <em>before</em> you click. That timing is everything. When those four decisions live on paper, you have moved every emotional choice out of the heat of the trade and into a moment of calm. And here is why that disarms everything you just learned in this module:</p>
+            <ul style="margin-left: 20px; color: #C8D4E8; margin-bottom: 15px;">
+                <li><strong>The amygdala can't hijack a decision you already made.</strong> Your exit was set while the thinking brain was in charge. The hijack arrives to find the door already locked.</li>
+                <li><strong>Loss aversion can't renegotiate a written invalidation.</strong> You don't "give it room" when the room was already defined. The plan answers before the pain can ask.</li>
+                <li><strong>The dopamine pull can't justify a trade that isn't on the plan.</strong> If it's not written, it's not a trade&mdash;it's an impulse wearing a chart.</li>
+            </ul>
+            <p>This is the whole reason the STACK Method exists. <strong>S-T-A-C-K is a trade plan in five letters</strong>&mdash;Structure, Trigger, Alignment, Confirmation, Keep Discipline. Written, not felt. Every professional trades a plan. Every gambler trades a feeling. The difference between them isn't talent or capital&mdash;it's whether the decision was made before or during the emotion.</p>
+            <p>The honest hard part is this: most traders don't struggle to <em>follow</em> a plan&mdash;they struggle to <em>build</em> one fast enough, and objectively enough, before their own bias creeps in. A racing mind in front of a blank chart rarely writes a disciplined plan. That's exactly the gap a tool can close.</p>
+
+            <div class="wolf-cta">
+                <div class="wolf-cta-label">⚜ The Confirmation Tool</div>
+                <h3>Let the Plan Be Built Before the Emotion Shows Up</h3>
+                <p>This is where the <strong style="color:#F0D080;">Black Wolf</strong> package earns its place in your process. Black Wolf is a <strong style="color:#F0D080;">custom GPT</strong> that reads your <strong style="color:#F0D080;">Wolf Chart 2.1</strong> indicators and drafts a structured trade plan for you&mdash;entry, invalidation, and targets, laid out objectively before your nervous system gets a vote. It applies a method refined over <strong style="color:#F0D080;">16 years of trading</strong>, so you start from a disciplined plan instead of a blank chart and a racing heart. You still confirm it against your own read&mdash;<em>confirmation over prediction, always</em>&mdash;but the plan is already on paper. That is the antidote to everything this module just described.</p>
+                <p>The package is all-in-one: the Black Wolf GPT, the Wolf Chart 2.1 indicators, and access to two communities that keep you accountable&mdash;<strong style="color:#F0D080;">The Trading Roux</strong> and the <strong style="color:#F0D080;">Wolf Empire</strong> Discord.</p>
+                <a href="https://thewolfchart.com/?via=creoletrades" class="wolf-cta-btn" target="_blank" rel="noopener">Get the Black Wolf Package &rarr;</a>
+                <span class="wolf-cta-fine">A trade plan is a starting point, not a guarantee&mdash;always confirm it against your own structure read.</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="key-takeaways">
+                <h3>Key Takeaways</h3>
+                <ul>
+                    <li>A perfect setup can still lose, because execution breaks down under emotion. The trader is the variable, not the chart.</li>
+                    <li>Your brain evolved for survival, not markets. The amygdala can hijack rational thought and trigger fight-or-flight over a red candle.</li>
+                    <li>Loss aversion makes losses hurt about twice as much as gains feel good&mdash;pushing you to cut winners early and hold losers too long.</li>
+                    <li>Pre-set invalidation is a decision made before loss aversion can hijack you. Invalidation protects capital and the mind.</li>
+                    <li>Trading runs a slot-machine reward loop. Dopamine rewards the action of trading, not the quality of the trade&mdash;which fuels overtrading.</li>
+                    <li>Discipline is not willpower. Professionals out-prepare their biology with systems, not effort. Awareness &rarr; Rules &rarr; Repetition.</li>
+                    <li>A written trade plan is the most practical emotional regulator there is: it pre-decides entry, invalidation, and targets so emotion can't renegotiate them mid-trade. Trade the plan, not the feeling.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="practice-box">
+                <h3>Practice Exercise</h3>
+                <p><strong>This is real. Do this now:</strong></p>
+                <p>Pull up your last clearly emotional trade&mdash;the one where you knew, even as you clicked, that you were off-plan. Write down three things by hand: (1) What was your body doing right before the decision? Racing heart, held breath, that urge to act? (2) Which force was driving it&mdash;an amygdala hijack (panic), loss aversion (couldn't accept the loss), or the dopamine pull (boredom, needed action)? (3) What rule, set in advance, would have taken that decision out of your hands?</p>
+                <p>You're building self-awareness&mdash;Step 1 of the path. You can't manage a force you can't name.</p>
+                <p>Then take Step 2: for your next setup, write a three-line plan <em>before</em> you enter&mdash;trigger, invalidation, first target. Notice how different those decisions feel when you make them in calm instead of in the candle.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="quiz-section">
+                <h3>Knowledge Check</h3>
+                <div class="quiz-question">
+                    <div class="question-text">1. A trader builds a textbook-perfect setup but still loses money over time. According to this module, what is the most likely cause?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 0)">
+                        <label><input type="radio" name="q1"> Their strategy is wrong and needs more indicators</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 1)">
+                        <label><input type="radio" name="q1"> Their execution breaks down under emotion&mdash;the trader is the variable</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 2)">
+                        <label><input type="radio" name="q1"> The market is rigged against retail traders</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 3)">
+                        <label><input type="radio" name="q1"> They simply had bad luck</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation0">
+                        A good setup is necessary but not sufficient. Most traders are beaten by their own execution under emotion, not by the quality of their analysis.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">2. What does "loss aversion" mean?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 0)">
+                        <label><input type="radio" name="q2"> You should structure trades to avoid all possible losses</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 1)">
+                        <label><input type="radio" name="q2"> Losing traders eventually quit the markets</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 2)">
+                        <label><input type="radio" name="q2"> The pain of a loss is roughly twice as powerful as the pleasure of an equal gain</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 3)">
+                        <label><input type="radio" name="q2"> Larger positions automatically reduce your risk</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation1">
+                        Kahneman and Tversky showed losses are felt about twice as intensely as equivalent gains. This drives the disposition effect: cutting winners early, holding losers too long.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">3. Price spikes hard against your position. Before you consciously think, you slam the close button at what turns out to be the exact low. What just happened?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 0)">
+                        <label><input type="radio" name="q3"> An amygdala hijack&mdash;the survival brain overrode rational thought</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 1)">
+                        <label><input type="radio" name="q3"> A disciplined, well-reasoned exit</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 2)">
+                        <label><input type="radio" name="q3"> Correct use of a pre-set invalidation level</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 3)">
+                        <label><input type="radio" name="q3"> A dopamine reward from taking action</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation2">
+                        Acting before conscious thought, driven by panic, is the signature of an amygdala hijack&mdash;fight-or-flight making the decision for you.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">4. Why does staring at charts and overtrading feel so compulsive?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 0)">
+                        <label><input type="radio" name="q4"> More screen time always produces a bigger edge</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 1)">
+                        <label><input type="radio" name="q4"> The unpredictable rewards spike dopamine like a slot machine&mdash;the brain rewards the action, not the outcome</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 2)">
+                        <label><input type="radio" name="q4"> Trading is genuinely more productive the more trades you take</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 3)">
+                        <label><input type="radio" name="q4"> Dopamine is released only when you actually win</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation3">
+                        Dopamine is the anticipation chemical, and it spikes hardest on unpredictable rewards. The market runs a slot-machine loop that rewards the action of trading, not the quality of the trade.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">5. According to the module, what is the real fix for "I just need more discipline"?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 0)">
+                        <label><input type="radio" name="q5"> Try harder to control your emotions in the moment</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 1)">
+                        <label><input type="radio" name="q5"> Trade bigger size so you care more and focus</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 2)">
+                        <label><input type="radio" name="q5"> Remove all emotion and trade like a robot</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 3)">
+                        <label><input type="radio" name="q5"> Out-prepare your biology with systems&mdash;pre-decide rules while you're calm</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation4">
+                        Willpower drains under stress. Professionals build systems that make the right decision in advance (Awareness &rarr; Rules &rarr; Repetition), so emotion finds a process already in charge.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">6. Why does a written trade plan reduce emotional mistakes?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 5, 0)">
+                        <label><input type="radio" name="q6"> It guarantees the trade will be a winner</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 5, 1)">
+                        <label><input type="radio" name="q6"> It moves entry, invalidation, and targets into a calm decision made before you click, so emotion can't renegotiate them</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 5, 2)">
+                        <label><input type="radio" name="q6"> It removes all risk from the trade</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 5, 3)">
+                        <label><input type="radio" name="q6"> It lets you safely trade a much larger position</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation5">
+                        A plan is the "Rules" step made physical. The amygdala can't hijack a decision you already made, and loss aversion can't renegotiate an invalidation you committed to in advance. A plan is a starting point, not a guarantee&mdash;it disarms emotion, it doesn't remove risk.
+                    </div>
+                </div>
+
+                <button class="quiz-btn" onclick="submitQuiz()">Submit Quiz</button>
+                <div class="quiz-score" id="quizScore" style="display: none;">
+                    <div class="score-text">Quiz Complete</div>
+                    <div class="score-percentage" id="scorePercentage">0%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <button class="nav-button disabled">← Previous Module</button>
+            <a href="module-2.html" class="nav-button">Next Module →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 CreoleTrades. STACK Academy &mdash; The Trader's Mind. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const PASSWORD_HASH = "b956307831faa0ef5676c738be0b711bd89d4b0bb71454059847d28944b2b9ad";
+        const STORAGE_KEY = "stack_psychology_access";
+
+        function sha256(str) {
+            return new Promise(resolve => {
+                const buffer = new TextEncoder().encode(str);
+                crypto.subtle.digest('SHA-256', buffer).then(hashBuffer => {
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                    resolve(hashHex);
+                });
+            });
+        }
+
+        async function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const errorDiv = document.getElementById('passwordError');
+            const hash = await sha256(passwordInput.value);
+
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                document.getElementById('passwordGate').classList.add('hidden');
+            } else {
+                errorDiv.classList.add('show');
+                passwordInput.value = '';
+                setTimeout(() => errorDiv.classList.remove('show'), 3000);
+            }
+        }
+
+        function checkAccess() {
+            if (localStorage.getItem(STORAGE_KEY) !== 'true') {
+                document.getElementById('passwordGate').classList.remove('hidden');
+            } else {
+                document.getElementById('passwordGate').classList.add('hidden');
+            }
+        }
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        window.addEventListener('load', checkAccess);
+
+        const quizAnswers = [1, 2, 0, 1, 3, 1];
+        let selectedAnswers = [-1, -1, -1, -1, -1, -1];
+
+        function selectOption(element, questionNum, optionNum) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedAnswers[questionNum] = optionNum;
+        }
+
+        function submitQuiz() {
+            let correct = 0;
+            for (let i = 0; i < quizAnswers.length; i++) {
+                const options = document.querySelectorAll(`.quiz-question`)[i].querySelectorAll('.quiz-option');
+                if (selectedAnswers[i] === quizAnswers[i]) {
+                    options[selectedAnswers[i]].classList.add('correct');
+                    correct++;
+                } else if (selectedAnswers[i] !== -1) {
+                    options[selectedAnswers[i]].classList.add('incorrect');
+                    options[quizAnswers[i]].classList.add('correct');
+                }
+                document.getElementById(`explanation${i}`).classList.add('show');
+            }
+            const percentage = Math.round((correct / quizAnswers.length) * 100);
+            document.getElementById('scorePercentage').textContent = percentage + '%';
+            document.getElementById('quizScore').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

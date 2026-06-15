@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thinking in Probabilities: The Edge Mindset - The Trader's Mind - STACK Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070C18;
+            color: #C8D4E8;
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #070C18;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .password-gate.hidden {
+            display: none;
+        }
+
+        .password-container {
+            background-color: #0D1526;
+            padding: 60px 40px;
+            border-radius: 0px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .password-container h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .password-container p {
+            color: #C8D4E8;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 15px;
+            background-color: #070C18;
+            border: 1px solid #6B84AA;
+            border-radius: 0px;
+            color: #EEF2FF;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #C9A84C;
+        }
+
+        .password-btn {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: #C9A84C;
+            color: #070C18;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .password-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .password-error {
+            color: #EF4444;
+            margin-top: 15px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
+        .password-help {
+            margin-top: 20px;
+            border-top: 1px solid #6B84AA;
+            padding-top: 20px;
+        }
+
+        .password-help a {
+            color: #C9A84C;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .password-help a:hover {
+            color: #F0D080;
+        }
+
+        header {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-bottom: 1px solid #0F1A2E;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #EEF2FF;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 6px 12px;
+            border-radius: 0px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        nav {
+            background-color: #0F1A2E;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #0D1526;
+            overflow-x: auto;
+        }
+
+        nav a {
+            flex: 0 0 auto;
+            padding: 16px 20px;
+            color: #C8D4E8;
+            text-decoration: none;
+            border-right: 1px solid #0D1526;
+            font-size: 13px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            background-color: #070C18;
+            color: #C9A84C;
+        }
+
+        nav a.active {
+            background-color: #070C18;
+            color: #C9A84C;
+            border-bottom: 2px solid #C9A84C;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .content-section {
+            margin-bottom: 50px;
+        }
+
+        .content-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #EEF2FF;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .content-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .content-section p {
+            color: #C8D4E8;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .content-section strong {
+            color: #EEF2FF;
+        }
+
+        .lead-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #F0D080;
+            font-style: italic;
+            border-left: 4px solid #C9A84C;
+            padding: 10px 0 10px 25px;
+            margin: 25px 0;
+            line-height: 1.5;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .vocab-card {
+            background-color: #0D1526;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .vocab-card:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .vocab-card .term {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #F0D080;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .vocab-card .definition {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .three-step {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border-left: 4px solid #C9A84C;
+        }
+
+        .three-step h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .step {
+            background-color: #070C18;
+            padding: 20px;
+            border-radius: 0px;
+            border: 1px solid #0F1A2E;
+        }
+
+        .step .step-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #C9A84C;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .step .step-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .step .step-text {
+            font-size: 13px;
+            color: #C8D4E8;
+            line-height: 1.6;
+        }
+
+        .key-takeaways {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .key-takeaways h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-takeaways li {
+            color: #C8D4E8;
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .key-takeaways li:before {
+            content: "⚜";
+            position: absolute;
+            left: 0;
+            color: #C9A84C;
+            font-size: 14px;
+        }
+
+        .practice-box {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #22C55E;
+        }
+
+        .practice-box h3 {
+            color: #22C55E;
+            margin-top: 0;
+        }
+
+        .practice-box p {
+            color: #C8D4E8;
+            font-style: italic;
+        }
+
+        .wolf-cta {
+            background: linear-gradient(135deg, #0D1526, #0F1A2E);
+            padding: 32px;
+            border-radius: 0px;
+            margin: 35px 0;
+            border: 2px solid #C9A84C;
+        }
+
+        .wolf-cta .wolf-cta-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #C9A84C;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .wolf-cta h3 {
+            font-family: 'Playfair Display', serif;
+            color: #F0D080;
+            font-size: 24px;
+            margin: 0 0 14px 0;
+            font-weight: 700;
+        }
+
+        .wolf-cta p {
+            color: #C8D4E8;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .wolf-cta-btn {
+            display: inline-block;
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 14px 30px;
+            text-decoration: none;
+            font-family: 'Lora', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .wolf-cta-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .wolf-cta .wolf-cta-fine {
+            display: block;
+            margin: 16px 0 0 0;
+            font-size: 12px;
+            color: #6B84AA;
+            font-style: italic;
+        }
+
+        .quiz-section {
+            background-color: #0D1526;
+            padding: 30px;
+            border-radius: 0px;
+            margin: 25px 0;
+            border: 1px solid #0F1A2E;
+        }
+
+        .quiz-section h3 {
+            color: #EEF2FF;
+            margin-top: 0;
+        }
+
+        .quiz-question {
+            margin-bottom: 30px;
+        }
+
+        .quiz-question .question-text {
+            color: #EEF2FF;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .quiz-option {
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            border: 1px solid #0F1A2E;
+            border-radius: 0px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            user-select: none;
+        }
+
+        .quiz-option:hover {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option input[type="radio"] {
+            margin-right: 12px;
+        }
+
+        .quiz-option label {
+            cursor: pointer;
+            color: #C8D4E8;
+        }
+
+        .quiz-option.selected {
+            background-color: #0F1A2E;
+            border-color: #C9A84C;
+        }
+
+        .quiz-option.correct {
+            background-color: #0F1A2E;
+            border-color: #22C55E;
+        }
+
+        .quiz-option.incorrect {
+            background-color: #0F1A2E;
+            border-color: #EF4444;
+        }
+
+        .quiz-explanation {
+            display: none;
+            background-color: #070C18;
+            padding: 12px 16px;
+            margin-top: 8px;
+            border-left: 3px solid #C9A84C;
+            color: #C8D4E8;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .quiz-explanation.show {
+            display: block;
+        }
+
+        .quiz-score {
+            background-color: #0F1A2E;
+            padding: 20px;
+            border-radius: 0px;
+            margin-top: 30px;
+            border: 1px solid #C9A84C;
+            text-align: center;
+        }
+
+        .quiz-score .score-text {
+            color: #EEF2FF;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .quiz-score .score-percentage {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #C9A84C;
+            font-weight: 900;
+        }
+
+        .quiz-btn {
+            background-color: #C9A84C;
+            color: #070C18;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .quiz-btn:hover {
+            background-color: #F0D080;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0;
+            gap: 20px;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 16px 24px;
+            background-color: #0D1526;
+            color: #C9A84C;
+            border: 1px solid #C9A84C;
+            border-radius: 0px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .nav-button:hover {
+            background-color: #C9A84C;
+            color: #070C18;
+        }
+
+        .nav-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-button.disabled:hover {
+            background-color: #0D1526;
+            color: #C9A84C;
+        }
+
+        footer {
+            background-color: #0D1526;
+            padding: 30px 40px;
+            border-top: 1px solid #0F1A2E;
+            color: #6B84AA;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            nav {
+                padding: 0;
+            }
+
+            nav a {
+                padding: 12px 16px;
+                font-size: 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .content-section h2 {
+                font-size: 24px;
+            }
+
+            .lead-quote {
+                font-size: 17px;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-gate" id="passwordGate">
+        <div class="password-container">
+            <h2>STACK Academy</h2>
+            <p>Enter your password to access The Trader's Mind</p>
+            <input type="password" id="passwordInput" class="password-input" placeholder="Password">
+            <button class="password-btn" onclick="checkPassword()">Access Course</button>
+            <div class="password-error" id="passwordError">Incorrect password. Try again.</div>
+            <div class="password-help">
+                <a href="index.html">Don't have a password? Get access at creoletrades.com</a>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <h1>The Trader's Mind</h1>
+        <span class="module-badge">Module 4 of 8</span>
+    </header>
+
+    <nav>
+        <a href="../">← All Courses</a>
+        <a href="module-1.html">Module 1</a>
+        <a href="module-2.html">Module 2</a>
+        <a href="module-3.html">Module 3</a>
+        <a href="module-4.html" class="active">Module 4</a>
+        <a href="module-5.html">Module 5</a>
+        <a href="module-6.html">Module 6</a>
+        <a href="module-7.html">Module 7</a>
+        <a href="module-8.html">Module 8</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="final-exam.html">Final Exam</a>
+    </nav>
+
+    <div class="container">
+        <div class="content-section">
+            <h2>Any Single Trade Is Random</h2>
+            <p>Here is the mindset shift that separates the trader who survives from the trader who blows up: <strong>you cannot know the outcome of any single trade.</strong> Not the cleanest setup. Not the one that "feels" perfect. Not the one where every box on your Confirmation Stack is checked. You can do everything right and still lose that trade&mdash;and you can do everything wrong and still win it. One trade is a coin you can't see until it lands.</p>
+            <p class="lead-quote">"The edge lives in the sample, not in the trade. You don't win the trade&mdash;you win the series."</p>
+            <p>This is hard to swallow because every instinct tells you the next trade <em>should</em> work. You read the structure, you waited for confirmation, you earned it. But the market doesn't owe you the outcome you deserved. A good decision and a good result are two different things, and on any single trade, they can come apart completely. <strong>Randomness in the short run is not a flaw in your method&mdash;it is the nature of the game.</strong></p>
+            <p>So where does the edge actually live? In the <strong>sample</strong>. Take the same disciplined setup fifty times, and the math starts to assert itself. The losers get drowned out by the structure of the wins. Think of it like a roux: a single stir tells you nothing&mdash;the color only comes from the patient repetition of the same motion, over and over. <em>You don't rush a roux. You don't rush a trade.</em> You don't judge it by one stir, and you don't judge your edge by one trade.</p>
+            <p>This is the master mindset of the entire module. Once you stop needing each individual trade to win, something changes. The fear drains out of the click. A loss stops being a verdict and becomes a data point. You are no longer betting your self-worth on a coin flip&mdash;you are executing a process across a sample, and letting the math do its slow, patient work.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Expectancy: The Math That Lets You Lose and Win</h2>
+            <p>If a single trade is random, how do you ever make money? The answer is a single, plain piece of math called <strong>expectancy</strong>. Expectancy tells you what you can expect to earn, on average, per trade, across a large sample. It is the number that lets you lose more than half your trades and still come out ahead.</p>
+            <p>Here is the whole formula in one line:</p>
+            <p class="lead-quote">Expectancy = (Win Rate × Average Win) &minus; (Loss Rate × Average Loss)</p>
+            <p>Let's walk a real example, slow and plain. Say you win only <strong>40% of your trades</strong>&mdash;you lose six out of every ten. That sounds like a losing trader. But say your winners are twice the size of your losers: every loss risks $100, and every win makes $200. That's a <strong>1:2 risk-to-reward</strong>, or an <strong>R-multiple</strong> of 2. Now run the math:</p>
+            <ul style="margin-left: 20px; color: #C8D4E8; margin-bottom: 15px;">
+                <li><strong>Wins:</strong> 0.40 × $200 = <strong>+$80</strong></li>
+                <li><strong>Losses:</strong> 0.60 × $100 = <strong>&minus;$60</strong></li>
+                <li><strong>Expectancy:</strong> $80 &minus; $60 = <strong>+$20 per trade</strong></li>
+            </ul>
+            <p>Read that again. You lose <em>most</em> of your trades&mdash;and you still earn a positive $20 every time you click, on average across the sample. Over 100 trades, that's +$2,000, built entirely on a sub-50% win rate. The losses aren't the problem. They were priced in from the start.</p>
+            <p>This is why chasing a high win rate is a trap. A trader who wins 90% of the time but lets one loser wipe out nine winners has <strong>negative expectancy</strong> and a slowly dying account. A trader who wins 40% of the time with disciplined R has <strong>positive expectancy</strong> and a rising one. <em>The K doesn't negotiate</em>&mdash;Keep Discipline means protecting the R on every trade, because the R is what makes the math work.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Probabilistic Thinking</div>
+                    <div class="definition">Treating each trade as one outcome in a range of possibilities, not a prediction that must come true. You think in odds, not certainties.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Expectancy</div>
+                    <div class="definition">The average profit or loss you can expect per trade across a large sample: (win rate × avg win) &minus; (loss rate × avg loss).</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Edge</div>
+                    <div class="definition">A repeatable method with positive expectancy. It does not win every trade&mdash;it wins over a large enough sample.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">R-Multiple</div>
+                    <div class="definition">The size of a trade's outcome measured in units of risk. Risk $100 to make $200 and your winner is +2R; your loser is &minus;1R.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>The Next Trade Doesn't Care About the Last</h2>
+            <p>Lose four trades in a row and your brain starts whispering: <em>"I'm due for a win."</em> Win four in a row and a different whisper starts: <em>"I'm hot&mdash;size up."</em> Both whispers are the same lie. It's called the <strong>gambler's fallacy</strong>, and it is one of the most expensive errors a trader can make.</p>
+            <p>Here is the truth your brain refuses to feel: <strong>trades are independent events.</strong> If your setup wins 40% of the time, every single trade wins 40% of the time&mdash;no matter what came before it. The market has no memory. It does not know you just lost four in a row. It does not owe you a make-up win. A coin that landed tails five times in a row is still exactly 50/50 on the next flip, and your setup is still exactly itself on the next trade.</p>
+            <p>This cuts both ways, and both ways are dangerous:</p>
+            <ul style="margin-left: 20px; color: #C8D4E8; margin-bottom: 15px;">
+                <li><strong>The "due for a win" trap.</strong> After a losing streak you start forcing trades, taking marginal setups, oversizing to "win it back." You're betting on a debt the market never agreed to pay.</li>
+                <li><strong>The "hot streak" trap.</strong> After a winning streak you feel invincible, size up recklessly, and skip your checks. One oversized loss erases a week of disciplined wins.</li>
+            </ul>
+            <p>What you're actually experiencing in a streak is <strong>variance</strong>&mdash;the natural clustering of wins and losses that happens in any random sequence. Variance is normal. It is not a signal. It is not a message. It is just the texture of a probabilistic game. The professional feels the streak and does the same disciplined thing anyway: takes the next valid setup at the same size, and ignores the whisper entirely. <em>Confirmation over prediction</em>&mdash;you trade the setup in front of you, not the story about the last four.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="term">Sample Size</div>
+                    <div class="definition">The number of trades over which your edge is measured. Small samples are noise; large samples reveal the truth of your expectancy.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Variance</div>
+                    <div class="definition">The natural clustering of wins and losses around your true edge. Streaks are variance, not signal&mdash;the math still holds underneath.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Gambler's Fallacy</div>
+                    <div class="definition">The false belief that past outcomes change future odds&mdash;feeling "due" for a win, or "hot" and unbeatable. Trades are independent.</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="term">Process vs Outcome</div>
+                    <div class="definition">Judging a trade by whether you followed your plan, not by whether it made money. Good process can lose; bad process can win.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Process Over Outcome</h2>
+            <p>Once you accept that any single trade is random, a powerful question follows: <strong>if I can't control the outcome, what can I control?</strong> The answer is the only thing that has ever mattered&mdash;your process. So you stop grading the dollar and start grading the decision.</p>
+            <p>This reframes every trade in your journal. There are four outcomes, not two:</p>
+
+            <div class="three-step">
+                <h3>Grade the Decision, Not the Dollar</h3>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">A</div>
+                        <div class="step-title">Good Trade, Win</div>
+                        <div class="step-text">You followed your plan and it paid. Great&mdash;but notice the win didn't make it a good trade. The discipline did. Repeat it.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">B</div>
+                        <div class="step-title">Good Trade, Loss</div>
+                        <div class="step-text">You followed your plan and it lost. This is still a <strong>GOOD trade.</strong> You executed correctly; variance did the rest. Nothing to fix.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">C</div>
+                        <div class="step-title">Bad Trade, Win</div>
+                        <div class="step-text">You broke your plan and got paid anyway. This is the most dangerous box&mdash;a <strong>BAD trade</strong> the market rewarded. It teaches the wrong lesson.</div>
+                    </div>
+                </div>
+            </div>
+
+            <p>Sit with box C, because it's the one that quietly ruins traders. A reckless, off-plan click that happens to win feels like genius&mdash;but it reinforces the exact behavior that will eventually empty the account. The market paid you for a mistake, and now your brain wants to make that mistake again. <strong>A reckless win is a bad trade.</strong> A disciplined loss is a good one. That sentence is the whole module in eleven words.</p>
+            <p>This is why the professional journals process, not P&amp;L. At the end of the day the only honest question is: <em>did I follow my plan?</em> Yes or no. The dollars are an outcome you don't fully control; the decision is the one thing you do. Grade what you control, repeat what's disciplined, and let expectancy turn good process into good results over the sample. <em>You don't rush a roux. You don't rush a trade.</em> You stir the same way every time and trust the color to come.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Detaching Ego from the Position</h2>
+            <p>There is one final barrier between you and probabilistic thinking, and it's the deepest one: <strong>your ego.</strong> Ego is what turns a losing trade into a personal insult. It's the voice that says a red trade means <em>you</em> are wrong&mdash;not the trade, you. The person. The trader. The whole identity. And once a loss becomes personal, every clean decision you learned in this course goes out the window.</p>
+            <p class="lead-quote">"You are not your trade. Being wrong on a position is not being a failure as a person."</p>
+            <p>Understand the mechanism. When ego is fused to the position, a loss isn't a &minus;1R data point&mdash;it's an attack on your competence. So you defend it. You move the invalidation to avoid being "proven wrong." You add to the loser to make the average look better. You revenge trade to "get it back" and restore your wounded pride. Every one of these is the ego trying to protect itself, and every one of them violates the math that was about to make you money.</p>
+            <p>The detachment is this: <strong>a loss is a cost of doing business, not a referendum on your worth.</strong> A surgeon doesn't lose their identity when a patient has a complication. A pilot doesn't become a failure because of turbulence. They run their process and accept the outcomes that come with the job. You are a process executor sampling an edge&mdash;and some of those samples are red. That's the cost. It was always priced in.</p>
+            <p>When you separate the trader from the trade, something quiet and powerful happens. The loss stops stinging. The win stops inflating. You can look at your own decision honestly because there's no ego to protect. You can take the next valid setup without the last one's baggage. This is what the whole module has been building toward: <strong>trade the process, detach from the position, and let the sample pay you.</strong> The market doesn't know your name, and it was never personal. The sooner you believe that, the sooner the math gets to work.</p>
+        </div>
+
+        <div class="content-section">
+            <div class="key-takeaways">
+                <h3>Key Takeaways</h3>
+                <ul>
+                    <li>Any single trade is random&mdash;you can do everything right and lose. The edge lives in the sample, not the trade. This is the master mindset shift.</li>
+                    <li>Expectancy = (win rate × avg win) &minus; (loss rate × avg loss). A 40% win rate at 1:2 R earns +$20 per trade&mdash;you can lose most trades and still profit.</li>
+                    <li>Chasing a high win rate is a trap. Positive expectancy, not a high hit rate, is what grows an account. Protect your R on every trade.</li>
+                    <li>Trades are independent events. The gambler's fallacy&mdash;feeling "due" for a win or "hot" and unbeatable&mdash;is a lie. Streaks are variance, not signal.</li>
+                    <li>Grade the decision, not the dollar. A disciplined trade that loses is a GOOD trade; a reckless trade that wins is a BAD trade that teaches the wrong lesson.</li>
+                    <li>You are not your trade. Ego makes a loss personal and triggers revenge trading and moved stops. Detach, treat losses as a cost of business, and let the sample pay you.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="practice-box">
+                <h3>Practice Exercise</h3>
+                <p><strong>This is real. Do this now:</strong></p>
+                <p>Pull up your last 10 trades. Ignore the P&amp;L completely&mdash;cover the dollar column with your hand if you have to. For each trade, answer one question and one question only: <em>Did I follow my plan? Yes or no.</em> Trigger, invalidation, size, target&mdash;did you execute the plan you wrote, or did you improvise?</p>
+                <p>Now count how many were "good trades" by process alone, regardless of whether they won or lost. That number&mdash;not your win rate, not your P&amp;L&mdash;is the real score of your trading right now.</p>
+                <p>Then find your box C trades: the off-plan clicks that happened to win. Mark them in red. Those are the lies your account is telling you, and they're the first habits to kill. Grade the decision. The dollars will follow the process over the sample.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="wolf-cta">
+                <div class="wolf-cta-label">⚜ The Confirmation Tool</div>
+                <h3>Probability Only Pays If Your Process Is Repeatable</h3>
+                <p>Expectancy is only real if you run the <em>same</em> disciplined process across a large sample. The moment your plan changes shape from trade to trade&mdash;wider here, tighter there, sized by mood&mdash;your sample is contaminated and the math stops meaning anything. A clean edge needs a clean, repeatable process. That's exactly where the <strong style="color:#F0D080;">Black Wolf</strong> package earns its place.</p>
+                <p>Black Wolf is a <strong style="color:#F0D080;">custom GPT</strong> that reads your <strong style="color:#F0D080;">Wolf Chart 2.1</strong> indicators and drafts a structured trade plan&mdash;entry, invalidation, and targets, laid out the same disciplined way every single time. It applies a method <strong style="color:#F0D080;">refined over 16 years of trading</strong>, so your R stays consistent and your sample stays clean, trade after trade. You still confirm every plan against your own structure read&mdash;<em>confirmation over prediction, always</em>&mdash;but you start from a repeatable plan instead of improvising under variance. That repeatability is what lets expectancy actually work.</p>
+                <p>The package is all-in-one: the Black Wolf GPT, the Wolf Chart 2.1 indicators, and access to two communities that keep you accountable&mdash;<strong style="color:#F0D080;">The Trading Roux</strong> and the <strong style="color:#F0D080;">Wolf Empire</strong> Discord.</p>
+                <a href="https://thewolfchart.com/?via=creoletrades" class="wolf-cta-btn" target="_blank" rel="noopener">Get the Black Wolf Package &rarr;</a>
+                <span class="wolf-cta-fine">A trade plan is a starting point, not a guarantee&mdash;always confirm it against your own structure read.</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="quiz-section">
+                <h3>Knowledge Check</h3>
+                <div class="quiz-question">
+                    <div class="question-text">1. You take a textbook-perfect setup&mdash;every box on your plan is checked&mdash;and it loses. According to this module, what is the correct read?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 0)">
+                        <label><input type="radio" name="q1"> Your method is broken and needs to be rebuilt</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 1)">
+                        <label><input type="radio" name="q1"> Any single trade is random&mdash;a good decision can still lose, and the edge lives in the sample</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 2)">
+                        <label><input type="radio" name="q1"> You must have misread the setup, because a perfect setup always wins</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 0, 3)">
+                        <label><input type="radio" name="q1"> You should size up next time to make the loss back</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation0">
+                        You cannot know the outcome of one trade. A good decision and a good result are separate things&mdash;over the sample, the math asserts itself, but any single trade is a coin you can't see until it lands.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">2. Your setup wins 40% of the time. Every loss risks $100; every win makes $200. Using Expectancy = (win rate × avg win) &minus; (loss rate × avg loss), what is your expectancy per trade?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 0)">
+                        <label><input type="radio" name="q2"> &minus;$20 per trade&mdash;a sub-50% win rate is always a losing system</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 1)">
+                        <label><input type="radio" name="q2"> $0 per trade&mdash;it breaks even</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 2)">
+                        <label><input type="radio" name="q2"> +$20 per trade&mdash;positive expectancy despite losing most trades</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 1, 3)">
+                        <label><input type="radio" name="q2"> +$100 per trade</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation1">
+                        Wins: 0.40 × $200 = +$80. Losses: 0.60 × $100 = &minus;$60. Expectancy = $80 &minus; $60 = <strong>+$20 per trade</strong>. You lose 60% of trades and still profit, because the R-multiple carries the math.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">3. You've just lost four trades in a row. A voice says, "I'm due for a win&mdash;the odds have to even out." What is the correct response?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 0)">
+                        <label><input type="radio" name="q3"> The voice is right&mdash;size up on the next trade to capitalize</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 1)">
+                        <label><input type="radio" name="q3"> Stop trading the strategy&mdash;four losses means it's broken</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 2)">
+                        <label><input type="radio" name="q3"> It's the gambler's fallacy&mdash;trades are independent, so take the next valid setup at the same size</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 2, 3)">
+                        <label><input type="radio" name="q3"> Switch to a different setup until your luck turns</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation2">
+                        The market has no memory. Each trade is an independent event with the same odds, regardless of the streak. The streak is variance, not a signal&mdash;you take the next valid setup at the same size and ignore the whisper.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">4. You ignore your plan, click impulsively on a marginal setup, and it happens to win big. How should you grade this trade?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 0)">
+                        <label><input type="radio" name="q4"> A great trade&mdash;it made money, and money is the only score that counts</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 1)">
+                        <label><input type="radio" name="q4"> A BAD trade&mdash;you broke your process; the win rewards the wrong behavior</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 2)">
+                        <label><input type="radio" name="q4"> A good trade, because your instincts were clearly correct</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 3, 3)">
+                        <label><input type="radio" name="q4"> It doesn't matter how you grade it as long as the account is up</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation3">
+                        Grade the decision, not the dollar. A reckless win is a BAD trade&mdash;the market paid you for a mistake, which reinforces the exact behavior that empties accounts. A disciplined loss is a GOOD trade.
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">5. After a red trade you feel personally insulted, move your invalidation to avoid being "proven wrong," and start planning a revenge trade. What is happening?</div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 0)">
+                        <label><input type="radio" name="q5"> Healthy competitiveness that will make you a better trader</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 1)">
+                        <label><input type="radio" name="q5"> A sign you should always add to losers to lower your average</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 2)">
+                        <label><input type="radio" name="q5"> Correct risk management under pressure</label>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this, 4, 3)">
+                        <label><input type="radio" name="q5"> Ego fused to the position&mdash;the loss became personal, and now ego is overriding your process</label>
+                    </div>
+                    <div class="quiz-explanation" id="explanation4">
+                        You are not your trade. When ego fuses to the position, a &minus;1R data point becomes an attack on your competence, and you defend it&mdash;moving stops, adding to losers, revenge trading. Detach: a loss is a cost of business, not a referendum on your worth.
+                    </div>
+                </div>
+
+                <button class="quiz-btn" onclick="submitQuiz()">Submit Quiz</button>
+                <div class="quiz-score" id="quizScore" style="display: none;">
+                    <div class="score-text">Quiz Complete</div>
+                    <div class="score-percentage" id="scorePercentage">0%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="module-3.html" class="nav-button">← Previous Module</a>
+            <a href="module-5.html" class="nav-button">Next Module →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 CreoleTrades. STACK Academy &mdash; The Trader's Mind. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const PASSWORD_HASH = "b956307831faa0ef5676c738be0b711bd89d4b0bb71454059847d28944b2b9ad";
+        const STORAGE_KEY = "stack_psychology_access";
+
+        function sha256(str) {
+            return new Promise(resolve => {
+                const buffer = new TextEncoder().encode(str);
+                crypto.subtle.digest('SHA-256', buffer).then(hashBuffer => {
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                    resolve(hashHex);
+                });
+            });
+        }
+
+        async function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const errorDiv = document.getElementById('passwordError');
+            const hash = await sha256(passwordInput.value);
+
+            if (hash === PASSWORD_HASH) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                document.getElementById('passwordGate').classList.add('hidden');
+            } else {
+                errorDiv.classList.add('show');
+                passwordInput.value = '';
+                setTimeout(() => errorDiv.classList.remove('show'), 3000);
+            }
+        }
+
+        function checkAccess() {
+            if (localStorage.getItem(STORAGE_KEY) !== 'true') {
+                document.getElementById('passwordGate').classList.remove('hidden');
+            } else {
+                document.getElementById('passwordGate').classList.add('hidden');
+            }
+        }
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        window.addEventListener('load', checkAccess);
+
+        const quizAnswers = [1, 2, 2, 1, 3];
+        let selectedAnswers = [-1, -1, -1, -1, -1];
+
+        function selectOption(element, questionNum, optionNum) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedAnswers[questionNum] = optionNum;
+        }
+
+        function submitQuiz() {
+            let correct = 0;
+            for (let i = 0; i < quizAnswers.length; i++) {
+                const options = document.querySelectorAll(`.quiz-question`)[i].querySelectorAll('.quiz-option');
+                if (selectedAnswers[i] === quizAnswers[i]) {
+                    options[selectedAnswers[i]].classList.add('correct');
+                    correct++;
+                } else if (selectedAnswers[i] !== -1) {
+                    options[selectedAnswers[i]].classList.add('incorrect');
+                    options[quizAnswers[i]].classList.add('correct');
+                }
+                document.getElementById(`explanation${i}`).classList.add('show');
+            }
+            const percentage = Math.round((correct / quizAnswers.length) * 100);
+            document.getElementById('scorePercentage').textContent = percentage + '%';
+            document.getElementById('quizScore').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
