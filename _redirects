@@ -5,6 +5,7 @@ https://www.CreoleTrades.com/* https://CreoleTrades.com/:splat 301!
 /thank-you       /thank-you.html       200
 /starter-guide   /starter-guide.html   200
 /loup-apex       /loup-apex.html       200
+/loup-apex-guide /loup-apex-guide.html 200
 
 # SPA fallback
 /*  /index.html  200

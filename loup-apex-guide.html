@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Loup Apex+ — User Guide | CreoleWolf</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bayou:#070C18;--cypress:#0D1526;--deep:#050911;--iron:#0F1A2E;
+    --spice:#C9A84C;--spice-lite:#E2BC6B;--firefly:#F0D080;
+    --moss:#3D5278;--moss-lite:#6B84AA;--cream:#F5F7FF;
+    --border:rgba(201,168,76,0.22);--border-dim:rgba(201,168,76,0.08);
+    --text:#C8D4E8;--muted:#5A7099;
+    --green:#00E676;--orange:#FFC107;--red:#FF1744;--aqua:#00BCD4;--hot:#FF6D00;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Lora',serif;color:var(--text);line-height:1.75;
+    background:linear-gradient(180deg,var(--deep) 0%,var(--bayou) 45%,var(--cypress) 100%);
+    background-attachment:fixed;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4{font-family:'Playfair Display',serif;color:var(--cream);line-height:1.2}
+  code,.mono{font-family:'IBM Plex Mono',monospace}
+  a{color:var(--spice);text-decoration:none}
+  .gold{color:var(--spice)}
+
+  /* TOP BAR */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(5,9,17,0.9);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border-dim);padding:0.8rem 1.5rem;display:flex;align-items:center;
+    justify-content:space-between;flex-wrap:wrap;gap:0.5rem}
+  .brand{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--cream)}
+  .brand em{color:var(--spice);font-style:normal}
+  .toc{display:flex;gap:1rem;flex-wrap:wrap;font-size:0.78rem}
+  .toc a{color:var(--moss-lite)}
+  .toc a:hover{color:var(--spice)}
+
+  .wrap{max-width:980px;margin:0 auto;padding:0 1.5rem}
+
+  /* HERO */
+  .hero{text-align:center;padding:4rem 0 2.5rem}
+  .eyebrow{font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--spice);margin-bottom:1rem}
+  .hero h1{font-size:3rem;margin-bottom:1rem}
+  .hero h1 span{color:var(--spice)}
+  .hero p{max-width:680px;margin:0 auto;font-size:1.1rem}
+  .badge-row{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;margin-top:1.6rem}
+  .pill{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:.5px;
+    padding:0.35rem 0.8rem;border-radius:999px;border:1px solid var(--border);color:var(--spice-lite);
+    background:rgba(201,168,76,0.06)}
+
+  section{padding:3rem 0;border-top:1px solid var(--border-dim)}
+  .kicker{font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--spice);margin-bottom:0.6rem}
+  section h2{font-size:1.9rem;margin-bottom:0.5rem}
+  section .intro{color:var(--text);max-width:740px;margin-bottom:1.8rem;font-size:1.02rem}
+
+  /* CARDS */
+  .grid{display:grid;gap:1.2rem}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .card{background:rgba(15,26,46,0.55);border:1px solid var(--border-dim);border-radius:12px;
+    padding:1.5rem;position:relative;overflow:hidden}
+  .card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;
+    background:linear-gradient(90deg,var(--spice),transparent)}
+  .card .ico{font-size:1.6rem;margin-bottom:0.5rem;display:block}
+  .card h3{font-size:1.15rem;color:var(--spice-lite);margin-bottom:0.4rem}
+  .card p{font-size:0.92rem}
+
+  /* CALLOUT */
+  .callout{border-left:3px solid var(--spice);background:rgba(201,168,76,0.06);
+    padding:1.1rem 1.3rem;border-radius:0 8px 8px 0;margin:1.4rem 0;font-size:0.95rem}
+  .callout.warn{border-left-color:var(--orange);background:rgba(255,193,7,0.06)}
+  .callout b{color:var(--spice-lite)}
+
+  /* TABLE */
+  table{width:100%;border-collapse:collapse;font-size:0.88rem;margin:0.5rem 0}
+  thead th{text-align:left;color:var(--spice);font-family:'IBM Plex Mono',monospace;font-size:0.72rem;
+    letter-spacing:1px;text-transform:uppercase;padding:0.7rem 0.8rem;border-bottom:1px solid var(--border)}
+  tbody td{padding:0.65rem 0.8rem;border-bottom:1px solid var(--border-dim);vertical-align:top}
+  tbody tr:hover{background:rgba(201,168,76,0.04)}
+  td code{color:var(--spice-lite);font-size:0.82rem}
+  .tablewrap{overflow-x:auto;border:1px solid var(--border-dim);border-radius:12px}
+
+  /* GRADE TIERS */
+  .tiers{display:flex;flex-direction:column;gap:0.7rem}
+  .tier{display:flex;align-items:center;gap:1rem;padding:0.9rem 1.1rem;border-radius:10px;
+    border:1px solid var(--border-dim);background:rgba(15,26,46,0.5)}
+  .tier .tag{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:0.85rem;white-space:nowrap;
+    padding:0.3rem 0.7rem;border-radius:6px;min-width:150px;text-align:center}
+  .tier p{font-size:0.9rem}
+  .t-disc{color:var(--aqua);border:1px solid var(--aqua)}
+  .t-mid{color:var(--moss-lite);border:1px solid var(--moss-lite)}
+  .t-prem{color:var(--orange);border:1px solid var(--orange)}
+  .t-disco{color:var(--green);border:1px solid var(--green)}
+  .t-deep{color:var(--hot);border:1px solid var(--hot)}
+
+  /* CODE BLOCK */
+  .code{background:#04070E;border:1px solid var(--border-dim);border-radius:10px;padding:1.2rem 1.3rem;
+    font-family:'IBM Plex Mono',monospace;font-size:0.82rem;line-height:1.8;color:var(--moss-lite);
+    overflow-x:auto;white-space:pre}
+  .code .lbl{color:var(--spice)}
+  .code .val{color:var(--cream)}
+
+  /* FLOW STEPS */
+  .steps{counter-reset:s;display:flex;flex-direction:column;gap:1rem}
+  .stepi{display:flex;gap:1.1rem;align-items:flex-start}
+  .stepi .num{counter-increment:s;flex:none;width:42px;height:42px;border-radius:50%;
+    border:1px solid var(--spice);color:var(--spice);font-family:'Playfair Display',serif;font-size:1.3rem;
+    display:flex;align-items:center;justify-content:center}
+  .stepi .num::before{content:counter(s)}
+  .stepi h4{color:var(--spice-lite);font-size:1.05rem;margin-bottom:0.2rem}
+  .stepi p{font-size:0.92rem}
+
+  /* MINI LEGEND swatch */
+  .sw{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:middle;margin-right:5px}
+
+  footer{text-align:center;padding:3rem 1.5rem;border-top:1px solid var(--border-dim);margin-top:2rem}
+  .footer-logo{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--cream)}
+  .footer-logo em{color:var(--spice);font-style:normal}
+  .disc{font-size:0.72rem;color:var(--muted);max-width:660px;margin:1.3rem auto 0;font-style:italic}
+
+  @media(max-width:760px){
+    .g2,.g3{grid-template-columns:1fr}
+    .hero h1{font-size:2.1rem}
+    section h2{font-size:1.5rem}
+    .toc{display:none}
+    .tier{flex-direction:column;align-items:flex-start;gap:0.5rem}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">Loup <em>Apex+</em> · User Guide</div>
+  <nav class="toc">
+    <a href="#core">Core</a>
+    <a href="#anchor">Anchor</a>
+    <a href="#levels">Levels</a>
+    <a href="#micro">Micro</a>
+    <a href="#grade">Grade</a>
+    <a href="#settings">Settings</a>
+    <a href="#alerts">Alerts</a>
+    <a href="#use">How to Use</a>
+  </nav>
+</div>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="eyebrow">🐺 CreoleWolf · TradingView Indicator</div>
+    <h1>Loup <span>Apex+</span></h1>
+    <p>The all-time Fibonacci that follows price into <span class="gold">uncharted territory</span>. It anchors to a chart's entire history, holds its anchor through parabolas, and keeps drawing structure — extensions and nested micro-fibs — into the price-discovery zone above the all-time high where every other fib tool goes blank.</p>
+    <div class="badge-row">
+      <span class="pill">ALL-TIME ANCHOR</span>
+      <span class="pill">PRICE-DISCOVERY EXTENSIONS</span>
+      <span class="pill">FIB-IN-FIB MICRO</span>
+      <span class="pill">DISCOVERY GRADE</span>
+    </div>
+  </header>
+
+  <!-- CORE -->
+  <section id="core">
+    <div class="kicker">The Core Idea</div>
+    <h2>Three zones, one map</h2>
+    <p class="intro">Loup Apex+ stretches a Fibonacci ladder across the chart's whole history — from the all-time low to the held all-time high — and classifies where price sits in that range right now. Price is always in one of three zones:</p>
+    <div class="grid g3">
+      <div class="card"><span class="ico">🟦</span><h3>Discount</h3><p>The lower part of the all-time range — value territory, far from the highs.</p></div>
+      <div class="card"><span class="ico">🟧</span><h3>Premium</h3><p>The upper third, pressing toward the all-time high. Don't chase the extreme here.</p></div>
+      <div class="card"><span class="ico">🟩</span><h3>Discovery</h3><p>Beyond the held high — new all-time ground. This is where the extensions and the micro-fib take over.</p></div>
+    </div>
+    <div class="callout">Most fib tools only draw the retracement (0–1) zone. Loup Apex+ keeps building structure <b>past 1.0</b>, into price discovery — that's the whole point of the <span class="gold">+</span>.</div>
+  </section>
+
+  <!-- ANCHOR -->
+  <section id="anchor">
+    <div class="kicker">The Engine</div>
+    <h2>The Held All-Time Anchor</h2>
+    <p class="intro">A fib is only as good as its anchor. Loup Apex+ uses an asymmetric anchor: the <b>origin side</b> is the true all-time extreme, and the <b>trend side</b> is a pullback-confirmed swing that <b>holds</b>.</p>
+    <div class="grid g2">
+      <div class="card"><h3>Origin = true extreme</h3><p>In an uptrend the 1.0 line sits on the genuine all-time low — the real floor of the entire move. (Mirrored to the all-time high in a downtrend.)</p></div>
+      <div class="card"><h3>Trend side = held swing</h3><p>The 0 line locks onto a swing the moment price pulls back <code>pbATR</code>×ATR from a new high, then <b>holds</b> there — so a fresh run trades <em>inside</em> the extension zone above it.</p></div>
+    </div>
+    <div class="callout warn"><b>Why "held," not a live high?</b> A normal all-time-high anchor can never be exceeded — so price could never sit in the extensions. And a symmetric pivot needs bars <em>after</em> a high to confirm, so on a parabola it strands at an ancient level. The pullback-confirmed swing stays recent <em>and</em> lets price discover above it. Tune it with <code>Pullback to confirm anchor (×ATR)</code> — lower hugs price tighter, higher only anchors on major swings.</div>
+  </section>
+
+  <!-- LEVELS -->
+  <section id="levels">
+    <div class="kicker">The Ladder</div>
+    <h2>Retracements &amp; Price-Discovery Extensions</h2>
+    <p class="intro">Standard retracements between the anchors, plus extension targets projected beyond the all-time extreme in the trend direction.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Type</th><th>Levels</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td><b>Retracement</b></td><td><code>0 · 0.236 · 0.382 · 0.5 · 0.618 · 0.786 · 1.0</code></td><td>Support/resistance within the all-time range. 0.618 = the golden ratio.</td></tr>
+        <tr><td><b>Extension</b></td><td><code>1.272 · 1.414 · 1.618 · 2.0 · 2.618</code></td><td>Measured-move targets once price breaks into price discovery (new highs).</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout">Every level's exact coefficient, color, and visibility is editable in <b>Settings</b>. Lines extend across the whole chart; price + percent labels sit at the right edge.</div>
+  </section>
+
+  <!-- MICRO -->
+  <section id="micro">
+    <div class="kicker">The Standout</div>
+    <h2>Fib-in-Fib Micro — even in discovery</h2>
+    <p class="intro">Loup Apex+ finds the band price is currently sitting in — between any two adjacent levels — and subdivides it with a nested micro-fib. As price moves from band to band, the micro re-anchors automatically.</p>
+    <div class="grid g2">
+      <div class="card"><span class="ico">🎯</span><h3>The active band</h3><p>The two levels bracketing price are detected every bar. Turn on <code>Highlight Active Band</code> to shade it so "where am I + next level up/down" pops.</p></div>
+      <div class="card"><span class="ico">🚀</span><h3>Micro in the extension zone</h3><p>The breakthrough: when price is discovering new highs between, say, 1.272 and 1.618, you still get a full micro-fib <b>inside that extension band</b>. Structure where there used to be none.</p></div>
+    </div>
+    <div class="callout">Default micro levels: <code>0.236 · 0.382 · 0.5 · 0.618 · 0.786</code> of the active band. Each is editable, and <b>Smart Labels</b> hide any micro tag that would collide with a major level.</div>
+  </section>
+
+  <!-- GRADE -->
+  <section id="grade">
+    <div class="kicker">The Read</div>
+    <h2>The All-Time Discovery Grade</h2>
+    <p class="intro">A single color-coded label that tells you where price sits in its <em>entire</em> history and how hard it's breaking new ground. Built from three observed inputs — never a prediction.</p>
+    <div class="tiers">
+      <div class="tier"><span class="tag t-disc">DISCOUNT</span><p>Lower third of the all-time range. Value territory.</p></div>
+      <div class="tier"><span class="tag t-mid">MID-RANGE</span><p>Middle of the range — no edge from position alone.</p></div>
+      <div class="tier"><span class="tag t-prem">⚠ PREMIUM</span><p>Upper third (≥66%), pressing the all-time high. Caution chasing.</p></div>
+      <div class="tier"><span class="tag t-disco">▲ DISCOVERY</span><p>Beyond the held high — price discovery is live, in new all-time ground.</p></div>
+      <div class="tier"><span class="tag t-deep">🔥 DEEP DISCOVERY</span><p>Deep in the extensions (≥1.618) with strong conviction. The trend is running.</p></div>
+    </div>
+    <h4 style="margin:1.8rem 0 0.6rem;color:var(--spice)">The three inputs behind the grade</h4>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Input</th><th>What it measures</th></tr></thead>
+      <tbody>
+        <tr><td><code>Position (% of range)</code></td><td>0% = origin, 100% = the held extreme, &gt;100% = discovery.</td></tr>
+        <tr><td><code>Extension depth (×range)</code></td><td>How far beyond the held extreme price has traveled, in multiples of the all-time range.</td></tr>
+        <tr><td><code>Conviction</code></td><td>ATRs gained in the trend direction over the lookback → <b style="color:var(--green)">STRONG</b> (≥1.5) · <b style="color:var(--spice-lite)">STEADY</b> (0.5–1.5) · <b style="color:var(--orange)">FADING</b> (&lt;0.5).</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout">Example label: <code>▲ DISCOVERY · 112% of range · +0.27× ext · STRONG</code>. On deep-history names the all-time low can be near zero, so % of range reads high near the highs — that's expected; a pulled-back name will correctly read MID-RANGE / DISCOUNT.</div>
+  </section>
+
+  <!-- DEBUG -->
+  <section id="debug">
+    <div class="kicker">Under the Hood</div>
+    <h2>Debug Readout</h2>
+    <p class="intro">Toggle <code>Show Debug Readout</code> for a diagnostic label pinned right of the last bar — your QA window into exactly what the engine sees.</p>
+    <div class="code"><span class="lbl">LOUP APEX+ · DEBUG</span>
+Dir:          <span class="val">UPTREND</span>
+Held High:    <span class="val">132.75 (pullback-confirmed)</span>
+ATL:          <span class="val">0.03</span>
+Range:        <span class="val">132.72</span>
+ATR(14):      <span class="val">9.86 · pbATR 1.0× = 9.86</span>
+Active band:  <span class="val">132.75 – 168.85</span>
+Zone:         <span class="val">EXTENSION +0.01× range</span>
+Next up:      <span class="val">168.85 (+34.86)</span>
+Next dn:      <span class="val">132.75 (-1.24)</span>
+Pos:          <span class="val">100.9% · Grade ▲ DISCOVERY</span></div>
+    <div class="callout"><b>Anchor source</b> reads <code>pullback-confirmed</code> once a swing has locked, or <code>running fallback</code> on fresh charts before the first pullback confirms.</div>
+  </section>
+
+  <!-- SETTINGS -->
+  <section id="settings">
+    <div class="kicker">Reference</div>
+    <h2>Full Settings Reference</h2>
+    <p class="intro">Every input, grouped as it appears in the indicator's settings panel.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Group · Setting</th><th>Default</th><th>What it does</th></tr></thead>
+      <tbody>
+        <tr><td><b>Anchor</b> · Pullback to confirm anchor (×ATR)</td><td><code>1.0</code></td><td>Pullback (in ATRs) that locks the held trend-side anchor. Lower = tracks price tighter; higher = only major swings.</td></tr>
+        <tr><td>Anchor · Price</td><td><code>close</code></td><td>Source used to locate the active band and fire crossing alerts.</td></tr>
+        <tr><td><b>Retracement</b> · Coefficient 0–6</td><td><code>0 … 1.0</code></td><td>The seven retracement ratios. Fully editable.</td></tr>
+        <tr><td><b>Extensions</b> · Show Extensions</td><td><code>on</code></td><td>Draw the trend-direction price-discovery targets.</td></tr>
+        <tr><td>Extensions · Extension 1–5</td><td><code>1.272 … 2.618</code></td><td>The five extension ratios.</td></tr>
+        <tr><td><b>Fib-in-Fib (Micro)</b> · Enable Micro-Fib</td><td><code>on</code></td><td>Subdivide the active band with a nested fib.</td></tr>
+        <tr><td>Micro · Micro 1–5</td><td><code>0.236 … 0.786</code></td><td>The nested fib ratios drawn inside the active band.</td></tr>
+        <tr><td>Micro · Show Micro Labels</td><td><code>on</code></td><td>Label each micro line (subject to Smart Labels).</td></tr>
+        <tr><td>Micro · Highlight Active Band</td><td><code>on</code></td><td>Shade the band price currently sits in.</td></tr>
+        <tr><td>Micro · Band Fill Transparency</td><td><code>90</code></td><td>Opacity of the active-band fill (50–100).</td></tr>
+        <tr><td><b>Discovery Grade</b> · Show Discovery Grade</td><td><code>on</code></td><td>The color-coded position/discovery label near price.</td></tr>
+        <tr><td>Discovery Grade · Conviction Lookback</td><td><code>10</code></td><td>Bars used to measure conviction (ATRs gained). 2–50.</td></tr>
+        <tr><td><b>Smart Labels &amp; Alerts</b> · Smart Micro Labels</td><td><code>on</code></td><td>Hide a micro label within ~0.2 ATR of a major level or another micro (line still draws).</td></tr>
+        <tr><td><b>Debug</b> · Show Debug Readout</td><td><code>off</code></td><td>The diagnostic label (see above).</td></tr>
+        <tr><td>Debug · Debug Offset</td><td><code>20</code></td><td>How many bars right of the last bar the debug label sits.</td></tr>
+        <tr><td><b>Style</b> · colors &amp; widths</td><td>—</td><td>Retracement / Extension / Micro / Active-Band colors, line width, label toggles.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- ALERTS -->
+  <section id="alerts">
+    <div class="kicker">Automation</div>
+    <h2>Alerts</h2>
+    <p class="intro">Set any of these from TradingView's alert dialog (choose "Loup Apex+" as the condition).</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Alert</th><th>Fires when…</th></tr></thead>
+      <tbody>
+        <tr><td>Above / Below 0.236 · 0.382 · 0.5 · 0.618 · 0.786</td><td>Price crosses a retracement level (each direction).</td></tr>
+        <tr><td>Extension 1.272 / 1.618 / 2.000 reached</td><td>Price hits a price-discovery target.</td></tr>
+        <tr><td>New fib band entered</td><td>Price moves into a new band — the micro just re-anchored.</td></tr>
+        <tr><td>Discovery entered</td><td>Price pushed beyond the held all-time extreme into discovery.</td></tr>
+        <tr><td>🔥 Deep Discovery</td><td>Price reached ≥1.618 extension with strong conviction.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- HOW TO USE -->
+  <section id="use">
+    <div class="kicker">Putting It Together</div>
+    <h2>How to Use It</h2>
+    <div class="steps">
+      <div class="stepi"><div class="num"></div><div><h4>Read the Discovery Grade first</h4><p>DISCOUNT = value, PREMIUM = near the high (don't chase), ▲ DISCOVERY / 🔥 DEEP DISCOVERY = price discovery is live and running.</p></div></div>
+      <div class="stepi"><div class="num"></div><div><h4>Trade the micro-fib inside the active band</h4><p>The highlighted band is where price is negotiating now. Use its micro 0.5 / 0.618 for entries and the band edges for invalidation — including the extension bands at new highs.</p></div></div>
+      <div class="stepi"><div class="num"></div><div><h4>Use the extensions as targets</h4><p>Once price breaks into discovery, 1.272 / 1.618 / 2.0 are your measured-move objectives. The Next-up distance in the debug tells you how far.</p></div></div>
+      <div class="stepi"><div class="num"></div><div><h4>Let alerts watch for you</h4><p>Set "Discovery entered" and the extension-target alerts so you don't have to babysit the chart.</p></div></div>
+    </div>
+    <div class="callout">Tip: drop the indicator on a higher timeframe (1D/1W) for the cleanest all-time read; the held anchor + Discovery Grade are most meaningful there.</div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-logo">Creole<em>Wolf</em></div>
+  <p style="color:var(--muted);font-size:0.85rem;margin-top:0.3rem">Loup Apex+ · "Confirmation over prediction. Structure first. You don't rush a roux." 🐺</p>
+  <p class="disc">Educational tool — not financial advice. Loup Apex+ is a TradingView indicator for chart analysis and does not constitute investment advice, a recommendation, or a guarantee of results. Trade your plan, respect your risk.</p>
+</footer>
+
+</body>
+</html>
