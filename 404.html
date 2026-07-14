@@ -6,7 +6,7 @@
   <title>404 — Lost in the Bayou | CreoleTrades</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Lora:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bayou:      #070C18;
@@ -32,9 +32,9 @@
       color: var(--text);
       font-family: 'Lora', Georgia, serif;
       min-height: 100vh;
-      display: grid;
-      place-items: center;
-      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
       position: relative;
     }
 
@@ -45,147 +45,162 @@
       inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
       pointer-events: none;
-      z-index: 99;
+      z-index: 999;
     }
 
-    /* Radial background */
-    .bg {
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    .nav-strip {
       position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 70% 60% at 50% 50%, rgba(196,98,45,0.07) 0%, transparent 65%),
-        radial-gradient(ellipse 50% 40% at 20% 80%, rgba(107,127,94,0.08) 0%, transparent 60%),
-        linear-gradient(180deg, var(--deep) 0%, var(--cypress) 60%, var(--bayou) 100%);
-      z-index: 0;
+      top: 0; left: 0; right: 0;
+      padding: 1.25rem 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 50;
+      background: rgba(7,12,24,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-dim);
     }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--parchment);
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .nav-logo em { font-style: italic; color: var(--firefly); }
+    .nav-logo img { width: 30px; height: 30px; object-fit: contain; }
+    .nav-back {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--spice);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-back:hover { color: var(--firefly); }
 
-    /* Water lines */
-    .water-lines {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      height: 40%;
-      overflow: hidden;
-      opacity: 0.1;
-      z-index: 1;
-    }
-    .water-line {
-      position: absolute;
-      left: -10%; right: -10%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--moss-lite) 30%, var(--firefly) 50%, var(--moss-lite) 70%, transparent);
-      animation: waterFlow 7s ease-in-out infinite;
-    }
-    .water-line:nth-child(1) { bottom: 15%; animation-delay: 0s; animation-duration: 8s; }
-    .water-line:nth-child(2) { bottom: 30%; animation-delay: 1.2s; animation-duration: 6s; }
-    .water-line:nth-child(3) { bottom: 50%; animation-delay: 2.4s; animation-duration: 9s; }
-    @keyframes waterFlow {
-      0%,100% { transform: translateX(-3%) scaleY(1); opacity: 0.5; }
-      50%      { transform: translateX(3%) scaleY(2); opacity: 1; }
-    }
-
-    /* Fireflies */
-    .ff {
-      position: fixed;
-      width: 3px; height: 3px;
-      border-radius: 50%;
-      background: var(--firefly);
-      animation: ffGlow 4s ease-in-out infinite;
-      z-index: 2;
-    }
-    .ff:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
-    .ff:nth-child(2) { top: 30%; left: 80%; animation-delay: 1s; }
-    .ff:nth-child(3) { top: 60%; left: 20%; animation-delay: 2s; }
-    .ff:nth-child(4) { top: 20%; left: 65%; animation-delay: 0.5s; }
-    .ff:nth-child(5) { top: 70%; left: 88%; animation-delay: 1.8s; }
-    .ff:nth-child(6) { top: 80%; left: 50%; animation-delay: 3s; }
-    @keyframes ffGlow {
-      0%,100% { opacity: 0; transform: scale(0.5); }
-      50% { opacity: 1; transform: scale(1.8); box-shadow: 0 0 8px 2px rgba(232,184,75,0.8); }
-    }
-
-    /* Main content */
-    .content {
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: 6rem 5vw 4rem;
       position: relative;
-      z-index: 10;
-      text-align: center;
-      padding: 2rem;
-      max-width: 600px;
-      animation: fadeUp 1s 0.2s both;
+      overflow: hidden;
+    }
+    main::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(900px 500px at 50% 50%, rgba(201,168,76,0.08), transparent 60%);
+      pointer-events: none;
     }
 
-    .fleur {
-      font-size: 2rem;
-      color: rgba(196,98,45,0.4);
-      display: block;
+    /* Giant background glyph */
+    .glyph-bg {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -55%);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 28rem;
+      color: var(--spice);
+      opacity: 0.04;
+      pointer-events: none;
+      user-select: none;
+      line-height: 0.85;
+    }
+
+    .lost {
+      position: relative;
+      max-width: 840px;
+      text-align: center;
+      animation: fadeUp 0.8s 0.1s both;
+    }
+
+    /* Error tag */
+    .error-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--spice);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
       margin-bottom: 1.5rem;
     }
 
-    .code {
+    /* 4 ⚜ 4 mark */
+    .four-mark {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(6rem, 20vw, 10rem);
       font-weight: 900;
-      line-height: 1;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(232,184,75,0.3);
-      letter-spacing: -0.02em;
-      display: block;
-      margin-bottom: 0.5rem;
-      position: relative;
-    }
-
-    .code::after {
-      content: '404';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, var(--spice), var(--firefly));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      opacity: 0.15;
-    }
-
-    .headline {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.5rem, 4vw, 2.2rem);
-      font-weight: 700;
+      font-size: clamp(8rem, 18vw, 14rem);
+      line-height: 0.85;
+      letter-spacing: -0.04em;
       color: var(--parchment);
-      line-height: 1.2;
-      margin-bottom: 1rem;
+    }
+    .four-mark .mid {
+      display: inline-block;
+      font-style: italic;
+      color: var(--spice);
+      margin: 0 0.1em;
+      transform: translateY(0.05em);
     }
 
-    .headline em {
+    /* Decorative rule */
+    .four-rule {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin: 1.25rem 0 1.5rem;
+    }
+    .four-rule i {
+      flex: 1;
+      max-width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--spice), transparent);
+    }
+    .four-rule span {
+      font-family: 'Playfair Display', serif;
       font-style: italic;
+      font-size: 1.2rem;
       color: var(--spice);
     }
 
-    .subtext {
+    .four-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+      color: var(--parchment);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+    }
+    .four-title em { font-style: italic; color: var(--firefly); }
+
+    .four-deck {
       font-style: italic;
-      font-size: 0.95rem;
-      color: var(--muted);
-      line-height: 1.8;
-      margin-bottom: 2.5rem;
-      max-width: 420px;
-      margin-left: auto;
-      margin-right: auto;
+      font-size: 1rem;
+      color: var(--moss-lite);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.85;
     }
+    .four-deck b { font-style: normal; color: var(--firefly); font-weight: 500; }
 
-    .divider {
+    /* CTA buttons */
+    .four-cta {
       display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 2.5rem;
-      opacity: 0.4;
-    }
-    .divider-line { flex: 1; height: 1px; background: var(--border); }
-    .divider-mark { color: var(--spice); font-size: 1rem; }
-
-    .actions {
-      display: flex;
-      gap: 1rem;
+      gap: 0.75rem;
       justify-content: center;
       flex-wrap: wrap;
+      margin-bottom: 3.5rem;
     }
-
     .btn {
       display: inline-block;
       font-family: 'Lora', serif;
@@ -194,7 +209,8 @@
       letter-spacing: 0.1em;
       padding: 0.875rem 2rem;
       transition: all 0.3s;
-      text-decoration: none;
+      cursor: pointer;
+      border: none;
     }
     .btn-spice {
       background: var(--spice);
@@ -203,7 +219,7 @@
     .btn-spice:hover {
       background: var(--spice-lite);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(196,98,45,0.35);
+      box-shadow: 0 8px 24px rgba(201,168,76,0.35);
     }
     .btn-ghost {
       background: transparent;
@@ -215,71 +231,136 @@
       color: var(--firefly);
     }
 
-    /* Nav strip */
-    .nav-strip {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      padding: 1.25rem 5vw;
-      display: flex;
-      align-items: center;
-      z-index: 50;
+    /* ── SHORTCUT TILES ── */
+    .shortcuts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid var(--border-dim);
+      max-width: 840px;
+      margin: 0 auto;
     }
-    .nav-logo {
+    .sc {
+      padding: 1.5rem 1.25rem;
+      border-right: 1px solid var(--border-dim);
+      text-align: left;
+      transition: background 0.25s;
+      display: block;
+    }
+    .sc:last-child { border-right: none; }
+    .sc:hover { background: rgba(201,168,76,0.04); }
+    .sc-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--spice);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .sc h4 {
       font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      font-weight: 900;
+      font-weight: 700;
+      font-size: 1rem;
       color: var(--parchment);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
+      line-height: 1.25;
     }
-    .nav-logo em { font-style: italic; color: var(--firefly); }
-    .nav-logo img { width: 30px; height: 30px; object-fit: contain; }
+    .sc h4 em { font-style: italic; color: var(--firefly); }
+    .sc-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-top: 0.35rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 5vw;
+      border-top: 1px solid var(--border-dim);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+    .footer-mark { color: var(--spice); }
+    .footer-mark em { color: var(--firefly); }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
+      from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+      .shortcuts { grid-template-columns: 1fr 1fr; }
+      .sc:nth-child(2) { border-right: none; }
+      .sc { border-bottom: 1px solid var(--border-dim); }
+    }
+    @media (max-width: 600px) {
+      .shortcuts { grid-template-columns: 1fr; }
+      .sc { border-right: none; }
     }
   </style>
 </head>
 <body>
 
-  <div class="bg"></div>
-
-  <div class="water-lines">
-    <div class="water-line"></div>
-    <div class="water-line"></div>
-    <div class="water-line"></div>
-  </div>
-
-  <div class="ff"></div><div class="ff"></div><div class="ff"></div>
-  <div class="ff"></div><div class="ff"></div><div class="ff"></div>
-
   <!-- Nav -->
   <nav class="nav-strip">
     <a href="/" class="nav-logo">
-      <img src="logo.jpg" alt="CreoleTrades" onerror="this.style.display='none'" />
+      <img src="logo-mark.png" alt="CreoleTrades" onerror="this.style.display='none'" />
       Creole<em>Trades</em>
     </a>
+    <a href="/" class="nav-back">Back to home →</a>
   </nav>
 
-  <!-- Content -->
-  <div class="content">
-    <span class="fleur">⚜</span>
-    <span class="code">404</span>
-    <h1 class="headline">Lost in <em>the dark.</em></h1>
-    <p class="subtext">This page doesn't exist — it may have moved, been removed, or the link was wrong. Let's get you back on track.</p>
-    <div class="divider">
-      <span class="divider-line"></span>
-      <span class="divider-mark">⚜</span>
-      <span class="divider-line"></span>
+  <!-- Main -->
+  <main>
+    <span class="glyph-bg">⚜</span>
+    <div class="lost">
+      <div class="error-tag">Error 404 · Lost in the bayou</div>
+      <div class="four-mark">4<span class="mid">⚜</span>4</div>
+      <div class="four-rule"><i></i><span>—</span><i></i></div>
+      <h1 class="four-title">This trail <em>doesn't exist</em>,<br/>but the kitchen is still open.</h1>
+      <p class="four-deck">
+        The page you were looking for took a wrong turn through the cypress. Happens to the best of us.
+        <b>Pull up a chair</b> — here's where folks usually meant to go.
+      </p>
+      <div class="four-cta">
+        <a class="btn btn-spice" href="/">Back to Home →</a>
+        <a class="btn btn-ghost" href="/#products">View Products</a>
+      </div>
+
+      <div class="shortcuts">
+        <a class="sc" href="/#products">
+          <div class="sc-label">// 01</div>
+          <h4>Join the <em>Roux</em></h4>
+          <p class="sc-desc">Membership tiers</p>
+        </a>
+        <a class="sc" href="/academy">
+          <div class="sc-label">// 02</div>
+          <h4>STACK <em>Academy</em></h4>
+          <p class="sc-desc">Free courses</p>
+        </a>
+        <a class="sc" href="/blog">
+          <div class="sc-label">// 03</div>
+          <h4>The Roux <em>Journal</em></h4>
+          <p class="sc-desc">Latest articles</p>
+        </a>
+        <a class="sc" href="/#contact">
+          <div class="sc-label">// 04</div>
+          <h4>Talk to <em>Que</em></h4>
+          <p class="sc-desc">Contact form</p>
+        </a>
+      </div>
     </div>
-    <div class="actions">
-      <a href="/" class="btn btn-spice">Back to Home</a>
-      <a href="/#products" class="btn btn-ghost">View Products</a>
-    </div>
-  </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <span>© 2025 CreoleTrades</span>
+    <span class="footer-mark">⚜ <em>Where southern grit meets clarity.</em></span>
+    <span>Education only · Not financial advice</span>
+  </footer>
 
 </body>
 </html>
