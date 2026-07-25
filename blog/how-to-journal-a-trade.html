@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Journal a Trade So It Actually Makes You Better — The Five-Field SMC System — CreoleTrades</title>
+  <meta name="description" content="A trading journal only changes your behavior when it logs what the chart did: the liquidity sweep, the CHoCH, the order block. Here's the five-field SMC journaling system and the weekly review rhythm that turns your trades into your best teacher. From Que at The Trading Roux." />
+  <meta name="keywords" content="trading journal, trading psychology, Smart Money Concepts, liquidity sweep, change of character, order block, STACK Method, trading discipline, The Trading Roux, CreoleTrades, Roux Journal" />
+  <meta name="author" content="Que | @creoletrades" />
+  <meta property="og:title" content="How to Journal a Trade So It Actually Makes You Better" />
+  <meta property="og:description" content="A trading journal only works when it logs what the chart did, not what you felt. The five-field SMC journaling system and the weekly review rhythm that turns your trades into your best teacher." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://creoletrades.com/blog/blog-journaling-hero.png" />
+  <meta property="article:author" content="Que" />
+  <meta property="article:published_time" content="2026-07-11" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How to Journal a Trade So It Actually Makes You Better" />
+  <meta name="twitter:description" content="Stop writing what you felt. Start logging the structural event that triggered the trade. The five-field SMC journal that turns your trades into your best teacher." />
+  <meta name="twitter:image" content="https://creoletrades.com/blog/blog-journaling-hero.png" />
+  <link rel="canonical" href="https://creoletrades.com/blog/how-to-journal-a-trade" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --night: #050911; --cypress: #0D1526; --spice: #C9A84C;
+      --spice-lite: #E2BC6B; --firefly: #F0D080; --moss: #3D5278;
+      --moss-lite: #6B84AA; --parchment: #EEF2FF; --iron: #0F1A2E;
+      --border: rgba(201,168,76,0.25); --border-dim: rgba(201,168,76,0.08);
+      --text: #C8D4E8; --muted: #5A7099;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--night); color: var(--text); font-family: 'Lora', Georgia, serif; font-size: 1.05rem; line-height: 1.85; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(5,9,17,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-dim); padding: 0 5vw; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--parchment); text-decoration: none; }
+    .nav-logo span { color: var(--spice); font-style: italic; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { font-style: italic; font-size: 0.8rem; color: var(--muted); text-decoration: none; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--spice); }
+    .article-wrap { max-width: 720px; margin: 0 auto; padding: 100px 5vw 6rem; }
+    .thumbnail-wrap { position: relative; margin-bottom: 2.5rem; border: 1px solid var(--border-dim); overflow: hidden; aspect-ratio: 16 / 7; background: var(--iron); }
+    .thumbnail-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transition: opacity 0.6s ease; }
+    .thumbnail-wrap img.loaded { opacity: 1; }
+    .thumbnail-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-style: italic; font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; pointer-events: none; }
+    .article-eyebrow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .tag { font-style: italic; font-size: 0.68rem; color: var(--spice); letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid var(--border); padding: 0.2rem 0.65rem; }
+    .tag-secondary { font-style: italic; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+    .article-kicker { font-family: 'Playfair Display', serif; font-size: clamp(0.95rem, 2vw, 1.1rem); font-style: italic; color: var(--moss-lite); margin-bottom: 0.5rem; display: block; }
+    .article-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; color: var(--parchment); line-height: 1.15; margin-bottom: 1rem; }
+    .article-title em { color: var(--spice); font-style: italic; }
+    .article-dek { font-size: 1.05rem; color: var(--text); line-height: 1.7; margin-bottom: 2rem; border-left: 2px solid var(--spice); padding-left: 1.25rem; }
+    .article-meta { display: flex; align-items: center; gap: 1.25rem; font-style: italic; font-size: 0.75rem; color: var(--muted); border-top: 1px solid var(--border-dim); border-bottom: 1px solid var(--border-dim); padding: 0.75rem 0; margin-bottom: 2.5rem; flex-wrap: wrap; }
+    .article-body p { margin-bottom: 1.5rem; color: var(--text); }
+    .article-body h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--parchment); margin: 2.5rem 0 1rem; line-height: 1.2; }
+    .article-body h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 600; color: var(--spice-lite); margin: 2rem 0 0.75rem; }
+    .article-body strong { color: var(--parchment); font-weight: 700; }
+    .article-body em { color: var(--spice-lite); font-style: italic; }
+    .article-body a { color: var(--spice); text-decoration: none; border-bottom: 1px solid var(--border); transition: color 0.3s; }
+    .article-body a:hover { color: var(--spice-lite); }
+    .article-divider { border: none; border-top: 1px solid var(--border-dim); margin: 2.5rem 0; }
+    blockquote { border-left: 3px solid var(--spice); padding: 0.75rem 0 0.75rem 1.5rem; margin: 2rem 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.15rem; color: var(--parchment); line-height: 1.5; }
+    .callout { background: var(--iron); border: 1px solid var(--border-dim); border-left: 3px solid var(--spice); padding: 1.25rem 1.5rem; margin: 1.5rem 0 2rem; font-size: 0.9rem; }
+    .callout strong { color: var(--parchment); display: block; margin-bottom: 0.4rem; font-family: 'Playfair Display', serif; }
+    .callout ul { list-style: none; padding: 0; margin: 0; }
+    .callout ul li { padding: 0.35rem 0; color: var(--text); position: relative; padding-left: 1.25rem; }
+    .callout ul li::before { content: '\2192'; position: absolute; left: 0; color: var(--spice); }
+    .article-cta { background: var(--iron); border: 1px solid var(--border); padding: 2rem; margin: 3rem 0; text-align: center; }
+    .article-cta .eyebrow { font-style: italic; font-size: 0.68rem; color: var(--spice); letter-spacing: 0.15em; text-transform: uppercase; display: block; margin-bottom: 0.75rem; }
+    .article-cta h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--parchment); margin-bottom: 0.75rem; }
+    .article-cta p { font-style: italic; font-size: 0.85rem; color: var(--muted); margin-bottom: 1.25rem; }
+    .cta-buttons { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+    .btn-spice { display: inline-block; background: var(--spice); color: var(--night); font-family: 'Lora', serif; font-weight: 700; font-size: 0.82rem; padding: 0.7rem 1.5rem; text-decoration: none; transition: background 0.3s; }
+    .btn-spice:hover { background: var(--spice-lite); }
+    .btn-outline { display: inline-block; background: transparent; border: 1px solid var(--border); color: var(--text); font-family: 'Lora', serif; font-style: italic; font-size: 0.82rem; padding: 0.7rem 1.5rem; text-decoration: none; transition: border-color 0.3s, color 0.3s; }
+    .btn-outline:hover { border-color: var(--spice); color: var(--spice); }
+    .disclaimer { font-style: italic; font-size: 0.78rem; color: var(--muted); margin-top: 1.5rem; }
+    .article-footer { border-top: 1px solid var(--border-dim); padding-top: 2rem; margin-top: 3rem; }
+    .author-block { display: flex; align-items: flex-start; gap: 1.25rem; }
+    .author-icon { width: 48px; height: 48px; background: var(--iron); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0; }
+    .author-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--parchment); margin-bottom: 0.25rem; }
+    .author-bio { font-style: italic; font-size: 0.8rem; color: var(--muted); }
+    .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-style: italic; font-size: 0.8rem; color: var(--muted); text-decoration: none; margin-top: 2rem; transition: color 0.3s; }
+    .back-link:hover { color: var(--spice); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="https://creoletrades.com">&#9884; Creole <span>Trades</span></a>
+  <ul class="nav-links">
+    <li><a href="https://creoletrades.com/#products">Community</a></li>
+    <li><a href="https://creoletrades.com/blog">Blog</a></li>
+    <li><a href="https://creoletrades.com/#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ARTICLE -->
+<article class="article-wrap">
+
+  <!-- THUMBNAIL -->
+  <div class="thumbnail-wrap">
+    <span class="thumbnail-label">&#9884; The Roux Journal</span>
+    <img src="blog-journaling-hero.png" alt="A wolf at a lamplit desk annotating a candlestick chart, boxing the liquidity sweep, the change of character, and the order block on an open trading journal." onload="this.classList.add('loaded')">
+  </div>
+
+  <!-- EYEBROW -->
+  <div class="article-eyebrow">
+    <span class="tag">The Trader's Mind</span>
+    <span class="tag-secondary">&#9884; Journaling &amp; Review &middot; Arc 3 &middot; July 11, 2026</span>
+  </div>
+
+  <!-- KICKER -->
+  <span class="article-kicker">The Roux Journal.</span>
+
+  <!-- TITLE -->
+  <h1 class="article-title">How to <em>Journal</em> a Trade So It Actually Makes You Better</h1>
+
+  <!-- DEK -->
+  <p class="article-dek">A trading journal only changes your behavior when it logs what the chart did: the liquidity sweep, the change of character, the order block. Here&rsquo;s the five-field SMC system and the weekly review rhythm that turns your trades into your best teacher.</p>
+
+  <!-- META -->
+  <div class="article-meta">
+    <span>&#9997; Coach Que</span>
+    <span>&#128197; July 11, 2026</span>
+    <span>&#9201; ~8 min read</span>
+    <span>&#127991; Journaling &middot; SMC &middot; Arc 3</span>
+  </div>
+
+  <!-- BODY -->
+  <div class="article-body">
+
+    <p>Most trading journals end up abandoned in a drawer, and the reason is simple: they were never built to teach you anything. They were built to make you feel like you did homework.</p>
+
+    <p>&ldquo;Felt nervous today. Got chopped up in the open. Frustrating.&rdquo; That is a diary entry, not a journal entry. Read it back a week later and ask yourself the only question that matters: what do I do differently on Monday? Nothing. There is nothing there to act on. The feelings were real, but feelings are not reviewable. You cannot grade a mood. You cannot repeat a mood on purpose.</p>
+
+    <p>This week in The Trader&rsquo;s Mind we spent five days on the least glamorous, most underrated skill in trading. Not the diary kind of journal. The kind that logs what the chart actually did, so your own trades become the best teacher you will ever hire. Here is the whole system.</p>
+
+    <h2>Why the diary journal fails</h2>
+
+    <p>There is a second reason the diary fails, and it is more uncomfortable than laziness. Your memory lies to protect your ego.</p>
+
+    <p>After a winner, your mind quietly rewrites the entry into a textbook read: you were patient, you waited, you nailed it. After a loser, the same mind serves up a different story: you were unlucky, the market was rigged, nothing you could have done. Neither story is fully true, and both are useless. By Friday, the trade you actually took has been edited into the trade you wish you had taken. You end up reviewing fiction.</p>
+
+    <p>A journal only works if it refuses that edit. And the only thing memory cannot argue with is a record of what the chart did, written at the moment it happened.</p>
+
+    <h2>Log the event, not the emotion</h2>
+
+    <p>So here is the shift that changes everything. Stop writing what you felt. Start writing the structural event that triggered the trade.</p>
+
+    <p>Instead of &ldquo;I went long and it went against me,&rdquo; you write the structure: price swept the swing low at the session open, printed a change of character on the 5-minute, and I entered on the retrace into the order block. Now look at what you suddenly have. You have a trade you can grade. Was the sweep clean, or did price just drift lower? Did the CHoCH actually confirm, or did you anticipate one that never printed? Did price respect the order block, or did you enter mid-range with no real invalidation behind you?</p>
+
+    <p>That is not a feeling. That is data. And when you log the sweep, the character shift, and the order block that got you in, patterns surface fast. You start to see that your winners almost always followed a clean liquidity grab plus a confirmed shift, while your losers were entries taken before the confirmation. That is your A+ checklist writing itself, in your own handwriting.</p>
+
+    <p>This is the <strong>K</strong> in STACK with a paper trail. Discipline you cannot review is discipline you will eventually lose.</p>
+
+    <h2>The five fields that catch every leak</h2>
+
+    <p>A journal without structure is just a notebook. Track these five fields on every trade and your edge stops hiding.</p>
+
+    <p><strong>One, the liquidity context.</strong> Where was the obvious liquidity before you entered? A swing high, a swing low, a session high? Smart Money moves toward liquidity, so logging it tells you whether you were positioned with the draw or against it.</p>
+
+    <p><strong>Two, the trigger event.</strong> What specific Smart Money Concepts event got you in? A sweep, a change of character, a break of structure, a reaction at an order block or a fair value gap? Be exact. &ldquo;It looked good&rdquo; is not a trigger.</p>
+
+    <p><strong>Three, confirmed or anticipated.</strong> This is the field that catches the most leaks, so give it the most honesty. &ldquo;The CHoCH confirmed&rdquo; and &ldquo;I thought a CHoCH was coming&rdquo; are two completely different trades, and only one of them belongs in your A+ pile. Most blown accounts are just a long stack of anticipated triggers.</p>
+
+    <p><strong>Four, invalidation placement.</strong> Where did your stop actually sit, and was it parked on obvious liquidity or tucked behind real structure? A stop resting on the same swing low everyone can see is bait, and logging that habit is how you break it.</p>
+
+    <p><strong>Five, what price did after.</strong> Did the market respect your read, or did it sweep you and continue? This is the outcome measured against your thesis, not against your P&amp;L.</p>
+
+    <div class="callout">
+      <strong>The Five-Field SMC Journal</strong>
+      <ul>
+        <li>Liquidity context: where the obvious liquidity sat before you entered.</li>
+        <li>Trigger event: the exact SMC event that got you in (sweep, CHoCH, BOS, OB, FVG).</li>
+        <li>Confirmed or anticipated: the single most honest field. Did it print, or did you hope?</li>
+        <li>Invalidation placement: on obvious liquidity, or behind real structure?</li>
+        <li>What price did after: outcome measured against your thesis, not your P&amp;L.</li>
+      </ul>
+    </div>
+
+    <p>Run those five fields for thirty trades and your pattern reveals itself. Winners cluster around confirmed triggers at clean structure. Losers cluster around anticipated triggers and stops sitting on liquidity. That contrast is your edge and your leak, side by side.</p>
+
+    <h2>Screenshot the setup or you did not journal it</h2>
+
+    <p>You can write the cleanest five-field entry in the world, but if you never marked up the chart, memory will still rewrite the trade by Friday. The screenshot is the evidence. The words are the testimony. You need both.</p>
+
+    <p>The discipline is small. At the moment of entry, or right after the candle closes, capture the chart and annotate three things: the liquidity that got swept, the change of character that shifted the read, and the order block or fair value gap you entered on. Box them. Label them. Now, when you review, you are not arguing with your memory about whether the CHoCH really printed before you clicked. The screenshot settles it.</p>
+
+    <p>Do this for a month and something valuable appears on your hard drive: a folder of annotated setups that is your personal SMC textbook. Your sweeps, your character shifts, your order blocks, graded by what price did next, in your market, on your timeframe. That is worth more than any course, because it is yours.</p>
+
+    <h2>The weekly review rhythm</h2>
+
+    <p>Logging is half the work. The half almost everyone skips is the review, and a journal you never reread is a gym membership you never use. So build the rhythm.</p>
+
+    <p>Friday, after the close, sit with the week&rsquo;s annotated entries and run three steps. Step one, sort by outcome and look for the shared structure. Pull your winners together and ask what they had in common. Now your losers, same question. The pattern that separates the two piles is your edge and your leak in one view. Step two, count your anticipated entries. That single number is the most honest grade of your discipline this week. Step three, write one rule for next week. Not five. One, tied to one real leak. &ldquo;No entry until the CHoCH closes.&rdquo; &ldquo;No stop parked under the obvious swing low.&rdquo;</p>
+
+    <p>That is where journaling stops being record-keeping and becomes self-coaching. The market shows you the same liquidity sweeps and the same character shifts every single week. The review is how you make sure you are a different trader each time you meet them. Read Structure, wait for the Trigger, check Alignment, take Confirmation, Keep Discipline, and let the review tell you, with evidence, which letters you actually honored. That loop is the whole game.</p>
+
+    <hr class="article-divider">
+
+    <p><em>This is part of Arc 3, The Trader&rsquo;s Mind. Next up on the blog and in The Trading Roux: loss acceptance, and the specific way to read a losing trade as information instead of a verdict.</em></p>
+
+    <blockquote>You don&rsquo;t rush a roux. You don&rsquo;t rush a trade.</blockquote>
+
+    <p><strong>Confirmation over prediction. Stay STACKED.</strong></p>
+
+    <p>&mdash; Que | @creoletrades</p>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="article-cta">
+    <span class="eyebrow">&#9884; The Trading Roux</span>
+    <h3>Not in The Trading Roux Yet?</h3>
+    <p>Join the free tier, no credit card, no expiry. Daily bias Mon-Thu, The Confirmation every Friday at 5PM CST, and the full STACK Method education.</p>
+    <div class="cta-buttons">
+      <a href="https://mee6.gg/m/tradingroux" class="btn-spice" target="_blank" rel="noopener">Join the Trading Roux &rarr;</a>
+      <a href="https://creoletrades.com/blog" class="btn-outline">More articles</a>
+    </div>
+  </div>
+
+  <!-- ARTICLE FOOTER -->
+  <footer class="article-footer">
+    <div class="author-block">
+      <div class="author-icon">&#9884;</div>
+      <div>
+        <div class="author-name">Coach Que</div>
+        <div class="author-bio">Founder of CreoleTrades &middot; 6+ years in the markets &middot; Options educator, chart analyst, and community builder inside The Trading Roux.</div>
+      </div>
+    </div>
+    <p class="disclaimer">Not financial advice. Educational content only. Nothing in this article is a recommendation to buy or sell any security or contract.</p>
+    <a href="https://creoletrades.com/blog" class="back-link">&larr; Back to The Roux Journal</a>
+  </footer>
+
+</article>
+
+</body>
+</html>
