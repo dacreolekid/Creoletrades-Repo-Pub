@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Position Size Lives on the Chart: Reading It Off the Order Block — CreoleTrades</title>
+  <meta name="description" content="Position size isn't a confidence dial, it's arithmetic you read off the chart. Learn to set size from the distance to your invalidation past the order block, avoid the streak trap, and manage correlated risk across ES, NQ, and RTY. The K in STACK, from Que at The Trading Roux." />
+  <meta name="keywords" content="trading psychology, position sizing, risk management, trading discipline, Smart Money Concepts, order blocks, STACK Method, The Trading Roux, CreoleTrades, Roux Journal" />
+  <meta name="author" content="Que | @creoletrades" />
+  <meta property="og:title" content="Your Position Size Lives on the Chart: Reading It Off the Order Block" />
+  <meta property="og:description" content="Position size is not a confidence dial. It's fixed dollar risk divided by the distance to your invalidation past the order block. The K in STACK, made mechanical." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://creoletrades.com/blog/blog-position-size-hero.png" />
+  <meta property="article:author" content="Que" />
+  <meta property="article:published_time" content="2026-07-25" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Your Position Size Lives on the Chart" />
+  <meta name="twitter:description" content="Size is not confidence. It's arithmetic. Read the distance to invalidation off the order block and let it set the number. The K in STACK." />
+  <meta name="twitter:image" content="https://creoletrades.com/blog/blog-position-size-hero.png" />
+  <link rel="canonical" href="https://creoletrades.com/blog/position-size-lives-on-the-chart" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --night: #050911; --cypress: #0D1526; --spice: #C9A84C;
+      --spice-lite: #E2BC6B; --firefly: #F0D080; --moss: #3D5278;
+      --moss-lite: #6B84AA; --parchment: #EEF2FF; --iron: #0F1A2E;
+      --border: rgba(201,168,76,0.25); --border-dim: rgba(201,168,76,0.08);
+      --text: #C8D4E8; --muted: #5A7099;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--night); color: var(--text); font-family: 'Lora', Georgia, serif; font-size: 1.05rem; line-height: 1.85; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(5,9,17,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-dim); padding: 0 5vw; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--parchment); text-decoration: none; }
+    .nav-logo span { color: var(--spice); font-style: italic; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { font-style: italic; font-size: 0.8rem; color: var(--muted); text-decoration: none; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--spice); }
+    .article-wrap { max-width: 720px; margin: 0 auto; padding: 100px 5vw 6rem; }
+    .thumbnail-wrap { position: relative; margin-bottom: 2.5rem; border: 1px solid var(--border-dim); overflow: hidden; aspect-ratio: 16 / 7; background: var(--iron); }
+    .thumbnail-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transition: opacity 0.6s ease; }
+    .thumbnail-wrap img.loaded { opacity: 1; }
+    .thumbnail-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-style: italic; font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; pointer-events: none; }
+    .article-eyebrow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .tag { font-style: italic; font-size: 0.68rem; color: var(--spice); letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid var(--border); padding: 0.2rem 0.65rem; }
+    .tag-secondary { font-style: italic; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+    .article-kicker { font-family: 'Playfair Display', serif; font-size: clamp(0.95rem, 2vw, 1.1rem); font-style: italic; color: var(--moss-lite); margin-bottom: 0.5rem; display: block; }
+    .article-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; color: var(--parchment); line-height: 1.15; margin-bottom: 1rem; }
+    .article-title em { color: var(--spice); font-style: italic; }
+    .article-dek { font-size: 1.05rem; color: var(--text); line-height: 1.7; margin-bottom: 2rem; border-left: 2px solid var(--spice); padding-left: 1.25rem; }
+    .article-meta { display: flex; align-items: center; gap: 1.25rem; font-style: italic; font-size: 0.75rem; color: var(--muted); border-top: 1px solid var(--border-dim); border-bottom: 1px solid var(--border-dim); padding: 0.75rem 0; margin-bottom: 2.5rem; flex-wrap: wrap; }
+    .article-body p { margin-bottom: 1.5rem; color: var(--text); }
+    .article-body h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--parchment); margin: 2.5rem 0 1rem; line-height: 1.2; }
+    .article-body h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 600; color: var(--spice-lite); margin: 2rem 0 0.75rem; }
+    .article-body strong { color: var(--parchment); font-weight: 700; }
+    .article-body em { color: var(--spice-lite); font-style: italic; }
+    .article-body a { color: var(--spice); text-decoration: none; border-bottom: 1px solid var(--border); transition: color 0.3s; }
+    .article-body a:hover { color: var(--spice-lite); }
+    .article-divider { border: none; border-top: 1px solid var(--border-dim); margin: 2.5rem 0; }
+    blockquote { border-left: 3px solid var(--spice); padding: 0.75rem 0 0.75rem 1.5rem; margin: 2rem 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.15rem; color: var(--parchment); line-height: 1.5; }
+    .callout { background: var(--iron); border: 1px solid var(--border-dim); border-left: 3px solid var(--spice); padding: 1.25rem 1.5rem; margin: 1.5rem 0 2rem; font-size: 0.9rem; }
+    .callout strong { color: var(--parchment); display: block; margin-bottom: 0.4rem; font-family: 'Playfair Display', serif; }
+    .callout ul { list-style: none; padding: 0; margin: 0; }
+    .callout ul li { padding: 0.35rem 0; color: var(--text); position: relative; padding-left: 1.25rem; }
+    .callout ul li::before { content: '\2192'; position: absolute; left: 0; color: var(--spice); }
+    .article-cta { background: var(--iron); border: 1px solid var(--border); padding: 2rem; margin: 3rem 0; text-align: center; }
+    .article-cta .eyebrow { font-style: italic; font-size: 0.68rem; color: var(--spice); letter-spacing: 0.15em; text-transform: uppercase; display: block; margin-bottom: 0.75rem; }
+    .article-cta h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--parchment); margin-bottom: 0.75rem; }
+    .article-cta p { font-style: italic; font-size: 0.85rem; color: var(--muted); margin-bottom: 1.25rem; }
+    .cta-buttons { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+    .btn-spice { display: inline-block; background: var(--spice); color: var(--night); font-family: 'Lora', serif; font-weight: 700; font-size: 0.82rem; padding: 0.7rem 1.5rem; text-decoration: none; transition: background 0.3s; }
+    .btn-spice:hover { background: var(--spice-lite); }
+    .btn-outline { display: inline-block; background: transparent; border: 1px solid var(--border); color: var(--text); font-family: 'Lora', serif; font-style: italic; font-size: 0.82rem; padding: 0.7rem 1.5rem; text-decoration: none; transition: border-color 0.3s, color 0.3s; }
+    .btn-outline:hover { border-color: var(--spice); color: var(--spice); }
+    .disclaimer { font-style: italic; font-size: 0.78rem; color: var(--muted); margin-top: 1.5rem; }
+    .article-footer { border-top: 1px solid var(--border-dim); padding-top: 2rem; margin-top: 3rem; }
+    .author-block { display: flex; align-items: flex-start; gap: 1.25rem; }
+    .author-icon { width: 48px; height: 48px; background: var(--iron); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0; }
+    .author-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--parchment); margin-bottom: 0.25rem; }
+    .author-bio { font-style: italic; font-size: 0.8rem; color: var(--muted); }
+    .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-style: italic; font-size: 0.8rem; color: var(--muted); text-decoration: none; margin-top: 2rem; transition: color 0.3s; }
+    .back-link:hover { color: var(--spice); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="https://creoletrades.com">&#9884; Creole <span>Trades</span></a>
+  <ul class="nav-links">
+    <li><a href="https://creoletrades.com/#products">Community</a></li>
+    <li><a href="https://creoletrades.com/blog">Blog</a></li>
+    <li><a href="https://creoletrades.com/#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ARTICLE -->
+<article class="article-wrap">
+
+  <!-- THUMBNAIL -->
+  <div class="thumbnail-wrap">
+    <span class="thumbnail-label">&#9884; The Roux Journal</span>
+    <img src="blog-position-size-hero.png" alt="A wolf in a charcoal suit beside a candlestick chart, a gold brace marking the distance from entry to invalidation past the order block, captioned your size lives in this distance." onload="this.classList.add('loaded')">
+  </div>
+
+  <!-- EYEBROW -->
+  <div class="article-eyebrow">
+    <span class="tag">The Trader's Mind</span>
+    <span class="tag-secondary">&#9884; Sizing &amp; Risk Rules &middot; Arc 3 Finale &middot; July 25, 2026</span>
+  </div>
+
+  <!-- KICKER -->
+  <span class="article-kicker">The Roux Journal.</span>
+
+  <!-- TITLE -->
+  <h1 class="article-title">Your Position <em>Size</em> Lives on the Chart: Reading It Off the Order Block</h1>
+
+  <!-- DEK -->
+  <p class="article-dek">Position size isn&rsquo;t a confidence dial, it&rsquo;s arithmetic you read off the chart. Here&rsquo;s how to set size from the distance to your invalidation past the order block, beat the streak trap, and manage correlated risk across ES, NQ, and RTY. The K in STACK.</p>
+
+  <!-- META -->
+  <div class="article-meta">
+    <span>&#9997; Coach Que</span>
+    <span>&#128197; July 25, 2026</span>
+    <span>&#9201; ~8 min read</span>
+    <span>&#127991; Sizing &middot; Risk &middot; Arc 3</span>
+  </div>
+
+  <!-- BODY -->
+  <div class="article-body">
+
+    <p>We close Arc 3, The Trader&rsquo;s Mind, where it was always going to end. Not on a feeling. On a number.</p>
+
+    <p>For four weeks we have been inside the trader&rsquo;s head. Revenge trading and FOMO. Journaling and review. Loss acceptance. All of it has been building toward the one habit that turns every other lesson from a nice idea into money you keep: sizing and risk rules. This is the <strong>K</strong> in STACK. Keep Discipline. And discipline, when you strip the poetry off it, is just a number you set before you click and refuse to move.</p>
+
+    <p>Here is the reframe the whole arc has been driving at.</p>
+
+    <h2>Size is not confidence. It is arithmetic.</h2>
+
+    <p>Ask most traders how they pick their size and you will get a version of the same answer. &ldquo;I felt good about it.&rdquo; &ldquo;I was really confident on that one.&rdquo; &ldquo;The setup was clean so I went bigger.&rdquo; Every one of those answers is a mistake wearing a reasonable face.</p>
+
+    <p>Position size is not a dial you turn up when you feel sure. It is a calculation, and both of its inputs are known before you ever enter. The first input is a decision you make while you are calm: what one losing trade is allowed to cost your account, in dollars. The second input comes straight off the chart. The order block writes it for you.</p>
+
+    <p>You just have to read it.</p>
+
+    <h2>The anatomy of risk per unit</h2>
+
+    <p>Walk the setup. You read structure and you find a demand order block on your higher timeframe, a level where Smart Money stepped in before and left its footprint. You wait for price to come to it instead of chasing. When it arrives and you get your confirmation, you enter.</p>
+
+    <p>Your invalidation is not a random stop distance. It sits just past where that order block fails, at the level where the story that justified the trade stops being true. If price closes through it, Smart Money has rejected the zone you bought and your reason for being in the trade is gone.</p>
+
+    <p>The distance from your entry to that invalidation is your risk per unit. Measure it in points or ticks. That number is not up to you. The structure handed it to you.</p>
+
+    <p>Now the arithmetic. Take the fixed dollar risk you decided on while you were calm. Divide it by the per-unit risk the structure gave you. The result is your size. That is the whole formula, and notice what is not in it: your confidence, your mood, last week&rsquo;s result, how green the morning feels.</p>
+
+    <div class="callout">
+      <strong>The Only Formula That Sets Size</strong>
+      <ul>
+        <li>Fixed dollar risk: what one losing trade may cost, decided while calm.</li>
+        <li>Per-unit risk: entry to invalidation past the order block, in points or ticks. The chart sets it.</li>
+        <li>Size: fixed dollar risk divided by per-unit risk. Nothing about mood, streak, or confidence enters.</li>
+      </ul>
+    </div>
+
+    <h2>Wider invalidation means smaller, not braver</h2>
+
+    <p>Here is the part that trips people up, and it is worth slowing down on.</p>
+
+    <p>When the nearest real invalidation sits far from your entry, your per-unit risk is large. Run it through the formula and the honest output is a smaller position. Not a bigger accepted loss. A smaller position.</p>
+
+    <p>This is where undisciplined traders quietly break their own rules. They find a setup they like but the invalidation is wide, and instead of sizing down they keep their usual size and just decide to accept a bigger loss if it goes wrong. That is not respecting the structure. That is overriding it because the number the chart gave you was inconvenient.</p>
+
+    <p>A tight, well-defined invalidation lets you carry more units for the same dollars at risk. A wide one forces you smaller. Same dollars either way. That sameness is the entire point. The dollar risk is the constant you protect. The size flexes to honor it.</p>
+
+    <h2>The streak trap</h2>
+
+    <p>You can write a perfect risk rule on Sunday and break it by Wednesday. And the break almost never happens on a normal trade. It happens after a streak.</p>
+
+    <p>After two or three wins, the next order block setup appears and a voice says press it, you are hot, ride the run. So you carry more units than the distance to invalidation allows. After two or three losses, the mirror image: a clean textbook setup shows up and you size it tiny or skip it entirely, because fear is driving now instead of structure. Either way your size has detached from the level. The chart is handing you the exact same information. Your account curve is overriding it.</p>
+
+    <p>This is the trap Smart Money does not even have to set. You set it on yourself. The oversized hot-streak trade is the one that gives a normal, planned loss the power to erase the whole run. The undersized cold-streak trade is the one where you finally get an A-plus setup and barely participate.</p>
+
+    <p>The fix is mechanical, and it is pure K. Your formula, fixed dollar risk divided by per-unit risk, has no streak input. It does not know whether you are up or down on the week, and it should not. Set your max risk per trade and your daily loss limit before the week starts. Write them down. Let them govern you at the exact moment you are least objective. A rule only counts when it costs you something to follow it.</p>
+
+    <h2>Correlated risk: three tickets, one trade</h2>
+
+    <p>Now the failure that gets disciplined traders anyway.</p>
+
+    <p>ES, NQ, and RTY are different instruments, but on most days they answer to the same higher-timeframe story, the same liquidity, the same broad risk posture. So when you go long all three off the same bullish read, you have not taken three independent trades with three independent invalidations. You have taken one directional bet, expressed three times.</p>
+
+    <p>Each ticket looked responsible on its own. Proper size off each level. But the per-trade math assumes independence, and these are not independent. If the Smart Money shift that breaks one invalidation is the same shift that breaks the others, all three losses land on the same candle. Your true risk was never the size of one line. It was closer to the sum, firing together.</p>
+
+    <p>The fix is portfolio-level, and it is still the K. Before you stack correlated positions, ask what they actually share: same direction, same story, same thing that would invalidate them. If they would lose together, size them as the one trade they functionally are. Cut each so that if they all hit invalidation at once, the combined loss still respects your daily max. One uncorrelated trade can carry full size. Three correlated ones split it. Do not count tickets. Count the loss they would take together.</p>
+
+    <hr class="article-divider">
+
+    <h2>Sizing is self-protection</h2>
+
+    <p>Pull it all the way back and this is what sizing really is. It is not restriction. It is self-care for the trader who wants a career instead of a hot week.</p>
+
+    <p>Every emotional failure in trading gets cheaper the moment your size comes off the level instead of your mood. Revenge trading only damages you when it rides in oversized. Loss acceptance is easy when the loss was sized for in advance. Streak-proofing and correlated risk are both just the formula refusing to take an emotional input. The mind was the arc. The level setting the size is the takeaway you keep.</p>
+
+    <p>So carry this into whatever comes next. Read the structure. Measure to the invalidation past the order block. Let that distance set the number. Write your max risk per trade and your daily loss limit down before the week begins, so the rules are governing you before emotion ever takes the wheel.</p>
+
+    <blockquote>A loss you sized for is the cheapest thing in your account. A loss you did not is the most expensive.</blockquote>
+
+    <p>You don&rsquo;t rush a roux, and you don&rsquo;t rush a size. Read the level. Compute the number. Do not negotiate either.</p>
+
+    <p><strong>Confirmation over prediction. Stay STACKED.</strong> &#128058;</p>
+
+    <p>&mdash; Que | @creoletrades</p>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="article-cta">
+    <span class="eyebrow">&#9884; The Trading Roux</span>
+    <h3>That Wraps Arc 3: The Trader&rsquo;s Mind</h3>
+    <p>Four weeks, one lesson: take the emotion out and let the level set the size. The free tier gets you the daily bias, Friday Triple Confirmation Lives, and the full STACK Method education.</p>
+    <div class="cta-buttons">
+      <a href="https://mee6.gg/m/tradingroux" class="btn-spice" target="_blank" rel="noopener">Join the Trading Roux &rarr;</a>
+      <a href="https://creoletrades.com/blog" class="btn-outline">More articles</a>
+    </div>
+  </div>
+
+  <!-- ARTICLE FOOTER -->
+  <footer class="article-footer">
+    <div class="author-block">
+      <div class="author-icon">&#9884;</div>
+      <div>
+        <div class="author-name">Coach Que</div>
+        <div class="author-bio">Founder of CreoleTrades &middot; 6+ years in the markets &middot; Options educator, chart analyst, and community builder inside The Trading Roux.</div>
+      </div>
+    </div>
+    <p class="disclaimer">Not financial advice. Educational content only. Nothing in this article is a recommendation to buy or sell any security or contract.</p>
+    <a href="https://creoletrades.com/blog" class="back-link">&larr; Back to The Roux Journal</a>
+  </footer>
+
+</article>
+
+</body>
+</html>
