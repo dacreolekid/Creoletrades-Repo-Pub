@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Weekly STACK — June 2-6, 2026</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #0d0d0d; color: #e0e0e0; line-height: 1.7; }
+.container { max-width: 640px; margin: 0 auto; background: #111111; }
+.header { background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%); padding: 40px 32px 32px; text-align: center; border-bottom: 3px solid #c9a84c; }
+.header h1 { font-size: 28px; color: #c9a84c; font-weight: 700; letter-spacing: 1px; margin-bottom: 4px; }
+.header .subtitle { font-size: 14px; color: #8a8a9a; letter-spacing: 2px; text-transform: uppercase; }
+.header .date { font-size: 13px; color: #666; margin-top: 12px; }
+.section { padding: 28px 32px; border-bottom: 1px solid #1e1e2e; }
+.section-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c9a84c; margin-bottom: 12px; font-weight: 600; }
+.section h2 { font-size: 22px; color: #ffffff; font-weight: 600; margin-bottom: 16px; line-height: 1.3; }
+.section h3 { font-size: 17px; color: #c9a84c; font-weight: 600; margin-bottom: 10px; margin-top: 20px; }
+.section p { font-size: 15px; color: #c0c0c0; margin-bottom: 14px; }
+.highlight-box { background: #1a1a2e; border-left: 3px solid #c9a84c; padding: 16px 20px; margin: 16px 0; border-radius: 0 8px 8px 0; }
+.highlight-box p { margin-bottom: 8px; }
+.highlight-box p:last-child { margin-bottom: 0; }
+.alert-box { background: #2a1a1a; border-left: 3px solid #e24b4a; padding: 16px 20px; margin: 16px 0; border-radius: 0 8px 8px 0; }
+.alert-box p { color: #e0a0a0; margin-bottom: 8px; }
+.alert-box p:last-child { margin-bottom: 0; }
+.green-box { background: #1a2a1a; border-left: 3px solid #4caf50; padding: 16px 20px; margin: 16px 0; border-radius: 0 8px 8px 0; }
+.green-box p { color: #a0d0a0; margin-bottom: 8px; }
+.green-box p:last-child { margin-bottom: 0; }
+.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+.stat-card { background: #1a1a2e; border-radius: 8px; padding: 16px; text-align: center; }
+.stat-card .number { font-size: 24px; font-weight: 700; color: #ffffff; }
+.stat-card .number.red { color: #e24b4a; }
+.stat-card .number.green { color: #4caf50; }
+.stat-card .number.gold { color: #c9a84c; }
+.stat-card .label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+.flow-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #1e1e2e; }
+.flow-row:last-child { border-bottom: none; }
+.flow-arrow { font-size: 18px; }
+.flow-label { font-size: 13px; font-weight: 600; color: #c9a84c; min-width: 70px; }
+.flow-detail { font-size: 14px; color: #c0c0c0; }
+.level-table { width: 100%; margin: 16px 0; border-collapse: collapse; }
+.level-table th { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #888; padding: 8px 12px; text-align: left; border-bottom: 1px solid #2a2a3a; }
+.level-table td { font-size: 14px; padding: 10px 12px; border-bottom: 1px solid #1e1e2e; }
+.level-table td.ticker { color: #c9a84c; font-weight: 600; }
+.level-table td.bearish { color: #e24b4a; }
+.level-table td.bullish { color: #4caf50; }
+.level-table td.neutral { color: #888; }
+.cta-section { background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%); padding: 32px; text-align: center; border-top: 3px solid #c9a84c; }
+.cta-button { display: inline-block; background: #c9a84c; color: #0d0d0d; font-size: 15px; font-weight: 700; padding: 14px 36px; border-radius: 8px; text-decoration: none; letter-spacing: 1px; text-transform: uppercase; margin: 8px 0; }
+.cta-sub { font-size: 13px; color: #666; margin-top: 12px; }
+.footer { padding: 24px 32px; text-align: center; font-size: 12px; color: #555; border-top: 1px solid #1e1e2e; }
+.footer a { color: #c9a84c; text-decoration: none; }
+.divider { height: 1px; background: linear-gradient(90deg, transparent, #c9a84c, transparent); margin: 8px 0; }
+.tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 4px; letter-spacing: 1px; text-transform: uppercase; }
+.tag-red { background: #2a1a1a; color: #e24b4a; }
+.tag-gold { background: #2a2518; color: #c9a84c; }
+.tag-green { background: #1a2a1a; color: #4caf50; }
+.emoji { font-size: 18px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+<h1>THE WEEKLY STACK</h1>
+<div class="subtitle">CreoleTrades Market Intelligence</div>
+<div class="date">Week of June 2 &ndash; 6, 2026 &nbsp;&bull;&nbsp; Issue #1</div>
+</div>
+
+<!-- HOOK -->
+<div class="section">
+<p style="font-size: 18px; color: #ffffff; font-style: italic; text-align: center; padding: 8px 0;">"The pot boiled over Friday &mdash; yields turned the burner up and everybody grabbed for the towel at once, even sold the good silver to do it."</p>
+</div>
+
+<!-- WEEK AT A GLANCE -->
+<div class="section">
+<div class="section-label">Week at a Glance</div>
+<h2>NFP Dropped a Bomb on Friday</h2>
+<p>It was a quiet, bullish week &mdash; until it wasn't. Monday through Thursday, the indices grinded higher with the Dow pressing all-time highs at 51,760 and tech leading. Then Friday's Non-Farm Payrolls came in hot, yields ripped front-end first, and the entire tape flipped risk-off in a single session.</p>
+<p>The Nasdaq got hit hardest. The Dow held up best. Gold got sold. And bonds &mdash; the place everyone runs to &mdash; fell WITH stocks. That last part is the one that matters most.</p>
+
+<div class="stat-grid">
+<div class="stat-card">
+<div class="number red">-4.79%</div>
+<div class="label">NQ (Nasdaq Futures)</div>
+</div>
+<div class="stat-card">
+<div class="number red">-4.80%</div>
+<div class="label">QQQ</div>
+</div>
+<div class="stat-card">
+<div class="number red">-1.42%</div>
+<div class="label">YM (Dow Futures)</div>
+</div>
+<div class="stat-card">
+<div class="number gold">+39.7%</div>
+<div class="label">VIX Spike</div>
+</div>
+</div>
+</div>
+
+<!-- MACRO BREAKDOWN -->
+<div class="section">
+<div class="section-label">Macro Breakdown</div>
+<h2>Why Friday Hit Different</h2>
+<p>The NFP print came in hot &mdash; strong enough to reprice rate-cut expectations instantly. Front-end yields led the charge: the 2-year ripped +2.47% while the 30-year barely moved (+0.42%). That&rsquo;s a <strong>bear flattener</strong> &mdash; the curve got crushed, with the 2s10s spread dropping -10% to 0.387.</p>
+<p>Translation: the market went from "cuts are coming" to "cuts are off the table" in one print. Good news became bad news.</p>
+
+<div class="alert-box">
+<p><strong>&#9888;&#65039; THE REGIME: DURATION REPRICING</strong></p>
+<p>Stocks down AND bonds down together. That means <strong>bonds are NOT the haven</strong>. This is yields-driven selling, not a growth scare. Buying TLT here loses both legs &mdash; that&rsquo;s the trap.</p>
+</div>
+
+<h3>The Liquidation Tell</h3>
+<p>Gold dropped -3.65% on the day. When gold gets sold during a selloff, that&rsquo;s not fear &mdash; that&rsquo;s forced de-grossing. Money scrambling for cash, selling everything including havens. SOXL lost -30.5%, TNA -10.6%. The leveraged longs got liquidated.</p>
+<p>VIX surged to 21.50, kissing the VIX3M term structure at 21.82. When spot vol catches the term structure like that, it&rsquo;s real fear &mdash; not just a coil.</p>
+</div>
+
+<!-- FLOW MAP -->
+<div class="section">
+<div class="section-label">Smart Money Flow</div>
+<h2>Where the Money Went</h2>
+
+<div style="margin: 16px 0;">
+<div class="flow-row">
+<span class="flow-arrow">&#128308;</span>
+<span class="flow-label">OUT OF</span>
+<span class="flow-detail">Tech, semis (QQQ, SMH, SOXL), small caps (IWM/RTY), long bonds (TLT), and gold &mdash; everything got sold</span>
+</div>
+<div class="flow-row">
+<span class="flow-arrow">&#128994;</span>
+<span class="flow-label">INTO</span>
+<span class="flow-detail">Cash, the dollar (DXY +0.64% over 100), defensive low-beta (XLV, XLP), value, and relative-strength Dow (DIA)</span>
+</div>
+<div class="flow-row">
+<span class="flow-arrow">&#128993;</span>
+<span class="flow-label">HIDING</span>
+<span class="flow-detail">Cash + dollar. When gold is being sold with everything else, the only safe spot is the sideline.</span>
+</div>
+</div>
+
+<div class="highlight-box">
+<p><strong>&#128011; The Rotation Play</strong></p>
+<p>DIA/YM held up best (-1.42% vs NQ -4.79%) and is sitting right on the $508&ndash;$509 demand zone with higher-timeframe structure still intact. If the tape stabilizes next week, the Dow is where the bounce starts. But demand the confirmation &mdash; don&rsquo;t catch the knife.</p>
+</div>
+</div>
+
+<!-- KEY LEVELS -->
+<div class="section">
+<div class="section-label">Key Levels to Watch</div>
+<h2>The Lines That Matter Next Week</h2>
+
+<table class="level-table">
+<thead>
+<tr><th>Instrument</th><th>Level</th><th>Read</th></tr>
+</thead>
+<tbody>
+<tr>
+<td class="ticker">US 2-Year</td>
+<td>The Driver</td>
+<td class="neutral">2Y stalling = equity pressure eases. 2Y still ripping = keep bleeding.</td>
+</tr>
+<tr>
+<td class="ticker">VIX</td>
+<td>21.50</td>
+<td class="bearish">Elevated, spiking. Back under 20 = shock digested. Above 21.82 (VIX3M) = capitulation.</td>
+</tr>
+<tr>
+<td class="ticker">DIA</td>
+<td>$508&ndash;$509</td>
+<td class="bullish">Wolf Demand Zone. Hold here + reclaim $512 = bounce. Lose $508 = bleeds to $505.</td>
+</tr>
+<tr>
+<td class="ticker">HYG</td>
+<td>Credit Canary</td>
+<td class="neutral">Only -0.50% Friday (orderly). Breakdown here = repricing becomes credit event.</td>
+</tr>
+<tr>
+<td class="ticker">DXY</td>
+<td>100</td>
+<td class="neutral">Dollar over 100 = tightening. Back under = pressure easing.</td>
+</tr>
+<tr>
+<td class="ticker">GLD</td>
+<td>Haven Check</td>
+<td class="bearish">Sold -3.65% Friday. Gold bid again = liquidation over. Still falling = still scrambling.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- CAPITAL PROTECTION -->
+<div class="section">
+<div class="section-label">Capital Protection</div>
+<h2>The Gameplan Into Next Week</h2>
+
+<div class="green-box">
+<p><strong>&#9989; DO</strong></p>
+<p>&#8226; Trim high-beta longs &mdash; tech/semis/small caps have more downside if the 2Y keeps repricing</p>
+<p>&#8226; Raise cash, cut net exposure &mdash; de-grossing days don&rsquo;t reward heroes</p>
+<p>&#8226; If you must hedge, play strong-vs-weak (short QQQ vs long DIA)</p>
+<p>&#8226; Run a state check before touching anything Monday &mdash; a -4.8% Nasdaq session is exactly when revenge and FOMO fire</p>
+</div>
+
+<div class="alert-box">
+<p><strong>&#128683; DO NOT</strong></p>
+<p>&#8226; Buy TLT as a haven &mdash; yields are RISING, bonds are falling WITH stocks. You lose both legs.</p>
+<p>&#8226; Chase UVXY after a +40% VIX pop &mdash; that&rsquo;s paying full retail for protection</p>
+<p>&#8226; Catch the knife on tech &mdash; demand the reclaim, not the first green candle</p>
+</div>
+</div>
+
+<!-- CONFIRMATION TELLS -->
+<div class="section">
+<div class="section-label">Confirmation Tells</div>
+<h2>What Tells You It&rsquo;s Over</h2>
+<p><strong>Shock digested:</strong> ES/NQ reclaim key levels + 2Y backs off + VIX drops under 20 + gold stops getting sold. All four. Not one, not two &mdash; all four.</p>
+<p><strong>Escalation:</strong> HYG breaks down, LQD-HYG spread blows out, VIX pushes above VIX3M into backwardation. If you see this, raise cash immediately and stand completely aside.</p>
+<p>The tape tells you when it&rsquo;s safe. Your job is to listen, not predict.</p>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+<p style="font-size: 18px; color: #c9a84c; font-weight: 600; margin-bottom: 4px;">&#128058; Want the full trade plans?</p>
+<p style="font-size: 14px; color: #888; margin-bottom: 20px;">Mastery members got the DIA plan, the YM bias, and the flow map before the move.</p>
+<a href="https://discord.gg/bRr7uP7Jbd" class="cta-button">Join The Trading Roux</a>
+<div class="cta-sub">
+Free tier available &bull; No credit card required<br>
+STACKED: Mastery for full trade plans + coaching
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+<div class="divider"></div>
+<p style="margin-top: 12px;">
+<a href="https://creoletrades.com">creoletrades.com</a> &nbsp;&bull;&nbsp;
+<a href="https://youtube.com/@Creole_Trades">YouTube</a> &nbsp;&bull;&nbsp;
+<a href="https://instagram.com/creoletrades">Instagram</a> &nbsp;&bull;&nbsp;
+<a href="https://x.com/creoletrades">X/Twitter</a>
+</p>
+<p style="margin-top: 8px;">Stack smart, STACKers. &#128058;&#9884;&#65039;</p>
+<p style="margin-top: 12px; font-size: 11px; color: #444;">This newsletter is for educational purposes only. Not financial advice. Trade responsibly.</p>
+</div>
+
+</div>
+</body>
+</html>
