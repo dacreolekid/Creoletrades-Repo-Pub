@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CreoleTrades Command Center</title>
+<style>
+  :root {
+    --gold: #D4A843;
+    --gold-soft: #b88b2a;
+    --bg-0: #0a0a0a;
+    --bg-1: #121212;
+    --bg-2: #1a1a1a;
+    --bg-3: #222;
+    --border: #2a2a2a;
+    --text: #ECEAE3;
+    --text-mute: #8a8780;
+    --green: #3FB950;
+    --red: #F85149;
+    --amber: #F0B429;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: radial-gradient(circle at 20% 0%, #161310 0%, var(--bg-0) 60%);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+    padding: 28px 32px 64px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+  }
+  .title-block h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--gold);
+  }
+  .title-block .subtitle {
+    color: var(--text-mute);
+    font-size: 13px;
+    margin-top: 4px;
+  }
+  .status-strip { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .status-pill {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .dot.green { background: var(--green); box-shadow: 0 0 6px rgba(63,185,80,.7); }
+  .dot.gold { background: var(--gold); box-shadow: 0 0 6px rgba(212,168,67,.7); }
+  .dot.amber { background: var(--amber); }
+  .dot.red { background: var(--red); }
+
+  section { margin-bottom: 36px; }
+  .section-title {
+    color: var(--gold);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::before {
+    content: "";
+    width: 4px;
+    height: 18px;
+    background: linear-gradient(180deg, var(--gold), var(--gold-soft));
+    border-radius: 2px;
+  }
+
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+  }
+  .kpi {
+    background: linear-gradient(160deg, var(--bg-2), var(--bg-1));
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+  .kpi .label {
+    font-size: 11px;
+    color: var(--text-mute);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .kpi .value {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.5px;
+  }
+  .kpi .delta {
+    font-size: 11px;
+    color: var(--text-mute);
+    margin-top: 4px;
+  }
+  .kpi.warn .value { color: var(--amber); }
+  .kpi.bad .value { color: var(--red); }
+  .kpi.good .value { color: var(--green); }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--bg-1);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    color: var(--text-mute);
+    font-weight: 500;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  td.num { font-variant-numeric: tabular-nums; }
+  tr:last-child td { border-bottom: none; }
+
+  .badge {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    font-weight: 600;
+    display: inline-block;
+  }
+  .badge.green { background: rgba(63,185,80,.12); color: var(--green); border: 1px solid rgba(63,185,80,.3); }
+  .badge.red { background: rgba(248,81,73,.12); color: var(--red); border: 1px solid rgba(248,81,73,.3); }
+  .badge.amber { background: rgba(240,180,41,.12); color: var(--amber); border: 1px solid rgba(240,180,41,.3); }
+  .badge.gold { background: rgba(212,168,67,.12); color: var(--gold); border: 1px solid rgba(212,168,67,.3); }
+  .badge.mute { background: var(--bg-3); color: var(--text-mute); border: 1px solid var(--border); }
+
+  .session-list { display: flex; flex-direction: column; gap: 12px; }
+  .session {
+    display: flex;
+    gap: 14px;
+    align-items: stretch;
+    padding: 12px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .date-box {
+    flex: 0 0 56px;
+    background: linear-gradient(180deg, var(--gold), var(--gold-soft));
+    color: #1a1410;
+    border-radius: 8px;
+    text-align: center;
+    padding: 8px 6px;
+    font-weight: 700;
+  }
+  .date-box .month { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .date-box .day { font-size: 22px; line-height: 1; margin-top: 4px; }
+  .session-meta .title { font-weight: 600; font-size: 14px; color: var(--text); }
+  .session-meta .topic { color: var(--text-mute); font-size: 12px; margin-top: 4px; }
+  .session-meta .time { color: var(--gold); font-size: 11px; margin-top: 6px; font-weight: 600; }
+  .empty-state {
+    padding: 24px;
+    text-align: center;
+    color: var(--text-mute);
+    background: var(--bg-2);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    font-size: 13px;
+  }
+
+  .health-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .health-cell {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+  }
+  .health-cell .num {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .health-cell .lbl {
+    font-size: 11px;
+    color: var(--text-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-top: 2px;
+  }
+  .churn-list { font-size: 12px; color: var(--text-mute); }
+  .churn-list li { padding: 4px 0; border-bottom: 1px dashed var(--border); list-style: none; display: flex; justify-content: space-between; }
+  .churn-list li:last-child { border-bottom: none; }
+  .churn-list .name { color: var(--text); }
+
+  .analytics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .analytics-link {
+    display: block;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color .2s, transform .2s;
+  }
+  .analytics-link:hover { border-color: var(--gold); transform: translateY(-1px); }
+  .analytics-link .lname { font-size: 13px; font-weight: 600; color: var(--gold); }
+  .analytics-link .lurl { font-size: 11px; color: var(--text-mute); margin-top: 4px; word-break: break-all; }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .product {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .product .pname { font-weight: 600; font-size: 13px; }
+  .product .pprice { color: var(--gold); font-size: 12px; margin-top: 6px; font-weight: 600; }
+  .product .pmeta { color: var(--text-mute); font-size: 11px; margin-top: 4px; }
+
+  .customer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+  }
+  .customer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+    color: #1a1410;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    flex: 0 0 36px;
+  }
+  .customer .cname { font-size: 13px; font-weight: 600; color: var(--text); }
+  .customer .cloc { font-size: 11px; color: var(--text-mute); }
+
+  .ecosystem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .eco-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .eco-card .ehead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .eco-card .ename { font-size: 13px; font-weight: 600; }
+  .eco-card .edesc { font-size: 11px; color: var(--text-mute); }
+
+  .note-bar {
+    background: rgba(240,180,41,.07);
+    border: 1px solid rgba(240,180,41,.25);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: var(--text-mute);
+    margin-bottom: 28px;
+  }
+  .note-bar strong { color: var(--amber); }
+
+  footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--text-mute);
+    font-size: 12px;
+  }
+  footer .tagline {
+    color: var(--gold);
+    font-weight: 700;
+    letter-spacing: 3px;
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title-block">
+    <h1>CreoleTrades Command Center</h1>
+    <div class="subtitle">Operational dashboard for @creoletrades · Live data pulled from Stripe, Google Calendar &amp; Netlify</div>
+  </div>
+  <div class="status-strip">
+    <span class="status-pill"><span class="dot green"></span> Site Live · creoletrades.com</span>
+    <span class="status-pill"><span class="dot green"></span> Netlify Deploy: Ready</span>
+    <span class="status-pill"><span class="dot gold"></span> Generated 2026-06-15 · 3:07 PM CT</span>
+  </div>
+</header>
+
+<div class="note-bar">
+  <strong>Data freshness:</strong> Google Calendar and Netlify were pulled live this run (2026-06-15, 3:07 PM CT). The Stripe MCP connector was not connected during this scheduled run, so subscription, customer, invoice, balance, and product figures below are carried forward from the last successful Stripe pull (2026-05-23) and should be treated as last-known values, not real-time.
+</div>
+
+<section>
+  <div class="section-title">Key Performance Indicators</div>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="label">Monthly Recurring Revenue</div>
+      <div class="value">$0.00</div>
+      <div class="delta">No active subscriptions · last pull 05-23</div>
+    </div>
+    <div class="kpi warn">
+      <div class="label">Active Subscribers</div>
+      <div class="value">0</div>
+      <div class="delta">All subs canceled · last pull 05-23</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Total Customers</div>
+      <div class="value">19</div>
+      <div class="delta">Lifetime across all tiers · last pull 05-23</div>
+    </div>
+    <div class="kpi bad">
+      <div class="label">Stripe Balance (Available)</div>
+      <div class="value">-$23.65</div>
+      <div class="delta">Pending: +$23.65 · last pull 05-23</div>
+    </div>
+    <div class="kpi">
+      <div class="label">All-Time Revenue</div>
+      <div class="value">$2,543.89</div>
+      <div class="delta">18 paid invoices · last pull 05-23</div>
+    </div>
+    <div class="kpi warn">
+      <div class="label">Upcoming Sessions (30d)</div>
+      <div class="value">0</div>
+      <div class="delta">Live calendar · no coaching booked through 07-15</div>
+    </div>
+  </div>
+</section>
+
+<div class="grid-2">
+  <section>
+    <div class="section-title">Active Subscriptions</div>
+    <div class="card">
+      <div class="empty-state">
+        No active subscriptions as of the last Stripe pull (2026-05-23). All paying members had churned or moved to one-time products. Re-engagement angle: STACKED Mastery: Silver ($189/mo) is the closest active offer to relaunch around. <em>(Re-run with the Stripe connector enabled to confirm current state.)</em>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">Upcoming Coaching Sessions</div>
+    <div class="card">
+      <div class="empty-state">
+        No coaching sessions booked in the next 30 days (through 2026-07-15). Calendar pulled live this run — only personal/billing reminders are on the schedule, no CreoleWolf / Mastery / STACKED / Coaching events. Drop a Calendly prompt in Discord to refill the pipeline.
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="grid-2">
+  <section>
+    <div class="section-title">Subscription Health</div>
+    <div class="card">
+      <div class="health-grid">
+        <div class="health-cell"><div class="num" style="color: var(--green);">0</div><div class="lbl">Active</div></div>
+        <div class="health-cell"><div class="num" style="color: var(--red);">10</div><div class="lbl">Canceled</div></div>
+        <div class="health-cell"><div class="num" style="color: var(--amber);">0</div><div class="lbl">Past Due</div></div>
+        <div class="health-cell"><div class="num" style="color: var(--amber);">2</div><div class="lbl">Open Invoices</div></div>
+      </div>
+      <div style="font-size: 11px; color: var(--text-mute); text-transform: uppercase; letter-spacing: 1px; margin: 14px 0 8px;">Canceled Member Breakdown · last pull 05-23</div>
+      <ul class="churn-list">
+        <li><span class="name">Cherell Winters</span><span>Roux Mastery 1-on-1 · $399.99/mo</span></li>
+        <li><span class="name">Cherell Winters</span><span>Mastery Silver · $189/mo</span></li>
+        <li><span class="name">HELGA ERIKA FRIEDRICH</span><span>Mastery Silver · $189/mo</span></li>
+        <li><span class="name">Oscar</span><span>Mastery Silver · $189/mo</span></li>
+        <li><span class="name">Kevin Ivy</span><span>STACKED: Wolf 3-mo · $85</span></li>
+        <li><span class="name">zack walker</span><span>STACKED: Signals · $79/mo</span></li>
+        <li><span class="name">Sanjay S Davis</span><span>Delta Calls · $79.99/mo</span></li>
+        <li><span class="name">Marcus Walker</span><span>Delta Calls · $49.99/mo</span></li>
+        <li><span class="name">Xavier Jones</span><span>Delta Calls · $49.99/mo</span></li>
+        <li><span class="name">Denise Hughes</span><span>Crescent Tier · $14.99/mo</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">Web Analytics</div>
+    <div class="card">
+      <div class="analytics-grid">
+        <a class="analytics-link" href="https://dash.cloudflare.com" target="_blank">
+          <div class="lname">Cloudflare Analytics</div>
+          <div class="lurl">dash.cloudflare.com</div>
+          <div style="margin-top:10px; font-size:11px; color:var(--text-mute);">Traffic · DNS · WAF events for creoletrades.com</div>
+        </a>
+        <a class="analytics-link" href="https://discord.gg/bRr7uP7Jbd" target="_blank">
+          <div class="lname">MEE6 Dashboard</div>
+          <div class="lurl">discord.gg/bRr7uP7Jbd</div>
+          <div style="margin-top:10px; font-size:11px; color:var(--text-mute);">Discord activity · levels · moderation</div>
+        </a>
+      </div>
+      <div style="margin-top:14px; padding:12px; background:var(--bg-2); border:1px solid var(--border); border-radius:8px; font-size:11px; color:var(--text-mute);">
+        Tip: Cloudflare cache hit ratio and bandwidth usage are the two metrics to watch given the _headers / CSP changes. Netlify is serving the current deploy cleanly (deploy 6a247db3, state ready).
+      </div>
+    </div>
+  </section>
+</div>
+
+<section>
+  <div class="section-title">Product Catalog</div>
+  <div class="product-grid">
+    <div class="product">
+      <div class="pname">STACKED: Mastery</div>
+      <div class="pprice">$399 / mo &middot; $1,019 q &middot; $1,799 6mo &middot; $3,359 yr</div>
+      <div class="pmeta">Flagship inner-circle tier</div>
+    </div>
+    <div class="product">
+      <div class="pname">STACKED: Mastery Silver</div>
+      <div class="pprice">$189 / mo &middot; $99 entry</div>
+      <div class="pmeta">Recurring mid-tier · pulls strongest retention historically</div>
+    </div>
+    <div class="product">
+      <div class="pname">STACKED: Wolf</div>
+      <div class="pprice">$9.99 / mo &middot; FREE w/ Wolf Chart referral</div>
+      <div class="pmeta">Wolf Chart community tier — free via affiliate link</div>
+    </div>
+    <div class="product">
+      <div class="pname">STACKED: Signals</div>
+      <div class="pprice">$79 / mo &middot; $227 q &middot; $431 6mo &middot; $767 yr</div>
+      <div class="pmeta">Desensitized trade signals</div>
+    </div>
+    <div class="product">
+      <div class="pname">Roux Mastery (1-on-1)</div>
+      <div class="pprice">$399.99 / mo &middot; $1,199.97 q &middot; $4,799.88 yr</div>
+      <div class="pmeta">Private coaching by Que</div>
+    </div>
+    <div class="product">
+      <div class="pname">1-on-1 with Creole</div>
+      <div class="pprice">$100 one-time</div>
+      <div class="pmeta">Single 60-min session</div>
+    </div>
+    <div class="product">
+      <div class="pname">STACK Academy: Trading Foundations</div>
+      <div class="pprice">$47 one-time</div>
+      <div class="pmeta">Core curriculum</div>
+    </div>
+    <div class="product">
+      <div class="pname">STACK Academy: Risk Management</div>
+      <div class="pprice">$97 one-time</div>
+      <div class="pmeta">Required foundation before paid tiers</div>
+    </div>
+    <div class="product">
+      <div class="pname">STACK Academy: Smart Money Concepts</div>
+      <div class="pprice">$97 one-time</div>
+      <div class="pmeta">Beginner SMC course</div>
+    </div>
+    <div class="product">
+      <div class="pname">STACK Academy: Options Trading</div>
+      <div class="pprice">$97 one-time</div>
+      <div class="pmeta">Options fundamentals</div>
+    </div>
+    <div class="product">
+      <div class="pname">STACK Academy: LEAPs Trading</div>
+      <div class="pprice">$97 one-time</div>
+      <div class="pmeta">Long-dated options strategy</div>
+    </div>
+    <div class="product">
+      <div class="pname">STACK Academy: DCA</div>
+      <div class="pprice">$97 one-time</div>
+      <div class="pmeta">Dollar Cost Averaging course</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">Invoice History · last pull 05-23</div>
+  <div class="card" style="padding: 6px 14px;">
+    <table>
+      <thead>
+        <tr>
+          <th>Customer</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Cherell Winters</td><td class="num">$189.00</td><td><span class="badge green">Paid</span></td><td>Mastery Silver renewal</td></tr>
+        <tr><td>Oscar</td><td class="num">$189.00</td><td><span class="badge green">Paid</span></td><td>Mastery Silver renewal</td></tr>
+        <tr><td>zack walker</td><td class="num">$79.00</td><td><span class="badge green">Paid</span></td><td>Signals signup</td></tr>
+        <tr><td>Kevin Ivy</td><td class="num">$85.00</td><td><span class="badge green">Paid</span></td><td>Wolf 3-mo signup</td></tr>
+        <tr><td>Cherell Winters</td><td class="num">$189.00</td><td><span class="badge green">Paid</span></td><td>Mastery Silver signup</td></tr>
+        <tr><td>HELGA ERIKA FRIEDRICH</td><td class="num">$189.00</td><td><span class="badge green">Paid</span></td><td>Mastery Silver signup</td></tr>
+        <tr><td>Oscar</td><td class="num">$189.00</td><td><span class="badge green">Paid</span></td><td>Mastery Silver signup</td></tr>
+        <tr><td>Sanjay S Davis</td><td class="num">$79.99</td><td><span class="badge green">Paid</span></td><td>Delta Calls renewal</td></tr>
+        <tr><td>Cherell Winters</td><td class="num">$349.99</td><td><span class="badge green">Paid</span></td><td>Roux Mastery renewal</td></tr>
+        <tr><td>Sanjay S Davis</td><td class="num">$79.99</td><td><span class="badge green">Paid</span></td><td>Delta Calls renewal</td></tr>
+        <tr><td>Cherell Winters</td><td class="num">$349.99</td><td><span class="badge green">Paid</span></td><td>Roux Mastery renewal</td></tr>
+        <tr><td>Sanjay S Davis</td><td class="num">$79.99</td><td><span class="badge green">Paid</span></td><td>Delta Calls signup</td></tr>
+        <tr><td>Cherell Winters</td><td class="num">$349.99</td><td><span class="badge green">Paid</span></td><td>Roux Mastery signup</td></tr>
+        <tr><td>Denise Hughes</td><td class="num">$14.99</td><td><span class="badge green">Paid</span></td><td>Crescent renewal</td></tr>
+        <tr><td>Denise Hughes</td><td class="num">$14.99</td><td><span class="badge green">Paid</span></td><td>Crescent renewal</td></tr>
+        <tr><td>Marcus Walker</td><td class="num">$49.99</td><td><span class="badge amber">Open</span></td><td>Delta Calls renewal · unpaid</td></tr>
+        <tr><td>Denise Hughes</td><td class="num">$14.99</td><td><span class="badge green">Paid</span></td><td>Crescent signup</td></tr>
+        <tr><td>Xavier Jones</td><td class="num">$49.99</td><td><span class="badge amber">Open</span></td><td>Delta Calls renewal · unpaid</td></tr>
+        <tr><td>Marcus Walker</td><td class="num">$49.99</td><td><span class="badge green">Paid</span></td><td>Delta Calls signup</td></tr>
+        <tr><td>Xavier Jones</td><td class="num">$49.99</td><td><span class="badge green">Paid</span></td><td>Delta Calls signup</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">Customer Directory · last pull 05-23</div>
+  <div class="customer-grid">
+    <div class="customer"><div class="avatar">MM</div><div><div class="cname">Manuel Maykel</div><div class="cloc">Queens, NY</div></div></div>
+    <div class="customer"><div class="avatar">CT</div><div><div class="cname">cleveland terry</div><div class="cloc">SC 29511</div></div></div>
+    <div class="customer"><div class="avatar">VM</div><div><div class="cname">Vincent Moody</div><div class="cloc">Concord, NC</div></div></div>
+    <div class="customer"><div class="avatar">CP</div><div><div class="cname">Chari Pollard</div><div class="cloc">MD 21225</div></div></div>
+    <div class="customer"><div class="avatar">ZW</div><div><div class="cname">zack walker</div><div class="cloc">KY 42003</div></div></div>
+    <div class="customer"><div class="avatar">BW</div><div><div class="cname">Brandon Witherspoon</div><div class="cloc">Phoenix, AZ</div></div></div>
+    <div class="customer"><div class="avatar">KI</div><div><div class="cname">Kevin Ivy</div><div class="cloc">Queens, NY</div></div></div>
+    <div class="customer"><div class="avatar">KI</div><div><div class="cname">Kevin Ivy</div><div class="cloc">Queens, NY</div></div></div>
+    <div class="customer"><div class="avatar">CW</div><div><div class="cname">Cherell Winters</div><div class="cloc">Dayton, OH</div></div></div>
+    <div class="customer"><div class="avatar">HF</div><div><div class="cname">HELGA ERIKA FRIEDRICH</div><div class="cloc">Kelowna, BC · CA</div></div></div>
+    <div class="customer"><div class="avatar">OS</div><div><div class="cname">Oscar</div><div class="cloc">TX 77385</div></div></div>
+    <div class="customer"><div class="avatar">DR</div><div><div class="cname">Demarrio Rucker</div><div class="cloc">FL 32024</div></div></div>
+    <div class="customer"><div class="avatar">QU</div><div><div class="cname">Que</div><div class="cloc">Brandon, MS</div></div></div>
+    <div class="customer"><div class="avatar">QU</div><div><div class="cname">Que</div><div class="cloc">Brandon, MS</div></div></div>
+    <div class="customer"><div class="avatar">SD</div><div><div class="cname">Sanjay S Davis</div><div class="cloc">Plantersville, MS</div></div></div>
+    <div class="customer"><div class="avatar">CW</div><div><div class="cname">Cherell Winters</div><div class="cloc">Dayton, OH</div></div></div>
+    <div class="customer"><div class="avatar">DH</div><div><div class="cname">Denise Hughes</div><div class="cloc">Jackson, MS</div></div></div>
+    <div class="customer"><div class="avatar">MW</div><div><div class="cname">Marcus Walker</div><div class="cloc">MS 39746</div></div></div>
+    <div class="customer"><div class="avatar">XJ</div><div><div class="cname">Xavier Jones</div><div class="cloc">Forney, TX</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">CreoleTrades Ecosystem</div>
+  <div class="ecosystem-grid">
+    <div class="eco-card">
+      <div class="ehead"><div class="ename">creoletrades.com</div><span class="badge green">Live</span></div>
+      <div class="edesc">Main site · Netlify deploy ready (6a247db3)</div>
+    </div>
+    <div class="eco-card">
+      <div class="ehead"><div class="ename">STACK Academy</div><span class="badge green">Live</span></div>
+      <div class="edesc">/academy/ · 5+ courses, quizzes, exam</div>
+    </div>
+    <div class="eco-card">
+      <div class="ehead"><div class="ename">Roux AI Chatbot</div><span class="badge green">Active</span></div>
+      <div class="edesc">Embedded assistant on site</div>
+    </div>
+    <div class="eco-card">
+      <div class="ehead"><div class="ename">Stripe Payments</div><span class="badge amber">Connector Offline</span></div>
+      <div class="edesc">Not connected this run · last pull 05-23</div>
+    </div>
+    <div class="eco-card">
+      <div class="ehead"><div class="ename">Discord Community</div><span class="badge green">Active</span></div>
+      <div class="edesc">The Trading Roux · MEE6 managed</div>
+    </div>
+    <div class="eco-card">
+      <div class="ehead"><div class="ename">Calendly Booking</div><span class="badge amber">No Bookings</span></div>
+      <div class="edesc">Mastery Silver 60-min · $99 · 0 booked (30d)</div>
+    </div>
+    <div class="eco-card">
+      <div class="ehead"><div class="ename">Blog</div><span class="badge green">Live</span></div>
+      <div class="edesc">/blog/ · content marketing engine</div>
+    </div>
+    <div class="eco-card">
+      <div class="ehead"><div class="ename">CreoleTrades Journal</div><span class="badge green">Live</span></div>
+      <div class="edesc">Trade journaling tool</div>
+    </div>
+    <div class="eco-card">
+      <div class="ehead"><div class="ename">YouTube · @creoletrades</div><span class="badge green">Active</span></div>
+      <div class="edesc">8-week rotation calendar</div>
+    </div>
+    <div class="eco-card">
+      <div class="ehead"><div class="ename">Cloudflare</div><span class="badge green">Active</span></div>
+      <div class="edesc">DNS · WAF · CDN proxy</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="tagline">⚜️ STAY STACKED ⚜️</div>
+  <div>CreoleTrades Command Center · Auto-generated 2026-06-15 3:07 PM CT · Que (@creoletrades)</div>
+  <div style="margin-top:6px; font-size:11px;">Data sources: Google Calendar (live) · Netlify Platform API (live) · Stripe API (last pull 2026-05-23 — connector offline this run)</div>
+</footer>
+
+</body>
+</html>
