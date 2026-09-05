@@ -22,7 +22,7 @@ KNOWLEDGE BASE:
 - Best starting point for anyone brand new to trading
 
 ## Community Tiers (The Trading Roux Discord)
-- Join link: mee6.gg/m/tradingroux
+- Join link: discord.gg/bRr7uP7Jbd
 - Funnel: See the signal → Want the plan → Need the Mastery
 
 ### TIER 1 — STACKED (Free)
@@ -32,16 +32,15 @@ KNOWLEDGE BASE:
 - Full YouTube education library @creoletrades
 - #general community access in The Trading Roux
 - STACK Method doctrine education
-- CTA: Join free at mee6.gg/m/tradingroux
+- CTA: Join free at discord.gg/bRr7uP7Jbd
 
-### TIER 2 — STACKED: Wolf — $29/month
+### TIER 2 — STACKED: Wolf — $9.99/month
 - Everything in free PLUS:
 - Wolf Chart 2.1 walkthroughs
 - Indicator education & annotated chart breakdowns
-- #wolf-chart private channel access
 - Confirmation system training tied to STACK
-- ⚠️ Requires active Wolf Chart 2.1 subscription
-- Note: Affiliate entry lane — members from Wolf Chart 2.1 affiliate link enter here
+- Community access for Wolf Chart users
+- 🔥 FREE with Wolf Chart referral: subscribe via thewolfchart.com/?via=creoletrades and get Wolf server access at no cost
 
 ### TIER 3 — STACKED: Signals — $79/month
 - Everything in Wolf PLUS:
@@ -115,17 +114,17 @@ The Academy lives at creoletrades.com/academy and contains self-paced HTML cours
 - Start here if you're new — risk before reward, always
 
 ## Onboarding Steps
-1. Start free — join The Trading Roux: mee6.gg/m/tradingroux
+1. Start free — join The Trading Roux: discord.gg/bRr7uP7Jbd
 2. Grab the Free Starter Guide: creoletrades.com/starter-guide
 3. Take a STACK Academy course ($97 each) — start with Risk Management or SMC at creoletrades.com/academy
-4. If upgrading to Wolf tier — subscribe to Wolf Chart 2.1 first: thewolfchart.com/?via=creoletrades
+4. If upgrading to Wolf tier — subscribe to Wolf Chart 2.1 via thewolfchart.com/?via=creoletrades (get Wolf server access free)
 5. Select your tier inside Discord via MEE6
 6. Introduce yourself and get to work
 
 ## Wolf Chart 2.1 — The Confirmation System
 - Powers the C in STACK
 - Standalone affiliate product — not a tier feature
-- Required for STACKED: Wolf tier
+- Subscribe via Que's link = free STACKED: Wolf access ($9.99/mo value)
 - Referenced in every Mastery trade plan
 - Built by Shon The Wolf on TradingView
 - Subscribe via affiliate link: thewolfchart.com/?via=creoletrades
@@ -140,7 +139,7 @@ The Academy lives at creoletrades.com/academy and contains self-paced HTML cours
 - Facebook: facebook.com/profile.php?id=61581502905271
 - Twitter/X: @creoletrades
 - Threads: @creoletrades
-- Discord: mee6.gg/m/tradingroux
+- Discord: discord.gg/bRr7uP7Jbd
 
 ## Contact
 - Contact form: creoletrades.com/#contact
@@ -149,7 +148,7 @@ The Academy lives at creoletrades.com/academy and contains self-paced HTML cours
 
 ## FAQ
 Q: Do I need Wolf Chart to join the community?
-A: No — the free STACKED tier requires nothing. Wolf Chart 2.1 is only required if you upgrade to STACKED: Wolf ($29/mo).
+A: No — the free STACKED tier requires nothing. Wolf Chart 2.1 enhances STACKED: Wolf ($9.99/mo) — and if you subscribe using Que's link, Wolf server access is free.
 
 Q: What's the difference between Signals and Mastery?
 A: Signals gives you compressed signal alerts (ticker, direction, entry zone, PT1, invalidation). Mastery gives you the full trade plan — all 5 option zones, PT1/PT2/PT3, trim & trail logic, Wolf Chart screenshots, and 1-on-1 coaching with Que.
@@ -173,7 +172,7 @@ Q: How much do the Academy courses cost?
 A: Each STACK Academy course is a one-time purchase at $97 with lifetime access — no subscription. Five courses available: Smart Money Concepts, Options Trading, LEAPs, Dollar Cost Averaging, and Risk Management. All at creoletrades.com/academy.
 
 Q: Where should I start if I'm brand new?
-A: Three things, in this order: (1) join the free Discord at mee6.gg/m/tradingroux, (2) grab the free Starter Guide at creoletrades.com/starter-guide, (3) take the Risk Management course at creoletrades.com/academy ($97). Risk before reward, always.
+A: Three things, in this order: (1) join the free Discord at discord.gg/bRr7uP7Jbd, (2) grab the free Starter Guide at creoletrades.com/starter-guide, (3) take the Risk Management course at creoletrades.com/academy ($97). Risk before reward, always.
 
 IMPORTANT RULES:
 - Never provide financial advice or tell anyone to buy/sell specific assets
@@ -200,8 +199,20 @@ exports.handler = async (event) => {
     return { statusCode: 405, headers, body: JSON.stringify({ reply: 'Method Not Allowed' }) };
   }
 
+  const FALLBACK_REPLY = "I'm having trouble connecting right now. Please reach out at creoletrades.com/#contact ⚜️";
+
   try {
     const { messages } = JSON.parse(event.body);
+
+    // Guard: a missing env var and a bad key fail identically without this check.
+    if (!ANTHROPIC_API_KEY) {
+      console.error('ANTHROPIC_API_KEY is not set in the Netlify environment');
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({ reply: FALLBACK_REPLY, debug: { status: 0, type: 'missing_api_key' } })
+      };
+    }
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -211,7 +222,7 @@ exports.handler = async (event) => {
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
+        model: 'claude-haiku-4-5',
         max_tokens: 500,
         system: SYSTEM_PROMPT,
         messages
@@ -220,12 +231,17 @@ exports.handler = async (event) => {
 
     const data = await response.json();
 
-    if (data.error) {
-      console.error('Anthropic error:', JSON.stringify(data.error));
+    if (!response.ok || data.error) {
+      console.error('Anthropic error:', response.status, JSON.stringify(data.error || data));
       return {
         statusCode: 200,
         headers,
-        body: JSON.stringify({ reply: "I'm having trouble connecting right now. Please reach out at creoletrades.com/#contact ⚜️" })
+        // `debug` carries only the HTTP status and Anthropic's error type (never the key
+        // or any message content). The widget renders `reply` only, so users never see it.
+        body: JSON.stringify({
+          reply: FALLBACK_REPLY,
+          debug: { status: response.status, type: (data.error && data.error.type) || null }
+        })
       };
     }
 
