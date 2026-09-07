@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member Results | CreoleTrades</title>
+  <meta name="description" content="Real wins posted by Trading Roux members. Individual results, not financial advice.">
+  <link rel="canonical" href="https://creoletrades.com/results">
+  <script>document.documentElement.classList.add('js')</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/ct.css">
+  <style>
+    :root{
+      --spice:var(--ct-spice); --firefly:var(--ct-firefly); --parchment:var(--ct-parch);
+      --text:var(--ct-text); --muted:var(--ct-muted); --moss-lite:var(--ct-spice-lt);
+      --night:var(--ct-night); --iron:var(--ct-surface-2);
+      --border-dim:var(--ct-hair-2);
+    }
+  </style>
+</head>
+<body>
+<div class="ct-grain"></div>
+
+<nav class="ct-nav"><div class="ct-nav-inner">
+  <a href="/" style="font-family:'Playfair Display',serif;font-size:16px;color:var(--ct-parch);letter-spacing:-0.01em;">CreoleTrades</a>
+  <div class="ct-nav-links">
+    <a href="/#method">The Method</a>
+    <a href="/results">Results</a>
+    <a href="/join">Join</a>
+    <a href="/blog.html">Journal</a>
+  </div>
+  <a class="ct-cta" href="https://discord.gg/bRr7uP7Jbd" target="_blank" rel="noopener noreferrer">Join free <span class="ct-cta-ico">→</span></a>
+  <button class="ct-burger" type="button" aria-label="Menu">☰</button>
+</div></nav>
+
+<section class="ct-section"><div class="ct-wrap">
+  <span class="ct-pill">The wall</span>
+  <h1 style="font-size:clamp(40px,6vw,56px);margin:18px 0 14px;">What members <em style="color:var(--ct-spice);font-weight:400;">posted</em></h1>
+  <p style="color:var(--ct-muted);max-width:620px;">Every number here was posted by a member with their own fill. Individual results. Not financial advice.</p>
+
+  <div style="display:flex;gap:8px;margin:34px 0 30px;flex-wrap:wrap;" id="ct-filters">
+    <button type="button" class="ct-ghost" data-filter="all" aria-pressed="true">All</button>
+    <button type="button" class="ct-ghost" data-filter="wolf" aria-pressed="false">Wolf</button>
+    <button type="button" class="ct-ghost" data-filter="mastery" aria-pressed="false">Mastery</button>
+  </div>
+
+  <div id="ct-results-all" class="ct-results"></div>
+</div></section>
+
+<section class="ct-section" style="padding-top:0;text-align:center;">
+  <div class="ct-wrap">
+    <p class="ct-rise" style="font-size:0.68rem;font-style:italic;color:var(--muted);margin-top:0.5rem;text-align:center;line-height:1.7;max-width:640px;margin-left:auto;margin-right:auto;">
+      All memberships are for educational purposes only and do not constitute personalized financial advice. Trading involves substantial risk of loss. You are solely responsible for your own trading decisions.
+    </p>
+    <div style="margin-top:1.5rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;">
+      <a href="/join">See the tiers</a>
+      <a href="/">Back to CreoleTrades</a>
+    </div>
+  </div>
+</section>
+
+<script src="/assets/ct-nav.js"></script>
+<script src="/data/results.js"></script>
+<script src="/assets/ct-motion.js"></script>
+<script src="/assets/ct-results.js"></script>
+<script src="/assets/ct-gate.js"></script>
+<script>
+  (function(){
+    var mount=document.getElementById('ct-results-all');
+    window.CTResults.render(mount,{tier:'all'});
+    window.CTResults.initFilters(document.getElementById('ct-filters'),mount,{});
+  })();
+</script>
+</body>
+</html>
