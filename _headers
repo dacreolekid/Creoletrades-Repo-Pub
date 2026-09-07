@@ -8,8 +8,12 @@
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.youtube.com; connect-src 'self' https://www.googleapis.com https://formspree.io https://www.youtube.com https://cloudflareinsights.com; upgrade-insecure-requests;
   Cross-Origin-Opener-Policy: same-origin-allow-popups
 
-  # ── Performance: cache everything by default for 1 hour ──
-  Cache-Control: public, max-age=3600, must-revalidate
+  # ── Performance ──
+  # Always revalidate by default. Pretty URLs (/, /join, /results, /blog, /academy)
+  # do NOT match the /*.html rule below, so they land here. A long max-age here
+  # keeps a deploy invisible to returning visitors until it expires.
+  # Big, content-stable assets get explicit long caches further down.
+  Cache-Control: public, max-age=0, must-revalidate
 
 # ── HTML — never cache, always fresh ──
 /*.html
@@ -36,24 +40,20 @@
 /*.woff
   Cache-Control: public, max-age=31536000, immutable
 
-# ── CSS / JS — cache for 1 week ──
+# ── CSS / JS — always revalidate ──
+# No build step, so filenames are not content-hashed: ct.css and ct-*.js keep the
+# same URL forever. A long max-age would pin returning visitors to stale styles or
+# a stale purchase gate for that whole window. Revalidation returns a ~200 byte 304
+# when nothing changed, which is cheap for files this size.
 /*.css
-  Cache-Control: public, max-age=604800, must-revalidate
+  Cache-Control: public, max-age=0, must-revalidate
 /*.js
-  Cache-Control: public, max-age=604800, must-revalidate
+  Cache-Control: public, max-age=0, must-revalidate
 
-# ── roux-bot.js — short cache so chatbot updates propagate fast ──
-/roux-bot.js
-  Cache-Control: public, max-age=300, must-revalidate
-
-# ── Audio / Video — cache for 1 year ──
-/*.webm
+# ── PDF — cache for 1 year (the starter guide download) ──
+/*.pdf
   Cache-Control: public, max-age=31536000, immutable
 
-# ── Princess Trader — allow inline scripts, audio, and mic ──
-/academy/princess-trader/*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src 'self' blob:; img-src 'self' data:; connect-src 'self'; upgrade-insecure-requests;
-  Permissions-Policy: microphone=(self)
 
 # ── 404 page — never cache ──
 /404.html
