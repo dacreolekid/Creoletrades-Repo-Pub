@@ -6,6 +6,8 @@ https://www.CreoleTrades.com/* https://CreoleTrades.com/:splat 301!
 /starter-guide   /starter-guide.html   200
 /loup-apex       /loup-apex.html       200
 /loup-apex-guide /loup-apex-guide.html 200
+/join            /join.html            200
+/results         /results.html         200
 
 # SPA fallback
 /*  /index.html  200
