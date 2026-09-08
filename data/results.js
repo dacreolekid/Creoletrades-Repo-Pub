@@ -20,6 +20,21 @@
          (only "wolf" and "mastery" have filter pills on /results today) */
 window.CT_RESULTS = [
   {
+    id: "wolf-like-daniel-intc",
+    member: "Wolf Like Daniel",
+    initials: "WL",
+    tier: "wolf",
+    role: "Wolf Pack/Trading Roux Member",
+    date: "2026-09-07",
+    amount: "+$2,138",
+    percent: "+97.4%",
+    sublabel: "2 winning contracts, 5 days",
+    tickers: ["INTC"],
+    quote: "Entered after the womp womp. INTC $85 calls, October expiry. In at $10.97, out at $21.80 and $21.55. Two contracts, both green: +$1,083 (+98.7%) and +$1,058 (+96.4%). Total +$2,138, return on capital +97.4%, five days in the trade. Thanks Creole, those Friday sessions have helped me dial in!",
+    featured: false,
+    screenshot: null
+  },
+  {
     id: "ruff-wolf",
     member: "Ruff_Wolf",
     initials: "RW",
