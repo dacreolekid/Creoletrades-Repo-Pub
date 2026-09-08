@@ -1703,6 +1703,73 @@
        into their neighbors. Stack to one full-width row per letter. */
     #method .ct-wrap > .ct-rise:nth-child(2){grid-template-columns:1fr !important}
   }
+
+  /* ---------------------------------------------------------------
+     Radius harmonisation (2026-09-08).
+     The preserved legacy sections were authored square (the original
+     site's look). The remodel introduced ct.css's rounded system
+     (.ct-shell 32px / .ct-core 24px / pill CTAs), which left a visible
+     seam from #socials down. These rules round the legacy furniture to
+     the same scale. Markup is untouched: class hooks only.
+     --------------------------------------------------------------- */
+
+  /* Major cards -> matches .ct-core (24px) */
+  .social-card,
+  .blog-card,
+  .academy-card,
+  .email-capture-card,
+  .faq-item,
+  .about-portrait,
+  .yt-embed,
+  .modal-box,
+  .popup-box,
+  #mobile-menu { border-radius: 24px; }
+
+  /* The portrait and the video are media that must clip to the corner */
+  .about-portrait,
+  .yt-embed { overflow: hidden; }
+
+  /* Sub-blocks inside cards -> one step down */
+  .contact-detail,
+  .about-stats,
+  .about-quote,
+  .academy-card-modules,
+  .faq-a-inner { border-radius: 16px; }
+
+  /* Form controls */
+  .form-input,
+  .form-select,
+  .form-textarea,
+  #email-capture input,
+  #email-capture textarea { border-radius: 12px; }
+
+  /* Buttons become pills, matching .ct-cta */
+  .btn,
+  .btn-spice,
+  .btn-outline { border-radius: 9999px; }
+
+  /* Small furniture */
+  .yt-badge { border-radius: 9999px; }
+  .nav-burger { border-radius: 9999px; }
+  .modal-close,
+  .popup-close { border-radius: 9999px; }
+
+  /* The FAQ list stacks items with a 2px gap; rounding each item means
+     the list itself no longer needs to clip them. */
+  .faq-list { border-radius: 0; overflow: visible; }
+
+  @media (max-width: 768px) {
+    /* Slightly tighter on small screens so cards don't look bubbly */
+    .social-card,
+    .blog-card,
+    .academy-card,
+    .email-capture-card,
+    .faq-item,
+    .about-portrait,
+    .yt-embed,
+    .modal-box,
+    .popup-box { border-radius: 18px; }
+  }
 </style>
 </head>
 <body>
