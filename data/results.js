@@ -31,7 +31,7 @@ window.CT_RESULTS = [
     sublabel: "2 winning contracts, 5 days",
     tickers: ["INTC"],
     quote: "Entered after the womp womp. INTC $85 calls, October expiry. In at $10.97, out at $21.80 and $21.55. Two contracts, both green: +$1,083 (+98.7%) and +$1,058 (+96.4%). Total +$2,138, return on capital +97.4%, five days in the trade. Thanks Creole, those Friday sessions have helped me dial in!",
-    featured: false,
+    featured: true,
     screenshot: null
   },
   {
@@ -46,7 +46,7 @@ window.CT_RESULTS = [
     sublabel: "held to invalidation",
     tickers: [],
     quote: "Had a great 1-on-1 training with my guy CreoleWolf. I was thinking of cutting this trade down 50% with the contract expiring the next day. All I heard in my head was him saying trust your trade plan, has your trade reached invalidation. This is the result: +$1,176.71 (+143.16%). Appreciate ya, good brother!",
-    featured: true,
+    featured: false,
     screenshot: null
   },
   {
