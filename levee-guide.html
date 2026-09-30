@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Levee (Risk Regime) | Complete Guide | CreoleTrades</title>
+<meta name="description" content="The complete user guide for The Levee, the cross-asset risk regime indicator for TradingView: the seven pillars, five states, two modes, the action line, rotation rows, every setting and every alert.">
+<link rel="canonical" href="https://creoletrades.com/levee-guide">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://creoletrades.com/levee-guide">
+<meta property="og:title" content="The Levee: Complete User Guide">
+<meta property="og:description" content="Every pillar, state, mode, setting and alert in The Levee, explained.">
+<meta property="og:image" content="https://creoletrades.com/levee-card.png">
+<meta property="og:site_name" content="CreoleTrades">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://creoletrades.com/levee-card.png">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070C18; --bg2:#0A1120; --surface:#111A2B; --surface2:#0E1626; --border:#25324C;
+    --ink:#EAEEF6; --muted:#9BA7BE; --faint:#6B7793;
+    --gold:#C9A84C; --gold-soft:#E6CE86; --gold-mut:rgba(201,168,76,0.13);
+    --on:#00E676; --leanon:#66BB6A; --neutral:#9E9E9E; --leanoff:#FF9100; --off:#FF1744;
+    --serif:'Playfair Display',Georgia,serif; --body:'Lora',Georgia,serif; --ui:'Inter',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px}
+  h1,h2,h3,h4,.serif{font-family:var(--serif)}
+  a{color:var(--gold);text-decoration:none}
+  /* NAV */
+  nav.top{position:sticky;top:0;z-index:50;background:rgba(7,12,24,0.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  nav.top .wrap{display:flex;align-items:center;gap:20px;height:58px}
+  nav.top .brand{font-family:var(--ui);font-weight:700;letter-spacing:.02em;font-size:15px;color:var(--ink);white-space:nowrap}
+  nav.top .brand b{color:var(--gold)}
+  nav.top .links{display:flex;gap:20px;margin-left:auto;overflow-x:auto;font-family:var(--ui);font-size:13px;font-weight:500}
+  nav.top .links a{color:var(--muted);white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent;transition:.15s}
+  nav.top .links a:hover{color:var(--gold);border-color:var(--gold)}
+  @media(max-width:760px){nav.top .links{display:none}}
+  nav.top .brand a{color:inherit}
+  nav.top .buy{flex-shrink:0;font-family:var(--ui);font-size:13px;font-weight:700;color:#1A1206;background:linear-gradient(90deg,var(--gold),#F0D080);padding:8px 14px;border-radius:6px;white-space:nowrap}
+  @media(max-width:760px){nav.top .buy{margin-left:auto}}
+  nav.top .brand{flex-shrink:0}
+  @media(max-width:760px){nav.top .brand{flex-shrink:1;min-width:0;overflow:hidden;text-overflow:ellipsis}}
+  @media(max-width:420px){nav.top .wrap{gap:10px}nav.top .brand{font-size:13px}nav.top .buy{font-size:12px;padding:7px 10px}}
+  footer .back{font-family:var(--ui);font-size:14px;margin-top:18px}
+  /* HERO */
+  header.hero{padding:86px 0 60px;border-bottom:1px solid var(--border);
+    background:radial-gradient(900px 380px at 50% -8%, rgba(201,168,76,0.13), transparent 62%)}
+  .eyebrow{font-family:var(--ui);color:var(--gold);font-weight:600;letter-spacing:.22em;text-transform:uppercase;font-size:12px;margin-bottom:20px}
+  h1{font-size:56px;line-height:1.05;font-weight:800;letter-spacing:-.5px}
+  h1 .v{color:var(--gold)}
+  .tagline{font-size:20px;color:var(--muted);margin-top:22px;max-width:640px;font-style:italic}
+  .hero-pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;font-family:var(--ui)}
+  .pill{font-size:12.5px;font-weight:600;padding:6px 13px;border-radius:999px;background:var(--gold-mut);color:var(--gold);border:1px solid rgba(201,168,76,.32)}
+  .pill.n{background:#141d2e;color:var(--muted);border-color:var(--border)}
+  /* SECTION */
+  section{padding:58px 0;border-bottom:1px solid var(--border)}
+  .kicker{font-family:var(--ui);color:var(--gold);font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:12px;margin-bottom:12px}
+  h2{font-size:34px;font-weight:700;letter-spacing:-.3px;line-height:1.15}
+  h2 .num{color:var(--gold);font-size:22px;vertical-align:super;margin-right:10px;font-weight:600}
+  h3{font-size:21px;font-weight:700;margin:28px 0 10px}
+  p{margin:14px 0;color:#D3DAE8}
+  p.lead{font-size:18px;color:var(--muted);margin:14px 0 26px}
+  strong{color:var(--ink);font-weight:600}
+  .gold{color:var(--gold-soft)}
+  ul{margin:14px 0 14px 4px;list-style:none}
+  li{padding:8px 0 8px 26px;position:relative;color:#D3DAE8}
+  li::before{content:"◆";position:absolute;left:0;color:var(--gold);font-size:11px;top:12px}
+  /* NEW badge */
+  .new{display:inline-block;font-family:var(--ui);font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--bg);background:var(--gold);padding:3px 8px;border-radius:5px;vertical-align:middle;margin-left:10px}
+  /* TABLE */
+  .tbl{width:100%;border-collapse:collapse;margin:22px 0;font-family:var(--ui);font-size:14.5px;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  .tbl th{background:var(--surface2);color:var(--muted);text-align:left;padding:13px 16px;font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
+  .tbl td{padding:13px 16px;border-top:1px solid var(--border);color:#D3DAE8;vertical-align:top}
+  .tbl tr:nth-child(even) td{background:rgba(255,255,255,.014)}
+  .tbl td.w{color:var(--gold);font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .tbl td.name{color:var(--ink);font-weight:600;white-space:nowrap}
+  .tbl td.grp{color:var(--gold);font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:.08em;background:var(--surface2)}
+  @media(max-width:680px){.tbl td.name{white-space:normal}.tbl{font-size:13.5px}.tbl td,.tbl th{padding:11px 10px}}
+  .swatch{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:8px;vertical-align:middle}
+  /* CALLOUT */
+  .callout{background:var(--surface2);border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:10px;padding:22px 24px;margin:24px 0;display:flex;gap:16px}
+  .callout .ic{font-size:22px;line-height:1.4}
+  .callout h4{font-family:var(--ui);font-size:15.5px;font-weight:700;margin-bottom:6px;color:var(--ink)}
+  .callout p{margin:4px 0;font-size:15px;color:var(--muted)}
+  .callout.warn{border-left-color:var(--leanoff)}
+  /* STATE BAND */
+  .band{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:24px 0;font-family:var(--ui)}
+  .st{border-radius:10px;padding:16px 12px;text-align:center;border:1px solid var(--border);background:var(--surface2)}
+  .st .dot{width:14px;height:14px;border-radius:50%;margin:0 auto 10px}
+  .st .lbl{font-weight:700;font-size:13px;letter-spacing:.02em}
+  .st .thr{font-size:11.5px;color:var(--muted);margin-top:6px}
+  @media(max-width:680px){.band{grid-template-columns:1fr 1fr}}
+  /* GUIDANCE grid */
+  .guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0;font-family:var(--ui);font-size:14px}
+  .gcard{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid var(--neutral)}
+  .gcard b{display:block;font-size:14.5px;margin-bottom:3px}
+  .gcard span{color:var(--muted);font-size:13px}
+  @media(max-width:680px){.guide-grid{grid-template-columns:1fr}}
+  /* MODES */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:22px 0}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px}
+  .card h3{margin-top:0;font-family:var(--ui);font-size:16px}
+  .card .tag{font-family:var(--ui);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+  @media(max-width:680px){.cols{grid-template-columns:1fr}}
+  /* SAMPLE PRINT */
+  .print{font-family:ui-monospace,Consolas,monospace;font-size:14px;background:#05080F;border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin:18px 0;overflow-x:auto;white-space:nowrap}
+  .print .in{color:var(--leanon)} .print .out{color:var(--off)} .print .rd{color:#FFD75E}
+  /* FOOTER */
+  footer{padding:48px 0 70px;text-align:center}
+  footer .mark{font-family:var(--serif);font-size:20px;color:var(--gold);font-weight:700}
+  footer .creed{font-family:var(--body);font-style:italic;color:var(--muted);margin-top:10px}
+  footer .disc{font-family:var(--ui);font-size:12px;color:var(--faint);margin-top:22px;max-width:620px;margin-left:auto;margin-right:auto;line-height:1.6}
+  .step{counter-reset:s;list-style:none;margin-left:0}
+  .step li{padding:12px 0 12px 46px}
+  .step li::before{counter-increment:s;content:counter(s);font-family:var(--ui);font-weight:700;font-size:13px;color:var(--gold);background:var(--gold-mut);border:1px solid rgba(201,168,76,.3);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;left:0;top:9px}
+  @media(max-width:760px){h1{font-size:40px}h2{font-size:27px}header.hero{padding:56px 0 44px}section{padding:44px 0}.wrap{padding:0 16px}}
+</style>
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <span class="brand"><a href="/">🐺 CreoleTrades</a> · <a href="/levee"><b>The Levee</b></a></span>
+  <span class="links">
+    <a href="#what">What it does</a><a href="#pillars">Pillars</a><a href="#states">States</a>
+    <a href="#modes">Modes</a><a href="#guidance">Action line</a><a href="#displays">Displays</a>
+    <a href="#settings">Settings</a><a href="#alerts">Alerts</a><a href="#use">How to use</a><a href="#honest">What it isn't</a>
+  </span>
+  <a class="buy" href="/levee">Get The Levee · $97</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">CreoleWolf Indicators · Complete Guide · v2.6</div>
+  <h1>The Levee <span class="v">(Risk Regime)</span></h1>
+  <p class="tagline">Built between your capital and the flood. Is capital reaching for risk, or running from it? One cross-asset read of the whole market, painted on any chart you're viewing.</p>
+  <div class="hero-pills">
+    <span class="pill">7 intermarket pillars</span>
+    <span class="pill">5-state regime band</span>
+    <span class="pill">Index Rotation row</span>
+    <span class="pill">Sector Rotate print</span>
+    <span class="pill n">Symbol-agnostic</span>
+    <span class="pill n">Non-repainting (Confirmed)</span>
+    <span class="pill n">Ships calibrated</span>
+  </div>
+</div></header>
+
+<main class="wrap">
+
+<section id="what">
+  <div class="kicker">Overview</div>
+  <h2><span class="num">01</span>What it does</h2>
+  <p class="lead">The Levee reads the market's overall <strong>RISK-ON vs RISK-OFF</strong> posture from a basket of cross-asset markets (volatility, bonds, credit, equity leadership, commodities, gold, and the dollar) and distills it into one number and one word.</p>
+  <p>Each market group becomes a <strong>vote</strong> from -1 (risk-off) to +1 (risk-on). The seven votes combine into one composite and map to a five-state band. Because the read is <strong>market-wide</strong>, you get the same backdrop on any ticker: a fast top-of-screen context layer <em>before</em> you analyze price.</p>
+  <div class="callout"><div class="ic">🧭</div><div>
+    <h4>It's context, not a trigger</h4>
+    <p>The Levee tells you the <em>weather</em>: the environment your trade lives in. It is not a buy/sell signal. Read the regime, then take your entries from your chart tools (Wolf Chart, Loup Gate).</p>
+  </div></div>
+</section>
+
+<section id="pillars">
+  <div class="kicker">The engine</div>
+  <h2><span class="num">02</span>The seven pillars</h2>
+  <p class="lead">Each pillar asks one question of the market. Volatility and Bonds carry the most weight: they are the fastest, most reliable tells of the day's risk mood.</p>
+  <table class="tbl">
+    <thead><tr><th>Pillar</th><th>The question it asks</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Volatility</td><td>Is fear rising or fading? Rising VIX = risk-off. The lead tell.</td></tr>
+      <tr><td class="name">Bonds</td><td>Is money choosing stocks or safety? Also watches the yield curve, bond-market stress, and the case where stocks and bonds fall <em>together</em> (see below).</td></tr>
+      <tr><td class="name">Credit</td><td>Is risky debt holding up? The credit canary. Credit often cracks before stocks do.</td></tr>
+      <tr><td class="name">Equity + breadth</td><td>Index momentum, small-cap leadership, and whether the rally is broad or carried by a few megacaps.</td></tr>
+      <tr><td class="name">Copper / Gold</td><td>Growth or defense? Copper beating gold = growth optimism.</td></tr>
+      <tr><td class="name">Gold</td><td>A haven bid, or gold sold <em>alongside</em> stocks (forced selling)? Speaks mainly in a selloff; quiet in a risk-on tape.</td></tr>
+      <tr><td class="name">Dollar / FX</td><td>Is liquidity tightening or easing? A surging dollar = tightening = risk-off.</td></tr>
+    </tbody>
+  </table>
+  <p>In the <strong>Dashboard</strong> layout every pillar carries a plain-English read ("Fear spiking", "Money favors stocks", "Credit cracking", "Megacaps only", "Liquidation selling") so you see <em>why</em> the regime is what it is, not just the number.</p>
+
+  <h3>When bonds are not a haven</h3>
+  <div class="cols">
+    <div class="card"><div class="tag">Growth scare</div><h3>Stocks down · bonds UP</h3><p>Money flees risk <em>into</em> safety. Treasuries rally. <strong class="gold">Bonds ARE the haven.</strong> Classic risk-off.</p></div>
+    <div class="card"><div class="tag">Rates shock</div><h3>Stocks down · bonds DOWN</h3><p>Yields rising <em>while</em> stocks fall, 2022-style. <strong class="gold">Bonds are NOT a haven.</strong> Hiding in long bonds loses on both legs.</p></div>
+  </div>
+  <p>The Bonds pillar tells these two apart, and the second one shows up in its read as "Selling stocks &amp; bonds."</p>
+</section>
+
+<section id="states">
+  <div class="kicker">The read</div>
+  <h2><span class="num">03</span>Five states + conviction</h2>
+  <p class="lead">The composite maps to a five-state band. The lean bands are symmetric, so the regime registers a risk-on turn about as fast as a risk-off one.</p>
+  <div class="band">
+    <div class="st"><div class="dot" style="background:var(--on)"></div><div class="lbl" style="color:var(--on)">RISK-ON</div><div class="thr">Strong, broad risk appetite</div></div>
+    <div class="st"><div class="dot" style="background:var(--leanon)"></div><div class="lbl" style="color:var(--leanon)">Risk-On Lean</div><div class="thr">Tilting toward risk</div></div>
+    <div class="st"><div class="dot" style="background:var(--neutral)"></div><div class="lbl" style="color:var(--neutral)">Neutral</div><div class="thr">No clear tilt</div></div>
+    <div class="st"><div class="dot" style="background:var(--leanoff)"></div><div class="lbl" style="color:var(--leanoff)">Risk-Off Lean</div><div class="thr">Tilting toward safety</div></div>
+    <div class="st"><div class="dot" style="background:var(--off)"></div><div class="lbl" style="color:var(--off)">RISK-OFF</div><div class="thr">Deep, broad defense</div></div>
+  </div>
+  <p>A <strong>conviction tier</strong> (HIGH / MED / LOW) appends to the regime line, reading how unanimously the seven pillars agree. <strong class="gold">Conviction measures agreement, not certainty.</strong> The pillars can agree and still be early. The deepest readings matter most: a strong RISK-OFF is a far more meaningful capital-protection flag than a mild lean.</p>
+</section>
+
+<section id="modes">
+  <div class="kicker">Timing</div>
+  <h2><span class="num">04</span>Two modes</h2>
+  <div class="cols">
+    <div class="card"><div class="tag">Default</div><h3>Confirmed (stable)</h3><p>Reads each market's prior <strong>completed</strong> daily bar over a multi-day window. Stable all session, <strong>non-repainting</strong>. Best for the pre-market top-down and the daily backdrop.</p></div>
+    <div class="card"><div class="tag">Intraday</div><h3>Live (intraday)</h3><p>Reads the <strong>developing</strong> daily bar, so the regime can shift intraday and catch a same-day turn. Provisional until the close (it repaints intraday by design) and tagged <strong>·LIVE</strong> on the panel.</p></div>
+  </div>
+  <p><strong>Date alignment.</strong> On 1D and intraday charts, Live reads the feed bar of the <em>same date</em> as the chart bar (developing intraday, completed after the close, holding through the weekend, rolling at the next premarket open). Confirmed reads the prior completed day. On charts <em>above</em> 1D (3D, 1W, 1M), both modes read the chart bar's <em>latest</em> daily bar: Live the current day, Confirmed the latest completed day.</p>
+  <div class="callout warn"><div class="ic">⏱️</div><div>
+    <h4>Freshness: read the stamp</h4>
+    <p>The Levee's feeds are daily. The panel's <strong>"· data [date]" stamp</strong> shows the date the slowest feed actually reflects. It stamps the worst case, so if the stamp matches the tape, everything does.</p>
+    <p style="margin-top:10px">One residual, stated plainly: on <em>historical</em> bars above 1D, the volatility pillar can read one day early because VIX closes after stocks. The realtime bar is correct.</p>
+    <p style="margin-top:10px">If the panel ever looks frozen against the tape while the stamp is current, reload the indicator before assuming a bug. A long-running instance can hold a stale copy of the sector feeds.</p>
+  </div></div>
+</section>
+
+<section id="guidance">
+  <div class="kicker">Posture</div>
+  <h2><span class="num">05</span>The action line</h2>
+  <p class="lead">A short plain-English call on every layout, built <strong>only</strong> from the regime state and the pillar votes. The first words say what the market is doing; after the dash, what to do about it.</p>
+  <div class="guide-grid">
+    <div class="gcard" style="border-left-color:var(--on)"><b style="color:var(--on)">Momentum on - trade with trend</b><span>Strong risk-on, pillars agree, the lead pillars onside.</span></div>
+    <div class="gcard" style="border-left-color:var(--leanon)"><b style="color:var(--leanon)">Improving - A-setups only</b><span>Risk-on lean with the pillars agreeing. Be selective.</span></div>
+    <div class="gcard" style="border-left-color:var(--neutral)"><b style="color:var(--neutral)">No regime edge - stay nimble</b><span>Neutral, pillars mixed. The regime isn't helping either side.</span></div>
+    <div class="gcard" style="border-left-color:var(--neutral)"><b style="color:var(--neutral)">Pillars split - stand down</b><span>A directional state, but the pillars or the leads don't back it.</span></div>
+    <div class="gcard" style="border-left-color:var(--leanoff)"><b style="color:var(--leanoff)">VIX &amp; bonds turning - caution</b><span>Volatility and bonds both leaning risk-off. Upside calls are vetoed.</span></div>
+    <div class="gcard" style="border-left-color:var(--leanoff)"><b style="color:var(--leanoff)">Gold sold with stocks - caution</b><span>A mild forced-selling tell. The red "Forced selling" line is reserved for the strong version.</span></div>
+    <div class="gcard" style="border-left-color:var(--leanoff)"><b style="color:var(--leanoff)">Slipping - tighten stops</b><span>Risk-off lean. Defense on.</span></div>
+    <div class="gcard" style="border-left-color:var(--off)"><b style="color:var(--off)">Risk-off - protect capital</b><span>Strong risk-off.</span></div>
+    <div class="gcard" style="border-left-color:var(--off)"><b style="color:var(--off)">Forced selling - raise cash</b><span>Strong forced-selling tell: gold dumped with stocks.</span></div>
+  </div>
+  <p>If the lead feeds go missing, the line reads <strong>"VIX/bond feed down - no read"</strong> instead of guessing.</p>
+  <div class="callout"><div class="ic">🛡️</div><div>
+    <h4>Contradiction-proof by construction</h4>
+    <p>Safety reads are checked before any bullish read, and every upside line needs the lead pillars onside. A bullish message <strong>can never appear while VIX and Bonds are both risk-off.</strong> One message, always internally consistent.</p>
+  </div></div>
+</section>
+
+<section id="displays">
+  <div class="kicker">On the chart</div>
+  <h2><span class="num">06</span>Layouts &amp; rows</h2>
+  <ul>
+    <li><strong>Strip</strong>: a slim one-row read: regime + conviction + every pillar's signed vote, color-coded, with the action line.</li>
+    <li><strong>Dashboard</strong>: a full vertical panel with a plain-English read per pillar, tinted by each vote. The regime line carries <em>day N</em> (how long this state has held) and where the score sits in its band; the ▶ ACT row names the <em>driver</em> (the pillar pushing hardest right now); the rotation row carries the day's spread.</li>
+    <li><strong>Phone</strong>: regime, score, the two lead pillars, and the action line, sized for the mobile app.</li>
+  </ul>
+
+  <h3>Index Rotation row</h3>
+  <p>A slim line under the regime: SPY / QQQ / DIA / IWM day change, sorted leader to laggard, with a one-word day character. <strong>The order is the read.</strong> Small caps leading means risk appetite; the Dow leading means defense. Display-only: it never votes in the regime. The regime is the tide; the rotation is today's wave.</p>
+  <table class="tbl">
+    <thead><tr><th>Day character</th><th>What it means</th></tr></thead>
+    <tbody>
+      <tr><td class="name">BROAD BID · GROWTH BID · STEADY BID</td><td>A green tape, led by small caps, tech, or large caps.</td></tr>
+      <tr><td class="name">GROWTH LED · DEFENSIVE · BETA BID</td><td>A mixed tape: narrow tech leadership, the Dow over beta, or beta bid on a mixed day.</td></tr>
+      <tr><td class="name">BETA FADING</td><td>Small caps sold first while large caps hold. The classic <em>early</em> de-risk order.</td></tr>
+      <tr><td class="name">TECH SOLD</td><td>Money leaving growth.</td></tr>
+      <tr><td class="name">SPLIT TAPE</td><td>A mixed day with a violent gap between leader and laggard. Pick a side.</td></tr>
+      <tr><td class="name">FLAT TAPE</td><td>Nobody moved. Don't force a dead tape.</td></tr>
+      <tr><td class="name">RED TAPE · RISK PUKE</td><td>Everything red. PUKE = small caps worst, the liquidation order.</td></tr>
+      <tr><td class="name gold">BLOODBATH · MELT-UP</td><td>The rare deep days, in gold. All four sold hard or bought hard. Their rarity is the point.</td></tr>
+      <tr><td class="name gold">MELT-UP · unconfirmed</td><td>A melt-up day where the day's internals don't back the move. Read it as "don't chase on the tape's word alone." It forecasts nothing, is never a short signal, and deliberately has no alert.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Sector Rotate print <span class="new">STRIP · DEFAULT OFF</span></h3>
+  <p>Where is the money going <em>today</em>? One slim line under the rotation row:</p>
+  <div class="print"><span class="in">IN XLE XLU XLRE▲</span> · <span class="out">OUT XLV▼ XLF▼ XLY</span> <span class="rd">▶ DEFENSE BID - CAUTION</span></div>
+  <ul>
+    <li><strong style="color:var(--leanon)">IN</strong> = the three SPDR sectors beating SPY hardest, strongest first. <strong style="color:var(--off)">OUT</strong> = the three lagging SPY most. Both are relative strength vs SPY, so a sector can be green and still be OUT on a stronger tape.</li>
+    <li>The short horizon follows your Regime mode (today in Live, the confirmed window in Confirmed) and is compared against a longer trend window (default 21 days, adjustable).</li>
+    <li><strong>▲</strong> on an IN sector = its rank is rising against the trend window (new money arriving). <strong>▼</strong> on an OUT sector = its rank is falling (the exit is accelerating). Unflagged = established.</li>
+    <li>The gold read votes across the IN list: <span class="gold">DEFENSE BID - CAUTION · GROWTH BID - FOLLOW MONEY · ENERGY BID - FOLLOW MONEY · CYCLICAL BID - FOLLOW MONEY · NOTHING BEATS SPY - STAY SHARP</span>.</li>
+    <li>If too few sector feeds are live it prints <strong>SECTOR FEEDS DOWN</strong>, never a half-empty list. Display-only: sectors never vote in the regime.</li>
+  </ul>
+
+  <h3>Chart extras</h3>
+  <ul>
+    <li><strong>VIX spike markers</strong> (default ON): a red marker above the bar where the volatility pillar crosses into "Fear spiking", showing the VIX move that did it. Same condition as the VIX spike alert, so the chart shows every time that alert would have fired.</li>
+    <li><strong>Corner headline</strong> (default OFF) and a faint <strong>background tint</strong> in the regime color (default OFF).</li>
+  </ul>
+</section>
+
+<section id="settings">
+  <div class="kicker">The panel</div>
+  <h2><span class="num">07</span>Settings</h2>
+  <p class="lead">The engine ships calibrated, with its data feeds built in. The panel holds only what changes how <em>you</em> see it: 22 settings in four groups.</p>
+  <table class="tbl">
+    <thead><tr><th>Setting</th><th>Default</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td class="grp" colspan="3">Regime</td></tr>
+      <tr><td class="name">Regime mode</td><td class="w">Confirmed</td><td>Confirmed (stable, non-repainting) or Live (intraday). See §04.</td></tr>
+      <tr><td class="grp" colspan="3">Panel</td></tr>
+      <tr><td class="name">Show regime panel</td><td class="w">On</td><td>Master switch for the panel.</td></tr>
+      <tr><td class="name">Layout</td><td class="w">Strip</td><td>Strip, Dashboard, or Phone.</td></tr>
+      <tr><td class="name">Position</td><td class="w">Top Center</td><td>Where the panel sits on the chart.</td></tr>
+      <tr><td class="name">Font size</td><td class="w">Normal</td><td>Small, Normal, Large, Huge.</td></tr>
+      <tr><td class="name">Panel opacity</td><td class="w">40</td><td>0 = solid, 100 = clear.</td></tr>
+      <tr><td class="name">Show the action line</td><td class="w">On</td><td>The posture line from §05.</td></tr>
+      <tr><td class="name">Show index rotation row</td><td class="w">On</td><td>SPY / QQQ / DIA / IWM with the day character.</td></tr>
+      <tr><td class="name">Show sector rotation (Strip)</td><td class="w">Off</td><td>The Sector Rotate print. Strip layout only.</td></tr>
+      <tr><td class="name">Sector rotation trend window (days)</td><td class="w">21</td><td>The longer window the sector print compares against (5 to 60).</td></tr>
+      <tr><td class="name">Show corner headline</td><td class="w">Off</td><td>A large regime headline in the top-right corner.</td></tr>
+      <tr><td class="name">Mark VIX spikes on chart</td><td class="w">On</td><td>The red VIX spike markers.</td></tr>
+      <tr><td class="name">Tint chart background</td><td class="w">Off</td><td>A faint tint in the regime color.</td></tr>
+      <tr><td class="name">Background tint opacity</td><td class="w">90</td><td>Higher = fainter (70 to 99).</td></tr>
+      <tr><td class="grp" colspan="3">Colors</td></tr>
+      <tr><td class="name">Risk-On · Risk-On Lean · Neutral · Risk-Off Lean · Risk-Off</td><td class="w"><span class="swatch" style="background:var(--on)"></span><span class="swatch" style="background:var(--leanon)"></span><span class="swatch" style="background:var(--neutral)"></span><span class="swatch" style="background:var(--leanoff)"></span><span class="swatch" style="background:var(--off)"></span></td><td>The five state colors, used across every layout.</td></tr>
+      <tr><td class="grp" colspan="3">Alerts</td></tr>
+      <tr><td class="name">Regime alerts: high conviction only</td><td class="w">Off</td><td>On: regime change, flip and entered alerts fire only when most pillars agree. Liquidation and VIX spike always fire.</td></tr>
+      <tr><td class="name">Sector risk-off alerts</td><td class="w">On</td><td>Master switch for the eleven sector alerts. Off skips the sector data entirely, unless the Sector Rotate print is on.</td></tr>
+      <tr><td class="name">Sector lag gap vs SPY (%)</td><td class="w">0.75</td><td>How far a red sector must trail SPY to fire its alert (0.1 to 5).</td></tr>
+    </tbody>
+  </table>
+  <div class="callout warn"><div class="ic">🔁</div><div>
+    <h4>Updating from an older version?</h4>
+    <p>v2.6 rebuilt the settings panel, so saved settings reset to defaults on update. Re-check your Regime mode, Layout, Position and colors, and re-create your alerts from the updated script.</p>
+  </div></div>
+</section>
+
+<section id="alerts">
+  <div class="kicker">Automation</div>
+  <h2><span class="num">08</span>Alerts &amp; the daily log</h2>
+  <ul>
+    <li><strong>Regime change</strong> · <strong>Flip to Risk-On / Risk-Off</strong> · <strong>Entered RISK-ON / RISK-OFF</strong>: with the optional high-conviction-only filter.</li>
+    <li><strong>Liquidation detected</strong> (gold sold with stocks) and <strong>VIX spike</strong>: always fire, never filtered.</li>
+    <li><strong>Rotation alerts</strong>: RISK PUKE, BETA FADING, tape flipped GREEN / RED, BLOODBATH, MELT-UP, SPLIT TAPE. They fire once when the tell appears, not every bar it persists.</li>
+    <li><strong>Sector RISK-OFF</strong> x11 (XLK, XLF, XLE, XLV, XLI, XLY, XLP, XLU, XLB, XLRE, XLC): a sector fires when it's <em>red on the day AND lagging SPY</em> by your lag gap. That's money rotating <em>out</em> of the sector, not just a red tape. Once per sector per day, follows your Regime mode, and draws nothing. Create alerts for just the sectors you watch.</li>
+    <li><strong>Guidance changed</strong>: fires whenever the action line changes, in any direction. One alert covers the whole read.</li>
+    <li><strong>Daily Regime Log</strong>: once per new daily bar, a CSV line with the date, regime, score, conviction, the seven pillar votes, the rotation character, average and spread, and all four index day changes (18 columns). Set an alert on "Any alert() function call" and your alert log becomes a macro journal.</li>
+  </ul>
+</section>
+
+<section id="use">
+  <div class="kicker">Playbook</div>
+  <h2><span class="num">09</span>How to read it right</h2>
+  <ol class="step">
+    <li><strong>Read the regime first.</strong> RISK-ON favors trading with momentum; RISK-OFF favors defense first; Neutral means mixed.</li>
+    <li><strong>Check conviction.</strong> HIGH means the pillars agree. LOW means the tape is arguing with itself.</li>
+    <li><strong>In Dashboard, scan the pillar reads</strong> to see <em>why</em>. Watch for divergence: volatility and gold turning red while the index is still green is an early warning.</li>
+    <li><strong>Read the rotation row</strong> for today's character: the risk-appetite order or the defensive order?</li>
+    <li><strong>Use Live intraday, Confirmed for the backdrop.</strong> Confirmed is your pre-market read; Live tells you if the day is turning.</li>
+    <li><strong>It's the weather, not the trade.</strong> Let the action line set your posture. Take entries from your chart: The Levee sets the backdrop your setups live in.</li>
+  </ol>
+</section>
+
+<section id="honest">
+  <div class="kicker">The honest close</div>
+  <h2><span class="num">10</span>What it is, and what it isn't</h2>
+  <p class="lead">Most indicators imply everything they show is a forecast. The Levee doesn't.</p>
+  <div class="callout"><div class="ic">🐊</div><div>
+    <h4>Deep RISK-OFF is a danger read, not a direction call</h4>
+    <p>The one reading that speaks to what comes next is the deep RISK-OFF band. Treat it as a reason to get smaller and protect: outcomes get wider in <em>both</em> directions. Respect it with position size and protection, not with an automatic short.</p>
+  </div></div>
+  <p><strong>Everything else is a measured description of the present.</strong> A RISK-ON read means the water is warm <em>today</em>, not that tomorrow is green. RISK-ON is permission and context, never a buy signal, and the action line is worded accordingly.</p>
+  <p><strong>The two modes, by their jobs:</strong> Live answers "what is the tape doing right now." Confirmed answers "what was the completed regime as of yesterday." Neither is a crystal ball. They are the same honest narrator at two shutter speeds.</p>
+  <p>The division of labor stays clean: <strong>The Levee tells you how dangerous the water is. Loup Gate tells you which way price has committed. Your trigger gets you in.</strong></p>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="mark">🐺 CreoleWolf | @creoletrades</div>
+    <div class="creed">Confirmation over prediction. Structure first. You don't rush a roux.</div>
+    <div class="disc">The Levee is a market-context and educational tool. Not financial advice and not a buy/sell signal. Cross-asset data is read at daily resolution. Always combine with your own analysis and risk management.</div>
+    <div class="back"><a href="/levee">← Back to The Levee</a> · <a href="/">creoletrades.com</a></div>
+  </div>
+</footer>
+</body>
+</html>
